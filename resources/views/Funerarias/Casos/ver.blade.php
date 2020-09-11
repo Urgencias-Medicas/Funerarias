@@ -16,6 +16,7 @@
                                 <th scope="col">Estudiante</th>
                                 <th scope="col">Fecha y Hora</th>
                                 <th scope="col">Departamento</th>
+                                <th scope="col">Estatus</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -26,6 +27,15 @@
                                 <td>{{$caso->Nombre}}</td>
                                 <td>{{date('m-d-Y', strtotime($caso->Fecha))}} - {{date('G:i', strtotime($caso->Hora))}}</td>
                                 <td>{{$caso->Departamento}}</td>
+                                <td>
+                                    @if($caso->Estatus == 'Abierto')
+                                        <span style="color:yellow;"><b>{{$caso->Estatus}}</b></span>
+                                    @elseif($caso->Estatus == 'Asignado')
+                                        <span style="color:green"><b>{{$caso->Estatus}}</b></span>
+                                    @elseif($caso->Estatus == 'Cerrado')
+                                        <span style="color:gray"><b>{{$caso->Estatus}}</b></span>
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="/Funerarias/Casos/{{$caso->id}}/ver"><button class="btn btn-primary"><i class="fa fa-eye"></i></button></a>
                                 </td>

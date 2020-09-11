@@ -26,8 +26,12 @@ Route::group(['prefix' => 'Casos'], function () {
     Route::post('guardarNuevo', 'CasosController@guardarNuevo');
     Route::get('ver', 'CasosController@verCasos')->middleware('role:Personal');
     Route::get('{id}/ver', 'CasosController@detallesCaso')->middleware('role:Personal');
-    Route::get('/{caso}/asignarFuneraria/{id}', 'CasosController@asignarFuneraria');
+    Route::get('/{caso}/asignarFuneraria/{id}/{correo}/{wp}', 'CasosController@asignarFuneraria');
+    Route::get('/cerrarCaso/{caso}', 'CasosController@cerrarCaso');
 });
+
+Route::post('Caso/{id}/guardarMedia', 'CasosController@guardarMedia');
+Route::post('Funeraria/Caso/{id}/guardarMedia', 'FunerariasController@guardarMedia');
 
 Route::group(['prefix' => 'Funerarias'], function () {
     Route::get('Casos/ver', 'FunerariasController@verCasos');
