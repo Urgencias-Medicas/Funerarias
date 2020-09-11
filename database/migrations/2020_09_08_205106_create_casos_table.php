@@ -15,9 +15,19 @@ class CreateCasosTable extends Migration
     {
         Schema::create('casos', function (Blueprint $table) {
             $table->id();
-            $table->string('Estudiante');
-            $table->date('FechaNacimiento');
-            $table->string('Poliza');
+            $table->integer('Codigo');
+            $table->string('Nombre');
+            $table->date('Fecha');
+            $table->time('Hora');
+            $table->string('Causa');
+            $table->string('Direccion');
+            $table->string('Departamento');
+            $table->string('Municipio');
+            $table->string('Padre');
+            $table->string('Madre');
+            $table->string('Lugar');
+            $table->integer('Funeraria');
+            $table->string('Estatus');
         });
     }
 

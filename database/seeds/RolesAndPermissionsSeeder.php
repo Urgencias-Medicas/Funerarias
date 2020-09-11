@@ -18,17 +18,26 @@ class RolesAndPermissionsSeeder extends Seeder
         
         Role::create(['name' => 'Agente']);
         /** @var \App\User $user */
-        $agente = factory(\App\User::class)->create();
+        $agente = factory(\App\User::class)->create([
+            'name' => 'Agente Call Center',
+            'email' => 'agent@callcenter.com',
+        ]);
         
         $agente->assignRole('Agente');
 
         Role::create(['name' => 'Personal']);
-        $personal = factory(\App\User::class)->create();
+        $personal = factory(\App\User::class)->create([
+            'name' => 'Personal',
+            'email' => 'personal@um.com',
+        ]);
         
         $personal->assignRole('Personal');
 
         Role::create(['name' => 'Funeraria']);
-        $funeraria = factory(\App\User::class)->create();
+        $funeraria = factory(\App\User::class)->create([
+            'name' => 'Funeraria',
+            'email' => 'funeraria@um.com',
+        ]);
         
         $funeraria->assignRole('Funeraria');
 
