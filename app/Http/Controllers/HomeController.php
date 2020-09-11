@@ -26,11 +26,11 @@ class HomeController extends Controller
     {
         $user = auth()->user();
         if($user->hasRole('Agente')){
-            return view('Agentes.home');
+            return redirect('/Casos/vistaCrear');
         }elseif($user->hasRole('Personal')){
-            return view('Personal.home');
+            return redirect('/Casos/ver');
         }elseif($user->hasRole('Funeraria')){
-            return view('Funerarias.home');
+            return redirect('/Funerarias/Casos/ver');
         }elseif($user->hasRole('Super Admin')){
             return view('Admin.home');
         }

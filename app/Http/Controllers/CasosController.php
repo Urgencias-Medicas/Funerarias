@@ -31,7 +31,7 @@ class CasosController extends Controller
         'Municipio' => $request->municipio, 'Padre' => $request->padre, 
         'Madre' => $request->madre, 'Lugar' => $request->lugar, 'Estatus' => 'Abierto'];
         Casos::create($data);
-        return redirect('/home');
+        return redirect('/Casos/vistaCrear');
     }
     public function guardarMedia($caso, Request $request){
         $image = $request->file('file');

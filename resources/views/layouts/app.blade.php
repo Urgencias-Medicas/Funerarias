@@ -49,6 +49,21 @@
                                 </li>
                             @endif
                         @else
+                            @role('Agente')
+                                <li class="nav-item">
+                                    <a href="/Casos/vistaCrear"><button class="btn btn-info">Nuevo caso</button></a>
+                                </li>
+                            @endrole
+                            @role('Personal')
+                                <li class="nav-item">
+                                    <a href="/Casos/ver"><button class="btn btn-info">Ver Casos</button></a>
+                                </li>
+                            @endrole
+                            @role('Funeraria')
+                            <li class="nav-item">
+                                <a href="/Funerarias/Casos/ver"><button class="btn btn-info">Ver Casos</button></a>
+                            </li>
+                            @endrole
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
