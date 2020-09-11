@@ -284,23 +284,6 @@ if (typeof Dropzone != 'undefined') {
                 var html = '';
                 for (var i = 0; i < len; i++) {
                     if(response[i].departamento == "{{$Caso->Departamento}}"){
-                        html += '<div class="row">\
-                            <div class="col text-center">\
-                            <h4><b>Seleccione los medios por los cuales desea notificar a la funeraria.</b></h4>\
-                            </div>\
-                        </div>\
-                        <div class="row">\
-                            <div class="col text-center">\
-                                <div class="form-check form-check-inline">\
-                                    <input class="form-check-input" type="checkbox" id="Correo" value="Si" style="width:20px; height:20px;" onchange="habilitarAsignar();">\
-                                    <label class="form-check-label" for="Correo"><h4>Correo</h4></label>\
-                                </div>\
-                                <div class="form-check form-check-inline">\
-                                    <input class="form-check-input" type="checkbox" id="WhatsApp" value="Si" style="width:20px; height:20px;" onchange="habilitarAsignar();">\
-                                    <label class="form-check-label" for="WhatsApp"><h4>WhatsApp</h4></label>\
-                                </div>\
-                            </div>\
-                        </div>';
                         html += '<h3><b>Recomendada</b></h3>\
                         <table class="table">\
                             <thead class="thead-dark">\
@@ -322,6 +305,23 @@ if (typeof Dropzone != 'undefined') {
                         </table><br>';
                     }
                 }
+                html += '<div class="row">\
+                            <div class="col text-center">\
+                            <h4><b>Seleccione los medios por los cuales desea notificar a la funeraria.</b></h4>\
+                            </div>\
+                        </div>\
+                        <div class="row">\
+                            <div class="col text-center">\
+                                <div class="form-check form-check-inline">\
+                                    <input class="form-check-input" type="checkbox" id="Correo" value="Si" style="width:20px; height:20px;" onchange="habilitarAsignar();">\
+                                    <label class="form-check-label" for="Correo"><h4>Correo</h4></label>\
+                                </div>\
+                                <div class="form-check form-check-inline">\
+                                    <input class="form-check-input" type="checkbox" id="WhatsApp" value="Si" style="width:20px; height:20px;" onchange="habilitarAsignar();">\
+                                    <label class="form-check-label" for="WhatsApp"><h4>WhatsApp</h4></label>\
+                                </div>\
+                            </div>\
+                        </div>';
                 html += '<h3><b>Funerarias</b></h3>\
                         <table class="table">\
                             <thead class="thead-dark">\

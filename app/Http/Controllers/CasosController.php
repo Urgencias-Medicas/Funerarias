@@ -31,6 +31,7 @@ class CasosController extends Controller
         'Municipio' => $request->municipio, 'Padre' => $request->padre, 
         'Madre' => $request->madre, 'Lugar' => $request->lugar, 'Estatus' => 'Abierto'];
         Casos::create($data);
+        
         return redirect('/Casos/vistaCrear');
     }
     public function guardarMedia($caso, Request $request){
@@ -62,7 +63,9 @@ class CasosController extends Controller
                 ),
             ]);
             $data = json_decode($res->getBody());
-            $caso->Funeraria = $data[0]->funeraria;
+            if($data){
+                $caso->Funeraria = $data[0]->funeraria;
+            }
         }
         return view('Personal.Casos.ver', ['Casos' => $casos]);
     }

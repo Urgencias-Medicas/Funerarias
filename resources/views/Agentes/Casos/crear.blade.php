@@ -13,7 +13,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="codEstudiante">Código de Estudiante</label>
-                                <input type="text" class="form-control" id="codEstudiante" name="codEstudiante" placeholder="0000000"><span id="errmsg"></span>
+                                <input type="text" class="form-control" id="codEstudiante" name="codEstudiante" placeholder="0000000" onchange="alumno();"><span id="errmsg"></span>
                             </div>
                             <div class="form-group col-md-9">
                                 <label for="nombre">Nombre</label>
@@ -76,8 +76,8 @@
         </div>
     </div>
 </div>
-@endsection
-@section('script')
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(document).ready(function () {
   //called when key is pressed in textbox
@@ -90,5 +90,21 @@ $(document).ready(function () {
     }
    });
 });
+
+function alumno(){
+    var codigo = $('#codEstudiante').val();
+    if(codigo == 1){
+        $('#nombre').val('Jefferson Morataya');
+    }else if(codigo == 2){
+        $('#nombre').val('Luis Medina');
+    }else if(codigo == 3){
+        $('#nombre').val('Carlos Sagastume');
+    }else if(codigo == 4){
+        $('#nombre').val('Patricia Morales');
+    }else if(codigo == 5){
+        $('#nombre').val('Ana Lucía Robles');
+    }
+}
 </script>
 @endsection
+
