@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\File;
+use Illuminate\Routing\Redirector;
 use App\Casos;
 
 class FunerariasController extends Controller
@@ -13,11 +14,19 @@ class FunerariasController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('role:Funeraria');
+        $this->middleware('activo');
+        //$user = auth()->user();
+        //$activo = $user['activo'];
+        //if($activo == 'No'){
+        //$this->activo = auth()->user();
+        //if($this->activo){
+        //    $redirect->to('test')->send();
+        //}
     }
     public function verCasos(){
         $user = auth()->user();
         $funeraria = $user['funeraria'];
-        $casos = Casos::where('Funeraria', $funeraria)->orderBy('id', 'DESC')->get();
+        $casos = Casos::where('funeraria', $funeraria)->orderBy('id', 'DESC')->get();
         return view('Funerarias.Casos.ver', ['Casos' => $casos]);
     }
     public function detallesCaso($id){
@@ -49,5 +58,12 @@ class FunerariasController extends Controller
         else {
             return response()->json('error', 400);
         }
+    }
+    public function noActivo(){
+        return 'test';
+    }
+    public function descargas(){
+        $files = File::files(public_path('images\requeridos'));
+        return view('Funerarias.descargas', ['Archivos' => $files]);
     }
 }

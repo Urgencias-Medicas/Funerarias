@@ -35,4 +35,7 @@ class HomeController extends Controller
             return view('Admin.home');
         }
     }
+    public function funerariaInactiva(){
+        return view('Funerarias.Inactiva');
+    }
 }

@@ -29,7 +29,7 @@ class CasosController extends Controller
         'Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 
         'Direccion' => $request->direccion, 'Departamento' => $request->departamento, 
         'Municipio' => $request->municipio, 'Padre' => $request->padre, 
-        'Madre' => $request->madre, 'Lugar' => $request->lugar, 'Estatus' => 'Abierto'];
+        'Madre' => $request->madre, 'Lugar' => $request->lugar, 'Estatus' => 'Abierto', 'Reportar' => 'No'];
         Casos::create($data);
         
         return redirect('/Casos/vistaCrear');
@@ -122,9 +122,17 @@ class CasosController extends Controller
         return 'Hecho';
     }
     public function cerrarCaso($caso){
-        $caso = Casos::find($caso);
-        $caso->Estatus = 'Cerrado';
-        $caso->save();
+        //$caso = Casos::find($caso);
+        //$caso->Estatus = 'Cerrado';
+        //$caso->save();
+
+        $data = array();
+
+        Mail::send('mailslayouts.encuesta', $data, function($message)
+            {
+                $message->to('samuelambrosio99@gmail.com', 'test')->subject('Encuesta UMFunerarias')->from('no-reply@excess.software', 'Urgencias Médicas');
+            });
+
         return 'Hecho';
     }
     public function mensajeWhatsApp($message, $recipient){
@@ -134,5 +142,11 @@ class CasosController extends Controller
 
         $client = new Client($account_sid, $auth_token);
         return $client->messages->create($recipient, array('from' => "whatsapp:+14155238886", 'body' => $message));
+    }
+    public function reportarCaso($caso, $instruccion){
+        $casos = Casos::find($caso);
+        $casos->Reportar = $instruccion;
+        $casos->save();
+        echo 'Hecho';
     }
 }

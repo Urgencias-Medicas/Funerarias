@@ -38,7 +38,7 @@ CREATE TABLE `casos` (
   `Funeraria` int(11) DEFAULT NULL,
   `Estatus` text COLLATE utf8_persian_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,38 @@ LOCK TABLES `casos` WRITE;
 /*!40000 ALTER TABLE `casos` DISABLE KEYS */;
 INSERT INTO `casos` VALUES (3,1,'Estudiante de prueba','2020-09-09','13:50:00','Test','Esto es una prueba','Guatemala','Mixco','Test','Test','6',6,'Asignado');
 INSERT INTO `casos` VALUES (4,2,'Prueba Estudiante','2020-09-09','18:01:00','Esto es una prueba','Test','Guatemala','Mixco','Test','Test2',NULL,6,'Cerrado');
+INSERT INTO `casos` VALUES (5,5,'Ana Lucía Robles','2020-09-11','20:59:00','Muerte Natural','Prueba de dirección','Petén','Desconocido','Juan Robles','Lucía Medina',NULL,NULL,'Abierto');
+INSERT INTO `casos` VALUES (6,4,'Patricia Morales','2020-09-11','19:04:00','Muerte natural','Test','Izabal',NULL,'Prueba','Prueba',NULL,9,'Asignado');
+INSERT INTO `casos` VALUES (7,1,'Jefferson Morataya','2020-09-11','15:15:00','Accidente','Dirección de prueba Guatemala','Guatemala','Mixco','Test Padre','Test Madre','Edificio Tikal Futura',6,'Asignado');
+INSERT INTO `casos` VALUES (8,2,'Luis Medina','2020-09-11','16:44:00','Accidente','Dirección de prueba capital','Guatemala','Guatemala','Test Padre','Test Madre','Edificio Miraflores',6,'Asignado');
 /*!40000 ALTER TABLE `casos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `detalles_funeraria`
+--
+
+DROP TABLE IF EXISTS `detalles_funeraria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `detalles_funeraria` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `paso_uno` text COLLATE utf8_persian_ci,
+  `paso_dos` text COLLATE utf8_persian_ci,
+  `paso_tres` text COLLATE utf8_persian_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `detalles_funeraria`
+--
+
+LOCK TABLES `detalles_funeraria` WRITE;
+/*!40000 ALTER TABLE `detalles_funeraria` DISABLE KEYS */;
+INSERT INTO `detalles_funeraria` VALUES (1,'Si','Si','Si');
+INSERT INTO `detalles_funeraria` VALUES (2,'No','No','No');
+/*!40000 ALTER TABLE `detalles_funeraria` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -160,6 +191,8 @@ INSERT INTO `model_has_roles` VALUES (1,'App\\User',1);
 INSERT INTO `model_has_roles` VALUES (2,'App\\User',2);
 INSERT INTO `model_has_roles` VALUES (3,'App\\User',3);
 INSERT INTO `model_has_roles` VALUES (4,'App\\User',4);
+INSERT INTO `model_has_roles` VALUES (3,'App\\User',5);
+INSERT INTO `model_has_roles` VALUES (3,'App\\User',6);
 /*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -286,9 +319,11 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `funeraria` int(11) DEFAULT NULL,
+  `activo` text COLLATE utf8mb4_unicode_ci,
+  `detalle` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -297,10 +332,12 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Agente Call Center','agent@callcenter.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','C4Gw6sk9yJ1zcl6LraMj2nO5QVGCu0onJtBaxozHNPjaoJivOXXy14b3l5uF','2020-09-09 01:57:39','2020-09-09 01:57:39',NULL);
-INSERT INTO `users` VALUES (2,'Personal UM','personal@um.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','D6ClvMFYg5zO33MqnoPYWI5rKBGZkmbkmYTbkMdXLiPNBzbIl3LE5qQZXDoe','2020-09-09 01:57:39','2020-09-09 01:57:39',NULL);
-INSERT INTO `users` VALUES (3,'Funeraria','funeraria@um.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','ZDcHNn3WaP96HnvaURI7yrR2ckF4kwyepuLrBGvWQkYsvkhMmK3GREXx1Lg8','2020-09-09 01:57:39','2020-09-09 01:57:39',6);
-INSERT INTO `users` VALUES (4,'test','admin@test.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','rjcMnEygeBpcwY5w1388BPILGeNXWbb41DCqxozh62PS05U5NooHJOcjGgpd','2020-09-09 01:57:39','2020-09-09 01:57:39',NULL);
+INSERT INTO `users` VALUES (1,'Agente Call Center','agent@callcenter.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','Y51XTIB6JHTTSX0HuMwDzdu145dkHskwWGvP2U1dyUQXoPJpytOgWe4ToeWt','2020-09-09 01:57:39','2020-09-09 01:57:39',NULL,NULL,NULL);
+INSERT INTO `users` VALUES (2,'Personal UM','personal@um.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','upwzf8PWO5BjqAk6KoQahzWSSWlCozUga6f3f77LANcDTZYWJFJoqVynoCzf','2020-09-09 01:57:39','2020-09-09 01:57:39',NULL,NULL,NULL);
+INSERT INTO `users` VALUES (3,'Funeraria','funeraria@um.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','jWARwdTMlw9daQdC61y5U7Bfg2gRCF2y2CxkDE3zE2IvWSa06HsCUGZyPsMC','2020-09-09 01:57:39','2020-09-09 01:57:39',6,'Si',NULL);
+INSERT INTO `users` VALUES (4,'test','admin@test.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','rjcMnEygeBpcwY5w1388BPILGeNXWbb41DCqxozh62PS05U5NooHJOcjGgpd','2020-09-09 01:57:39','2020-09-09 01:57:39',NULL,NULL,NULL);
+INSERT INTO `users` VALUES (5,'Test Funeraria','funeraria@test.com',NULL,'$2y$10$VUmvDlbOYqPL0qMltjm15OQl1x8G9OpqFCjsGzevKg4ItfXdD1lMK',NULL,'2020-09-17 03:52:58','2020-09-17 06:50:01',1,'Si',1);
+INSERT INTO `users` VALUES (6,'Funeraria de prueba','test@funeraria.com',NULL,'$2y$10$UT1HBPPcvbVWlIJ87EzOp.CAcuHdNg/oKp6IPQCpUph4XazgF5PsG',NULL,'2020-09-17 06:48:48','2020-09-17 06:48:48',NULL,'No',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -313,4 +350,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-10 22:14:05
+-- Dump completed on 2020-09-16 19:42:06

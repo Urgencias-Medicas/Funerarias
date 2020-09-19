@@ -72,6 +72,7 @@
 
                 <div class="links">
                     <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('register') }}">Afiliarme como funeraria</a>
                 </div>
             </div>
         </div>

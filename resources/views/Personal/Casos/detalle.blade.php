@@ -33,16 +33,19 @@
                 <div class="card-body align-items-center justify-content-center">
                     <div class="row">
                         <div class="col text-center">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#funerariaModal">Asignar Funeraria</button>
                             @if($Caso->Estatus == 'Cerrado')
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#funerariaModal" disabled>Asignar Funeraria</button>
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
                                 data-target="#cerrarModal" disabled>Cerrar caso</button>
                             @else
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#funerariaModal">Asignar Funeraria</button>
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
                                 data-target="#cerrarModal">Cerrar caso</button>
+                            @endif
+                            @if($Caso->Reportar == 'Si')
+                            <button type="button" class="btn btn-success" onclick="reportar('No')">Agregar a Reportes</button>
+                            @else
+                            <button type="button" class="btn btn-secondary" onclick="reportar('Si')">Agregar a Reportes</button>
                             @endif
                         </div>
                     </div>
@@ -409,6 +412,17 @@ if (typeof Dropzone != 'undefined') {
             type: 'get',
             success: function (response) {
                 window.location.href = '/Casos/ver';
+            }
+        });
+    }
+
+    function reportar(indicador){
+        $.ajax({
+            url: "/Casos/Reportar/{{$Caso->id}}/"+indicador,
+            type: 'get',
+            sucess: function (response) {
+                window.location.href = '/Casos/{{$Caso->id}}/ver';
+                console.log('test');
             }
         });
     }

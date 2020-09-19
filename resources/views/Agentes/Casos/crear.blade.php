@@ -33,7 +33,20 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="causa">Causa</label>
-                                <textarea name="causa" id="causa" class="form-control" cols="80"></textarea>
+                                <!-- <textarea name="causa" id="causa" class="form-control" cols="80"></textarea> -->
+                                <select name="causa" id="causa" class="form-control">
+                                    <option value="Accidente">Accidente</option>
+                                    <option value="Suicidio">Suicidio</option>
+                                    <option value="Asesinato">Asesinato</option>
+                                    <option value="Causas Naturales">Causas Naturales</option>
+                                    <option value="Enfermedad Comun">Enfermedad Com&uacute;n</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="descripcion_causa">Descripci&oacute;n</label>
+                                <textarea id="desc_causa" class="form-control" cols="80"></textarea>
                             </div>
                         </div>
                         <div class="form-row">
@@ -79,17 +92,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-$(document).ready(function () {
-  //called when key is pressed in textbox
-  $("#poliza").keypress(function (e) {
-     //if the letter is not digit then display error and don't type anything
-     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-        //display error message
-        $("#errmsg").html("Solamente n&uacute;meros").show().fadeOut("slow");
-               return false;
-    }
-   });
-});
+
 
 function alumno(){
     var codigo = $('#codEstudiante').val();

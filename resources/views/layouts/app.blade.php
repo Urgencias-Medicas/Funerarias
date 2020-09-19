@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    UM-Funerarias
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -51,17 +51,29 @@
                         @else
                             @role('Agente')
                                 <li class="nav-item">
-                                    <a href="/Casos/vistaCrear"><button class="btn btn-info">Nuevo caso</button></a>
+                                    <a href="/Casos/vistaCrear" class="nav-link active">Nuevo caso</a>
                                 </li>
                             @endrole
                             @role('Personal')
                                 <li class="nav-item">
-                                    <a href="/Casos/ver"><button class="btn btn-info">Ver Casos</button></a>
+                                    <a href="/Casos/ver" class="nav-link {{ (request()->is('Casos*')) ? 'active' : '' }}">Ver Casos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Personal/Funerarias/ver" class="nav-link {{ (request()->is('Personal/Funerarias*')) ? 'active' : '' }}"><span> Funerarias </span><i class="fa fa-users"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Personal/Reportes/ver" class="nav-link {{ (request()->is('Personal/Reportes*')) ? 'active' : '' }}"><span> Reportes </span><i class="fa fa-file"></i></a>
                                 </li>
                             @endrole
                             @role('Funeraria')
                             <li class="nav-item">
-                                <a href="/Funerarias/Casos/ver"><button class="btn btn-info">Ver Casos</button></a>
+                                <a href="/Funerarias/Casos/ver" class="nav-link {{ (request()->is('Funerarias/Casos*')) ? 'active' : '' }}">Ver Casos</a>
+                            </li>
+                            <li class="nav-item">
+                                <span> _ </span>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Funerarias/Descargas" class="nav-link {{ (request()->is('Funerarias/Descargas*')) ? 'active' : '' }}">Portal de Descargas</a>
                             </li>
                             @endrole
                             <li class="nav-item dropdown">
