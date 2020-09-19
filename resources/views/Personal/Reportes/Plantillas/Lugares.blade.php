@@ -17,9 +17,9 @@ td{
       <td>{{$caso->Nombre}}</td>
       <td>
       @if(!$caso->Lugar)
-        En su hogar
+        En su hogar, {{$caso->Municipio}}, {{$caso->Departamento}}
       @else
-        {{$caso->Lugar}}
+        {{$caso->Lugar}}, {{$caso->Municipio}}, {{$caso->Departamento}}
       @endif
       </td>
     </tr>

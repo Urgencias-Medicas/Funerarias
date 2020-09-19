@@ -20,17 +20,17 @@
                     <ul class="list-group">
                         <div class="list-group">
                             <a onclick="reporte('Edades');" class="list-group-item list-group-item-action">
-                            Reporte - Edades de muertes
+                            Edades de muertes
                             </a>
                         </div>
                         <div class="list-group">
                             <a onclick="reporte('Causas');" class="list-group-item list-group-item-action">
-                            Reporte - Causas de muertes
+                            Causas de muertes
                             </a>
                         </div>
                         <div class="list-group">
                             <a onclick="reporte('Lugares');" class="list-group-item list-group-item-action">
-                            Reporte - Lugares de muertes
+                            Lugares de muertes
                             </a>
                         </div>
                     </ul>
@@ -50,7 +50,7 @@
         if(fechainicio == '' && fechafin == ''){
             alert('Por favor seleccione una fecha.');
         }else if(fechainicio == '') {
-            alert('Por favor seleccione una fecha.');
+            alert('Por favor seleccione una fecha válida.');
         }else if(fechafin_validar <= fechainicio_validar) {
             alert('Por favor seleccione una fecha válida.');
         }else if(fechafin == '' && fechainicio != '') {

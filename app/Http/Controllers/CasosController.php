@@ -28,8 +28,9 @@ class CasosController extends Controller
         $data = ['Codigo' => $request->codEstudiante, 'Nombre' => $request->nombre, 
         'Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 
         'Direccion' => $request->direccion, 'Departamento' => $request->departamento, 
-        'Municipio' => $request->municipio, 'Padre' => $request->padre, 
-        'Madre' => $request->madre, 'Lugar' => $request->lugar, 'Estatus' => 'Abierto', 'Reportar' => 'No'];
+        'Municipio' => $request->municipio, 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
+        'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 'RelacionReporta' => $request->RelacionReporta, 
+        'TelReporta' => $request->TelReporta, 'Lugar' => $request->lugar, 'Estatus' => 'Abierto', 'Reportar' => 'No'];
         Casos::create($data);
         
         return redirect('/Casos/vistaCrear');

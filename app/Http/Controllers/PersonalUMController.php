@@ -90,10 +90,10 @@ class PersonalUMController extends Controller
 
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar')->get();
+            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar')->get();
+            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
         }
 
         $pdf = PDF::loadView('Personal.Reportes.Plantillas.Lugares', ['Casos' => $casos]);

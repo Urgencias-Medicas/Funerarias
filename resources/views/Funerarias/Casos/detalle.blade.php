@@ -75,15 +75,44 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="padre">Padre</label>
-                            <input type="text" name="padre" id="padre" class="form-control" value="{{$Caso->Padre}}"
-                                readonly>
+                            <input type="text" name="padre" id="padre" class="form-control" value="{{$Caso->Padre}}" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="madre">Madre</label>
-                            <input type="text" name="madre" id="madre" class="form-control" value="{{$Caso->Madre}}"
-                                readonly>
+                            <label for="TelPadre">Tel. Padre</label>
+                            <input type="text" name="TelPadre" id="TelPadre" class="form-control" value="{{$Caso->TelPadre}}" readonly>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="madre">Madre</label>
+                            <input type="text" name="madre" id="madre" class="form-control" value="{{$Caso->Madre}}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="TelMadre">Tel. Madre</label>
+                            <input type="text" name="TelMadre" id="TelMadre" class="form-control" value="{{$Caso->TelMadre}}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lugar">Lugar de los hechos</label>
+                        <input type="text" name="lugar" id="lugar" class="form-control" value="{{$Caso->Lugar}}"
+                            readonly>
+                    </div>
+                    <hr>
+                        <div class="form-group">
+                            <label for="NombreReporta">Nombre de quien reporta</label>
+                            <input type="text" name="NombreReporta" id="NombreReporta" class="form-control" value="{{$Caso->NombreReporta}}" readonly>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="RelacionReporta">Relaci&oacute;n</label>
+                                <input type="text" name="RelacionReporta" id="RelacionReporta" class="form-control" value="{{$Caso->RelacionReporta}}" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="TelReporta">Tel&eacute;fono</label>
+                                <input type="text" name="TelReporta" id="TelReporta" class="form-control" value="{{$Caso->TelReporta}}" readonly>
+                            </div>
+                        </div>
+                        <hr>
                     <hr>
                     <h1>Archivos</h1>
                         <ul class="list-group">
