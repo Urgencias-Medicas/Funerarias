@@ -132,6 +132,14 @@ function alumno(){
         $('#nombre').val('Patricia Morales');
     }else if(codigo == 5){
         $('#nombre').val('Ana Lucía Robles');
+    }else if(codigo == 6){
+        $('#nombre').val('Juan Antonio Palma');
+    }else if(codigo == 7){
+        $('#nombre').val('Rodrigo Oliva');
+    }else if(codigo == 8){
+        $('#nombre').val('Silvia Arévalo');
+    }else if(codigo == 9){
+        $('#nombre').val('Rosa Mendoza');
     }
 }
 </script>

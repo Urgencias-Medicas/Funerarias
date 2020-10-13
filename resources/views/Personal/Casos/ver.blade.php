@@ -39,7 +39,9 @@
                                     @endif
                                 </td>
                                 <td>
-                                @if(!$caso->Funeraria)
+                                @if($caso->Solicitud == 'Pendiente')
+                                    <a href="/Casos/{{$caso->id}}/ver"><button class="btn btn-info"><i class="fa fa-eye"></i></button></a>
+                                @elseif(!$caso->Funeraria)
                                     <a href="/Casos/{{$caso->id}}/ver"><button class="btn btn-warning"><i class="fa fa-eye"></i></button></a>
                                 @else
                                     <a href="/Casos/{{$caso->id}}/ver"><button class="btn btn-primary"><i class="fa fa-eye"></i></button></a>

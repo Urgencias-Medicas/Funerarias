@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Mail\Mailable;
 use Carbon\Carbon;
 use App\Casos;
+use App\HistorialPagos;
+use App\SolicitudesCobro;
+use App\Notificaciones;
 
 class CasosController extends Controller
 {
@@ -85,12 +88,46 @@ class CasosController extends Controller
                 array_push($archivos, $nuevonombre);
             }
         }
-        return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos]);
+        $pagos = HistorialPagos::where('caso', $id)->get();
+        $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'DESC')->get();
+        return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes]);
     }
+
+    public function actualizarSolicitud($caso, $solicitud, $opcion){
+        $getSolicitud = SolicitudesCobro::find($solicitud);
+        $getSolicitud->estatus = $opcion;
+        $getSolicitud->save();
+
+        $getCaso = Casos::find($caso);
+        $getCaso->Solicitud = $opcion;
+        if($opcion == 'Aprobar'){
+            $getCaso->Costo = $getSolicitud->costo;
+            $getCaso->Pendiente = $getCaso->Costo - $getCaso->Pagado;
+        }
+        $getCaso->save();
+        $respuesta = '';
+        if($opcion == 'Aprobar'){
+            $respuesta = 'La solicitud del caso #'.$caso.' ha sido aprobada.';
+        }else{
+            $respuesta = 'La solicitud del caso #'.$caso.' ha sido rechazada.';
+        }
+        Notificaciones::create(['funeraria' => $getCaso->Funeraria, 'contenido' => $respuesta, 'estatus' => 'Activa']);
+        echo 'Hecho';
+    }
+
     public function asignarFuneraria($caso, $funeraria, $correo, $wp){
+        $costo_servicio = 0;
         $casos = Casos::find($caso);
         $casos->Funeraria = $funeraria;
         $casos->Estatus = 'Asignado';
+        if($funeraria == '6'){
+            $costo_servicio = 1500;
+        }elseif($funeraria == '7'){
+            $costo_servicio = 1300;
+        }else{
+            $costo_servicio = 1000;
+        }
+        $casos->Costo = $costo_servicio;
         $casos->save();
 
         $api_uri = "https://umbd.excess.software/api/getFuneraria";
@@ -118,14 +155,32 @@ class CasosController extends Controller
             });
         }
         if($wp == 'Si'){
-            $this->mensajeWhatsApp($mensaje, 'whatsapp:+50250175585');
+            $this->mensajeWhatsApp($mensaje, 'whatsapp:+50249750995');
         }
+        Notificaciones::create(['funeraria' => $funeraria, 'contenido' => 'Caso #'.$caso.' asignado.', 'estatus' => 'Activa']);
         return 'Hecho';
     }
+
+    public function actualizarPago($caso, Request $request){
+        $total = 0;
+        for ($i=1; $i <= $request->filas ; $i++) { 
+            $monto = $request->input("monto".$i);
+            $total = $total + $monto;
+            $date = Carbon::parse($request->input("fecha".$i));
+            $fecha = $date->format('Y-m-d');
+            HistorialPagos::create(['caso' => $caso, 'monto' => $monto, 'fecha' => $fecha]);
+        }
+        $caso = Casos::find($caso);
+        $caso->Pagado = $caso->Pagado + $total;
+        $caso->Pendiente = $caso->Costo - $caso->Pagado;
+        $caso->save();
+        return back();
+    }
+
     public function cerrarCaso($caso){
-        //$caso = Casos::find($caso);
-        //$caso->Estatus = 'Cerrado';
-        //$caso->save();
+        $caso = Casos::find($caso);
+        $caso->Estatus = 'Cerrado';
+        $caso->save();
 
         $data = array();
 
@@ -133,7 +188,7 @@ class CasosController extends Controller
             {
                 $message->to('samuelambrosio99@gmail.com', 'test')->subject('Encuesta UMFunerarias')->from('no-reply@excess.software', 'Urgencias Médicas');
             });
-
+        Notificaciones::create(['funeraria' => $caso->funeraria, 'contenido' => 'El caso #'.$caso->id.' se ha cerrado.', 'estatus' => 'Activa']);
         return 'Hecho';
     }
     public function mensajeWhatsApp($message, $recipient){

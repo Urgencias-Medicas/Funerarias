@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +19,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -26,7 +35,9 @@
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     UM-Funerarias
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -40,59 +51,121 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            <!--@if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        <!--@if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif -->
                         @else
-                            @role('Agente')
-                                <li class="nav-item">
-                                    <a href="/Casos/vistaCrear" class="nav-link active">Nuevo caso</a>
-                                </li>
-                            @endrole
-                            @role('Personal')
-                                <li class="nav-item">
-                                    <a href="/Casos/ver" class="nav-link {{ (request()->is('Casos*')) ? 'active' : '' }}">Ver Casos</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/Personal/Funerarias/ver" class="nav-link {{ (request()->is('Personal/Funerarias*')) ? 'active' : '' }}"><span> Funerarias </span><i class="fa fa-users"></i></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/Personal/Reportes/ver" class="nav-link {{ (request()->is('Personal/Reportes*')) ? 'active' : '' }}"><span> Reportes </span><i class="fa fa-file"></i></a>
-                                </li>
-                            @endrole
-                            @role('Funeraria')
-                            <li class="nav-item">
-                                <a href="/Funerarias/Casos/ver" class="nav-link {{ (request()->is('Funerarias/Casos*')) ? 'active' : '' }}">Ver Casos</a>
-                            </li>
-                            <li class="nav-item">
-                                <span> _ </span>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/Funerarias/Descargas" class="nav-link {{ (request()->is('Funerarias/Descargas*')) ? 'active' : '' }}">Portal de Descargas</a>
-                            </li>
-                            @endrole
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                        @role('Agente')
+                        <li class="nav-item">
+                            <a href="/Casos/vistaCrear" class="nav-link active">Nuevo caso</a>
+                        </li>
+                        @endrole
+                        @role('Personal')
+                        <li class="nav-item">
+                            <a href="/Casos/ver" class="nav-link {{ (request()->is('Casos*')) ? 'active' : '' }}">Ver
+                                Casos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Personal/Funerarias/ver"
+                                class="nav-link {{ (request()->is('Personal/Funerarias*')) ? 'active' : '' }}"><span>
+                                    Funerarias </span><i class="fa fa-users"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Personal/Reportes/ver"
+                                class="nav-link {{ (request()->is('Personal/Reportes*')) ? 'active' : '' }}"><span>
+                                    Reportes </span><i class="fa fa-file"></i></a>
+                        </li>
+                        @endrole
+                        @role('Funeraria')
+                        <li class="nav-item">
+                            <a href="/Funerarias/Casos/ver"
+                                class="nav-link {{ (request()->is('Funerarias/Casos*')) ? 'active' : '' }}">Ver
+                                Casos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Funerarias/Descargas"
+                                class="nav-link {{ (request()->is('Funerarias/Descargas*')) ? 'active' : '' }}">Portal
+                                de Descargas</a>
+                        </li>
+                        @endrole
+
+                        @php
+                        $contador = 0
+                        @endphp
+                        @foreach($Notificaciones_head as $Notificacion)
+                        @role('Funeraria')
+                        @if($Notificacion->funeraria == $user->funeraria)
+
+                        @php
+                        $contador = $contador + 1
+                        @endphp
+
+                        @endif
+                        @endrole
+                        @role('Personal')
+                        @if($Notificacion->funeraria === NULL)
+
+                        @php
+                        $contador = $contador + 1
+                        @endphp
+
+                        @endif
+                        @endrole
+                        @endforeach
+                        @role('Funeraria|Personal')
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <span id="contadorNotificaciones" class="badge badge-pill badge-primary">{{$contador}}</span> Notificaciones
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @php
+                                $contandor = 0
+                                @endphp
+                                @foreach($Notificaciones_head as $Notificacion)
+                                @role('Funeraria')
+                                @if($Notificacion->funeraria == $user->funeraria)
+                                <span class="dropdown-item" id="Notificacion-{{$Notificacion->id}}"><span class="fa fa-times-circle" onclick="quitarNotificacion({{$Notificacion->id}})"></span><a href="#" style="text-decoration: none;"> {{$Notificacion->contenido}}
+                                </a></span>
+                                @endif
+                                @endrole
+                                @role('Personal')
+                                @if($Notificacion->funeraria === NULL)  
+                                <span class="dropdown-item" id="Notificacion-{{$Notificacion->id}}"><span class="fa fa-times-circle" onclick="quitarNotificacion({{$Notificacion->id}})"></span><a href="#" style="text-decoration: none;"> {{$Notificacion->contenido}}
+                                </a></span>
+                                @endif
+                                @endrole
+                                @endforeach
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-center" href="/Notificaciones">
+                                    Ver todo
+                                </a>
+                            </div>
+                        </li>
+                        @endrole
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
                         @endguest
                     </ul>
                 </div>
@@ -103,5 +176,20 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        function quitarNotificacion(id) {
+            $.ajax({
+                url: "/Notificacion/" + id + "/quitar/",
+                type: 'get',
+                success: function (response) {
+                    $('#Notificacion-' + id).remove();
+                    var cant_Notificaciones = $('#contadorNotificaciones').text();
+                    $('#contadorNotificaciones').text(cant_Notificaciones - 1);
+                }
+            });
+        }
+
+    </script>
 </body>
+
 </html>

@@ -21,14 +21,18 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/Notificaciones', 'HomeController@notificaciones');
+
 Route::group(['prefix' => 'Casos'], function () {
     Route::get('vistaCrear', 'CasosController@viewCrear');
     Route::post('guardarNuevo', 'CasosController@guardarNuevo');
     Route::get('ver', 'CasosController@verCasos')->middleware('role:Personal');
     Route::get('{id}/ver', 'CasosController@detallesCaso')->middleware('role:Personal');
     Route::get('/{caso}/asignarFuneraria/{id}/{correo}/{wp}', 'CasosController@asignarFuneraria');
+    Route::post('/{caso}/actualizarPago', 'CasosController@actualizarPago');
     Route::get('/cerrarCaso/{caso}', 'CasosController@cerrarCaso');
     Route::get('Reportar/{caso}/{instruccion}', 'CasosController@reportarCaso');
+    Route::get('Solicitudes/{caso}/{solicitud}/{opcion}', 'CasosController@actualizarSolicitud');
 });
 
 Route::group(['prefix' => 'Personal'], function (){
@@ -47,10 +51,12 @@ Route::group(['prefix' => 'Personal'], function (){
 
 Route::post('Caso/{id}/guardarMedia', 'CasosController@guardarMedia');
 Route::post('Funeraria/Caso/{id}/guardarMedia', 'FunerariasController@guardarMedia');
+Route::get('Notificacion/{id}/quitar', 'HomeController@quitarNotificacion');
 
 Route::group(['prefix' => 'Funerarias'], function () {
     Route::get('Casos/ver', 'FunerariasController@verCasos');
     Route::get('Casos/{id}/ver', 'FunerariasController@detallesCaso');
     Route::get('Inactiva', 'HomeController@funerariaInactiva');
     Route::get('Descargas', 'FunerariasController@descargas');
+    Route::post('Casos/{caso}/actualizarCosto', 'FunerariasController@actualizarCosto');
 });

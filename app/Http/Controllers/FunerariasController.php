@@ -7,6 +7,8 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\File;
 use Illuminate\Routing\Redirector;
 use App\Casos;
+use App\SolicitudesCobro;
+use App\Notificaciones;
 
 class FunerariasController extends Controller
 {
@@ -44,14 +46,30 @@ class FunerariasController extends Controller
                 array_push($archivos, $nuevonombre);
             }
         }
-        return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos]);
+        $solicitudes = SolicitudesCobro::where('caso', $id)->get();
+        return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes]);
+    }
+    public function actualizarCosto($caso, Request $request){
+        //$caso = Casos::find($caso);
+        //$caso->Costo = $request->Costo;
+        //$caso->save();
+        //return back();
+        $getCaso = Casos::find($caso);
+        $getCaso->Solicitud = 'Pendiente';
+        $getCaso->save();
+
+        SolicitudesCobro::create(['caso' => $caso, 'estatus' => 'Pendiente', 'costo' => $request->Costo, 'descripcion' => $request->Descripcion]);
+        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$caso.' tiene una nueva solicitud.', 'estatus' => 'Activa']);
+        return back();
     }
     public function guardarMedia($caso, Request $request){
         $image = $request->file('file');
         $imageName = 'Caso'.$caso.'-'.$image->getClientOriginalName();
         $upload_success = $image->move(public_path('images'),$imageName);
-        
+        $getCaso = Caso::find($caso);
         if ($upload_success) {
+            Notificaciones::create(['funeraria' => $getCaso->Funeraria, 'contenido' => 'El caso #'.$caso.' tiene un nuevo archivo.', 'estatus' => 'Activa']);
+            Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$caso.' tiene un nuevo archivo.', 'estatus' => 'Activa']);
             return response()->json($upload_success, 200);
         }
         // Else, return error 400

@@ -69,7 +69,7 @@ class PersonalUMController extends Controller
             $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Codigo')->get();
         }
 
-        $pdf = PDF::loadView('Personal.Reportes.Plantillas.Edades', ['Casos' => $casos]);
+        $pdf = PDF::loadView('Personal.Reportes.Plantillas.Edades', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
         return $pdf->download('Reporte-Edades.pdf');
         
     }
@@ -83,7 +83,7 @@ class PersonalUMController extends Controller
             $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
         }
 
-        $pdf = PDF::loadView('Personal.Reportes.Plantillas.Causas', ['Casos' => $casos]);
+        $pdf = PDF::loadView('Personal.Reportes.Plantillas.Causas', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
         return $pdf->download('Reporte-Causas.pdf');
     }
     public function reporteLugares($fechaInicio, $fechaFin){
@@ -96,7 +96,7 @@ class PersonalUMController extends Controller
             $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
         }
 
-        $pdf = PDF::loadView('Personal.Reportes.Plantillas.Lugares', ['Casos' => $casos]);
+        $pdf = PDF::loadView('Personal.Reportes.Plantillas.Lugares', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
         return $pdf->download('Reporte-Lugares.pdf');
     }
 }

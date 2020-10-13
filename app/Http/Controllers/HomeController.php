@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Notificaciones;
 
 class HomeController extends Controller
 {
@@ -37,5 +38,20 @@ class HomeController extends Controller
     }
     public function funerariaInactiva(){
         return view('Funerarias.Inactiva');
+    }
+    public function quitarNotificacion($id){
+        $notificacion = Notificaciones::find($id);
+        $notificacion->estatus = 'Inactiva';
+        $notificacion->save();
+        echo 'Hecho';
+    }
+    public function notificaciones(){
+        $user = auth()->user();
+        if($user->hasRole('Personal')){
+            $notificaciones = Notificaciones::where('funeraria', NULL)->orderBy('id', 'DESC')->get();
+        }elseif($user->hasRole('Funeraria')){
+            $notificaciones = Notificaciones::where('funeraria', $user->funeraria)->orderBy('id', 'DESC')->get();
+        }
+        return view('General.notificaciones', ['Notificaciones' => $notificaciones]);
     }
 }
