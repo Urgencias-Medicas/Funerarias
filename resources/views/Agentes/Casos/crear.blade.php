@@ -13,21 +13,25 @@
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="codEstudiante">Código de Estudiante</label>
-                                <input type="text" class="form-control" id="codEstudiante" name="codEstudiante" placeholder="0000000" onchange="alumno();"><span id="errmsg"></span>
+                                <input type="text" class="form-control" id="codEstudiante" name="codEstudiante"
+                                    placeholder="0000000" onchange="alumno();"><span id="errmsg"></span>
                             </div>
                             <div class="form-group col-md-9">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese nombre del estudiante">
+                                <input type="text" class="form-control" id="nombre" name="nombre"
+                                    placeholder="Ingrese nombre del estudiante">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="fechaNacimiento">Fecha</label>
-                                <input type="date" class="form-control" id="fechaNacimiento" name="fecha" placeholder="00/00/0000">
+                                <input type="date" class="form-control" id="fechaNacimiento" name="fecha"
+                                    placeholder="00/00/0000">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="pohoralhoraiza">Hora</label>
-                                <input type="time" class="form-control" id="hora" name="hora" placeholder="00:00"><span id="errmsg"></span>
+                                <input type="time" class="form-control" id="hora" name="hora" placeholder="00:00"><span
+                                    id="errmsg"></span>
                             </div>
                         </div>
                         <div class="form-row">
@@ -106,6 +110,23 @@
                                 <input type="text" name="DPITutor" id="DPITutor" class="form-control">
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="ParentescoTutor">Parentesco Tutor</label>
+                                <input type="text" name="ParentescoTutor" id="ParentescoTutor" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="EmailTutor">Email Tutor</label>
+                                <input type="text" name="EmailTutor" id="EmailTutor" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ComentarioTutor">Comentarios</label>
+                                <textarea id="ComentarioTutor" name="ComentarioTutor" class="form-control"
+                                    cols="80"></textarea>
+                            </div>
+                        </div>
                         <hr>
                         <div class="form-group">
                             <label for="lugar">Lugar de los hechos</label>
@@ -142,30 +163,28 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-
-
-function alumno(){
-    var codigo = $('#codEstudiante').val();
-    if(codigo == 1){
-        $('#nombre').val('Jefferson Morataya');
-    }else if(codigo == 2){
-        $('#nombre').val('Luis Medina');
-    }else if(codigo == 3){
-        $('#nombre').val('Carlos Sagastume');
-    }else if(codigo == 4){
-        $('#nombre').val('Patricia Morales');
-    }else if(codigo == 5){
-        $('#nombre').val('Ana Lucía Robles');
-    }else if(codigo == 6){
-        $('#nombre').val('Juan Antonio Palma');
-    }else if(codigo == 7){
-        $('#nombre').val('Rodrigo Oliva');
-    }else if(codigo == 8){
-        $('#nombre').val('Silvia Arévalo');
-    }else if(codigo == 9){
-        $('#nombre').val('Rosa Mendoza');
+    function alumno() {
+        var codigo = $('#codEstudiante').val();
+        if (codigo == 1) {
+            $('#nombre').val('Jefferson Morataya');
+        } else if (codigo == 2) {
+            $('#nombre').val('Luis Medina');
+        } else if (codigo == 3) {
+            $('#nombre').val('Carlos Sagastume');
+        } else if (codigo == 4) {
+            $('#nombre').val('Patricia Morales');
+        } else if (codigo == 5) {
+            $('#nombre').val('Ana Lucía Robles');
+        } else if (codigo == 6) {
+            $('#nombre').val('Juan Antonio Palma');
+        } else if (codigo == 7) {
+            $('#nombre').val('Rodrigo Oliva');
+        } else if (codigo == 8) {
+            $('#nombre').val('Silvia Arévalo');
+        } else if (codigo == 9) {
+            $('#nombre').val('Rosa Mendoza');
+        }
     }
-}
+
 </script>
 @endsection
-

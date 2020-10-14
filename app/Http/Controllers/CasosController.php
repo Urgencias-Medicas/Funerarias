@@ -35,7 +35,8 @@ class CasosController extends Controller
         'Municipio' => $request->municipio, 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
         'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 'RelacionReporta' => $request->RelacionReporta, 
         'TelReporta' => $request->TelReporta, 'Lugar' => $request->lugar, 'Estatus' => 'Abierto', 'Reportar' => 'No', 'Idioma' => $request->Idioma, 
-        'Medico' => $request->Medico, 'Tutor' => $request->Tutor, 'TelTutor' => $request->TelTutor, 'DPITutor' => $request->DPITutor];
+        'Medico' => $request->Medico, 'Tutor' => $request->Tutor, 'TelTutor' => $request->TelTutor, 'DPITutor' => $request->DPITutor,
+        'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, 'ComentarioTutor' => $request->ComentarioTutor];
         $caso = Casos::create($data);
         Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #', 'estatus' => 'Activa', 'caso' => $caso->id]);
         return redirect('/Casos/vistaCrear');

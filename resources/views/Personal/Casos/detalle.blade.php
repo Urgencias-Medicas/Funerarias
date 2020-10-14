@@ -107,7 +107,8 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="causa">Causa</label>
-                            <input type="text" name="causa" id="causa" class="form-control" value="{{$Caso->Causa}}" readonly>
+                            <input type="text" name="causa" id="causa" class="form-control" value="{{$Caso->Causa}}"
+                                readonly>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="idioma">Idioma</label>
@@ -177,6 +178,25 @@
                             <label for="DPITutor">DPI Tutor</label>
                             <input type="text" name="DPITutor" id="DPITutor" class="form-control"
                                 value="{{$Caso->DPITutor}}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="ParentescoTutor">Parentesco Tutor</label>
+                            <input type="text" name="ParentescoTutor" id="ParentescoTutor" class="form-control"
+                                value="{{$Caso->ParentescoTutor}}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="EmailTutor">Email Tutor</label>
+                            <input type="text" name="EmailTutor" id="EmailTutor" class="form-control"
+                                value="{{$Caso->EmailTutor}}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ComentarioTutor">Comentarios</label>
+                            <textarea id="ComentarioTutor" name="ComentarioTutor" class="form-control" cols="80"
+                                readonly>{{$Caso->ComentarioTutor}}</textarea>
                         </div>
                     </div>
                     <hr>
