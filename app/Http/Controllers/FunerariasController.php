@@ -59,7 +59,7 @@ class FunerariasController extends Controller
         $getCaso->save();
 
         SolicitudesCobro::create(['caso' => $caso, 'estatus' => 'Pendiente', 'costo' => $request->Costo, 'descripcion' => $request->Descripcion]);
-        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$caso.' tiene una nueva solicitud.', 'estatus' => 'Activa']);
+        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$caso.' tiene una nueva solicitud.', 'estatus' => 'Activa', 'caso' => $caso]);
         return back();
     }
     public function guardarMedia($caso, Request $request){
@@ -68,8 +68,8 @@ class FunerariasController extends Controller
         $upload_success = $image->move(public_path('images'),$imageName);
         $getCaso = Caso::find($caso);
         if ($upload_success) {
-            Notificaciones::create(['funeraria' => $getCaso->Funeraria, 'contenido' => 'El caso #'.$caso.' tiene un nuevo archivo.', 'estatus' => 'Activa']);
-            Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$caso.' tiene un nuevo archivo.', 'estatus' => 'Activa']);
+            Notificaciones::create(['funeraria' => $getCaso->Funeraria, 'contenido' => 'El caso #'.$caso.' tiene un nuevo archivo.', 'estatus' => 'Activa', 'caso' => $caso]);
+            Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$caso.' tiene un nuevo archivo.', 'estatus' => 'Activa', 'caso' => $caso]);
             return response()->json($upload_success, 200);
         }
         // Else, return error 400

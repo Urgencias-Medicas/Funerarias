@@ -67,7 +67,7 @@ INSERT INTO `casos` VALUES (9,5,'Ana Lucía Robles','2020-09-19','10:55:00','Ase
 INSERT INTO `casos` VALUES (10,2,'Luis Medina','2020-09-19','10:10:00','Suicidio','Guatemala','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Test Reporta','Tutor legal','12345678',NULL,6,'Asignado','Si',NULL,NULL,NULL,NULL);
 INSERT INTO `casos` VALUES (11,3,'Carlos Sagastume','2020-09-19','14:55:00','Enfermedad Comun','GUATEMALA','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Edgar Prueba','Tío del estudiante','12345678',NULL,6,'Asignado','Si',1500,900,1600,'Aprobar');
 INSERT INTO `casos` VALUES (12,5,'Ana Lucía Robles','2020-10-08','12:19:00','Accidente','CC Miraflores','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Edwin Test','Tutor','12345678','CC Miraflores',6,'Cerrado','No',1900,500,1400,NULL);
-INSERT INTO `casos` VALUES (13,6,'Juan Antonio Palma','2020-10-08','12:39:00','Accidente','Roosevelt','GUATEMALA','GUATEMALA','Padre Test','12345678','Madre Test','87654321','Reporta test','Tutor','54687213','Edificio Tikal Futura',6,'Asignado','Si',3200,550,2650,'Declinar');
+INSERT INTO `casos` VALUES (13,6,'Juan Antonio Palma','2020-10-08','12:39:00','Accidente','Roosevelt','GUATEMALA','GUATEMALA','Padre Test','12345678','Madre Test','87654321','Reporta test','Tutor','54687213','Edificio Tikal Futura',6,'Asignado','Si',2000,750,1250,'Declinar');
 /*!40000 ALTER TABLE `casos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,10 +138,11 @@ CREATE TABLE `historial_pagos` (
   `caso` int(11) NOT NULL,
   `monto` int(11) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
+  `factura` text COLLATE utf8_romanian_ci,
   PRIMARY KEY (`id`),
   KEY `caso` (`caso`),
   CONSTRAINT `historial_pagos_ibfk_1` FOREIGN KEY (`caso`) REFERENCES `casos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_romanian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_romanian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,18 +151,20 @@ CREATE TABLE `historial_pagos` (
 
 LOCK TABLES `historial_pagos` WRITE;
 /*!40000 ALTER TABLE `historial_pagos` DISABLE KEYS */;
-INSERT INTO `historial_pagos` VALUES (1,11,100,'2020-10-08');
-INSERT INTO `historial_pagos` VALUES (2,11,50,'2020-10-07');
-INSERT INTO `historial_pagos` VALUES (3,11,50,'2020-10-08');
-INSERT INTO `historial_pagos` VALUES (4,11,50,'2020-10-01');
-INSERT INTO `historial_pagos` VALUES (5,11,150,'2020-10-02');
-INSERT INTO `historial_pagos` VALUES (6,11,200,'2020-10-05');
-INSERT INTO `historial_pagos` VALUES (7,11,150,'2020-09-01');
-INSERT INTO `historial_pagos` VALUES (8,11,100,'2020-08-05');
-INSERT INTO `historial_pagos` VALUES (9,11,50,'2020-10-07');
-INSERT INTO `historial_pagos` VALUES (10,12,500,'2020-10-08');
-INSERT INTO `historial_pagos` VALUES (11,13,500,'2020-10-08');
-INSERT INTO `historial_pagos` VALUES (12,13,50,'2020-10-08');
+INSERT INTO `historial_pagos` VALUES (1,11,100,'2020-10-08',NULL);
+INSERT INTO `historial_pagos` VALUES (2,11,50,'2020-10-07',NULL);
+INSERT INTO `historial_pagos` VALUES (3,11,50,'2020-10-08',NULL);
+INSERT INTO `historial_pagos` VALUES (4,11,50,'2020-10-01',NULL);
+INSERT INTO `historial_pagos` VALUES (5,11,150,'2020-10-02',NULL);
+INSERT INTO `historial_pagos` VALUES (6,11,200,'2020-10-05',NULL);
+INSERT INTO `historial_pagos` VALUES (7,11,150,'2020-09-01',NULL);
+INSERT INTO `historial_pagos` VALUES (8,11,100,'2020-08-05',NULL);
+INSERT INTO `historial_pagos` VALUES (9,11,50,'2020-10-07',NULL);
+INSERT INTO `historial_pagos` VALUES (10,12,500,'2020-10-08',NULL);
+INSERT INTO `historial_pagos` VALUES (11,13,500,'2020-10-08',NULL);
+INSERT INTO `historial_pagos` VALUES (12,13,50,'2020-10-08',NULL);
+INSERT INTO `historial_pagos` VALUES (13,13,100,'2020-10-13','15216');
+INSERT INTO `historial_pagos` VALUES (14,13,100,'2020-10-13','123');
 /*!40000 ALTER TABLE `historial_pagos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -264,8 +267,9 @@ CREATE TABLE `notificaciones` (
   `funeraria` int(11) DEFAULT NULL,
   `contenido` text COLLATE utf8_persian_ci NOT NULL,
   `estatus` text COLLATE utf8_persian_ci NOT NULL,
+  `caso` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -274,23 +278,28 @@ CREATE TABLE `notificaciones` (
 
 LOCK TABLES `notificaciones` WRITE;
 /*!40000 ALTER TABLE `notificaciones` DISABLE KEYS */;
-INSERT INTO `notificaciones` VALUES (1,NULL,'Test Notificación','Activa');
-INSERT INTO `notificaciones` VALUES (2,6,'Test dos','Inactiva');
-INSERT INTO `notificaciones` VALUES (3,6,'Test tres','Inactiva');
-INSERT INTO `notificaciones` VALUES (4,6,'Caso #13 asignado.','Inactiva');
-INSERT INTO `notificaciones` VALUES (5,6,'Su solicitud #7 ha sido aprobada.','Activa');
-INSERT INTO `notificaciones` VALUES (6,6,'Su solicitud #8 del caso #13 ha sido rechazada.','Activa');
-INSERT INTO `notificaciones` VALUES (7,6,'Su solicitud #9 del caso #13 ha sido rechazada.','Activa');
-INSERT INTO `notificaciones` VALUES (8,NULL,'El caso #13 tiene una nueva solicitud.','Inactiva');
-INSERT INTO `notificaciones` VALUES (9,6,'Su solicitud #10 del caso #13 ha sido aprobada.','Inactiva');
-INSERT INTO `notificaciones` VALUES (10,NULL,'El caso #13 tiene una nueva solicitud.','Inactiva');
-INSERT INTO `notificaciones` VALUES (11,6,'La solicitud del caso #13 ha sido aprobada.','Activa');
-INSERT INTO `notificaciones` VALUES (12,NULL,'El caso #13 tiene una nueva solicitud.','Activa');
-INSERT INTO `notificaciones` VALUES (13,6,'La solicitud del caso #13 ha sido aprobada.','Activa');
-INSERT INTO `notificaciones` VALUES (14,NULL,'El caso #13 tiene una nueva solicitud.','Activa');
-INSERT INTO `notificaciones` VALUES (15,6,'La solicitud del caso #13 ha sido rechazada.','Activa');
-INSERT INTO `notificaciones` VALUES (16,6,'Caso #11 asignado.','Activa');
-INSERT INTO `notificaciones` VALUES (17,5,'Test funeraria 5','Activa');
+INSERT INTO `notificaciones` VALUES (1,NULL,'Test Notificación','Activa',NULL);
+INSERT INTO `notificaciones` VALUES (2,6,'Test dos','Inactiva',NULL);
+INSERT INTO `notificaciones` VALUES (3,6,'Test tres','Inactiva',NULL);
+INSERT INTO `notificaciones` VALUES (4,6,'Caso #13 asignado.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (5,6,'Su solicitud #7 ha sido aprobada.','Inactiva',NULL);
+INSERT INTO `notificaciones` VALUES (6,6,'Su solicitud #8 del caso #13 ha sido rechazada.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (7,6,'Su solicitud #9 del caso #13 ha sido rechazada.','Activa',13);
+INSERT INTO `notificaciones` VALUES (8,NULL,'El caso #13 tiene una nueva solicitud.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (9,6,'Su solicitud #10 del caso #13 ha sido aprobada.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (10,NULL,'El caso #13 tiene una nueva solicitud.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (11,6,'La solicitud del caso #13 ha sido aprobada.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (12,NULL,'El caso #13 tiene una nueva solicitud.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (13,6,'La solicitud del caso #13 ha sido aprobada.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (14,NULL,'El caso #13 tiene una nueva solicitud.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (15,6,'La solicitud del caso #13 ha sido rechazada.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (16,6,'Caso #11 asignado.','Inactiva',11);
+INSERT INTO `notificaciones` VALUES (17,5,'Test funeraria 5','Activa',NULL);
+INSERT INTO `notificaciones` VALUES (18,6,'Caso #13 asignado.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (19,NULL,'El caso #13 tiene una nueva solicitud.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (20,6,'La solicitud del caso #13 ha sido aprobada.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (21,NULL,'El caso #13 tiene una nueva solicitud.','Inactiva',13);
+INSERT INTO `notificaciones` VALUES (22,6,'La solicitud del caso #13 ha sido rechazada.','Inactiva',13);
 /*!40000 ALTER TABLE `notificaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -416,7 +425,7 @@ CREATE TABLE `solicitudes_cobro_funerarias` (
   PRIMARY KEY (`id`),
   KEY `caso` (`caso`),
   CONSTRAINT `solicitudes_cobro_funerarias_ibfk_1` FOREIGN KEY (`caso`) REFERENCES `casos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -437,6 +446,8 @@ INSERT INTO `solicitudes_cobro_funerarias` VALUES (10,13,'Aprobar',2500,'Test nu
 INSERT INTO `solicitudes_cobro_funerarias` VALUES (11,13,'Aprobar',3000,'test');
 INSERT INTO `solicitudes_cobro_funerarias` VALUES (12,13,'Aprobar',3200,'test');
 INSERT INTO `solicitudes_cobro_funerarias` VALUES (13,13,'Declinar',3300,'test');
+INSERT INTO `solicitudes_cobro_funerarias` VALUES (14,13,'Aprobar',2000,'Test');
+INSERT INTO `solicitudes_cobro_funerarias` VALUES (15,13,'Declinar',2500,'test  2');
 /*!40000 ALTER TABLE `solicitudes_cobro_funerarias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -489,4 +500,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-12 14:30:26
+-- Dump completed on 2020-10-13 17:27:13

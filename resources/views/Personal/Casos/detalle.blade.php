@@ -202,6 +202,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Pago</th>
+                                        <th scope="col">Factura</th>
                                         <th scope="col">Monto</th>
                                         <th scope="col">Fecha</th>
                                     </tr>
@@ -210,6 +211,7 @@
                                     @foreach($Pagos as $Pago)
                                     <tr>
                                         <td>{{$Pago->id}}</td>
+                                        <td>{{$Pago->factura}}</td>
                                         <td>{{$Pago->monto}}</td>
                                         <td>{{date("d-m-Y", strtotime("$Pago->fecha"))}}</td>
                                     </tr>
@@ -227,12 +229,14 @@
                                 <table class="table text-center">
                                     <thead>
                                         <tr>
+                                            <th scope="col">Factura</th>
                                             <th scope="col">Monto</th>
                                             <th scope="col">Fecha</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tablaPagos">
                                         <tr class="fila1">
+                                            <td><input name="factura1" type="text" class="form-control"></td>
                                             <td><input name="monto1" type="text" class="form-control"></td>
                                             <td><input name="fecha1" type="date" class="form-control"></td>
                                         </tr>
@@ -652,6 +656,7 @@
         var nuevafila = parseInt(fila) + 1;
         $('#filas').val(nuevafila);
         var html = '<tr class="fila' + nuevafila + '">\
+            <td><input name="factura' + nuevafila + '" type="text" class="form-control"></td>\
             <td><input name="monto' + nuevafila + '" type="text" class="form-control"></td>\
             <td><input name="fecha' + nuevafila + '" type="date" class="form-control"></td>\
         </tr>';

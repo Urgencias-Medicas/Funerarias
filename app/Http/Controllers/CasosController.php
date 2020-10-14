@@ -34,8 +34,8 @@ class CasosController extends Controller
         'Municipio' => $request->municipio, 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
         'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 'RelacionReporta' => $request->RelacionReporta, 
         'TelReporta' => $request->TelReporta, 'Lugar' => $request->lugar, 'Estatus' => 'Abierto', 'Reportar' => 'No'];
-        Casos::create($data);
-        
+        $caso = Casos::create($data);
+        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #', 'estatus' => 'Activa', 'caso' => $caso->id]);
         return redirect('/Casos/vistaCrear');
     }
     public function guardarMedia($caso, Request $request){
@@ -111,7 +111,7 @@ class CasosController extends Controller
         }else{
             $respuesta = 'La solicitud del caso #'.$caso.' ha sido rechazada.';
         }
-        Notificaciones::create(['funeraria' => $getCaso->Funeraria, 'contenido' => $respuesta, 'estatus' => 'Activa']);
+        Notificaciones::create(['funeraria' => $getCaso->Funeraria, 'contenido' => $respuesta, 'estatus' => 'Activa', 'caso' => $caso]);
         echo 'Hecho';
     }
 
@@ -157,7 +157,7 @@ class CasosController extends Controller
         if($wp == 'Si'){
             $this->mensajeWhatsApp($mensaje, 'whatsapp:+50249750995');
         }
-        Notificaciones::create(['funeraria' => $funeraria, 'contenido' => 'Caso #'.$caso.' asignado.', 'estatus' => 'Activa']);
+        Notificaciones::create(['funeraria' => $funeraria, 'contenido' => 'Caso #'.$caso.' asignado.', 'estatus' => 'Activa', 'caso' => $caso]);
         return 'Hecho';
     }
 
@@ -168,7 +168,7 @@ class CasosController extends Controller
             $total = $total + $monto;
             $date = Carbon::parse($request->input("fecha".$i));
             $fecha = $date->format('Y-m-d');
-            HistorialPagos::create(['caso' => $caso, 'monto' => $monto, 'fecha' => $fecha]);
+            HistorialPagos::create(['caso' => $caso, 'monto' => $monto, 'fecha' => $fecha, 'factura' => $request->input("factura".$i)]);
         }
         $caso = Casos::find($caso);
         $caso->Pagado = $caso->Pagado + $total;
@@ -188,7 +188,7 @@ class CasosController extends Controller
             {
                 $message->to('samuelambrosio99@gmail.com', 'test')->subject('Encuesta UMFunerarias')->from('no-reply@excess.software', 'Urgencias Médicas');
             });
-        Notificaciones::create(['funeraria' => $caso->funeraria, 'contenido' => 'El caso #'.$caso->id.' se ha cerrado.', 'estatus' => 'Activa']);
+        Notificaciones::create(['funeraria' => $caso->funeraria, 'contenido' => 'El caso #'.$caso->id.' se ha cerrado.', 'estatus' => 'Activa', 'caso' => $caso->id]);
         return 'Hecho';
     }
     public function mensajeWhatsApp($message, $recipient){

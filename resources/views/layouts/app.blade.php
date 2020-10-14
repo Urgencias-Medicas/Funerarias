@@ -131,13 +131,13 @@
                                 @foreach($Notificaciones_head as $Notificacion)
                                 @role('Funeraria')
                                 @if($Notificacion->funeraria == $user->funeraria)
-                                <span class="dropdown-item" id="Notificacion-{{$Notificacion->id}}"><span class="fa fa-times-circle" onclick="quitarNotificacion({{$Notificacion->id}})"></span><a href="#" style="text-decoration: none;"> {{$Notificacion->contenido}}
+                                <span class="dropdown-item" id="Notificacion-{{$Notificacion->id}}"><span class="fa fa-times-circle" onclick="quitarNotificacion({{$Notificacion->id}})"></span><a href="/Funerarias/Casos/{{$Notificacion->caso}}/ver" style="text-decoration: none;"> {{$Notificacion->contenido}}
                                 </a></span>
                                 @endif
                                 @endrole
                                 @role('Personal')
                                 @if($Notificacion->funeraria === NULL)  
-                                <span class="dropdown-item" id="Notificacion-{{$Notificacion->id}}"><span class="fa fa-times-circle" onclick="quitarNotificacion({{$Notificacion->id}})"></span><a href="#" style="text-decoration: none;"> {{$Notificacion->contenido}}
+                                <span class="dropdown-item" id="Notificacion-{{$Notificacion->id}}"><span class="fa fa-times-circle" onclick="quitarNotificacion({{$Notificacion->id}})"></span><a href="/Casos/{{$Notificacion->caso}}/ver" style="text-decoration: none;"> {{$Notificacion->contenido}}
                                 </a></span>
                                 @endif
                                 @endrole
