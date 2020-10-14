@@ -14,14 +14,15 @@ use App\Casos;
 use App\HistorialPagos;
 use App\SolicitudesCobro;
 use App\Notificaciones;
+use App\Helpers\Helper;
 
 class CasosController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('role:Agente||Personal');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    //     $this->middleware('role:Agente||Personal');
+    // }
     public function viewCrear(){
         return view('Agentes.Casos.crear');
     }
@@ -204,5 +205,19 @@ class CasosController extends Controller
         $casos->Reportar = $instruccion;
         $casos->save();
         echo 'Hecho';
+    }
+
+    public function insertData(Request $request) {
+
+        $data = Helper::cryptR($request->input('data'), 0);
+
+        $res = Casos::create( (array) $data);
+
+        $content = array(
+            'respuesta' => $res
+        );
+
+        $data = array('data' => Helper::cryptR($content, 1));
+        return response()->json($data, 200);
     }
 }
