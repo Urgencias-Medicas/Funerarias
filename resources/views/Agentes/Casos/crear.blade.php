@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group">
+                            <div class="form-group col-md-4">
                                 <label for="causa">Causa</label>
                                 <!-- <textarea name="causa" id="causa" class="form-control" cols="80"></textarea> -->
                                 <select name="causa" id="causa" class="form-control">
@@ -41,6 +41,14 @@
                                     <option value="Causas Naturales">Causas Naturales</option>
                                     <option value="Enfermedad Comun">Enfermedad Com&uacute;n</option>
                                 </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="idioma">Idioma</label>
+                                <input type="text" name="Idioma" id="Idioma" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="idioma">M&eacute;dico que atendi&oacute;</label>
+                                <input type="text" name="Medico" id="Medico" class="form-control">
                             </div>
                         </div>
                         <div class="form-row">
@@ -83,6 +91,22 @@
                                 <input type="text" name="TelMadre" id="TelMadre" class="form-control">
                             </div>
                         </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="Tutor">Tutor</label>
+                            <input type="text" name="Tutor" id="Tutor" class="form-control">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="TelTutor">Tel&eacute;fono Tutor</label>
+                                <input type="text" name="TelTutor" id="TelTutor" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="DPITutor">DPI Tutor</label>
+                                <input type="text" name="DPITutor" id="DPITutor" class="form-control">
+                            </div>
+                        </div>
+                        <hr>
                         <div class="form-group">
                             <label for="lugar">Lugar de los hechos</label>
                             <input type="text" name="lugar" id="lugar" class="form-control">

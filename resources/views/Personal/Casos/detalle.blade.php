@@ -105,10 +105,19 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group col-md-4">
                             <label for="causa">Causa</label>
-                            <textarea name="causa" id="causa" class="form-control" cols="80"
-                                readonly>{{$Caso->Causa}}</textarea>
+                            <input type="text" name="causa" id="causa" class="form-control" value="{{$Caso->Causa}}" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="idioma">Idioma</label>
+                            <input type="text" name="Idioma" id="Idioma" class="form-control" value="{{$Caso->Idioma}}"
+                                readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="idioma">M&eacute;dico que atendi&oacute;</label>
+                            <input type="text" name="Medico" id="Medico" class="form-control" value="{{$Caso->Medico}}"
+                                readonly>
                         </div>
                     </div>
                     <div class="form-row">
@@ -152,6 +161,25 @@
                                 value="{{$Caso->TelMadre}}" readonly>
                         </div>
                     </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="Tutor">Tutor</label>
+                        <input type="text" name="Tutor" id="Tutor" class="form-control" value="{{$Caso->Tutor}}"
+                            readonly>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="TelTutor">Tel&eacute;fono Tutor</label>
+                            <input type="text" name="TelTutor" id="TelTutor" class="form-control"
+                                value="{{$Caso->TelTutor}}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="DPITutor">DPI Tutor</label>
+                            <input type="text" name="DPITutor" id="DPITutor" class="form-control"
+                                value="{{$Caso->DPITutor}}" readonly>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="form-group">
                         <label for="lugar">Lugar de los hechos</label>
                         <input type="text" name="lugar" id="lugar" class="form-control" value="{{$Caso->Lugar}}"
@@ -342,11 +370,11 @@
                                 <button class="btn btn-link" data-toggle="collapse"
                                     data-target="#acc-cont-{{$solicitud->id}}" aria-expanded="true"
                                     aria-controls="acc-cont-{{$solicitud->id}}">
-                                    Solicitud #<b>{{$solicitud->id}}</b> - 
+                                    Solicitud #<b>{{$solicitud->id}}</b> -
                                     @if($solicitud->estatus == 'Aprobar')
-                                        <span class="text-success">Aprobada</span>
+                                    <span class="text-success">Aprobada</span>
                                     @elseif($solicitud->estatus == 'Declinar')
-                                        <span class="text-danger">Declinada</span>
+                                    <span class="text-danger">Declinada</span>
                                     @else
                                     <span class="text-warning">Pendiente</span>
                                     @endif
@@ -370,10 +398,12 @@
                                     @if($solicitud->estatus == 'Pendiente')
                                     <div class="row">
                                         <div class="col-6">
-                                            <button class="btn btn-danger btn-block" onclick="actualizarSolicitud({{$solicitud->id}}, 'Declinar')">Declinar</button>
+                                            <button class="btn btn-danger btn-block"
+                                                onclick="actualizarSolicitud({{$solicitud->id}}, 'Declinar')">Declinar</button>
                                         </div>
                                         <div class="col-6">
-                                            <button class="btn btn-success btn-block" onclick="actualizarSolicitud({{$solicitud->id}}, 'Aprobar')">Aceptar</button>
+                                            <button class="btn btn-success btn-block"
+                                                onclick="actualizarSolicitud({{$solicitud->id}}, 'Aprobar')">Aceptar</button>
                                         </div>
                                     </div>
                                     @endif
@@ -670,11 +700,11 @@
         $('#fila' + fila).remove();
     }
 
-    function actualizarSolicitud(solicitud, opcion){
+    function actualizarSolicitud(solicitud, opcion) {
         $.ajax({
-            url: "/Casos/Solicitudes/{{$Caso->id}}/"+solicitud+"/"+opcion,
+            url: "/Casos/Solicitudes/{{$Caso->id}}/" + solicitud + "/" + opcion,
             type: 'get',
-            sucess: function (response){
+            sucess: function (response) {
                 window.location.href = '/Casos/{{$Caso->id}}/ver';
             }
         })
