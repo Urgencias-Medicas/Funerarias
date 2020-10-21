@@ -4,16 +4,14 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">Casos</div>
-
-                <div class="card-body align-items-center d-flex justify-content-center">
-                    <table class="table">
-                        <thead class="thead-dark">
+        <div class="col-md-12">
+        <h3 class="mt-3">Funerarias</h3>
+                    <table class="table table-light table-striped border rounded mb-5">
+                        <thead class="">
                             <tr>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">Email</th>
+                                <th scope="col">Correo</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -24,18 +22,22 @@
                                 <td>{{$funeraria->email}}</td>
                                 <td>
                                 @if($funeraria->activo == 'No')
-                                    <a href="/Personal/Funeraria/{{$funeraria->id}}/ver"><button class="btn btn-warning">Ver <i class="fa fa-eye"></i></button></a>
+                                <span style="color:orange;">No Activa</span>
                                 @else
-                                    <a href="/Personal/Funeraria/{{$funeraria->id}}/ver"><button class="btn btn-primary">Ver <i class="fa fa-eye"></i></button></a>
+                                <span style="color:green;">Activa</span>
+                                @endif
+                                </td>
+                                <td>
+                                @if($funeraria->activo == 'No')
+                                    <a href="/Personal/Funeraria/{{$funeraria->id}}/ver"><button class="btn btn-link">Ver más</button></a>
+                                @else
+                                    <a href="/Personal/Funeraria/{{$funeraria->id}}/ver"><button class="btn btn-link">Ver más</button></a>
                                 @endif
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-
-                </div>
-            </div>
         </div>
     </div>
 </div>

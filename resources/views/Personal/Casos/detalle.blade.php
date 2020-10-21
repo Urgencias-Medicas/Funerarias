@@ -31,7 +31,7 @@
 <div class="container">
     <div class="row my-3">
         <div class="col-12">
-            <button type="button" class="btn btn-link"><a href="/Casos/ver">< Atras</a></button>
+            <button type="button" class="btn btn-link"><a href="/Casos/ver">< Atrás</a></button>
             <div class="float-right mx-2">
             @if($Caso->Reportar == 'Si')
             <input type="checkbox" checked data-toggle="toggle" data-on="Reportar"
