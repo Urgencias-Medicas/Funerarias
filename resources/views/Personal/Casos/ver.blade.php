@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
 
-        <h3>Casos</h3>
+        <h3 class="mt-3">Casos</h3>
                     <table class="table table-light table-striped border rounded mb-5">
                         
                             <tr>
