@@ -81,7 +81,7 @@ class FunerariasController extends Controller
         return 'test';
     }
     public function descargas(){
-        $files = File::files(public_path('images\requeridos'));
+        $files = File::files(public_path('images/requeridos'));
         return view('Funerarias.descargas', ['Archivos' => $files]);
     }
 }

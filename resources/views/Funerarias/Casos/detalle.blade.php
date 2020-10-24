@@ -29,11 +29,161 @@
 
 </style>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <a href="/Funerarias/Casos/ver" class="btn btn-link mb-2">< Atrás</a>
+    <div class="row ">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">Visualizar caso</div>
-                <hr>
+                <div class="card-body align-items-center justify-content-center">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre"
+                            placeholder="Ingrese nombre del estudiante" value="{{$Caso->Nombre}}" readonly>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="causa">Causa</label>
+                            <input type="text" name="causa" id="causa" class="form-control" value="{{$Caso->Causa}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        
+                        <div class="form-group col-md-6">
+                            <label for="departamento">Departamento</label>
+                            <input type="text" name="departamento" id="departamento" class="form-control"
+                                value="{{$Caso->Departamento}}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="municipio">Municipio</label>
+                            <input type="text" name="municipio" id="municipio" class="form-control"
+                                value="{{$Caso->Municipio}}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="direccion">Direccion</label>
+                            <input type="text" name="direccion" id="direccion" class="form-control"
+                                value="{{$Caso->Direccion}}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lugar">Lugar de los hechos</label>
+                        <input type="text" name="lugar" id="lugar" class="form-control" value="{{$Caso->Lugar}}"
+                            readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="NombreReporta">Nombre de quien reporta</label>
+                        <input type="text" name="NombreReporta" id="NombreReporta" class="form-control"
+                            value="{{$Caso->NombreReporta}}" readonly>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="RelacionReporta">Relaci&oacute;n</label>
+                            <input type="text" name="RelacionReporta" id="RelacionReporta" class="form-control"
+                                value="{{$Caso->RelacionReporta}}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="TelReporta">Tel&eacute;fono</label>
+                            <input type="text" name="TelReporta" id="TelReporta" class="form-control"
+                                value="{{$Caso->TelReporta}}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="padre">Padre</label>
+                            <input type="text" name="padre" id="padre" class="form-control" value="{{$Caso->Padre}}"
+                                readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="TelPadre">Tel. Padre</label>
+                            <input type="text" name="TelPadre" id="TelPadre" class="form-control"
+                                value="{{$Caso->TelPadre}}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="madre">Madre</label>
+                            <input type="text" name="madre" id="madre" class="form-control" value="{{$Caso->Madre}}"
+                                readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="TelMadre">Tel. Madre</label>
+                            <input type="text" name="TelMadre" id="TelMadre" class="form-control"
+                                value="{{$Caso->TelMadre}}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Tutor">Tutor</label>
+                        <input type="text" name="Tutor" id="Tutor" class="form-control" value="{{$Caso->Tutor}}"
+                            readonly>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="TelTutor">Tel&eacute;fono Tutor</label>
+                            <input type="text" name="TelTutor" id="TelTutor" class="form-control"
+                                value="{{$Caso->TelTutor}}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="DPITutor">DPI Tutor</label>
+                            <input type="text" name="DPITutor" id="DPITutor" class="form-control"
+                                value="{{$Caso->DPITutor}}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="ParentescoTutor">Parentesco Tutor</label>
+                            <input type="text" name="ParentescoTutor" id="ParentescoTutor" class="form-control"
+                                value="{{$Caso->ParentescoTutor}}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="EmailTutor">Email Tutor</label>
+                            <input type="text" name="EmailTutor" id="EmailTutor" class="form-control"
+                                value="{{$Caso->EmailTutor}}" readonly>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ComentarioTutor">Comentarios</label>
+                            <textarea id="ComentarioTutor" name="ComentarioTutor" class="form-control" cols="80"
+                                readonly>{{$Caso->ComentarioTutor}}</textarea>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="idioma">Idioma</label>
+                            <input type="text" name="Idioma" id="Idioma" class="form-control" value="{{$Caso->Idioma}}"
+                                readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="idioma">M&eacute;dico que atendi&oacute;</label>
+                            <input type="text" name="Medico" id="Medico" class="form-control" value="{{$Caso->Medico}}"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="fechaNacimiento">Fecha</label>
+                            <input type="date" class="form-control" id="fechaNacimiento" name="fecha"
+                                placeholder="00/00/0000" value="{{$Caso->Fecha}}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="pohoralhoraiza">Hora</label>
+                            <input type="time" class="form-control" id="hora" name="hora" placeholder="00:00"
+                                value="{{date('G:i', strtotime($Caso->Hora))}}" readonly><span id="errmsg"></span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Modificar Costo Base</div>
+                <div class="card-body">
                 @php
                 $tiene_solicitud = 0
                 @endphp
@@ -47,7 +197,6 @@
                 <form action="/Funerarias/Casos/{{$Caso->id}}/actualizarCosto" method="post">
                     @csrf
                     <div class="container">
-                        <h1>Modificar costo</h1>
                         @if($tiene_solicitud == 1)
                         <div class="row">
                             <div class="col-12 text-center">
@@ -87,148 +236,12 @@
                         </div>
                     </div>
                 </form>
-                <hr>
-
-                <div class="card-body align-items-center justify-content-center">
-                    <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre"
-                            placeholder="Ingrese nombre del estudiante" value="{{$Caso->Nombre}}" readonly>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="fechaNacimiento">Fecha</label>
-                            <input type="date" class="form-control" id="fechaNacimiento" name="fecha"
-                                placeholder="00/00/0000" value="{{$Caso->Fecha}}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="pohoralhoraiza">Hora</label>
-                            <input type="time" class="form-control" id="hora" name="hora" placeholder="00:00"
-                                value="{{date('G:i', strtotime($Caso->Hora))}}" readonly><span id="errmsg"></span>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="causa">Causa</label>
-                            <input type="text" name="causa" id="causa" class="form-control" value="{{$Caso->Causa}}"
-                                readonly>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="idioma">Idioma</label>
-                            <input type="text" name="Idioma" id="Idioma" class="form-control" value="{{$Caso->Idioma}}"
-                                readonly>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="idioma">M&eacute;dico que atendi&oacute;</label>
-                            <input type="text" name="Medico" id="Medico" class="form-control" value="{{$Caso->Medico}}"
-                                readonly>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="direccion">Direccion</label>
-                            <input type="text" name="direccion" id="direccion" class="form-control"
-                                value="{{$Caso->Direccion}}" readonly>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="departamento">Departamento</label>
-                            <input type="text" name="departamento" id="departamento" class="form-control"
-                                value="{{$Caso->Departamento}}" readonly>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="municipio">Municipio</label>
-                            <input type="text" name="municipio" id="municipio" class="form-control"
-                                value="{{$Caso->Municipio}}" readonly>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="padre">Padre</label>
-                            <input type="text" name="padre" id="padre" class="form-control" value="{{$Caso->Padre}}"
-                                readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="TelPadre">Tel. Padre</label>
-                            <input type="text" name="TelPadre" id="TelPadre" class="form-control"
-                                value="{{$Caso->TelPadre}}" readonly>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="madre">Madre</label>
-                            <input type="text" name="madre" id="madre" class="form-control" value="{{$Caso->Madre}}"
-                                readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="TelMadre">Tel. Madre</label>
-                            <input type="text" name="TelMadre" id="TelMadre" class="form-control"
-                                value="{{$Caso->TelMadre}}" readonly>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <label for="Tutor">Tutor</label>
-                        <input type="text" name="Tutor" id="Tutor" class="form-control" value="{{$Caso->Tutor}}"
-                            readonly>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="TelTutor">Tel&eacute;fono Tutor</label>
-                            <input type="text" name="TelTutor" id="TelTutor" class="form-control"
-                                value="{{$Caso->TelTutor}}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="DPITutor">DPI Tutor</label>
-                            <input type="text" name="DPITutor" id="DPITutor" class="form-control"
-                                value="{{$Caso->DPITutor}}" readonly>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="ParentescoTutor">Parentesco Tutor</label>
-                            <input type="text" name="ParentescoTutor" id="ParentescoTutor" class="form-control"
-                                value="{{$Caso->ParentescoTutor}}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="EmailTutor">Email Tutor</label>
-                            <input type="text" name="EmailTutor" id="EmailTutor" class="form-control"
-                                value="{{$Caso->EmailTutor}}" readonly>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="ComentarioTutor">Comentarios</label>
-                            <textarea id="ComentarioTutor" name="ComentarioTutor" class="form-control" cols="80"
-                                readonly>{{$Caso->ComentarioTutor}}</textarea>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <label for="lugar">Lugar de los hechos</label>
-                        <input type="text" name="lugar" id="lugar" class="form-control" value="{{$Caso->Lugar}}"
-                            readonly>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <label for="NombreReporta">Nombre de quien reporta</label>
-                        <input type="text" name="NombreReporta" id="NombreReporta" class="form-control"
-                            value="{{$Caso->NombreReporta}}" readonly>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="RelacionReporta">Relaci&oacute;n</label>
-                            <input type="text" name="RelacionReporta" id="RelacionReporta" class="form-control"
-                                value="{{$Caso->RelacionReporta}}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="TelReporta">Tel&eacute;fono</label>
-                            <input type="text" name="TelReporta" id="TelReporta" class="form-control"
-                                value="{{$Caso->TelReporta}}" readonly>
-                        </div>
-                    </div>
-                    <hr>
-                    <hr>
-                    <h1>Archivos</h1>
+                
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">Archivos</div>
+                    <div class="card-body">
                     <ul class="list-group">
                         @foreach($Archivos as $archivo)
                         <li class="list-group-item"><b><a target="popup"
@@ -246,7 +259,7 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                    </div>
             </div>
         </div>
     </div>

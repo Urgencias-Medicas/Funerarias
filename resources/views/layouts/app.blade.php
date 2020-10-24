@@ -87,8 +87,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="/Funerarias/Descargas"
-                                class="nav-link {{ (request()->is('Funerarias/Descargas*')) ? 'active' : '' }}">Portal
-                                de Descargas</a>
+                                class="nav-link {{ (request()->is('Funerarias/Descargas*')) ? 'active' : '' }}">Descargas</a>
                         </li>
                         @endrole
 
