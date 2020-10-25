@@ -46,7 +46,7 @@ class FunerariasController extends Controller
                 array_push($archivos, $nuevonombre);
             }
         }
-        $solicitudes = SolicitudesCobro::where('caso', $id)->get();
+        $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'desc')->get();
         return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes]);
     }
     public function actualizarCosto($caso, Request $request){

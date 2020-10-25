@@ -90,7 +90,20 @@
                                 class="nav-link {{ (request()->is('Funerarias/Descargas*')) ? 'active' : '' }}">Descargas</a>
                         </li>
                         @endrole
-
+                        @role('Super Admin')
+                        <li class="nav-item">
+                            <a href="/Admin/CrearAgente"
+                                class="nav-link {{ (request()->is('Admin/CrearAgente*')) ? 'active' : '' }}">Crear Agente</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/CrearUsuario"
+                                class="nav-link {{ (request()->is('Admin/CrearUsuario*')) ? 'active' : '' }}">Crear Usuario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/CrearFuneraria"
+                                class="nav-link {{ (request()->is('Admin/CrearFuneraria*')) ? 'active' : '' }}">Crear Funeraria</a>
+                        </li>
+                        @endrole
                         @php
                         $contador = 0
                         @endphp

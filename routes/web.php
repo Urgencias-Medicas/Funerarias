@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    $user = auth()->user();
+    if($user){
+        Auth::logout();
+    }
     return view('auth.login');
 });
 
@@ -59,4 +63,10 @@ Route::group(['prefix' => 'Funerarias'], function () {
     Route::get('Inactiva', 'HomeController@funerariaInactiva');
     Route::get('Descargas', 'FunerariasController@descargas');
     Route::post('Casos/{caso}/actualizarCosto', 'FunerariasController@actualizarCosto');
+});
+
+Route::group(['prefix' => 'Admin'], function () {
+    Route::get('CrearAgente', 'AdminController@nuevoAgente');
+    Route::get('CrearUsuario', 'AdminController@nuevoPersonal');
+    Route::get('CrearFuneraria', 'AdminController@nuevaFuneraria');
 });

@@ -49,7 +49,7 @@
     <div class="row ">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">Detalles</div>
+                <div class="card-header">Detalles caso - #<b>{{$Caso->id}}</b></div>
 
                 <div class="card-body align-items-center justify-content-center">
                     <div class="form-row">
@@ -271,7 +271,7 @@
                         </div>
                         <div class="col-md-6 text-right mb-3" > 
                             <button type="button" class="btn btn-success" onClick="agregarFila();"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                            <button type="button" class="btn btn-danger" onClick="quitarFila();"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                            <button type="button" id="quitarFila" class="btn btn-danger" onClick="quitarFila();" disabled><i class="fa fa-minus" aria-hidden="true"></i></button>
                         </div>
                     </div>    
                     <form action="/Casos/{{$Caso->id}}/actualizarPago" method="post">
@@ -734,13 +734,20 @@
             <td><input name="fecha' + nuevafila + '" type="date" class="form-control"></td>\
         </tr>';
         $('#tablaPagos').append(html);
+
+        if(nuevafila != 1){
+            $('#quitarFila').prop('disabled', false);
+        }
     }
 
     function quitarFila() {
         var fila = $('#filas').val();
         var nuevafila = parseInt(fila) - 1;
         $('#filas').val(nuevafila);
-        $('#fila' + fila).remove();
+        if(fila == 1 || nuevafila == 1){
+            $('#quitarFila').prop('disabled', true);
+        }
+        $('.fila' + fila).remove();
     }
 
     function actualizarSolicitud(solicitud, opcion) {

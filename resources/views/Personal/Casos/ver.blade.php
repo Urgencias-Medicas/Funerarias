@@ -9,7 +9,8 @@
         <h3 class="mt-3">Casos</h3>
                     <table class="table table-light table-striped border rounded mb-5">
                         
-                            <tr>
+                            <tr>   
+                                <th scope="col">Caso #</th>
                                 <th scope="col">Código</th>
                                 <th scope="col">Estudiante</th>
                                 <th scope="col">Fecha y Hora</th>
@@ -22,6 +23,7 @@
                         
                         @foreach($Casos as $caso)
                             <tr>
+                                <td>{{$caso->id}}</td>
                                 <td>{{$caso->Codigo}}</td>
                                 <td>{{$caso->Nombre}}</td>
                                 <td>{{date('d/m/Y', strtotime($caso->Fecha))}} - {{date('h:i a', strtotime($caso->Hora))}}</td>
