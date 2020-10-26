@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $user = auth()->user();
     if($user){
-        Auth::logout();
+        return redirect('/home');
     }
     return view('auth.login');
 });
@@ -50,6 +50,12 @@ Route::group(['prefix' => 'Personal'], function (){
         Route::get('Causas/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteCausas');
         Route::get('Lugares/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteLugares');
     });
+    
+    Route::get('CrearUsuario', 'AdminController@nuevoUsuario');
+    Route::get('CrearFuneraria', 'AdminController@nuevaFuneraria');
+    Route::post('nuevoUsuario', 'AdminController@guardarUsuario');
+    Route::post('nuevaFuneraria', 'AdminController@guardarFuneraria');
+    Route::get('verUsuarios', 'AdminController@verUsuarios');
 
 });
 
@@ -65,8 +71,9 @@ Route::group(['prefix' => 'Funerarias'], function () {
     Route::post('Casos/{caso}/actualizarCosto', 'FunerariasController@actualizarCosto');
 });
 
-Route::group(['prefix' => 'Admin'], function () {
-    Route::get('CrearAgente', 'AdminController@nuevoAgente');
-    Route::get('CrearUsuario', 'AdminController@nuevoPersonal');
+/*Route::group(['prefix' => 'Admin'], function () {
+    Route::get('CrearUsuario', 'AdminController@nuevoUsuario');
     Route::get('CrearFuneraria', 'AdminController@nuevaFuneraria');
-});
+    Route::post('nuevoUsuario', 'AdminController@guardarUsuario');
+    Route::post('nuevaFuneraria', 'AdminController@guardarFuneraria');
+});*/
