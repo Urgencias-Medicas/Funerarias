@@ -4,8 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+        <button type="button" class="btn btn-link"><a href="">< Atrás</a></button>
             <div class="card">
-                <div class="card-header">Visualizar funeraria</div>
+                <div class="card-header">Información</div>
 
                 <div class="card-body align-items-center justify-content-center">
                     <form action="/Personal/Funeraria/{{$Funeraria->id}}/{{$Detalle->id}}/guardar" method="post">
@@ -72,8 +73,8 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col text-center">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary float-right">Guardar</button>
                             </div>
                         </div>
                     </form>

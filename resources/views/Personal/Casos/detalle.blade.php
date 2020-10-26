@@ -29,113 +29,88 @@
 
 </style>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row my-3">
+        <div class="col-12">
+            <button type="button" class="btn btn-link"><a href="/Casos/ver">< Atrás</a></button>
+            <div class="float-right mx-2">
+            @if($Caso->Reportar == 'Si')
+            <input type="checkbox" checked data-toggle="toggle" data-on="Reportar"
+                data-off="No Reportar" data-onstyle="success" data-offstyle="secondary"
+                onchange="reportar('No')">
+            @else
+            <input type="checkbox" data-toggle="toggle" data-on="Reportar" data-off="No Reportar"
+                data-onstyle="success" data-offstyle="secondary" onchange="reportar('Si')">
+            @endif
+            </div>
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal"
+            data-target="#funerariaModal">Asignar Funeraria</button>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-6">
             <div class="card">
-                <div class="card-header">Detalles caso</div>
+                <div class="card-header">Detalles caso - #<b>{{$Caso->id}}</b></div>
 
                 <div class="card-body align-items-center justify-content-center">
-                    <div class="row">
-                        <div class="col text-center">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#funerariaModal">Asignar Funeraria</button>
-                            @if($Caso->Solicitud != 'Pendiente')
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#solicitudModal">Solicitudes</button>
-                            @else
-                            <button type="button" class="btn btn-info" data-toggle="modal"
-                                data-target="#solicitudModal">Solicitud Nueva</button>
-                            @endif
-                            @if($Caso->Estatus == 'Cerrado')
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cerrarModal"
-                                disabled>Cerrar caso</button>
-                            @else
-                            <button type="button" class="btn btn-danger" data-toggle="modal"
-                                data-target="#cerrarModal">Cerrar caso</button>
-                            @endif
-                            @if($Caso->Reportar == 'Si')
-                            <input type="checkbox" checked data-toggle="toggle" data-on="Reportar"
-                                data-off="No Reportar" data-onstyle="success" data-offstyle="danger"
-                                onchange="reportar('No')">
-                            @else
-                            <input type="checkbox" data-toggle="toggle" data-on="Reportar" data-off="No Reportar"
-                                data-onstyle="success" data-offstyle="danger" onchange="reportar('Si')">
-                            @endif
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="form-row m-0">
-                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
-                            <label for="costoServicio">Costo</label>
-                            <input type="text" class="form-control" value="{{$Caso->Costo}}" readonly>
-                        </div>
-
-                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
-                            <label for="Pendiente">Pendiente</label>
-                            <input type="text" class="form-control" value="{{$Caso->Costo - $Caso->Pagado}}" readonly>
-                        </div>
-                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
-                            <label for="pagado">Pagado</label>
-                            <input type="text" class="form-control" value="{{$Caso->Pagado}}" readonly>
-                        </div>
-                    </div>
-                    <hr>
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label for="codEstudiante">Código de Estudiante</label>
                             <input type="text" class="form-control" id="codEstudiante" name="codEstudiante"
                                 placeholder="0000000" value="{{$Caso->Codigo}}" readonly><span id="errmsg"></span>
                         </div>
-                        <div class="form-group col-md-9">
+                        <div class="form-group col-md-8">
                             <label for="nombre">Nombre</label>
                             <input type="text" class="form-control" id="nombre" name="nombre"
                                 placeholder="Ingrese nombre del estudiante" value="{{$Caso->Nombre}}" readonly>
                         </div>
                     </div>
+                    
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="fechaNacimiento">Fecha</label>
-                            <input type="date" class="form-control" id="fechaNacimiento" name="fecha"
-                                placeholder="00/00/0000" value="{{$Caso->Fecha}}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="pohoralhoraiza">Hora</label>
-                            <input type="time" class="form-control" id="hora" name="hora" placeholder="00:00"
-                                value="{{date('G:i', strtotime($Caso->Hora))}}" readonly><span id="errmsg"></span>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-12">
                             <label for="causa">Causa</label>
                             <input type="text" name="causa" id="causa" class="form-control" value="{{$Caso->Causa}}"
                                 readonly>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="idioma">Idioma</label>
-                            <input type="text" name="Idioma" id="Idioma" class="form-control" value="{{$Caso->Idioma}}"
-                                readonly>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="idioma">M&eacute;dico que atendi&oacute;</label>
-                            <input type="text" name="Medico" id="Medico" class="form-control" value="{{$Caso->Medico}}"
-                                readonly>
-                        </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="direccion">Direccion</label>
-                            <input type="text" name="direccion" id="direccion" class="form-control"
-                                value="{{$Caso->Direccion}}" readonly>
-                        </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label for="departamento">Departamento</label>
                             <input type="text" name="departamento" id="departamento" class="form-control"
                                 value="{{$Caso->Departamento}}" readonly>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label for="municipio">Municipio</label>
                             <input type="text" name="municipio" id="municipio" class="form-control"
                                 value="{{$Caso->Municipio}}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="direccion">Direccion</label>
+                            <input type="text" name="direccion" id="direccion" class="form-control"
+                                value="{{$Caso->Direccion}}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lugar">Lugar de los hechos</label>
+                        <input type="text" name="lugar" id="lugar" class="form-control" value="{{$Caso->Lugar}}"
+                            readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="NombreReporta">Nombre de quien reporta</label>
+                        <input type="text" name="NombreReporta" id="NombreReporta" class="form-control"
+                            value="{{$Caso->NombreReporta}}" readonly>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="RelacionReporta">Relaci&oacute;n</label>
+                            <input type="text" name="RelacionReporta" id="RelacionReporta" class="form-control"
+                                value="{{$Caso->RelacionReporta}}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="TelReporta">Tel&eacute;fono</label>
+                            <input type="text" name="TelReporta" id="TelReporta" class="form-control"
+                                value="{{$Caso->TelReporta}}" readonly>
                         </div>
                     </div>
                     <div class="form-row">
@@ -162,7 +137,6 @@
                                 value="{{$Caso->TelMadre}}" readonly>
                         </div>
                     </div>
-                    <hr>
                     <div class="form-group">
                         <label for="Tutor">Tutor</label>
                         <input type="text" name="Tutor" id="Tutor" class="form-control" value="{{$Caso->Tutor}}"
@@ -192,6 +166,7 @@
                                 value="{{$Caso->EmailTutor}}" readonly>
                         </div>
                     </div>
+                    <hr>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="ComentarioTutor">Comentarios</label>
@@ -200,50 +175,71 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="form-group">
-                        <label for="lugar">Lugar de los hechos</label>
-                        <input type="text" name="lugar" id="lugar" class="form-control" value="{{$Caso->Lugar}}"
-                            readonly>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <label for="NombreReporta">Nombre de quien reporta</label>
-                        <input type="text" name="NombreReporta" id="NombreReporta" class="form-control"
-                            value="{{$Caso->NombreReporta}}" readonly>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="Medico">Agente que atendi&oacute;</label>
+                            <input type="text" name="Medico" id="Medico" class="form-control" value="{{$Caso->Medico}}"
+                                readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="idioma">Idioma</label>
+                            <input type="text" name="Idioma" id="Idioma" class="form-control" value="{{$Caso->Idioma}}"
+                                readonly>
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="RelacionReporta">Relaci&oacute;n</label>
-                            <input type="text" name="RelacionReporta" id="RelacionReporta" class="form-control"
-                                value="{{$Caso->RelacionReporta}}" readonly>
+                            <label for="fechaNacimiento">Fecha</label>
+                            <input type="date" class="form-control" id="fechaNacimiento" name="fecha"
+                                placeholder="00/00/0000" value="{{$Caso->Fecha}}" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="TelReporta">Tel&eacute;fono</label>
-                            <input type="text" name="TelReporta" id="TelReporta" class="form-control"
-                                value="{{$Caso->TelReporta}}" readonly>
+                            <label for="pohoralhoraiza">Hora</label>
+                            <input type="time" class="form-control" id="hora" name="hora" placeholder="00:00"
+                                value="{{date('G:i', strtotime($Caso->Hora))}}" readonly><span id="errmsg"></span>
                         </div>
                     </div>
-                    <hr>
-                    <h1>Archivos</h1>
-                    <ul class="list-group">
-                        @foreach($Archivos as $archivo)
-                        <li class="list-group-item"><b><a target="popup"
-                                    onclick="window.open('/images/caso{{$Caso->id}}-{{$archivo}}','Archivo-Caso{{$Caso->id}}','width=600,height=400')">{{$archivo}}</a></b>
-                        </li>
-                        @endforeach
-                    </ul>
-                    <hr>
-                    <div class="form-group">
-                        <form action="/Caso/{{$Caso->id}}/guardarMedia" enctype="multipart/form-data" class="dropzone"
-                            id="fileupload" method="POST">
-                            @csrf
-                            <div class="fallback">
-                                <input name="file" type="files" multiple accept="image/jpeg, image/png, image/jpg" />
-                            </div>
-                        </form>
+                </div>
+            </div>
+            <div class="card mt-3 border-danger">
+                <div class="card-body align-items-center justify-content-center">
+                    <h4>¿Desea cerrar el caso?</h4>
+                    @if($Caso->Estatus == 'Cerrado')
+                    <button type="button" class="btn btn-danger mt-2" data-toggle="modal" data-target="#cerrarModal"
+                    disabled>Cerrar caso</button>
+                    @else
+                    <button type="button" class="btn btn-danger mt-2" data-toggle="modal"
+                    data-target="#cerrarModal">Cerrar caso</button>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-header">Costos</div>
+                <div class="card-body align-items-center justify-content-center">
+                    <div class="form-row ">
+                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="costoServicio">Costo</label>
+                            <input type="text" class="form-control" value="{{$Caso->Costo}}" readonly>
+                        </div>
+                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="Pendiente">Pendiente</label>
+                            <input type="text" class="form-control" value="{{$Caso->Costo - $Caso->Pagado}}" readonly>
+                        </div>
+                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="pagado">Pagado</label>
+                            <input type="text" class="form-control" value="{{$Caso->Pagado}}" readonly>
+                        </div>
                     </div>
-                    <br>
-                    <h1>Historial de Pagos</h1>
+                @if($Caso->Solicitud != 'Pendiente')
+                <button type="button" class="btn btn-outline-primary btn-block my-2" data-toggle="modal"
+                    data-target="#solicitudModal">Ver solicitudes</button>
+                @else
+                <button type="button" class="btn btn-outline-info btn-block my-2" data-toggle="modal"
+                    data-target="#solicitudModal">Solicitud Nueva</button>
+                @endif
+                <h4 class="mt-3">Historial de Pagos</h4>
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table text-center">
@@ -269,7 +265,15 @@
                         </div>
                     </div>
                     <br>
-                    <h1>Registrar Pagos</h1>
+                    <div class="row mt-3">
+                        <div class="col-md-6"> 
+                            <h4>Registrar Pagos</h4>
+                        </div>
+                        <div class="col-md-6 text-right mb-3" > 
+                            <button type="button" class="btn btn-success" onClick="agregarFila();"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" id="quitarFila" class="btn btn-danger" onClick="quitarFila();" disabled><i class="fa fa-minus" aria-hidden="true"></i></button>
+                        </div>
+                    </div>    
                     <form action="/Casos/{{$Caso->id}}/actualizarPago" method="post">
                         @csrf
                         <div class="row">
@@ -277,6 +281,7 @@
                                 <table class="table text-center">
                                     <thead>
                                         <tr>
+                                            
                                             <th scope="col">Factura</th>
                                             <th scope="col">Monto</th>
                                             <th scope="col">Fecha</th>
@@ -284,6 +289,7 @@
                                     </thead>
                                     <tbody id="tablaPagos">
                                         <tr class="fila1">
+                                            
                                             <td><input name="factura1" type="text" class="form-control"></td>
                                             <td><input name="monto1" type="text" class="form-control"></td>
                                             <td><input name="fecha1" type="date" class="form-control"></td>
@@ -294,16 +300,33 @@
                         </div>
                         <div class="row">
                             <input type="hidden" name="filas" id="filas" value="1">
-                            <div class="col-md-4">
-                                <button type="button" class="btn btn-success" onClick="agregarFila();">Agregar</button>
-                                <button type="button" class="btn btn-danger" onClick="quitarFila();">Quitar</button>
-                            </div>
-                            <div class="col-md-8">
-                                <button type="submit" class="btn btn-warning pull-right">Guardar</button>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary pull-right">Guardar</button>
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header">Archivos</div>
+                <div class="card-body align-items-center justify-content-center">
+                    <ul class="list-group">
+                        @foreach($Archivos as $archivo)
+                        <li class="list-group-item"><b><a target="popup"
+                                    onclick="window.open('/images/caso{{$Caso->id}}-{{$archivo}}','Archivo-Caso{{$Caso->id}}','width=600,height=400')">{{$archivo}}</a></b>
+                        </li>
+                        @endforeach
+                    </ul>
                     <hr>
+                    <div class="form-group">
+                        <form action="/Caso/{{$Caso->id}}/guardarMedia" enctype="multipart/form-data" class="dropzone"
+                            id="fileupload" method="POST">
+                            @csrf
+                            <div class="fallback">
+                                <input name="file" type="files" multiple accept="image/jpeg, image/png, image/jpg" />
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -315,7 +338,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="funerariaModalLabel">Funerarias</h5>
+                <h5 class="modal-title" id="funerariaModalLabel">Asignar Funeraria</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -324,7 +347,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -335,7 +358,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detalleModalLabel">Funerarias</h5>
+                <h5 class="modal-title" id="detalleModalLabel">Información</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -344,7 +367,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -361,7 +384,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h1><b>¿Est&aacute; seguro que desea cerrar el caso?</b></h1>
+                <h3>¿Est&aacute; seguro que desea cerrar el caso?</h3>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -408,10 +431,10 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-12">
-                                            <b>Nuevo costo: </b>{{$solicitud->costo}}
+                                            <b>Nuevo costo: </b><br>{{$solicitud->costo}}
                                             <br>
-                                            <p><b>Descripci&oacute;n de solicitud:</b></p>
-                                            <span>{{$solicitud->descripcion}}</span>
+                                            <p><b>Descripci&oacute;n de solicitud:</b><br>{{$solicitud->descripcion}}</p>
+                                            
                                         </div>
                                     </div>
                                     <hr>
@@ -540,13 +563,29 @@
             success: function (response) {
                 var len = response.length;
                 var html = '';
+                html += '<div class="row mt-4">\
+                            <div class="col-7">\
+                            <h4>Seleccione los medios por los cuales desea notificar a la funeraria.</h4>\
+                            </div>\
+                            <div class="col-5 text-center">\
+                                <div class="form-check form-check-inline">\
+                                    <input class="form-check-input" type="checkbox" id="Correo" value="Si" style="width:20px; height:20px;" onchange="habilitarAsignar();">\
+                                    <label class="form-check-label" for="Correo"><h5>Correo</h5></label>\
+                                </div>\
+                                <div class="form-check form-check-inline">\
+                                    <input class="form-check-input" type="checkbox" id="WhatsApp" value="Si" style="width:20px; height:20px;" onchange="habilitarAsignar();">\
+                                    <label class="form-check-label" for="WhatsApp"><h5>WhatsApp</h5></label>\
+                                </div>\
+                            </div>\
+                        </div>\
+                        <hr class="my-4">';
                 for (var i = 0; i < len; i++) {
                     if (response[i].departamento == "{{$Caso->Departamento}}") {
-                        html += '<h3><b>Recomendada</b></h3>\
-                        <table class="table">\
-                            <thead class="thead-dark">\
+                        html += '<h5>Recomendada</h5>\
+                        <table class="table table-light table-striped border rounded">\
+                            <thead class="">\
                                 <tr>\
-                                    <th scope="col">Funeraria</th>\
+                                    <th scope="col">Nombre</th>\
                                     <th scope="col">Departamento</th>\
                                     <th scope="col">Tel.</th>\
                                     <th scope="col">Acciones</th>\
@@ -557,37 +596,21 @@
                                     <td>' + response[i].funeraria + '</td>\
                                     <td>' + response[i].departamento + '</td>\
                                     <td>' + response[i].tel_contacto + '</td>\
-                                    <td><button class="btn btn-primary" id="idFuneraria" onclick="detalleFuneraria(' +
+                                    <td><button class="btn btn-outline-info" id="idFuneraria" onclick="detalleFuneraria(' +
                             response[i].id +
-                            ')"><i class="fa fa-eye"></i></button> <button disabled class="btn btn-warning asignar" onclick="preAsignarFuneraria({{$Caso->id}},' +
+                            ')">Ver</button> <button disabled class="btn btn-primary asignar" onclick="preAsignarFuneraria({{$Caso->id}},' +
                             response[i].id + ')">Asignar</button></td>\
                                 </tr>\
                             </tbody>\
-                        </table><br>';
+                        </table><hr class="my-4">';
                     }
                 }
-                html += '<div class="row">\
-                            <div class="col text-center">\
-                            <h4><b>Seleccione los medios por los cuales desea notificar a la funeraria.</b></h4>\
-                            </div>\
-                        </div>\
-                        <div class="row">\
-                            <div class="col text-center">\
-                                <div class="form-check form-check-inline">\
-                                    <input class="form-check-input" type="checkbox" id="Correo" value="Si" style="width:20px; height:20px;" onchange="habilitarAsignar();">\
-                                    <label class="form-check-label" for="Correo"><h4>Correo</h4></label>\
-                                </div>\
-                                <div class="form-check form-check-inline">\
-                                    <input class="form-check-input" type="checkbox" id="WhatsApp" value="Si" style="width:20px; height:20px;" onchange="habilitarAsignar();">\
-                                    <label class="form-check-label" for="WhatsApp"><h4>WhatsApp</h4></label>\
-                                </div>\
-                            </div>\
-                        </div>';
-                html += '<h3><b>Funerarias</b></h3>\
-                        <table class="table">\
-                            <thead class="thead-dark">\
+                
+                html += '<h5>Funerarias</h5>\
+                        <table class="table table-light table-striped border rounded">\
+                            <thead class="">\
                                 <tr>\
-                                    <th scope="col">Funeraria</th>\
+                                    <th scope="col">Nombre</th>\
                                     <th scope="col">Departamento</th>\
                                     <th scope="col">Tel.</th>\
                                     <th scope="col">Acciones</th>\
@@ -600,9 +623,9 @@
                                     <td>' + response[j].funeraria + '</td>\
                                     <td>' + response[j].departamento + '</td>\
                                     <td>' + response[j].tel_contacto + '</td>\
-                                    <td><button class="btn btn-primary" id="idFuneraria" onclick="detalleFuneraria(' +
+                                    <td><button class="btn btn-outline-info" id="idFuneraria" onclick="detalleFuneraria(' +
                             response[j].id +
-                            ')"><i class="fa fa-eye"></i></button> <button disabled class="btn btn-warning asignar" onclick="asignarFuneraria({{$Caso->id}},' +
+                            ')">Ver</i></button> <button disabled class="btn btn-primary asignar" onclick="asignarFuneraria({{$Caso->id}},' +
                             response[j].id + ')">Asignar</button></td>\
                                 </tr>';
                     }
@@ -633,12 +656,12 @@
                             costo_servicio = 1000;
                         }
 
-                        html = '<p><b>Funeraria: ' + response[i].funeraria + '</b></p>\
-                        <p><b>Direcci&oacute;n: ' + response[i].direccion + '</b></p>\
-                        <p><b>Departamento: ' + response[i].departamento + '</b></p>\
-                        <p><b>Tel. Contacto: ' + response[i].tel_contacto + '</b></p>\
-                        <p><b>Tel. Coordinador: ' + response[i].tel_coordinador + '</b></p>\
-                        <p><b>Costo del servicio: ' + costo_servicio + '</b></p>';
+                        html = '<h3>' + response[i].funeraria + '</h3>\
+                        <p>Direcci&oacute;n:<br> ' + response[i].direccion + '</p>\
+                        <p>Departamento:<br> ' + response[i].departamento + '</p>\
+                        <p>Tel. Contacto:<br> ' + response[i].tel_contacto + '</p>\
+                        <p>Tel. Coordinador:<br> ' + response[i].tel_coordinador + '</p>\
+                        <p>Costo del servicio:<br> <b>Q' + costo_servicio + '</b></p>';
                     }
                 }
                 $('#modal-detalle').html(html);
@@ -711,13 +734,20 @@
             <td><input name="fecha' + nuevafila + '" type="date" class="form-control"></td>\
         </tr>';
         $('#tablaPagos').append(html);
+
+        if(nuevafila != 1){
+            $('#quitarFila').prop('disabled', false);
+        }
     }
 
     function quitarFila() {
         var fila = $('#filas').val();
         var nuevafila = parseInt(fila) - 1;
         $('#filas').val(nuevafila);
-        $('#fila' + fila).remove();
+        if(fila == 1 || nuevafila == 1){
+            $('#quitarFila').prop('disabled', true);
+        }
+        $('.fila' + fila).remove();
     }
 
     function actualizarSolicitud(solicitud, opcion) {

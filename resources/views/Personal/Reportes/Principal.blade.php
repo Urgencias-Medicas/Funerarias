@@ -3,37 +3,60 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <h1>Generar Reportes</h1>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <label for="fechaInicio"><b>Fecha Inicio</b></label>
-                            <input type="date" id="fechaInicio">
-                            <label for="fechaFin"><b>Fecha Fin</b></label>
-                            <input type="date" id="fechaFin">
+        <div class="col-md-12">
+            <h3>Reportes</h3>
+            <!--<div class="row">
+                <div class="col-md-12 text-center">
+                    <label for="fechaInicio"><b>Fecha Inicio</b></label>
+                    <input type="date" id="fechaInicio">
+                    <label for="fechaFin"><b>Fecha Fin</b></label>
+                    <input type="date" id="fechaFin">
+                </div>
+            </div>-->
+            <div class="row mt-4">
+                <div class="col">
+                    <label for="fechaInicio">Fecha de Inicio</label>
+                    <div class="input-group " >
+                        <input type="date" id="fechaInicio" class="form-control">
+                        <div class="input-group-append">
+                            <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div>
                         </div>
                     </div>
-                    <br>
-                    <ul class="list-group">
-                        <div class="list-group">
-                            <a onclick="reporte('Edades');" class="list-group-item list-group-item-action">
-                            Edades de muertes
-                            </a>
+                </div>
+                <div class="col">
+                    <label for="fechaFin">Fecha de Final</label>
+                    <div class="input-group " >
+                        <input type="date" id="fechaFin" class="form-control">
+                        <div class="input-group-append">
+                            <div class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></div>
                         </div>
-                        <div class="list-group">
-                            <a onclick="reporte('Causas');" class="list-group-item list-group-item-action">
-                            Causas de muertes
-                            </a>
-                        </div>
-                        <div class="list-group">
-                            <a onclick="reporte('Lugares');" class="list-group-item list-group-item-action">
-                            Lugares de muertes
-                            </a>
-                        </div>
-                    </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-deck mt-4">
+                <div class="card">
+                    <div class="card-body">
+                    <h4 class="card-title"><a onclick="reporte('Edades');">
+                        Edades de muertes
+                        </a></h4>
+                    <p class="card-text">Reporte que lista edades de fallecidos dentro de un parametro de fechas escogidas.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                    <h4 class="card-title"> <a onclick="reporte('Causas');" >
+                        Causas de muertes
+                        </a></h4>
+                    <p class="card-text">Reporte que lista causas de muertes dentro de un parametro de fechas escogidas.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                    <h4 class="card-title"><a onclick="reporte('Lugares');" >
+                        Lugares de muertes
+                        </a></h4>
+                    <p class="card-text">Reporte que lista lugares de muerte dentro de un parametro de fechas escogidas.</p>
+                    </div>
                 </div>
             </div>
         </div>

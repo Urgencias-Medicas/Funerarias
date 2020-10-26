@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>UMFunerarias</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -30,10 +30,10 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar-expand-md navbar navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
-                    UM-Funerarias
+                    UMFunerarias
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -67,33 +67,43 @@
                         @endrole
                         @role('Personal')
                         <li class="nav-item">
-                            <a href="/Casos/ver" class="nav-link {{ (request()->is('Casos*')) ? 'active' : '' }}">Ver
-                                Casos</a>
+                            <a href="/Casos/ver" class="nav-link {{ (request()->is('Casos*')) ? 'active' : '' }}">Casos</a>
                         </li>
                         <li class="nav-item">
                             <a href="/Personal/Funerarias/ver"
                                 class="nav-link {{ (request()->is('Personal/Funerarias*')) ? 'active' : '' }}"><span>
-                                    Funerarias </span><i class="fa fa-users"></i></a>
+                                    Funerarias </span></a>
                         </li>
                         <li class="nav-item">
                             <a href="/Personal/Reportes/ver"
                                 class="nav-link {{ (request()->is('Personal/Reportes*')) ? 'active' : '' }}"><span>
-                                    Reportes </span><i class="fa fa-file"></i></a>
+                                    Reportes </span></a>
                         </li>
                         @endrole
                         @role('Funeraria')
                         <li class="nav-item">
                             <a href="/Funerarias/Casos/ver"
-                                class="nav-link {{ (request()->is('Funerarias/Casos*')) ? 'active' : '' }}">Ver
-                                Casos</a>
+                                class="nav-link {{ (request()->is('Funerarias/Casos*')) ? 'active' : '' }}">Casos</a>
                         </li>
                         <li class="nav-item">
                             <a href="/Funerarias/Descargas"
-                                class="nav-link {{ (request()->is('Funerarias/Descargas*')) ? 'active' : '' }}">Portal
-                                de Descargas</a>
+                                class="nav-link {{ (request()->is('Funerarias/Descargas*')) ? 'active' : '' }}">Descargas</a>
                         </li>
                         @endrole
-
+                        @role('Super Admin')
+                        <li class="nav-item">
+                            <a href="/Admin/CrearAgente"
+                                class="nav-link {{ (request()->is('Admin/CrearAgente*')) ? 'active' : '' }}">Crear Agente</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/CrearUsuario"
+                                class="nav-link {{ (request()->is('Admin/CrearUsuario*')) ? 'active' : '' }}">Crear Usuario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/CrearFuneraria"
+                                class="nav-link {{ (request()->is('Admin/CrearFuneraria*')) ? 'active' : '' }}">Crear Funeraria</a>
+                        </li>
+                        @endrole
                         @php
                         $contador = 0
                         @endphp
@@ -121,7 +131,7 @@
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <span id="contadorNotificaciones" class="badge badge-pill badge-primary">{{$contador}}</span> Notificaciones
+                                <span id="contadorNotificaciones" class="badge badge-pill badge-danger">{{$contador}}</span> Notificaciones
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -191,5 +201,8 @@
 
     </script>
 </body>
+<footer class="text-center my-3">
+    Excess, S.A. | Urgencias Medicas, S.A.
+</footer>
 
 </html>

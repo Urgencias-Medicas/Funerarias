@@ -4,12 +4,9 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">Notificaciones</div>
-
-                <div class="card-body align-items-center d-flex justify-content-center">
-                    <div class="container">
+        <div class="col-md-8">
+        <h3 class="mt-3">Notificaciones</h3>
+                   
                         <div class="row">
                             <div class="col-12">
                                 <ul class="list-group">
@@ -19,9 +16,6 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

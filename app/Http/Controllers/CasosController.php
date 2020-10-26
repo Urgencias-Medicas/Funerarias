@@ -27,9 +27,10 @@ class CasosController extends Controller
         return view('Agentes.Casos.crear');
     }
     public function guardarNuevo(Request $request){
+        $user = auth()->user();
         $suceso = Carbon::parse($request->fecha);
         $fecha = $suceso->format('Y-m-d');
-        $data = ['Codigo' => $request->codEstudiante, 'Nombre' => $request->nombre, 
+        $data = ['Agente' => $user->id, 'Codigo' => $request->codEstudiante, 'Nombre' => $request->nombre, 
         'Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 
         'Direccion' => $request->direccion, 'Departamento' => $request->departamento, 
         'Municipio' => $request->municipio, 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
@@ -92,7 +93,7 @@ class CasosController extends Controller
             }
         }
         $pagos = HistorialPagos::where('caso', $id)->get();
-        $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'DESC')->get();
+        $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'desc')->get();
         return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes]);
     }
 
