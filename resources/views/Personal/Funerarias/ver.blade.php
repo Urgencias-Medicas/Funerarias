@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
         <h3 class="mt-3">Funerarias</h3>
-                    <table class="table table-light table-striped border rounded mb-5">
+                    <table id="table" class="table table-light table-striped border rounded mb-5">
                         <thead class="">
                             <tr>
                                 <th scope="col">Nombre</th>
@@ -41,4 +41,10 @@
         </div>
     </div>
 </div>
+<script>
+$(document).ready(function () {
+    $.noConflict();
+    var table = $('#table').DataTable();
+});
+</script>
 @endsection

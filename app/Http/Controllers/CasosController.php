@@ -192,7 +192,28 @@ class CasosController extends Controller
             {
                 $message->to('samuelambrosio99@gmail.com', 'test')->subject('Encuesta UMFunerarias')->from('no-reply@excess.software', 'Urgencias Médicas');
             });
-        Notificaciones::create(['funeraria' => $caso->funeraria, 'contenido' => 'El caso #'.$caso->id.' se ha cerrado.', 'estatus' => 'Activa', 'caso' => $caso->id]);
+        Notificaciones::create(['funeraria' => $caso->Funeraria, 'contenido' => 'El caso #'.$caso->id.' se ha cerrado.', 'estatus' => 'Activa', 'caso' => $caso->id]);
+
+        //POST API Smart
+        $arrayCaso = array(array(
+            "method" => "603",
+            "IdUser" => $caso->Agente,
+            "IdAfilieado" => $caso->Codigo,
+            "Fecha" => $caso->Fecha,
+            "Hora" => $caso->Hora,
+            "Motivo" => $caso->Causa,
+            "LugarCuerpo" => $caso->Lugar,
+            "Funeraria" => $caso->Funeraria,
+            "ServicioFunerarioContratado" => $caso->Funeraria,
+            "Direccion" => $caso->Direccion
+        ));
+
+        $data = Helper::cryptR($arrayCaso, 1);
+
+        $client = new \GuzzleHttp\Client();
+        $api_uri = "http://umwsdl.smartla.net/wsdl_um.php";
+        $res = $client->request('POST', $api_uri, ['body' => $data]);
+
         return 'Hecho';
     }
     public function mensajeWhatsApp($message, $recipient){

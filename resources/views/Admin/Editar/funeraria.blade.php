@@ -8,7 +8,7 @@
                 <div class="card-header">Registrar usuario</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/Personal/nuevaFuneraria">
+                    <form method="POST" action="/Personal/guardarFuneraria/{{$usuario->id}}">
                         @csrf
 
                         <div class="form-group row">
@@ -16,7 +16,7 @@
 
                             <div class="col-md-6">
                                 <input id="nombre" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="nombre" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    name="nombre" value="{{ $usuario->name }}" required autocomplete="name" autofocus>
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -31,7 +31,7 @@
 
                             <div class="col-md-6">
                                 <input id="mail" type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="mail" value="{{ old('email') }}" required autocomplete="email">
+                                    name="mail" value="{{ $usuario->email }}" required autocomplete="email">
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -41,19 +41,19 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <!--<div class="form-group row">
                             <label for="tipo" class="col-md-4 col-form-label text-md-right">Funeraria</label>
                             <div class="col-md-6">
                                 <select id="select-funerarias" name="funeraria" class="form-control">
                                     <option>-- Seleccione --</option>
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Registrar
+                                    Guardar
                                 </button>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
     </div>
 </div>
 <script>
-    $(document).ready(function () {
+    /*$(document).ready(function () {
         $.ajax({
             url: "https://umbd.excess.software/api/getFunerarias",
             type: 'get',
@@ -79,7 +79,7 @@
                 $('#select-funerarias').html(html);
             }
         });
-    });
+    });*/
 
 </script>
 @endsection

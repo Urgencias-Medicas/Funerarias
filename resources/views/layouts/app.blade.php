@@ -25,7 +25,8 @@
 
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
         rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+
 </head>
 
 <body>
@@ -66,8 +67,26 @@
                         </li>
                         @endrole
                         @role('Personal')
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Usuarios
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/Personal/verUsuarios">Ver usuarios</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Personal/CrearUsuario"
+                                    class="nav-link {{ (request()->is('Personal/CrearUsuario*')) ? 'active' : '' }}">Crear
+                                    Usuario</a>
+                                <a class="dropdown-item" href="/Personal/CrearFuneraria"
+                                    class="nav-link {{ (request()->is('Personal/CrearFuneraria*')) ? 'active' : '' }}">Crear
+                                    Funeraria</a>
+                            </div>
+                        </li>
                         <li class="nav-item">
-                            <a href="/Casos/ver" class="nav-link {{ (request()->is('Casos*')) ? 'active' : '' }}">Casos</a>
+                            <a href="/Casos/ver"
+                                class="nav-link {{ (request()->is('Casos*')) ? 'active' : '' }}">Casos</a>
                         </li>
                         <li class="nav-item">
                             <a href="/Personal/Funerarias/ver"
@@ -88,20 +107,6 @@
                         <li class="nav-item">
                             <a href="/Funerarias/Descargas"
                                 class="nav-link {{ (request()->is('Funerarias/Descargas*')) ? 'active' : '' }}">Descargas</a>
-                        </li>
-                        @endrole
-                        @role('Super Admin')
-                        <li class="nav-item">
-                            <a href="/Admin/CrearAgente"
-                                class="nav-link {{ (request()->is('Admin/CrearAgente*')) ? 'active' : '' }}">Crear Agente</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/Admin/CrearUsuario"
-                                class="nav-link {{ (request()->is('Admin/CrearUsuario*')) ? 'active' : '' }}">Crear Usuario</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/Admin/CrearFuneraria"
-                                class="nav-link {{ (request()->is('Admin/CrearFuneraria*')) ? 'active' : '' }}">Crear Funeraria</a>
                         </li>
                         @endrole
                         @php
@@ -131,7 +136,8 @@
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <span id="contadorNotificaciones" class="badge badge-pill badge-danger">{{$contador}}</span> Notificaciones
+                                <span id="contadorNotificaciones"
+                                    class="badge badge-pill badge-danger">{{$contador}}</span> Notificaciones
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -141,14 +147,22 @@
                                 @foreach($Notificaciones_head as $Notificacion)
                                 @role('Funeraria')
                                 @if($Notificacion->funeraria == $user->funeraria)
-                                <span class="dropdown-item" id="Notificacion-{{$Notificacion->id}}"><span class="fa fa-times-circle" onclick="quitarNotificacion({{$Notificacion->id}})"></span><a href="/Funerarias/Casos/{{$Notificacion->caso}}/ver" style="text-decoration: none;"> {{$Notificacion->contenido}}
-                                </a></span>
+                                <span class="dropdown-item" id="Notificacion-{{$Notificacion->id}}"><span
+                                        class="fa fa-times-circle"
+                                        onclick="quitarNotificacion({{$Notificacion->id}})"></span><a
+                                        href="/Funerarias/Casos/{{$Notificacion->caso}}/ver"
+                                        style="text-decoration: none;"> {{$Notificacion->contenido}}
+                                    </a></span>
                                 @endif
                                 @endrole
                                 @role('Personal')
-                                @if($Notificacion->funeraria === NULL)  
-                                <span class="dropdown-item" id="Notificacion-{{$Notificacion->id}}"><span class="fa fa-times-circle" onclick="quitarNotificacion({{$Notificacion->id}})"></span><a href="/Casos/{{$Notificacion->caso}}/ver" style="text-decoration: none;"> {{$Notificacion->contenido}}
-                                </a></span>
+                                @if($Notificacion->funeraria === NULL)
+                                <span class="dropdown-item" id="Notificacion-{{$Notificacion->id}}"><span
+                                        class="fa fa-times-circle"
+                                        onclick="quitarNotificacion({{$Notificacion->id}})"></span><a
+                                        href="/Casos/{{$Notificacion->caso}}/ver" style="text-decoration: none;">
+                                        {{$Notificacion->contenido}}
+                                    </a></span>
                                 @endif
                                 @endrole
                                 @endforeach
@@ -186,6 +200,9 @@
             @yield('content')
         </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
     <script>
         function quitarNotificacion(id) {
             $.ajax({
