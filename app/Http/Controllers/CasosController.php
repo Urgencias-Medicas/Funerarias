@@ -208,7 +208,7 @@ class CasosController extends Controller
             "Direccion" => $caso->Direccion
         ));
 
-        $data = Helper::cryptR($arrayCaso, 1);
+        $data = Helper::cryptR($arrayCaso, 1, 1);
 
         $client = new \GuzzleHttp\Client();
         $api_uri = "http://umwsdl.smartla.net/wsdl_um.php";
