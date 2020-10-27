@@ -70,4 +70,45 @@ class AdminController extends Controller
         }
         return view('Admin.Crear.verUsuarios', ['usuarios' => $users]);
     }
+
+    public function eliminarUsuario($id){
+        $user = User::find($id)->delete();
+
+        return 'Hecho';
+    }
+
+    public function editarUsuario($id){
+        $user = User::find($id);
+
+        return view('Admin.Editar.usuario', ['usuario' => $user]);
+    }
+
+    public function editarFuneraria($id){
+        $user = User::find($id);
+
+        return view('Admin.Editar.funeraria', ['usuario' => $user]);
+    }
+
+    public function guardarCambiosUsuario($id, Request $request){
+        $user = User::find($id);
+
+        $user->name = $request->nombre;
+        $user->email = $request->mail;
+        
+        $user->save();
+
+        return redirect('/Personal/verUsuarios');
+    }
+
+    public function guardarCambiosFuneraria($id, Request $request){
+        $user = User::find($id);
+
+        $user->name = $request->nombre;
+        $user->email = $request->mail;
+        //$user->funeraria = $request->funeraria;
+        
+        $user->save();
+
+        return redirect('/Personal/verUsuarios');
+    }
 }

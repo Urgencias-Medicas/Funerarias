@@ -192,10 +192,10 @@ class CasosController extends Controller
             {
                 $message->to('samuelambrosio99@gmail.com', 'test')->subject('Encuesta UMFunerarias')->from('no-reply@excess.software', 'Urgencias Médicas');
             });
-        Notificaciones::create(['funeraria' => $caso->funeraria, 'contenido' => 'El caso #'.$caso->id.' se ha cerrado.', 'estatus' => 'Activa', 'caso' => $caso->id]);
+        Notificaciones::create(['funeraria' => $caso->Funeraria, 'contenido' => 'El caso #'.$caso->id.' se ha cerrado.', 'estatus' => 'Activa', 'caso' => $caso->id]);
 
         //POST API Smart
-        $data = array(array(
+        $arrayCaso = array(array(
             "method" => "603",
             "IdUser" => $caso->Agente,
             "IdAfilieado" => $caso->Codigo,

@@ -1,10 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -25,12 +21,19 @@
                         </thead>
                         <tbody>
                             @foreach($usuarios as $user)
-                            <tr>
+                            <tr id="user-{{$user->id}}">
                                 <td>{{$user->id}}</td>
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->rol}}</td>
-                                <td>-</td>
+                                <td>
+                                    <button class="btn btn-danger" onclick="eliminar({{$user->id}})">Eliminar</button>
+                                @if($user->rol == 'Agente' || $user->rol == 'Personal')
+                                    <a href="/Personal/editarUsuario/{{$user->id}}"><button class="btn btn-primary">Editar</button></a>
+                                @else
+                                    <a href="/Personal/editarFuneraria/{{$user->id}}"><button class="btn btn-primary">Editar</button></a>
+                                @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -41,8 +44,19 @@
     </div>
 </div>
 <script>
-$(document).ready(function() {
-    $('#table').DataTable();
-} );
+$(document).ready(function () {
+    $.noConflict();
+    var table = $('#table').DataTable();
+});
+
+function eliminar(id){
+    $.ajax({
+            url: "/Personal/eliminarUsuario/" + id,
+            type: 'get',
+            success: function (response) {
+                $('#user-'+id).remove();
+            }
+        });
+}
 </script>
 @endsection

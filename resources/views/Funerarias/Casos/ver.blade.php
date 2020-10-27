@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
         <h3 class="mt-3">Casos</h3>
-            <table class="table table-light table-striped border rounded mb-5">
+            <table id="table" class="table table-light table-striped border rounded mb-5">
                 <thead>
                     <tr>
                         <th scope="col">Caso #</th>
@@ -43,4 +42,10 @@
         </div>
     </div>
 </div>
+<script>
+$(document).ready(function () {
+    $.noConflict();
+    var table = $('#table').DataTable();
+});
+</script>
 @endsection

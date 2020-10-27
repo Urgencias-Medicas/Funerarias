@@ -56,6 +56,11 @@ Route::group(['prefix' => 'Personal'], function (){
     Route::post('nuevoUsuario', 'AdminController@guardarUsuario');
     Route::post('nuevaFuneraria', 'AdminController@guardarFuneraria');
     Route::get('verUsuarios', 'AdminController@verUsuarios');
+    Route::get('eliminarUsuario/{id}', 'AdminController@eliminarUsuario');
+    Route::get('editarFuneraria/{id}', 'AdminController@editarFuneraria');
+    Route::get('editarUsuario/{id}', 'AdminController@editarUsuario');
+    Route::post('guardarUsuario/{id}', 'AdminController@guardarCambiosUsuario');
+    Route::post('guardarFuneraria/{id}', 'AdminController@guardarCambiosFuneraria');
 
 });
 
