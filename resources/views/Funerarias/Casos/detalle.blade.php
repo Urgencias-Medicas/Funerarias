@@ -185,7 +185,11 @@
                     <div class="card-header">Modificar Costo Base</div>
                     <div class="card-body">
                         @php
-                        $tiene_solicitud = 0
+                        $tiene_solicitud = 0;
+                        $caso_cerrado = 0;
+                        if($Caso->Estatus == 'Cerrado'){
+                            $caso_cerrado = 1;
+                        }
                         @endphp
                         @foreach($Solicitudes As $Solicitud)
                         @if($Solicitud->estatus == 'Pendiente')
@@ -203,12 +207,18 @@
                                         <b>Actualmente tiene una solicitud pendiente de actualización de costo.</b>
                                     </div>
                                 </div>
+                                @elseif($caso_cerrado == 1)
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <b>Caso cerrado</b>
+                                    </div>
+                                </div>
                                 @endif
                                 <div class="form-row m-0">
                                     <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
                                         <label for="costoServicio">Costo</label>
                                         <input type="text" class="form-control" value="{{$Caso->Costo}}" name="Costo"
-                                            {{$tiene_solicitud == 1 ? "readonly" : ""}}>
+                                            {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "readonly" : ""}}>
                                     </div>
 
                                     <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
@@ -225,13 +235,13 @@
                                     <div class="form-group col-md-12 p-2 m-0 d-flex flex-column justify-content-end">
                                         <label for="descripcionCosto">Descripci&oacute;n</label>
                                         <textarea name="Descripcion" class="form-control"
-                                            {{$tiene_solicitud == 1 ? "readonly" : ""}}></textarea>
+                                            {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "readonly" : ""}}></textarea>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <button class="btn btn-success btn-block"
-                                            {{$tiene_solicitud == 1 ? "disabled" : ""}}>Guardar</button>
+                                            {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "disabled" : ""}}>Guardar</button>
                                     </div>
                                 </div>
                                 <div class="row">

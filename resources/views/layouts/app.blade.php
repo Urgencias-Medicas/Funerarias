@@ -61,13 +61,18 @@
                                 </li>
                             @endif -->
                         @else
-                        @role('Agente')
+                        @role('Agente|Personal')
                         <li class="nav-item">
-                            <a href="/Casos/vistaCrear" class="nav-link active">Nuevo caso</a>
+                            <a href="/Casos/vistaCrear"
+                                class="nav-link {{ (request()->is('Casos/vistaCrear*')) ? 'active' : '' }}">Nuevo
+                                caso</a>
                         </li>
                         @endrole
                         @role('Personal')
-
+                        <li class="nav-item">
+                            <a href="/Casos/ver"
+                                class="nav-link {{ (request()->is('Casos/ver*')) ? 'active' : '' }}">Casos</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -83,10 +88,6 @@
                                     class="nav-link {{ (request()->is('Personal/CrearFuneraria*')) ? 'active' : '' }}">Crear
                                     Funeraria</a>
                             </div>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/Casos/ver"
-                                class="nav-link {{ (request()->is('Casos*')) ? 'active' : '' }}">Casos</a>
                         </li>
                         <li class="nav-item">
                             <a href="/Personal/Funerarias/ver"
@@ -180,6 +181,9 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/password/cambio">
+                                    Cambiar contrase&nacute;a
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}

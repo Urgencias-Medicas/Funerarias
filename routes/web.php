@@ -25,6 +25,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['prefix' => 'password'], function () {
+    Route::get('cambio', 'HomeController@cambioPassword');
+    Route::get('verificar/{password}', 'HomeController@verificarPassword');
+    Route::post('guardarCambio', 'HomeController@guardarPassword');
+});
+
 Route::get('/Notificaciones', 'HomeController@notificaciones');
 
 Route::group(['prefix' => 'Casos'], function () {
