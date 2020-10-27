@@ -5,11 +5,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Usuarios</div>
-
-                <div class="card-body">
-                    <table id="table" class="table table-striped table-bordered text-center" style="width:100%">
+        <h3 class="mt-4">Usuarios</h3>
+                    <table id="table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>id</th>
@@ -27,19 +24,17 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->rol}}</td>
                                 <td>
-                                    <button class="btn btn-danger" onclick="eliminar({{$user->id}})">Eliminar</button>
                                 @if($user->rol == 'Agente' || $user->rol == 'Personal')
-                                    <a href="/Personal/editarUsuario/{{$user->id}}"><button class="btn btn-primary">Editar</button></a>
+                                    <a href="/Personal/editarUsuario/{{$user->id}}"><button class="btn btn-link">Editar</button></a>
                                 @else
-                                    <a href="/Personal/editarFuneraria/{{$user->id}}"><button class="btn btn-primary">Editar</button></a>
+                                    <a href="/Personal/editarFuneraria/{{$user->id}}"><button class="btn btn-link">Editar</button></a>
                                 @endif
+                                <button class="btn btn-link" onclick="eliminar({{$user->id}})">Eliminar</button>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                </div>
-            </div>
         </div>
     </div>
 </div>
