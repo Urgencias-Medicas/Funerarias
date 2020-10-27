@@ -82,7 +82,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="TelPadre">Tel. Padre</label>
-                                <input type="text" name="TelPadre" id="TelPadre" class="form-control">
+                                <input type="text" name="TelPadre" id="TelPadre" maxlength="8" class="form-control">
                             </div>
                         </div>
                         <div class="form-row">
@@ -92,7 +92,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="TelMadre">Tel. Madre</label>
-                                <input type="text" name="TelMadre" id="TelMadre" class="form-control">
+                                <input type="text" name="TelMadre" id="TelMadre" maxlength="8" class="form-control">
                             </div>
                         </div>
                         <hr>
@@ -103,7 +103,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="TelTutor">Tel&eacute;fono Tutor</label>
-                                <input type="text" name="TelTutor" id="TelTutor" class="form-control">
+                                <input type="text" name="TelTutor" id="TelTutor" maxlength="8" class="form-control">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="DPITutor">DPI Tutor</label>
@@ -144,7 +144,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="TelReporta">Tel&eacute;fono</label>
-                                <input type="text" name="TelReporta" id="TelReporta" class="form-control">
+                                <input type="text" name="TelReporta" id="TelReporta" maxlength="8" class="form-control">
                             </div>
                         </div>
                         <hr>
@@ -185,6 +185,40 @@
             $('#nombre').val('Rosa Mendoza');
         }
     }
+
+    // Restricts input for the given textbox to the given inputFilter function.
+    function setInputFilter(textbox, inputFilter) {
+        ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (
+            event) {
+            textbox.addEventListener(event, function () {
+                if (inputFilter(this.value)) {
+                    this.oldValue = this.value;
+                    this.oldSelectionStart = this.selectionStart;
+                    this.oldSelectionEnd = this.selectionEnd;
+                } else if (this.hasOwnProperty("oldValue")) {
+                    this.value = this.oldValue;
+                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                } else {
+                    this.value = "";
+                }
+            });
+        });
+    }
+
+    $(document).ready(function () {
+        setInputFilter(document.getElementById("TelPadre"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+        setInputFilter(document.getElementById("TelMadre"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+        setInputFilter(document.getElementById("TelTutor"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+        setInputFilter(document.getElementById("TelReporta"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+    });
 
 </script>
 @endsection

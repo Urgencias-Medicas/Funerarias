@@ -61,17 +61,33 @@
                                 </li>
                             @endif -->
                         @else
-                        @role('Agente')
+                        @role('Agente|Personal')
                         <li class="nav-item">
-                            <a href="/Casos/vistaCrear" class="nav-link active">Nuevo caso</a>
+                            <a href="/Casos/vistaCrear"
+                                class="nav-link {{ (request()->is('Casos/vistaCrear*')) ? 'active' : '' }}">Nuevo
+                                caso</a>
                         </li>
                         @endrole
                         @role('Personal')
-
-                        
                         <li class="nav-item">
                             <a href="/Casos/ver"
-                                class="nav-link {{ (request()->is('Casos*')) ? 'active' : '' }}">Casos</a>
+                                class="nav-link {{ (request()->is('Casos/ver*')) ? 'active' : '' }}">Casos</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Usuarios
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/Personal/verUsuarios">Ver usuarios</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Personal/CrearUsuario"
+                                    class="nav-link {{ (request()->is('Personal/CrearUsuario*')) ? 'active' : '' }}">Crear
+                                    Usuario</a>
+                                <a class="dropdown-item" href="/Personal/CrearFuneraria"
+                                    class="nav-link {{ (request()->is('Personal/CrearFuneraria*')) ? 'active' : '' }}">Crear
+                                    Funeraria</a>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a href="/Personal/Funerarias/ver"
@@ -157,22 +173,6 @@
                                 </a>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                               |&nbsp;&nbsp;&nbsp; Usuarios
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/Personal/verUsuarios">Todos</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Personal/CrearUsuario"
-                                    class="nav-link {{ (request()->is('Personal/CrearUsuario*')) ? 'active' : '' }}">Crear
-                                    Usuario</a>
-                                <a class="dropdown-item" href="/Personal/CrearFuneraria"
-                                    class="nav-link {{ (request()->is('Personal/CrearFuneraria*')) ? 'active' : '' }}">Crear
-                                    Funeraria</a>
-                            </div>
-                        </li>
                         @endrole
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -181,6 +181,9 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/password/cambio">
+                                    Cambiar contrase&nacute;a
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}

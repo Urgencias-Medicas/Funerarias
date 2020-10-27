@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 define('METHOD', "aes-128-cbc");
 define('KEY', "51C9D6DF37741DF8");
-define('KEY_SMART', "2327E7E13A9A254C");
+define('KEY_SMART', "25c6c7ff35b9979b151f2136cd13b0ff");
 define('IV', "H12H34H90HABHEFH");
 
 class Helper

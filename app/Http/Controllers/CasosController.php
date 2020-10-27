@@ -32,14 +32,14 @@ class CasosController extends Controller
         $fecha = $suceso->format('Y-m-d');
         $data = ['Agente' => $user->id, 'Codigo' => $request->codEstudiante, 'Nombre' => $request->nombre, 
         'Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 
-        'Direccion' => $request->direccion, 'Departamento' => $request->departamento, 
-        'Municipio' => $request->municipio, 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
+        'Direccion' => $request->direccion, 'Departamento' => strtoupper($request->departamento), 
+        'Municipio' => strtoupper($request->municipio), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
         'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 'RelacionReporta' => $request->RelacionReporta, 
         'TelReporta' => $request->TelReporta, 'Lugar' => $request->lugar, 'Estatus' => 'Abierto', 'Reportar' => 'No', 'Idioma' => $request->Idioma, 
         'Medico' => $request->Medico, 'Tutor' => $request->Tutor, 'TelTutor' => $request->TelTutor, 'DPITutor' => $request->DPITutor,
         'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, 'ComentarioTutor' => $request->ComentarioTutor];
         $caso = Casos::create($data);
-        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #', 'estatus' => 'Activa', 'caso' => $caso->id]);
+        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #'.$caso->id.' creado.', 'estatus' => 'Activa', 'caso' => $caso->id]);
         return redirect('/Casos/vistaCrear');
     }
     public function guardarMedia($caso, Request $request){
@@ -56,7 +56,7 @@ class CasosController extends Controller
         }
     }
     public function verCasos(){
-        $casos = Casos::orderBy('id', 'DESC')->get();
+        $casos = Casos::orderBy('id', 'asc')->get();
         foreach($casos as $caso){
             $api_uri = "https://umbd.excess.software/api/getFuneraria";
             $client = new \GuzzleHttp\Client([
@@ -198,7 +198,7 @@ class CasosController extends Controller
         $arrayCaso = array(array(
             "method" => "603",
             "IdUser" => $caso->Agente,
-            "IdAfilieado" => $caso->Codigo,
+            "IdAfiliado" => $caso->Codigo,
             "Fecha" => $caso->Fecha,
             "Hora" => $caso->Hora,
             "Motivo" => $caso->Causa,
@@ -208,7 +208,7 @@ class CasosController extends Controller
             "Direccion" => $caso->Direccion
         ));
 
-        $data = Helper::cryptR($arrayCaso, 1);
+        $data = Helper::cryptR($arrayCaso, 1, 1);
 
         $client = new \GuzzleHttp\Client();
         $api_uri = "http://umwsdl.smartla.net/wsdl_um.php";
@@ -245,3 +245,4 @@ class CasosController extends Controller
         return response()->json($data, 200);
     }
 }
+

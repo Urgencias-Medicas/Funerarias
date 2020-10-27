@@ -61,7 +61,11 @@
 <script>
     $(document).ready(function () {
         $.noConflict();
-        var table = $('#table').DataTable();
+        var table = $('#table').DataTable({
+            "order": [
+                [0, "desc"]
+            ]
+        });
     });
 
 </script>

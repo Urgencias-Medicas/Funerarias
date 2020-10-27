@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Notificaciones;
+use Illuminate\Support\Facades\Hash;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -53,5 +55,24 @@ class HomeController extends Controller
             $notificaciones = Notificaciones::where('funeraria', $user->funeraria)->orderBy('id', 'DESC')->get();
         }
         return view('General.notificaciones', ['Notificaciones' => $notificaciones]);
+    }
+
+    public function cambioPassword(){
+        return view('General.cambioPassword');
+    }
+    public function verificarPassword($password){
+        $user = auth()->user();
+        $current_password = $user['password'];
+        if(Hash::check($password, $current_password)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function guardarPassword(Request $request){
+        $user = auth()->user();
+        $id = $user['id'];
+        User::where("id", $id)->update(['Password' => Hash::make($request->newPassword)]);
+        return redirect("/home");
     }
 }
