@@ -68,22 +68,7 @@
                         @endrole
                         @role('Personal')
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Usuarios
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/Personal/verUsuarios">Ver usuarios</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Personal/CrearUsuario"
-                                    class="nav-link {{ (request()->is('Personal/CrearUsuario*')) ? 'active' : '' }}">Crear
-                                    Usuario</a>
-                                <a class="dropdown-item" href="/Personal/CrearFuneraria"
-                                    class="nav-link {{ (request()->is('Personal/CrearFuneraria*')) ? 'active' : '' }}">Crear
-                                    Funeraria</a>
-                            </div>
-                        </li>
+                        
                         <li class="nav-item">
                             <a href="/Casos/ver"
                                 class="nav-link {{ (request()->is('Casos*')) ? 'active' : '' }}">Casos</a>
@@ -170,6 +155,22 @@
                                 <a class="dropdown-item text-center" href="/Notificaciones">
                                     Ver todo
                                 </a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               |&nbsp;&nbsp;&nbsp; Usuarios
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/Personal/verUsuarios">Todos</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Personal/CrearUsuario"
+                                    class="nav-link {{ (request()->is('Personal/CrearUsuario*')) ? 'active' : '' }}">Crear
+                                    Usuario</a>
+                                <a class="dropdown-item" href="/Personal/CrearFuneraria"
+                                    class="nav-link {{ (request()->is('Personal/CrearFuneraria*')) ? 'active' : '' }}">Crear
+                                    Funeraria</a>
                             </div>
                         </li>
                         @endrole
