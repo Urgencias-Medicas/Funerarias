@@ -235,7 +235,7 @@
                                     <div class="form-group col-md-12 p-2 m-0 d-flex flex-column justify-content-end">
                                         <label for="descripcionCosto">Descripci&oacute;n</label>
                                         <textarea name="Descripcion" class="form-control"
-                                            {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "readonly" : ""}}></textarea>
+                                            {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "readonly" : ""}} required></textarea>
                                     </div>
                                 </div>
                                 <div class="row">

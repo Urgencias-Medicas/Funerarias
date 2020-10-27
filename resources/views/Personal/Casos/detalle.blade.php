@@ -573,14 +573,14 @@
                                     <label class="form-check-label" for="Correo"><h5>Correo</h5></label>\
                                 </div>\
                                 <div class="form-check form-check-inline">\
-                                    <input class="form-check-input" type="checkbox" id="WhatsApp" value="Si" style="width:20px; height:20px;" onchange="habilitarAsignar();">\
+                                    <input class="form-check-input" type="checkbox" id="WhatsApp" value="Si" style="width:20px; height:20px;" disabled onchange="habilitarAsignar();">\
                                     <label class="form-check-label" for="WhatsApp"><h5>WhatsApp</h5></label>\
                                 </div>\
                             </div>\
                         </div>\
                         <hr class="my-4">';
                 for (var i = 0; i < len; i++) {
-                    if (response[i].departamento == "{{$Caso->Departamento}}") {
+                    if (response[i].departamento == "{{strtoupper($Caso->Departamento)}}" || response[i].departamento == "{{strtolower($Caso->Departamento)}}") {
                         html += '<h5>Recomendada</h5>\
                         <table class="table table-light table-striped border rounded">\
                             <thead class="">\
@@ -618,7 +618,7 @@
                             </thead>\
                             <tbody>';
                 for (var j = 0; j < len; j++) {
-                    if (response[j].departamento != "{{$Caso->Departamento}}") {
+                    if (response[j].departamento != "{{strtoupper($Caso->Departamento)}}" || response[j].departamento != "{{strtolower($Caso->Departamento)}}") {
                         html += '<tr>\
                                     <td>' + response[j].funeraria + '</td>\
                                     <td>' + response[j].departamento + '</td>\
