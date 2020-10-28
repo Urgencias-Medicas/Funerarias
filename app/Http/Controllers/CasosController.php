@@ -213,8 +213,10 @@ class CasosController extends Controller
         $client = new \GuzzleHttp\Client();
         $api_uri = "http://umwsdl.smartla.net/wsdl_um.php";
         $res = $client->request('POST', $api_uri, ['body' => $data]);
+        
+        $data = json_decode($res->getBody());
 
-        return 'Hecho';
+        var_dump($data);
     }
     public function mensajeWhatsApp($message, $recipient){
         $twilio_whatsapp_number = getenv('TWILIO_WHATSAPP_NUMBER');

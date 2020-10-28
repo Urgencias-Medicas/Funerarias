@@ -79,7 +79,7 @@ INSERT INTO `casos` VALUES (12,NULL,5,'Ana Lucía Robles','2020-10-08','12:19:00
 INSERT INTO `casos` VALUES (13,NULL,6,'Juan Antonio Palma','2020-10-08','12:39:00','Accidente','Roosevelt','GUATEMALA','GUATEMALA','Padre Test','12345678','Madre Test','87654321','Reporta test','Tutor','54687213','Edificio Tikal Futura',6,'Asignado','Si',2500,750,1750,'Aprobar',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO `casos` VALUES (14,NULL,9,'Rosa Mendoza','2020-10-26','19:19:00','Accidente','Test','GUATEMALA','GUATEMALA','Test','12345678','Test','12345678','Edgar Ambrosio','Tester','12345678',NULL,6,'Cerrado','Si',2000,1200,800,'Aprobar','Español','Test',NULL,NULL,NULL,'Sin comentarios',NULL,NULL);
 INSERT INTO `casos` VALUES (15,NULL,8,'Silvia Arévalo','2020-10-27','15:15:00','Accidente','Test','GUATEMALA','GUATEMALA','Test Padre','12345678','Madre Test','12345678','Edgar Test','Doctor','85481813',NULL,6,'Cerrado','Si',1500,500,1000,'Declinar','Español','Edgar Test',NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (16,NULL,5,'Ana Lucía Robles','2020-10-27','16:10:00','Accidente','Test','GUATEMALA','GUATEMALA','test','12138485','test','41414548','Edgar test','Test','15848415',NULL,NULL,'Abierto','No',NULL,NULL,NULL,NULL,'Español','Test',NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (16,NULL,5,'Ana Lucía Robles','2020-10-27','16:10:00','Accidente','Test','GUATEMALA','GUATEMALA','test','12138485','test','41414548','Edgar test','Test','15848415',NULL,NULL,'Cerrado','No',NULL,NULL,NULL,NULL,'Español','Test',NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `casos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +312,7 @@ CREATE TABLE `notificaciones` (
   `estatus` text CHARACTER SET utf8 COLLATE utf8_persian_ci NOT NULL,
   `caso` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -359,6 +359,12 @@ INSERT INTO `notificaciones` VALUES (35,NULL,'El caso #15 tiene una nueva solici
 INSERT INTO `notificaciones` VALUES (36,6,'La solicitud del caso #15 ha sido rechazada.','Activa',15);
 INSERT INTO `notificaciones` VALUES (37,6,'El caso #15 se ha cerrado.','Activa',15);
 INSERT INTO `notificaciones` VALUES (38,NULL,'Caso #16 creado.','Activa',16);
+INSERT INTO `notificaciones` VALUES (39,NULL,'El caso #16 se ha cerrado.','Activa',16);
+INSERT INTO `notificaciones` VALUES (40,NULL,'El caso #16 se ha cerrado.','Activa',16);
+INSERT INTO `notificaciones` VALUES (41,NULL,'El caso #16 se ha cerrado.','Activa',16);
+INSERT INTO `notificaciones` VALUES (42,NULL,'El caso #16 se ha cerrado.','Activa',16);
+INSERT INTO `notificaciones` VALUES (43,NULL,'El caso #16 se ha cerrado.','Activa',16);
+INSERT INTO `notificaciones` VALUES (44,NULL,'El caso #16 se ha cerrado.','Activa',16);
 /*!40000 ALTER TABLE `notificaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -545,7 +551,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (1,'Agente Call Center','agent@callcenter.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','1nPyn4QDB5bUqzPA7LEcoszkFoAwVZlPDCyINUh1Qt5uRMDoBdkzF61nuLSx','2020-09-09 01:57:39','2020-09-09 01:57:39',NULL,NULL,NULL);
-INSERT INTO `users` VALUES (2,'Personal UM','personal@um.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','bfkiMIlO7FIZNm3XMa9HIu3sQKLC2XtdDjiDyjXuMg22Zm2OrbbXJZs0SOM2','2020-09-09 01:57:39','2020-09-09 01:57:39',NULL,NULL,NULL);
+INSERT INTO `users` VALUES (2,'Personal UM','personal@um.com','2020-09-09 01:57:39','$2y$10$mpS45hcRmh8IXwz4QQoKxe2vqqqqw3qKBVNyoxyK9pzSJJkLNF97i','bfkiMIlO7FIZNm3XMa9HIu3sQKLC2XtdDjiDyjXuMg22Zm2OrbbXJZs0SOM2','2020-09-09 01:57:39','2020-10-28 09:50:20',NULL,NULL,NULL);
 INSERT INTO `users` VALUES (3,'Funeraria','funeraria@um.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','fMOg1gHNT8heJmWJKSiIo8oAwrTg7C4fA7GPJDwKlOhsZMBfA94WyyWqM2Lv','2020-09-09 01:57:39','2020-09-09 01:57:39',6,'Si',NULL);
 INSERT INTO `users` VALUES (4,'test','admin@test.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','rjcMnEygeBpcwY5w1388BPILGeNXWbb41DCqxozh62PS05U5NooHJOcjGgpd','2020-09-09 01:57:39','2020-09-09 01:57:39',NULL,NULL,NULL);
 INSERT INTO `users` VALUES (5,'Test Funeraria','funeraria@test.com',NULL,'$2y$10$VUmvDlbOYqPL0qMltjm15OQl1x8G9OpqFCjsGzevKg4ItfXdD1lMK',NULL,'2020-09-17 03:52:58','2020-09-17 06:50:01',1,'Si',1);
@@ -567,4 +573,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-27 16:35:14
+-- Dump completed on 2020-10-27 22:02:17
