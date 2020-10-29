@@ -38,7 +38,7 @@ class AdminController extends Controller
             $user->assignRole('Personal');
         }
 
-        return back();
+        return $this->verUsuarios(1);
     }
 
     public function guardarFuneraria(Request $request){
@@ -59,16 +59,20 @@ class AdminController extends Controller
 
         $user->assignRole('Funeraria');
 
-        return back();
+        return $this->verUsuarios(1);
     }
 
-    public function verUsuarios(){
+    public function verUsuarios($msg = 0){
         $users = User::with('roles')->get();
 
         foreach($users as $user){
             $user->rol = $user->roles->first()->name;
         }
-        return view('Admin.Crear.verUsuarios', ['usuarios' => $users]);
+        if($msg = 0){
+            return view('Admin.Crear.verUsuarios', ['usuarios' => $users]);
+        }else{
+            return view('Admin.Crear.verUsuarios', ['usuarios' => $users])->with('alerta', 'Se ha creado el usuario exitosamente.');
+        }
     }
 
     public function eliminarUsuario($id){

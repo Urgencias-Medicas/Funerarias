@@ -75,4 +75,21 @@ class HomeController extends Controller
         User::where("id", $id)->update(['Password' => Hash::make($request->newPassword)]);
         return redirect("/home");
     }
+    public function cambioMail(){
+        return view('General.changemail');
+    }
+    public function verificarMail($mail){
+        $mail_find = User::where('email', $mail)->get();
+        if($mail_find->isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function guardarMail(Request $request){
+        $user = auth()->user();
+        $id = $user['id'];
+        User::where("id", $id)->update(['Email' => $request->mail]);
+        return redirect("/home");
+    }
 }

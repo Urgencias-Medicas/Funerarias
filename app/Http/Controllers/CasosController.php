@@ -23,8 +23,14 @@ class CasosController extends Controller
     //     $this->middleware('auth');
     //     $this->middleware('role:Agente||Personal');
     // }
-    public function viewCrear(){
-        return view('Agentes.Casos.crear');
+    public function viewCrear($msg = 0){
+
+        if($msg == 1){
+            return view('Agentes.Casos.crear')->with('alerta', 'El caso ha sido creado exitosamente.');
+        }else{
+            return view('Agentes.Casos.crear');
+        }
+
     }
     public function guardarNuevo(Request $request){
         $user = auth()->user();
@@ -40,7 +46,9 @@ class CasosController extends Controller
         'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, 'ComentarioTutor' => $request->ComentarioTutor];
         $caso = Casos::create($data);
         Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #'.$caso->id.' creado.', 'estatus' => 'Activa', 'caso' => $caso->id]);
-        return redirect('/Casos/vistaCrear');
+        
+        return $this->viewCrear(1);
+
     }
     public function guardarMedia($caso, Request $request){
         $image = $request->file('file');
@@ -77,7 +85,7 @@ class CasosController extends Controller
         }
         return view('Personal.Casos.ver', ['Casos' => $casos]);
     }
-    public function detallesCaso($id){
+    public function detallesCaso($id, $msg = 0){
         $caso = Casos::find($id);
         $files = File::files(public_path('images'));
         $archivos = array();
@@ -94,7 +102,11 @@ class CasosController extends Controller
         }
         $pagos = HistorialPagos::where('caso', $id)->get();
         $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'desc')->get();
-        return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes]);
+        if($msg == 0){
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes]);
+        }else{
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes])->with('alerta', 'Pago ingresado exitosamente.');
+        }
     }
 
     public function actualizarSolicitud($caso, $solicitud, $opcion){
@@ -178,13 +190,14 @@ class CasosController extends Controller
         $caso->Pagado = $caso->Pagado + $total;
         $caso->Pendiente = $caso->Costo - $caso->Pagado;
         $caso->save();
-        return back();
+        //return back()->with('msg', 'Pagos añadidos exitosamente.');
+        return $this->detallesCaso($caso->id, 1);
     }
 
     public function cerrarCaso($caso){
         $caso = Casos::find($caso);
-        $caso->Estatus = 'Cerrado';
-        $caso->save();
+        //$caso->Estatus = 'Cerrado';
+        //$caso->save();
 
         $data = array();
 
@@ -197,8 +210,8 @@ class CasosController extends Controller
         //POST API Smart
         $arrayCaso = array(array(
             "method" => "603",
-            "IdUser" => $caso->Agente,
-            "IdAfiliado" => $caso->Codigo,
+            "IdUser" => '1',
+            "IdAfiliado" => '4667',
             "Fecha" => $caso->Fecha,
             "Hora" => $caso->Hora,
             "Motivo" => $caso->Causa,
@@ -212,7 +225,10 @@ class CasosController extends Controller
 
         $client = new \GuzzleHttp\Client();
         $api_uri = "http://umwsdl.smartla.net/wsdl_um.php";
-        $res = $client->request('POST', $api_uri, ['body' => $data]);
+        $res = $client->request('POST', $api_uri, ['form_params' => [
+            'data' => $data,
+            ],
+        ]);
         
         $data = json_decode($res->getBody());
 

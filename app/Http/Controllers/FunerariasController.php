@@ -31,7 +31,7 @@ class FunerariasController extends Controller
         $casos = Casos::where('funeraria', $funeraria)->orderBy('id', 'DESC')->get();
         return view('Funerarias.Casos.ver', ['Casos' => $casos]);
     }
-    public function detallesCaso($id){
+    public function detallesCaso($id, $msg = 0){
         $caso = Casos::find($id);
         $files = File::files(public_path('images'));
         $archivos = array();
@@ -47,7 +47,12 @@ class FunerariasController extends Controller
             }
         }
         $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'desc')->get();
-        return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes]);
+        
+        if($msg == 1){
+            return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes])->with('alerta', 'Su solicitud ha sido ingresada');
+        }else{
+            return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes]);
+        }
     }
     public function actualizarCosto($caso, Request $request){
         //$caso = Casos::find($caso);
@@ -60,7 +65,8 @@ class FunerariasController extends Controller
 
         SolicitudesCobro::create(['caso' => $caso, 'estatus' => 'Pendiente', 'costo' => $request->Costo, 'descripcion' => $request->Descripcion]);
         Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$caso.' tiene una nueva solicitud.', 'estatus' => 'Activa', 'caso' => $caso]);
-        return back();
+        
+        return $this->detallesCaso($caso, 1);
     }
     public function guardarMedia($caso, Request $request){
         $image = $request->file('file');

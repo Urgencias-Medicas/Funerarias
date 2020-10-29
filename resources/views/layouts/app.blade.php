@@ -181,6 +181,9 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/mail/cambio">
+                                    Cambiar correo
+                                </a>
                                 <a class="dropdown-item" href="/password/cambio">
                                     Cambiar contrase&nacute;a
                                 </a>

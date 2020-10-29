@@ -28,6 +28,16 @@
     }
 
 </style>
+@if(!empty($alerta))
+<div class="container">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{$alerta}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+@endif
 <div class="container">
     <a href="/Funerarias/Casos/ver" class="btn btn-link mb-2">
         < Atrás</a> <div class="row ">
@@ -35,10 +45,17 @@
                 <div class="card">
                     <div class="card-header">Visualizar caso - <b>#{{$Caso->id}}</b></div>
                     <div class="card-body align-items-center justify-content-center">
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre"
-                                placeholder="Ingrese nombre del estudiante" value="{{$Caso->Nombre}}" readonly>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="Agente">Agente</label>
+                                <input type="text" class="form-control" id="Agente" name="Agente" placeholder=""
+                                    value="{{$Caso->Agente}}" readonly>
+                            </div>
+                            <div class="form-group col-md-9">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre"
+                                    placeholder="Ingrese nombre del estudiante" value="{{$Caso->Nombre}}" readonly>
+                            </div>
                         </div>
 
                         <div class="form-row">
@@ -188,7 +205,7 @@
                         $tiene_solicitud = 0;
                         $caso_cerrado = 0;
                         if($Caso->Estatus == 'Cerrado'){
-                            $caso_cerrado = 1;
+                        $caso_cerrado = 1;
                         }
                         @endphp
                         @foreach($Solicitudes As $Solicitud)
@@ -235,7 +252,8 @@
                                     <div class="form-group col-md-12 p-2 m-0 d-flex flex-column justify-content-end">
                                         <label for="descripcionCosto">Descripci&oacute;n</label>
                                         <textarea name="Descripcion" class="form-control"
-                                            {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "readonly" : ""}} required></textarea>
+                                            {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "readonly" : ""}}
+                                            required></textarea>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -320,8 +338,9 @@
                                         <div class="col-12">
                                             <b>Nuevo costo: </b><br>{{$solicitud->costo}}
                                             <br>
-                                            <p><b>Descripci&oacute;n de solicitud:</b><br>{{$solicitud->descripcion}}</p>
-                                            
+                                            <p><b>Descripci&oacute;n de solicitud:</b><br>{{$solicitud->descripcion}}
+                                            </p>
+
                                         </div>
                                     </div>
                                     <hr>

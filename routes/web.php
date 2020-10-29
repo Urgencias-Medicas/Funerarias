@@ -30,6 +30,11 @@ Route::group(['prefix' => 'password'], function () {
     Route::get('verificar/{password}', 'HomeController@verificarPassword');
     Route::post('guardarCambio', 'HomeController@guardarPassword');
 });
+Route::group(['prefix' => 'mail'], function () {
+    Route::get('cambio', 'HomeController@cambioMail');
+    Route::get('verificar/{mail}', 'HomeController@verificarMail');
+    Route::post('guardarCambio', 'HomeController@guardarMail');
+});
 
 Route::get('/Notificaciones', 'HomeController@notificaciones');
 
