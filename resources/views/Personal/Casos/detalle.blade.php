@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/basic.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
     .dropzone {
@@ -53,6 +61,7 @@
         </div>
         <button type="button" class="btn btn-primary float-right" data-toggle="modal"
             data-target="#funerariaModal">Asignar Funeraria</button>
+        <button type="submit" class="btn btn-success float-right mr-2" form="modificarForm">Guardar cambios</button>
     </div>
 </div>
 <div class="row ">
@@ -61,6 +70,8 @@
             <div class="card-header">Detalles caso - #<b>{{$Caso->id}}</b></div>
 
             <div class="card-body align-items-center justify-content-center">
+                <form action="/Casos/{{$Caso->id}}/modificar" id="modificarForm" method="post">
+                @csrf
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label for="Agente">Agente</label>
@@ -82,135 +93,163 @@
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="causa">Causa</label>
-                        <input type="text" name="causa" id="causa" class="form-control" value="{{$Caso->Causa}}"
-                            readonly>
+                        <select name="causa" id="causa" class="form-control">
+                                    <option value="Accidente">Accidente</option>
+                                    <option value="Suicidio">Suicidio</option>
+                                    <option value="Asesinato">Asesinato</option>
+                                    <option value="Causas Naturales">Causas Naturales</option>
+                                    <option value="Enfermedad Comun">Enfermedad Com&uacute;n</option>
+                                </select>
+                    </div>
+                </div>
+
+
+                <input type="hidden" name="causa_id" id="causa_id">
+                <div class="form-row">
+                    <div class="form-group col-md-12" id="descripcion_causa" style="display: none;">
+                        <label for="descripcion_causa">Causa de muerte</label>
+                        <input type="text" class="form-control" id="descripcion_causa_input" name="descripcion_causa">
+                    </div>
+                    <div class="form-group col-md-8" id="selectcol">
+
+                        <label for="descripcion_causa">Causa de muerte</label>
+                        <select name="descripcion_causa_select" id="descripcion_causa" class="selectpicker form-control"
+                            data-live-search="true">
+                            @foreach($Causas as $causa)
+                                @if($causa->Causa == $Caso->Causa_Desc)
+                                    <option value="{{$causa->Causa}}" selected>{{$causa->Causa}}</option>
+                                @endif
+                            <option value="{{$causa->Causa}}">{{$causa->Causa}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4" id="btncol">
+                        <label for="btn-nueva">Nueva causa</label>
+                        <button type="button" class="btn btn-primary btn-block" onclick="agregarCausa();">+</button>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="departamento">Departamento</label>
                         <input type="text" name="departamento" id="departamento" class="form-control"
-                            value="{{$Caso->Departamento}}" readonly>
+                            value="{{$Caso->Departamento}}">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="municipio">Municipio</label>
                         <input type="text" name="municipio" id="municipio" class="form-control"
-                            value="{{$Caso->Municipio}}" readonly>
+                            value="{{$Caso->Municipio}}">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="direccion">Direccion</label>
                         <input type="text" name="direccion" id="direccion" class="form-control"
-                            value="{{$Caso->Direccion}}" readonly>
+                            value="{{$Caso->Direccion}}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="lugar">Lugar de los hechos</label>
-                    <input type="text" name="lugar" id="lugar" class="form-control" value="{{$Caso->Lugar}}" readonly>
+                    <input type="text" name="lugar" id="lugar" class="form-control" value="{{$Caso->Lugar}}">
                 </div>
                 <div class="form-group">
                     <label for="NombreReporta">Nombre de quien reporta</label>
                     <input type="text" name="NombreReporta" id="NombreReporta" class="form-control"
-                        value="{{$Caso->NombreReporta}}" readonly>
+                        value="{{$Caso->NombreReporta}}">
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="RelacionReporta">Relaci&oacute;n</label>
                         <input type="text" name="RelacionReporta" id="RelacionReporta" class="form-control"
-                            value="{{$Caso->RelacionReporta}}" readonly>
+                            value="{{$Caso->RelacionReporta}}">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="TelReporta">Tel&eacute;fono</label>
                         <input type="text" name="TelReporta" id="TelReporta" class="form-control"
-                            value="{{$Caso->TelReporta}}" readonly>
+                            value="{{$Caso->TelReporta}}">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="padre">Padre</label>
-                        <input type="text" name="padre" id="padre" class="form-control" value="{{$Caso->Padre}}"
-                            readonly>
+                        <input type="text" name="padre" id="padre" class="form-control" value="{{$Caso->Padre}}">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="TelPadre">Tel. Padre</label>
                         <input type="text" name="TelPadre" id="TelPadre" class="form-control"
-                            value="{{$Caso->TelPadre}}" readonly>
+                            value="{{$Caso->TelPadre}}">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="madre">Madre</label>
-                        <input type="text" name="madre" id="madre" class="form-control" value="{{$Caso->Madre}}"
-                            readonly>
+                        <input type="text" name="madre" id="madre" class="form-control" value="{{$Caso->Madre}}">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="TelMadre">Tel. Madre</label>
                         <input type="text" name="TelMadre" id="TelMadre" class="form-control"
-                            value="{{$Caso->TelMadre}}" readonly>
+                            value="{{$Caso->TelMadre}}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Tutor">Tutor</label>
-                    <input type="text" name="Tutor" id="Tutor" class="form-control" value="{{$Caso->Tutor}}" readonly>
+                    <input type="text" name="Tutor" id="Tutor" class="form-control" value="{{$Caso->Tutor}}">
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="TelTutor">Tel&eacute;fono Tutor</label>
                         <input type="text" name="TelTutor" id="TelTutor" class="form-control"
-                            value="{{$Caso->TelTutor}}" readonly>
+                            value="{{$Caso->TelTutor}}">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="DPITutor">DPI Tutor</label>
                         <input type="text" name="DPITutor" id="DPITutor" class="form-control"
-                            value="{{$Caso->DPITutor}}" readonly>
+                            value="{{$Caso->DPITutor}}">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="ParentescoTutor">Parentesco Tutor</label>
                         <input type="text" name="ParentescoTutor" id="ParentescoTutor" class="form-control"
-                            value="{{$Caso->ParentescoTutor}}" readonly>
+                            value="{{$Caso->ParentescoTutor}}">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="EmailTutor">Email Tutor</label>
                         <input type="text" name="EmailTutor" id="EmailTutor" class="form-control"
-                            value="{{$Caso->EmailTutor}}" readonly>
+                            value="{{$Caso->EmailTutor}}">
                     </div>
                 </div>
                 <hr>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="ComentarioTutor">Comentarios</label>
-                        <textarea id="ComentarioTutor" name="ComentarioTutor" class="form-control" cols="80"
-                            readonly>{{$Caso->ComentarioTutor}}</textarea>
+                        <textarea id="ComentarioTutor" name="ComentarioTutor" class="form-control"
+                            cols="80">{{$Caso->ComentarioTutor}}</textarea>
                     </div>
                 </div>
                 <hr>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="Medico">Agente que atendi&oacute;</label>
-                        <input type="text" name="Medico" id="Medico" class="form-control" value="{{$Caso->Medico}}"
-                            readonly>
+                        <input type="text" name="Medico" id="Medico" class="form-control" value="{{$Caso->Medico}}">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="idioma">Idioma</label>
-                        <input type="text" name="Idioma" id="Idioma" class="form-control" value="{{$Caso->Idioma}}"
-                            readonly>
+                        <input type="text" name="Idioma" id="Idioma" class="form-control" value="{{$Caso->Idioma}}">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="fechaNacimiento">Fecha</label>
                         <input type="date" class="form-control" id="fechaNacimiento" name="fecha"
-                            placeholder="00/00/0000" value="{{$Caso->Fecha}}" readonly>
+                            placeholder="00/00/0000" value="{{$Caso->Fecha}}">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="pohoralhoraiza">Hora</label>
                         <input type="time" class="form-control" id="hora" name="hora" placeholder="00:00"
-                            value="{{date('G:i', strtotime($Caso->Hora))}}" readonly><span id="errmsg"></span>
+                            value="{{date('G:i', strtotime($Caso->Hora))}}"><span id="errmsg"></span>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
         <div class="card mt-3 border-danger">
@@ -230,7 +269,7 @@
         <div class="card ">
             <div class="card-header">Costos</div>
             <div class="card-body align-items-center justify-content-center">
-                <div class="form-row ">
+                <div class="form-row">
                     <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
                         <label for="costoServicio">Costo</label>
                         <input type="text" class="form-control" value="{{$Caso->Costo}}" readonly>
@@ -251,6 +290,31 @@
                 <button type="button" class="btn btn-outline-info btn-block my-2" data-toggle="modal"
                     data-target="#solicitudModal">Solicitud Nueva</button>
                 @endif
+                <hr>
+                <h4 class="mt-3">Evaluaci&oacute;n del servicio funerario</h4>
+
+                <form action="/Casos/{{$Caso->id}}/evaluar" method="post">
+                    @csrf
+                    <div class="form-row">
+                        <div class="form-group col-md-12 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="evaluacion">Puntaje</label>
+                            <select name="evaluacion" class="form-control"
+                                {{$Caso->Evaluacion == '' ? '' : 'disabled'}}>
+                                @if($Caso->Evaluacion == '')
+                                @for($i = 1; $i <= 10; $i+=0.5) <option value="{{$i}}">{{$i}}</option>
+                                    @endfor
+                                    @else
+                                    <option selected>{{$Caso->Evaluacion}}</option>
+                                    @endif
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-primary btn-block my-2"
+                        {{$Caso->Evaluacion == '' ? '' : 'disabled'}}>
+                        {{$Caso->Evaluacion == '' ? 'Guardar evaluaci&oacute;n' : 'Caso ya evaluado'}}</button>
+                </form>
+
+                <hr>
                 <h4 class="mt-3">Historial de Pagos</h4>
                 <div class="row">
                     <div class="col-md-12">
@@ -367,6 +431,60 @@
         </div>
     </div>
 </div>
+
+<!--<div class="modal fade" id="modificarCausaModal" tabindex="-1" role="dialog" aria-labelledby="modificarCausaModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modificarCausaModalLabel">Modificar causa de muerte</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-causa">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="/Casos/{{$Caso->id}}/Causas/actualizar" method="post">
+                                @csrf
+                                <input type="hidden" name="causa_id" id="causa_id">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12" id="descripcion_causa" style="display: none;">
+                                        <label for="descripcion_causa">Causa de muerte</label>
+                                        <input type="text" class="form-control" id="descripcion_causa_input"
+                                            name="descripcion_causa">
+                                    </div>
+                                    <div class="form-group col-md-10" id="selectcol">
+
+                                        <label for="descripcion_causa">Causa de muerte</label>
+                                        <select name="descripcion_causa_select" id="descripcion_causa"
+                                            class="selectpicker form-control" data-live-search="true">
+                                            @foreach($Causas as $causa)
+                                            <option value="{{$causa->Causa}}">{{$causa->Causa}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2" id="btncol">
+                                        <label for="btn-nueva">Nueva causa</label>
+                                        <button type="button" class="btn btn-primary btn-block"
+                                            onclick="agregarCausa();">+</button>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-success btn-block">Guardar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>-->
 
 <div class="modal fade" id="detalleModal" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel"
     aria-hidden="true">
@@ -618,7 +736,7 @@
                                     <td><button class="btn btn-outline-info" id="idFuneraria" onclick="detalleFuneraria(' +
                             response[i].id +
                             ')">Ver</button> <button disabled class="btn btn-primary asignar" onclick="preAsignarFuneraria({{$Caso->id}},' +
-                            response[i].id + ')">Asignar</button></td>\
+                            response[i].id + ',' + '\'' + response[i].funeraria + '\'' +')">Asignar</button></td>\
                                 </tr>\
                             </tbody>\
                         </table><hr class="my-4">';
@@ -647,7 +765,7 @@
                                     <td><button class="btn btn-outline-info" id="idFuneraria" onclick="detalleFuneraria(' +
                             response[j].id +
                             ')">Ver</i></button> <button disabled class="btn btn-primary asignar" onclick="asignarFuneraria({{$Caso->id}},' +
-                            response[j].id + ')">Asignar</button></td>\
+                            response[j].id + ',' + '\'' + response[j].funeraria + '\'' +')">Asignar</button></td>\
                                 </tr>';
                     }
                 }
@@ -699,7 +817,7 @@
         }
     }
 
-    function preAsignarFuneraria(caso, id) {
+    function preAsignarFuneraria(caso, id, funeraria) {
         var correo = 'No';
         var whatsapp = 'No';
         var valor = 'No';
@@ -709,12 +827,12 @@
         if ($('#WhatsApp').is(':checked')) {
             whatsapp = 'Si';
         }
-        asignarFuneraria(caso, id, correo, whatsapp);
+        asignarFuneraria(caso, id, funeraria, correo, whatsapp);
     }
 
-    function asignarFuneraria(caso, id, correo, wp) {
+    function asignarFuneraria(caso, id, funeraria, correo, wp) {
         $.ajax({
-            url: "/Casos/" + caso + "/asignarFuneraria/" + id + "/" + correo + "/" + wp,
+            url: "/Casos/" + caso + "/asignarFuneraria/" + id + "/" + funeraria + "/" + +correo + "/" + wp,
             type: 'get',
             success: function (response) {
                 window.location.href = '/Casos/ver';
@@ -808,6 +926,59 @@
             return o.value.lastIndexOf(r.text)
         } else return o.selectionStart
     }
+
+    function agregarCausa() {
+        var causa = $(".bs-searchbox input").val();
+        $.ajax({
+            url: "/Casos/Causas/nueva/" + causa,
+            type: 'get',
+            dataType: 'JSON',
+            success: function (response) {
+                if (response.estatus == 'guardado') {
+                    $('#descripcion_causa_input').val(causa);
+                    $('#causa_id').val(response.id);
+                    $('#descripcion_causa').show();
+                    $('#selectcol').remove();
+                    $('#btncol').remove();
+                }
+                console.log(response);
+            }
+        });
+    }
+
+    function setInputFilter(textbox, inputFilter) {
+        ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (
+            event) {
+            textbox.addEventListener(event, function () {
+                if (inputFilter(this.value)) {
+                    this.oldValue = this.value;
+                    this.oldSelectionStart = this.selectionStart;
+                    this.oldSelectionEnd = this.selectionEnd;
+                } else if (this.hasOwnProperty("oldValue")) {
+                    this.value = this.oldValue;
+                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                } else {
+                    this.value = "";
+                }
+            });
+        });
+    }
+
+    $(document).ready(function () {
+        setInputFilter(document.getElementById("TelPadre"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+        setInputFilter(document.getElementById("TelMadre"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+        setInputFilter(document.getElementById("TelTutor"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+        setInputFilter(document.getElementById("TelReporta"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+
+    });
 
 </script>
 @endsection

@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 @if(!empty($alerta))
 <div class="container">
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -46,7 +54,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="causa">Causa</label>
+                                <label for="causa">Tipo de muerte</label>
                                 <!-- <textarea name="causa" id="causa" class="form-control" cols="80"></textarea> -->
                                 <select name="causa" id="causa" class="form-control">
                                     <option value="Accidente">Accidente</option>
@@ -66,9 +74,26 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group">
-                                <label for="descripcion_causa">Descripci&oacute;n</label>
-                                <textarea id="desc_causa" class="form-control" cols="80"></textarea>
+                            <input type="hidden" name="causa_id" id="causa_id">
+                            <div class="form-group col-md-12" id="descripcion_causa" style="display: none;">
+                                <label for="descripcion_causa">Causa de muerte</label>
+                                <input type="text" class="form-control" id="descripcion_causa_input"
+                                    name="descripcion_causa">
+                            </div>
+                            <div class="form-group col-md-10" id="selectcol">
+
+                                <label for="descripcion_causa">Causa de muerte</label>
+                                <select name="descripcion_causa_select" id="descripcion_causa" class="selectpicker form-control"
+                                    data-live-search="true">
+                                    @foreach($Causas as $causa)
+                                    <option value="{{$causa->Causa}}">{{$causa->Causa}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-2" id="btncol">
+                                <label for="btn-nueva">Nueva causa</label>
+                                <button type="button" class="btn btn-primary btn-block"
+                                    onclick="agregarCausa();">+</button>
                             </div>
                         </div>
                         <div class="form-row">
@@ -170,8 +195,10 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"
-    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script>
+    $.fn.selectpicker.Constructor.BootstrapVersion = '4';
+
+</script>
 <script type="text/javascript">
     function alumno() {
         var codigo = $('#codEstudiante').val();
@@ -228,7 +255,27 @@
         setInputFilter(document.getElementById("TelReporta"), function (value) {
             return /^\d*\.?\d*$/.test(value);
         });
+
     });
+
+    function agregarCausa() {
+        var causa = $(".bs-searchbox input").val();
+        $.ajax({
+            url: "/Casos/Causas/nueva/" + causa,
+            type: 'get',
+            dataType: 'JSON',
+            success: function (response) {
+                if (response.estatus == 'guardado') {
+                    $('#descripcion_causa_input').val(causa);
+                    $('#causa_id').val(response.id);
+                    $('#descripcion_causa').show();
+                    $('#selectcol').remove();
+                    $('#btncol').remove();
+                }
+                console.log(response);
+            }
+        });
+    }
 
 </script>
 @endsection

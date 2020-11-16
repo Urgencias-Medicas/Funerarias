@@ -9,6 +9,8 @@ use Illuminate\Routing\Redirector;
 use App\Casos;
 use App\SolicitudesCobro;
 use App\Notificaciones;
+use App\Causas;
+use Carbon\Carbon;
 
 class FunerariasController extends Controller
 {
@@ -47,11 +49,13 @@ class FunerariasController extends Controller
             }
         }
         $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'desc')->get();
-        
+        $causas = Causas::get();
         if($msg == 1){
-            return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes])->with('alerta', 'Su solicitud ha sido ingresada');
+            return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'Su solicitud ha sido ingresada');
+        }else if($msg == 2){
+            return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'El caso fue actualizado exitosamente.');
         }else{
-            return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes]);
+            return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes, 'Causas' => $causas]);
         }
     }
     public function actualizarCosto($caso, Request $request){
@@ -89,5 +93,27 @@ class FunerariasController extends Controller
     public function descargas(){
         $files = File::files(public_path('images/requeridos'));
         return view('Funerarias.descargas', ['Archivos' => $files]);
+    }
+    public function modificarCaso($caso, Request $request){
+        $user = auth()->user();
+        $suceso = Carbon::parse($request->fecha);
+        $fecha = $suceso->format('Y-m-d');
+        $data = ['Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 'Causa_Desc' => $request->descripcion_causa_input != '' ? $request->descripcion_causa_input : $request->descripcion_causa_select,  
+        'Direccion' => $request->direccion, 'Departamento' => strtoupper($request->departamento), 
+        'Municipio' => strtoupper($request->municipio), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
+        'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 
+        'Lugar' => $request->lugar, 'Tutor' => $request->Tutor, 'TelTutor' => $request->TelTutor, 'DPITutor' => $request->DPITutor,
+        'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, 'ComentarioTutor' => $request->ComentarioTutor];
+        $caso_update = Casos::find($caso)->update($data);
+
+        if($request->descripcion_causa != ''){
+            $causa = Causas::find($request->causa_id);
+            $causa->Causa = $request->descripcion_causa_input;
+            $causa->save();
+        }
+
+        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #'.$caso.' actualizado.', 'estatus' => 'Activa', 'caso' => $caso]);
+        
+        return $this->detallesCaso($caso, 2);
     }
 }

@@ -19,13 +19,21 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css"
+        integrity="sha512-UyNhw5RNpQaCai2EdC+Js0QL4RlVmiq41DkmCJsRV3ZxipG2L0HhTqIf/H9Hp8ez2EnFlkBnjRGJU2stW3Lj+w=="
+        crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
 
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+
+
+
+
 
 </head>
 
@@ -61,7 +69,7 @@
                                 </li>
                             @endif -->
                         @else
-                        @role('Agente|Personal')
+                        @role('Agente')
                         <li class="nav-item">
                             <a href="/Casos/vistaCrear"
                                 class="nav-link {{ (request()->is('Casos/vistaCrear*')) ? 'active' : '' }}">Nuevo
@@ -69,31 +77,20 @@
                         </li>
                         @endrole
                         @role('Personal')
-                        <li class="nav-item">
-                            <a href="/Casos/ver"
-                                class="nav-link {{ (request()->is('Casos/ver*')) ? 'active' : '' }}">Casos</a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Usuarios
+                                Casos
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/Personal/verUsuarios">Ver usuarios</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Personal/CrearUsuario"
-                                    class="nav-link {{ (request()->is('Personal/CrearUsuario*')) ? 'active' : '' }}">Crear
-                                    Usuario</a>
-                                <a class="dropdown-item" href="/Personal/CrearFuneraria"
-                                    class="nav-link {{ (request()->is('Personal/CrearFuneraria*')) ? 'active' : '' }}">Crear
-                                    Funeraria</a>
+                                <a href="/Casos/ver"
+                                    class="dropdown-item {{ (request()->is('Casos/ver*')) ? 'active' : '' }}">Ver Casos</a>
+                                <a href="/Casos/vistaCrear"
+                                    class="dropdown-item {{ (request()->is('Casos/vistaCrear*')) ? 'active' : '' }}">Nuevo
+                                    caso</a>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a href="/Personal/Funerarias/ver"
-                                class="nav-link {{ (request()->is('Personal/Funerarias*')) ? 'active' : '' }}"><span>
-                                    Funerarias </span></a>
-                        </li>
+
                         <li class="nav-item">
                             <a href="/Personal/Reportes/ver"
                                 class="nav-link {{ (request()->is('Personal/Reportes*')) ? 'active' : '' }}"><span>
@@ -133,12 +130,33 @@
                         @endif
                         @endrole
                         @endforeach
+                        @role('Personal')
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Usuarios
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/Personal/verUsuarios">Ver usuarios</a>
+                                <a href="/Personal/Funerarias/ver"
+                                    class="dropdown-item {{ (request()->is('Personal/Funerarias*')) ? 'active' : '' }}"><span>
+                                        Funerarias </span></a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Personal/CrearUsuario"
+                                    class="nav-link {{ (request()->is('Personal/CrearUsuario*')) ? 'active' : '' }}">Crear
+                                    Usuario</a>
+                                <a class="dropdown-item" href="/Personal/CrearFuneraria"
+                                    class="nav-link {{ (request()->is('Personal/CrearFuneraria*')) ? 'active' : '' }}">Crear
+                                    Funeraria</a>
+                            </div>
+                        </li>
+                        @endrole
                         @role('Funeraria|Personal')
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <span id="contadorNotificaciones"
-                                    class="badge badge-pill badge-danger">{{$contador}}</span> Notificaciones
+                                <span class="oi oi-globe"></span> <span id="contadorNotificaciones"
+                                    class="badge badge-pill badge-danger">{{$contador}}</span>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -174,6 +192,7 @@
                             </div>
                         </li>
                         @endrole
+
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -207,6 +226,7 @@
             @yield('content')
         </main>
     </div>
+    <script src="https://unpkg.com/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>

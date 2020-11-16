@@ -43,11 +43,15 @@ Route::group(['prefix' => 'Casos'], function () {
     Route::post('guardarNuevo', 'CasosController@guardarNuevo');
     Route::get('ver', 'CasosController@verCasos')->middleware('role:Personal');
     Route::get('{id}/ver', 'CasosController@detallesCaso')->middleware('role:Personal');
-    Route::get('/{caso}/asignarFuneraria/{id}/{correo}/{wp}', 'CasosController@asignarFuneraria');
+    Route::get('/{caso}/asignarFuneraria/{id}/{funeraria}/{correo}/{wp}', 'CasosController@asignarFuneraria');
     Route::post('/{caso}/actualizarPago', 'CasosController@actualizarPago');
     Route::get('/cerrarCaso/{caso}', 'CasosController@cerrarCaso');
     Route::get('Reportar/{caso}/{instruccion}', 'CasosController@reportarCaso');
     Route::get('Solicitudes/{caso}/{solicitud}/{opcion}', 'CasosController@actualizarSolicitud');
+    Route::post('{id}/evaluar', 'CasosController@evaluarFuneraria');
+    Route::get('Causas/nueva/{causa}', 'CasosController@nuevaCausa');
+    Route::post('{id}/Causas/actualizar', 'CasosController@actualizarCausa');
+    Route::post('{id}/modificar', 'CasosController@modificarCaso');
 });
 
 Route::group(['prefix' => 'Personal'], function (){
@@ -60,6 +64,7 @@ Route::group(['prefix' => 'Personal'], function (){
         Route::get('Edades/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteEdades');
         Route::get('Causas/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteCausas');
         Route::get('Lugares/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteLugares');
+        Route::get('General/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteGeneral');
     });
     
     Route::get('CrearUsuario', 'AdminController@nuevoUsuario');
@@ -85,6 +90,7 @@ Route::group(['prefix' => 'Funerarias'], function () {
     Route::get('Inactiva', 'HomeController@funerariaInactiva');
     Route::get('Descargas', 'FunerariasController@descargas');
     Route::post('Casos/{caso}/actualizarCosto', 'FunerariasController@actualizarCosto');
+    Route::post('Casos/{id}/modificar', 'FunerariasController@modificarCaso');
 });
 
 /*Route::group(['prefix' => 'Admin'], function () {
