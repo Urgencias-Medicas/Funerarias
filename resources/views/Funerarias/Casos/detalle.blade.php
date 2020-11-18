@@ -96,7 +96,7 @@
                                     <div class="form-group col-md-12" id="descripcion_causa" style="display: none;">
                                         <label for="descripcion_causa">Causa de muerte</label>
                                         <input type="text" class="form-control" id="descripcion_causa_input"
-                                            name="descripcion_causa">
+                                            name="descripcion_causa_input">
                                     </div>
                                     <div class="form-group col-md-8" id="selectcol">
 
@@ -498,5 +498,24 @@
         });
     })(jQuery, window);
 
+
+    function agregarCausa() {
+        var causa = $(".bs-searchbox input").val();
+        $.ajax({
+            url: "/Casos/Causas/nueva/" + causa,
+            type: 'get',
+            dataType: 'JSON',
+            success: function (response) {
+                if (response.estatus == 'guardado') {
+                    $('#descripcion_causa_input').val(causa);
+                    $('#causa_id').val(response.id);
+                    $('#descripcion_causa').show();
+                    $('#selectcol').remove();
+                    $('#btncol').remove();
+                }
+                console.log(response);
+            }
+        });
+    }
 </script>
 @endsection

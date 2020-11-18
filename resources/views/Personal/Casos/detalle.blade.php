@@ -108,7 +108,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-12" id="descripcion_causa" style="display: none;">
                         <label for="descripcion_causa">Causa de muerte</label>
-                        <input type="text" class="form-control" id="descripcion_causa_input" name="descripcion_causa">
+                        <input type="text" class="form-control" id="descripcion_causa_input" name="descripcion_causa_input">
                     </div>
                     <div class="form-group col-md-8" id="selectcol">
 
