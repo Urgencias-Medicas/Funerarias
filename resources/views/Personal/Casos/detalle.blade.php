@@ -223,7 +223,7 @@
                     <div class="form-group">
                         <label for="ComentarioTutor">Comentarios</label>
                         <textarea id="ComentarioTutor" name="ComentarioTutor" class="form-control"
-                            cols="80">{{$Caso->ComentarioTutor}}</textarea>
+                            cols="80">{{$Caso->Comentario}}</textarea>
                     </div>
                 </div>
                 <hr>
