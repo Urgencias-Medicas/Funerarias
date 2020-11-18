@@ -392,7 +392,7 @@
                 <ul class="list-group">
                     @foreach($Archivos as $archivo)
                     <li class="list-group-item"><b><a target="popup"
-                                onclick="window.open('/images/caso{{$Caso->id}}-{{$archivo}}','Archivo-Caso{{$Caso->id}}','width=600,height=400')">{{$archivo}}</a></b>
+                                onclick="window.open('/images/Caso{{$Caso->id}}-{{$archivo}}','Archivo-Caso{{$Caso->id}}','width=600,height=400')">{{$archivo}}</a></b>
                     </li>
                     @endforeach
                 </ul>
