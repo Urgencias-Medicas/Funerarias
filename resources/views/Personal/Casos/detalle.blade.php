@@ -290,29 +290,6 @@
                 <button type="button" class="btn btn-outline-info btn-block my-2" data-toggle="modal"
                     data-target="#solicitudModal">Solicitud Nueva</button>
                 @endif
-                <hr>
-                <h4 class="mt-3">Evaluaci&oacute;n del servicio funerario</h4>
-
-                <form action="/Casos/{{$Caso->id}}/evaluar" method="post">
-                    @csrf
-                    <div class="form-row">
-                        <div class="form-group col-md-12 p-2 m-0 d-flex flex-column justify-content-end">
-                            <label for="evaluacion">Puntaje</label>
-                            <select name="evaluacion" class="form-control"
-                                {{$Caso->Evaluacion == '' ? '' : 'disabled'}}>
-                                @if($Caso->Evaluacion == '')
-                                @for($i = 1; $i <= 10; $i+=0.5) <option value="{{$i}}">{{$i}}</option>
-                                    @endfor
-                                    @else
-                                    <option selected>{{$Caso->Evaluacion}}</option>
-                                    @endif
-                            </select>
-                        </div>
-                    </div>
-                    <button class="btn btn-outline-primary btn-block my-2"
-                        {{$Caso->Evaluacion == '' ? '' : 'disabled'}}>
-                        {{$Caso->Evaluacion == '' ? 'Guardar evaluación' : 'Caso ya evaluado'}}</button>
-                </form>
 
                 <hr>
                 <h4 class="mt-3">Historial de Pagos</h4>
@@ -383,6 +360,33 @@
                             <button type="submit" class="btn btn-primary pull-right">Guardar</button>
                         </div>
                     </div>
+                </form>
+            </div>
+        </div>
+        <div class="card mt-4">
+            <div class="card-header">Evaluar Funeraria</div>
+            <div class="card-body align-items-center justify-content-center">
+            <h4 class="mt-3">Evaluaci&oacute;n del servicio funerario</h4>
+
+                <form action="/Casos/{{$Caso->id}}/evaluar" method="post">
+                    @csrf
+                    <div class="form-row">
+                        <div class="form-group col-md-12 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="evaluacion">Puntaje</label>
+                            <select name="evaluacion" class="form-control"
+                                {{$Caso->Evaluacion == '' ? '' : 'disabled'}}>
+                                @if($Caso->Evaluacion == '')
+                                @for($i = 1; $i <= 10; $i+=0.5) <option value="{{$i}}">{{$i}}</option>
+                                    @endfor
+                                    @else
+                                    <option selected>{{$Caso->Evaluacion}}</option>
+                                    @endif
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-primary btn-block my-2"
+                        {{$Caso->Evaluacion == '' ? '' : 'disabled'}}>
+                        {{$Caso->Evaluacion == '' ? 'Guardar evaluación' : 'Caso ya evaluado'}}</button>
                 </form>
             </div>
         </div>
@@ -845,7 +849,7 @@
             url: "/Casos/cerrarCaso/" + caso,
             type: 'get',
             success: function (response) {
-                //window.location.href = '/Casos/ver';
+                window.location.href = '/Casos/ver';
             }
         });
     }

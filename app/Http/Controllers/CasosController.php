@@ -220,8 +220,8 @@ class CasosController extends Controller
 
     public function cerrarCaso($caso){
         $caso = Casos::find($caso);
-        //$caso->Estatus = 'Cerrado';
-        //$caso->save();
+        $caso->Estatus = 'Cerrado';
+        $caso->save();
 
         $data = array();
 
