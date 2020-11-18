@@ -311,7 +311,7 @@
                     </div>
                     <button class="btn btn-outline-primary btn-block my-2"
                         {{$Caso->Evaluacion == '' ? '' : 'disabled'}}>
-                        {{$Caso->Evaluacion == '' ? 'Guardar evaluaci&oacute;n' : 'Caso ya evaluado'}}</button>
+                        {{$Caso->Evaluacion == '' ? 'Guardar evaluación' : 'Caso ya evaluado'}}</button>
                 </form>
 
                 <hr>
