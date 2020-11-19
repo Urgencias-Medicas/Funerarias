@@ -194,9 +194,9 @@ class CasosController extends Controller
                 $message->to('samuelambrosio99@gmail.com', $nombre_funeraria)->subject($mensaje)->from('no-reply@excess.software', 'Urgencias Médicas');
             });
         }
-        if($wp == 'Si'){
+        /*if($wp == 'Si'){
             $this->mensajeWhatsApp($mensaje, 'whatsapp:+50249750995');
-        }
+        }*/
         Notificaciones::create(['funeraria' => $funeraria, 'contenido' => 'Caso #'.$caso.' asignado.', 'estatus' => 'Activa', 'caso' => $caso]);
         return 'Hecho';
     }
@@ -216,6 +216,7 @@ class CasosController extends Controller
         $caso->save();
         //return back()->with('msg', 'Pagos añadidos exitosamente.');
         return $this->detallesCaso($caso->id, 1);
+        //return redirect('/Casos/'.$caso->id.'/ver')->with('alerta', 'Pago ingresado exitosamente.');
     }
 
     public function cerrarCaso($caso){
@@ -321,7 +322,7 @@ class CasosController extends Controller
         'Municipio' => strtoupper($request->municipio), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
         'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 
         'Lugar' => $request->lugar, 'Tutor' => $request->Tutor, 'TelTutor' => $request->TelTutor, 'DPITutor' => $request->DPITutor,
-        'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, 'Comentario' => $request->ComentarioTutor];
+        'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, '|' => $request->ComentarioTutor];
         $caso_update = Casos::find($caso)->update($data);
 
         if($request->descripcion_causa != ''){
