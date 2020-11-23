@@ -1,15 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-</script>
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/basic.css" rel="stylesheet" type="text/css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/basic.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
     .dropzone {
@@ -110,7 +101,7 @@
                                     <div class="form-group col-md-8" id="selectcol">
 
                                         <label for="descripcion_causa">Causa de muerte</label>
-                                        <select name="descripcion_causa_select" id="descripcion_causa"
+                                        <select name="descripcion_causa_select" id="descripcion_causa_select"
                                             class="selectpicker form-control" data-live-search="true">
                                             @foreach($Causas as $causa)
                                             @if($causa->Causa == $Caso->Causa_Desc)
@@ -516,7 +507,7 @@
 
 
     function agregarCausa() {
-        var causa = $(".bs-searchbox input").val();
+        var causa = $(".search-input").val();
         $.ajax({
             url: "/Casos/Causas/nueva/" + causa,
             type: 'get',
@@ -533,6 +524,10 @@
             }
         });
     }
+    
+    tail.select("#descripcion_causa_select", {
+        search: true
+        });
 
 </script>
 @endsection
