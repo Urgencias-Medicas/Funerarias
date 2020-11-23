@@ -76,7 +76,16 @@
                                             readonly>
                                     </div>
                                 </div>
-
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="edad">Edad</label>
+                                        <input type="text" name="edad" id="edad" class="form-control" value="{{$Caso->Edad}}">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="Aseguradora">Cod. Aseguradora</label>
+                                        <input type="text" name="aseguradora" id="Aseguradora" class="form-control" value="{{$Caso->Aseguradora}}" readonly>
+                                    </div>
+                                </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="causa">Causa</label>
@@ -115,6 +124,13 @@
                                         <label for="btn-nueva">Nueva causa</label>
                                         <button type="button" class="btn btn-primary btn-block"
                                             onclick="agregarCausa();">+</button>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="causa_especifica">Descripcion de causa</label>
+                                        <input type="text" name="causa_especifica" id="causa_especifica"
+                                            class="form-control" value="{{$Caso->Causa_Especifica}}">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -517,5 +533,6 @@
             }
         });
     }
+
 </script>
 @endsection

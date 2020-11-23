@@ -57,23 +57,33 @@ Route::group(['prefix' => 'Casos'], function () {
 Route::group(['prefix' => 'Personal'], function (){
     Route::get('Funerarias/ver', 'PersonalUMController@verFunerarias');
     Route::get('Funeraria/{id}/ver', 'PersonalUMController@verFuneraria');
-    Route::post('Funeraria/{id}/{detalle}/guardar', 'PersonalUMController@actualizarFuneraria');
+    Route::post('Funeraria/{id}/{detalle}/guardar', 'AdminController@guardarCambiosFuneraria');
 
     Route::group(['prefix' => 'Reportes'], function () {
         Route::get('ver', 'PersonalUMController@verReportes');
         Route::get('Edades/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteEdades');
+        Route::get('EdadesCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteEdadesCSV');
         Route::get('Causas/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteCausas');
+        Route::get('CausasCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteCausasCSV');
         Route::get('Lugares/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteLugares');
+        Route::get('LugaresCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteLugaresCSV');
         Route::get('General/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteGeneral');
+        Route::get('GeneralCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteGeneralCSV');
+        Route::get('Caso/{id}', 'PersonalUMController@reporteCaso');
     });
     
     Route::get('CrearUsuario', 'AdminController@nuevoUsuario');
+    Route::get('CrearUsuarioFuneraria', 'AdminController@nuevoUsuarioFuneraria');
     Route::get('CrearFuneraria', 'AdminController@nuevaFuneraria');
     Route::post('nuevoUsuario', 'AdminController@guardarUsuario');
+    Route::post('nuevoUsuarioFuneraria', 'AdminController@guardarUsuarioFuneraria');
     Route::post('nuevaFuneraria', 'AdminController@guardarFuneraria');
     Route::get('verUsuarios', 'AdminController@verUsuarios');
+    Route::get('verUsuariosFunerarias', 'AdminController@verUsuariosFunerarias');
+    Route::get('verFunerarias', 'AdminController@verFunerarias');
     Route::get('eliminarUsuario/{id}', 'AdminController@eliminarUsuario');
-    Route::get('editarFuneraria/{id}', 'AdminController@editarFuneraria');
+    Route::get('eliminarFuneraria/{id}', 'AdminController@eliminarFuneraria');
+    Route::get('editarFuneraria/{id}/{nombre}', 'AdminController@editarFuneraria');
     Route::get('editarUsuario/{id}', 'AdminController@editarUsuario');
     Route::post('guardarUsuario/{id}', 'AdminController@guardarCambiosUsuario');
     Route::post('guardarFuneraria/{id}', 'AdminController@guardarCambiosFuneraria');

@@ -5,24 +5,22 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Registrar usuario</div>
+                <div class="card-header">Registrar funeraria</div>
 
                 <div class="card-body">
                     <form method="POST" action="/Personal/nuevaFuneraria">
                         @csrf
 
+                        <input id="nombre" type="hidden" class="form-control @error('name') is-invalid @enderror"
+                            name="nombre">
+
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
-
+                            <label for="tipo" class="col-md-4 col-form-label text-md-right">Funeraria</label>
                             <div class="col-md-6">
-                                <input id="nombre" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="nombre" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                <select id="select-funerarias" name="funeraria" class="form-control"
+                                    onChange="nombreFuneraria();" required>
+                                    <option>-- Seleccione --</option>
+                                </select>
                             </div>
                         </div>
 
@@ -42,11 +40,18 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="tipo" class="col-md-4 col-form-label text-md-right">Funeraria</label>
+                            <label for="telefono" class="col-md-4 col-form-label text-md-right">Telefono</label>
+
                             <div class="col-md-6">
-                                <select id="select-funerarias" name="funeraria" class="form-control">
-                                    <option>-- Seleccione --</option>
-                                </select>
+                                <input id="telefono" maxlength="8" type="text" class="form-control" name="telefono" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="MontoBase" class="col-md-4 col-form-label text-md-right">Monto Base</label>
+
+                            <div class="col-md-6">
+                                <input id="MontoBase" type="text" class="form-control" name="MontoBase" required>
                             </div>
                         </div>
 
@@ -74,11 +79,47 @@
                 var html = '<option>-- Seleccione --</option>';
 
                 for (var j = 0; j < len; j++) {
-                    html += '<option value="' + response[j].id + '">' + response[j].funeraria + '</option>';
+                    html += '<option value="' + response[j].id + '">' + response[j].funeraria +
+                        '</option>';
                 }
                 $('#select-funerarias').html(html);
             }
         });
+    });
+
+    function nombreFuneraria() {
+        var val_select = $('#select-funerarias option:selected').text();
+        console.log(val_select);
+        $('#nombre').val(val_select);
+    }
+
+    // Restricts input for the given textbox to the given inputFilter function.
+    function setInputFilter(textbox, inputFilter) {
+        ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (
+            event) {
+            textbox.addEventListener(event, function () {
+                if (inputFilter(this.value)) {
+                    this.oldValue = this.value;
+                    this.oldSelectionStart = this.selectionStart;
+                    this.oldSelectionEnd = this.selectionEnd;
+                } else if (this.hasOwnProperty("oldValue")) {
+                    this.value = this.oldValue;
+                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                } else {
+                    this.value = "";
+                }
+            });
+        });
+    }
+
+    $(document).ready(function () {
+        setInputFilter(document.getElementById("telefono"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+        setInputFilter(document.getElementById("MontoBase"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+
     });
 
 </script>

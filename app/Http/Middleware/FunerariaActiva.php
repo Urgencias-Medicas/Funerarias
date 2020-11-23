@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Funerarias;
 //use App\User;
 
 class FunerariaActiva
@@ -18,8 +19,9 @@ class FunerariaActiva
     {
         
         $user = auth()->user();
-        $activo = $user['activo'];
-        if($activo == 'No'){
+        $funeraria = Funerarias::where('Id_Funeraria', $user['funeraria'])->value('Activa');
+        $activo = $funeraria;
+        if($activo == 'No' || $activo == 'no' || $activo != 'Si'){
             return redirect('/Funerarias/Inactiva');
         }else{
             return $next($request);

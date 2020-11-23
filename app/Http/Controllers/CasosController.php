@@ -16,6 +16,7 @@ use App\SolicitudesCobro;
 use App\Notificaciones;
 use App\Helpers\Helper;
 use App\Causas;
+use App\Funerarias;
 
 class CasosController extends Controller
 {
@@ -41,9 +42,9 @@ class CasosController extends Controller
         $user = auth()->user();
         $suceso = Carbon::parse($request->fecha);
         $fecha = $suceso->format('Y-m-d');
-        $data = ['Agente' => $user->id, 'Codigo' => $request->codEstudiante, 'Nombre' => $request->nombre, 
+        $data = ['Agente' => $user->id, 'Codigo' => $request->codEstudiante, 'Edad' => $request->edad, 'Nombre' => $request->nombre, 'Aseguradora' => $user->aseguradora,
         'Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 'Causa_Desc' => $request->descripcion_causa != '' ? $request->descripcion_causa : $request->descripcion_causa_select,  
-        'Direccion' => $request->direccion, 'Departamento' => strtoupper($request->departamento), 
+        'Causa_Especifica' => $request->causa_especifica, 'Direccion' => $request->direccion, 'Departamento' => strtoupper($request->departamento), 
         'Municipio' => strtoupper($request->municipio), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
         'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 'RelacionReporta' => $request->RelacionReporta, 
         'TelReporta' => $request->TelReporta, 'Lugar' => $request->lugar, 'Estatus' => 'Abierto', 'Reportar' => 'No', 'Idioma' => $request->Idioma, 
@@ -98,9 +99,14 @@ class CasosController extends Controller
         return view('Personal.Casos.ver', ['Casos' => $casos]);
     }
     public function detallesCaso($id, $msg = 0){
+
         $caso = Casos::find($id);
         $files = File::files(public_path('images'));
+        $allowed='png,jpg,jpeg,gif,tiff';  //which file types are allowed seperated by comma
+        $extension_allowed=  explode(',', $allowed);
         $archivos = array();
+        $descargables = array();
+        $contador = 1;
         foreach ($files as $file) {
             $nombre = basename($file);
             $posicion_indicador = strpos($nombre, '-');
@@ -111,16 +117,21 @@ class CasosController extends Controller
             if($no_caso == $id){
                 array_push($archivos, $nuevonombre);
             }
+
+            if($no_caso == $id && !array_search(pathinfo($file, PATHINFO_EXTENSION), $extension_allowed)){
+                array_push($descargables, array('id' => $contador, 'archivo' => $nombre));
+                $contador = $contador + 1;
+            }
         }
         $pagos = HistorialPagos::where('caso', $id)->get();
         $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'desc')->get();
         $causas = Causas::get();
         if($msg == 0){
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas]);
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas]);
         }else if($msg == 2){
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'El caso ha sido modificado exitosamente');
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'El caso ha sido modificado exitosamente');
         }else{
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'Pago ingresado exitosamente.');
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'Pago ingresado exitosamente.');
         }
     }
     
@@ -160,38 +171,20 @@ class CasosController extends Controller
         $casos->Funeraria = $funeraria;
         $casos->Funeraria_Nombre = $nombre_funeraria;
         $casos->Estatus = 'Asignado';
-        if($funeraria == '6'){
-            $costo_servicio = 1500;
-        }elseif($funeraria == '7'){
-            $costo_servicio = 1300;
-        }else{
-            $costo_servicio = 1000;
-        }
+
+        $costo_servicio = Funerarias::where('Id_Funeraria', $funeraria)->value('Monto_Base');
+
         $casos->Costo = $costo_servicio;
         $casos->save();
 
-        $api_uri = "https://umbd.excess.software/api/getFuneraria";
-        $client = new \GuzzleHttp\Client([
-            'headers' => [ 'Content-Type' => 'application/json' ]
-        ]);
-        $res = $client->request('GET', $api_uri, [
-            'body' => json_encode(
-                [
-                    'cols' => 'funeraria',
-                    'conds' => array('id' => $funeraria)
-                ]
-            ),
-        ]);
-        $data = json_decode($res->getBody());
-        $nombre_funeraria = $data[0]->funeraria;
-
+        $correo_funeraria = Funerarias::where('Id_Funeraria', $funeraria)->value('Email');
         $mensaje = 'Caso #'.$caso.' asignado. ';
-        $mensaje .= 'Más información en http://umfunerarias.local/Funerarias/Casos/'.$caso.'/ver';
+        $mensaje .= 'Más información en '.url('/Funerarias/Casos/'.$caso.'/ver');
         $casos_array = ['id' => $caso];  
         if($correo == 'Si'){
-            Mail::send('mailslayouts.asignado', $casos_array, function($message) use($caso, $nombre_funeraria, $mensaje)
+            Mail::send('mailslayouts.asignado', $casos_array, function($message) use($caso, $correo_funeraria, $nombre_funeraria, $mensaje)
             {
-                $message->to('samuelambrosio99@gmail.com', $nombre_funeraria)->subject($mensaje)->from('no-reply@excess.software', 'Urgencias Médicas');
+                $message->to($correo_funeraria, $nombre_funeraria)->subject($mensaje)->from('no-reply@excess.software', 'Urgencias Médicas');
             });
         }
         /*if($wp == 'Si'){
@@ -208,7 +201,7 @@ class CasosController extends Controller
             $total = $total + $monto;
             $date = Carbon::parse($request->input("fecha".$i));
             $fecha = $date->format('Y-m-d');
-            HistorialPagos::create(['caso' => $caso, 'monto' => $monto, 'fecha' => $fecha, 'factura' => $request->input("factura".$i)]);
+            HistorialPagos::create(['caso' => $caso, 'monto' => $monto, 'fecha' => $fecha, 'factura' => $request->input("factura".$i), 'serie' => $request->input("serie".$i)]);
         }
         $caso = Casos::find($caso);
         $caso->Pagado = $caso->Pagado + $total;
@@ -235,14 +228,14 @@ class CasosController extends Controller
         //POST API Smart
         $arrayCaso = array(array(
             "method" => "603",
-            "IdUser" => '1',
-            "IdAfiliado" => '4667',
+            "IdAseg" => $caso->Aseguradora,
+            "IdAfiliado" => $caso->Codigo,
             "Fecha" => $caso->Fecha,
             "Hora" => $caso->Hora,
             "Motivo" => $caso->Causa,
             "LugarCuerpo" => $caso->Lugar,
-            "Funeraria" => $caso->Funeraria,
-            "ServicioFunerarioContratado" => $caso->Funeraria,
+            "Funeraria" => $caso->Funeraria_Nombre,
+            "ServicioFunerarioContratado" => $caso->Funeraria_Nombre,
             "Direccion" => $caso->Direccion
         ));
 
@@ -277,6 +270,8 @@ class CasosController extends Controller
     public function insertData(Request $request) {
 
         $data = Helper::cryptR($request->input('data'), 0);
+
+        $data->Estatus = 'Abierto';
 
         $res = Casos::create( (array) $data);
 
@@ -317,12 +312,12 @@ class CasosController extends Controller
         $user = auth()->user();
         $suceso = Carbon::parse($request->fecha);
         $fecha = $suceso->format('Y-m-d');
-        $data = ['Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 'Causa_Desc' => $request->descripcion_causa_input != '' ? $request->descripcion_causa_input : $request->descripcion_causa_select,  
-        'Direccion' => $request->direccion, 'Departamento' => strtoupper($request->departamento), 
+        $data = ['Aseguradora' => $user->aseguradora, 'Edad' => $request->edad, 'Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 'Causa_Desc' => $request->descripcion_causa_input != '' ? $request->descripcion_causa_input : $request->descripcion_causa_select,  
+        'Causa_Especifica' => $request->causa_especifica, 'Direccion' => $request->direccion, 'Departamento' => strtoupper($request->departamento), 
         'Municipio' => strtoupper($request->municipio), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
         'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 
         'Lugar' => $request->lugar, 'Tutor' => $request->Tutor, 'TelTutor' => $request->TelTutor, 'DPITutor' => $request->DPITutor,
-        'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, '|' => $request->ComentarioTutor];
+        'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, 'Comentario' => $request->ComentarioTutor];
         $caso_update = Casos::find($caso)->update($data);
 
         if($request->descripcion_causa != ''){

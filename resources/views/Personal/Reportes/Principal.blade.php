@@ -41,6 +41,12 @@
                             </a></h4>
                         <p class="card-text">Reporte que lista edades de fallecidos dentro de un parametro de fechas
                             escogidas.</p>
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <span id="export" class="btn btn-success btn-sm" onclick="reporte('EdadesCSV');">Generar
+                                    CSV</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card">
@@ -50,6 +56,12 @@
                             </a></h4>
                         <p class="card-text">Reporte que lista causas de muertes dentro de un parametro de fechas
                             escogidas.</p>
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <span id="export" class="btn btn-success btn-sm" onclick="reporte('CausasCSV');">Generar
+                                    CSV</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card">
@@ -59,6 +71,12 @@
                             </a></h4>
                         <p class="card-text">Reporte que lista lugares de muerte dentro de un parametro de fechas
                             escogidas.</p>
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <span id="export" class="btn btn-success btn-sm" onclick="reporte('LugaresCSV');">Generar
+                                    CSV</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,6 +88,12 @@
                                 General
                             </a></h4>
                         <p class="card-text">Reporte general.</p>
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                            <span id="export" class="btn btn-success btn-sm"
+                                    onclick="reporte('GeneralCSV');">Generar CSV</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

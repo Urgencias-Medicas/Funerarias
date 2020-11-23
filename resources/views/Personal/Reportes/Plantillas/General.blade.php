@@ -38,8 +38,9 @@
                     <th scope="col">Tutor</th>
                     <th scope="col">Municipio</th>
                     <th scope="col">Departamento</th>
+                    <th scope="col">Tipo de Muerte</th>
                     <th scope="col">Causa</th>
-                    <th scope="col">Desc</th>
+                    <th scope="col">Desc. Causa</th>
                     <th scope="col">Funeraria</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Evaluacion</th>
@@ -58,6 +59,7 @@
                     <td>{{strtoupper($caso->Departamento)}}</td>
                     <td>{{$caso->Causa}}</td>
                     <td>{{$caso->Causa_Desc}}</td>
+                    <td>{{$caso->Causa_Especifica}}</td>
                     <td>{{$caso->Funeraria_Nombre}}</td>
                     <td>{{$caso->Fecha}}</td>
                     <td>{{$caso->Evaluacion}}</td>

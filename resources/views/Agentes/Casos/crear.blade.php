@@ -34,19 +34,27 @@
                                 <input type="text" class="form-control" id="codEstudiante" name="codEstudiante"
                                     placeholder="0000000" onchange="alumno();"><span id="errmsg"></span>
                             </div>
-                            <div class="form-group col-md-9">
+                            <div class="form-group col-md-6">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre"
                                     placeholder="Ingrese nombre del estudiante">
                             </div>
+                            <div class="form-group col-md-3">
+                                <label for="Aseguradora">Cod. Aseguradora</label>
+                                <input type="text" name="aseguradora" id="Aseguradora" class="form-control">
+                            </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
+                                <label for="edad">Edad</label>
+                                <input type="text" name="edad" id="edad" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
                                 <label for="fechaNacimiento">Fecha</label>
                                 <input type="date" class="form-control" id="fechaNacimiento" name="fecha"
                                     placeholder="00/00/0000">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="pohoralhoraiza">Hora</label>
                                 <input type="time" class="form-control" id="hora" name="hora" placeholder="00:00"><span
                                     id="errmsg"></span>
@@ -83,8 +91,8 @@
                             <div class="form-group col-md-10" id="selectcol">
 
                                 <label for="descripcion_causa">Causa de muerte</label>
-                                <select name="descripcion_causa_select" id="descripcion_causa" class="selectpicker form-control"
-                                    data-live-search="true">
+                                <select name="descripcion_causa_select" id="descripcion_causa"
+                                    class="selectpicker form-control" data-live-search="true">
                                     @foreach($Causas as $causa)
                                     <option value="{{$causa->Causa}}">{{$causa->Causa}}</option>
                                     @endforeach
@@ -94,6 +102,12 @@
                                 <label for="btn-nueva">Nueva causa</label>
                                 <button type="button" class="btn btn-primary btn-block"
                                     onclick="agregarCausa();">+</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="causa_especifica">Descripcion de causa</label>
+                                <input type="text" name="causa_especifica" id="causa_especifica" class="form-control">
                             </div>
                         </div>
                         <div class="form-row">

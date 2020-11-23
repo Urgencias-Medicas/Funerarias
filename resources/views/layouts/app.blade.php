@@ -84,7 +84,8 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a href="/Casos/ver"
-                                    class="dropdown-item {{ (request()->is('Casos/ver*')) ? 'active' : '' }}">Ver Casos</a>
+                                    class="dropdown-item {{ (request()->is('Casos/ver*')) ? 'active' : '' }}">Ver
+                                    Casos</a>
                                 <a href="/Casos/vistaCrear"
                                     class="dropdown-item {{ (request()->is('Casos/vistaCrear*')) ? 'active' : '' }}">Nuevo
                                     caso</a>
@@ -137,14 +138,19 @@
                                 Usuarios
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/Personal/verUsuarios">Ver usuarios</a>
-                                <a href="/Personal/Funerarias/ver"
-                                    class="dropdown-item {{ (request()->is('Personal/Funerarias*')) ? 'active' : '' }}"><span>
-                                        Funerarias </span></a>
+                                <a class="dropdown-item {{ (request()->is('Personal/verUsuarios')) ? 'active' : '' }}" href="/Personal/verUsuarios">Ver usuarios</a>
+                                <a class="dropdown-item {{ (request()->is('Personal/verUsuariosFunerarias*')) ? 'active' : '' }}" href="/Personal/verUsuariosFunerarias">Ver Usuarios
+                                    Funerarias</a>
+                                <a href="/Personal/verFunerarias"
+                                    class="dropdown-item {{ (request()->is('Personal/verFunerarias*')) ? 'active' : '' }}"><span>
+                                        Ver Funerarias </span></a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/Personal/CrearUsuario"
                                     class="nav-link {{ (request()->is('Personal/CrearUsuario*')) ? 'active' : '' }}">Crear
                                     Usuario</a>
+                                <a class="dropdown-item" href="/Personal/CrearUsuarioFuneraria"
+                                    class="nav-link {{ (request()->is('Personal/CrearUsuarioFuneraria*')) ? 'active' : '' }}">Crear
+                                    Usuario Funeraria</a>
                                 <a class="dropdown-item" href="/Personal/CrearFuneraria"
                                     class="nav-link {{ (request()->is('Personal/CrearFuneraria*')) ? 'active' : '' }}">Crear
                                     Funeraria</a>
