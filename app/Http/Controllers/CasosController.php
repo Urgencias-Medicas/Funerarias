@@ -42,7 +42,7 @@ class CasosController extends Controller
         $user = auth()->user();
         $suceso = Carbon::parse($request->fecha);
         $fecha = $suceso->format('Y-m-d');
-        $data = ['Agente' => $user->id, 'Codigo' => $request->codEstudiante, 'Edad' => $request->edad, 'Nombre' => $request->nombre, 'Aseguradora' => $user->aseguradora,
+        $data = ['Agente' => $user->id, 'Codigo' => $request->codEstudiante, 'Edad' => $request->edad, 'Nombre' => $request->nombre, 'Aseguradora' => $request->aseguradora,
         'Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 'Causa_Desc' => $request->descripcion_causa != '' ? $request->descripcion_causa : $request->descripcion_causa_select,  
         'Causa_Especifica' => $request->causa_especifica, 'Direccion' => $request->direccion, 'Departamento' => strtoupper($request->departamento), 
         'Municipio' => strtoupper($request->municipio), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
@@ -250,7 +250,7 @@ class CasosController extends Controller
         
         $data = json_decode($res->getBody());
 
-        var_dump($data);
+        return $data;
     }
     public function mensajeWhatsApp($message, $recipient){
         $twilio_whatsapp_number = getenv('TWILIO_WHATSAPP_NUMBER');

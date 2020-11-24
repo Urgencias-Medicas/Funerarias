@@ -44,7 +44,7 @@ Route::group(['prefix' => 'Casos'], function () {
     Route::get('ver', 'CasosController@verCasos')->middleware('role:Personal');
     Route::get('{id}/ver', 'CasosController@detallesCaso')->middleware('role:Personal');
     Route::get('/{caso}/asignarFuneraria/{id}/{funeraria}/{correo}/{wp}', 'CasosController@asignarFuneraria');
-    Route::post('/{caso}/actualizarPago', 'CasosController@actualizarPago');
+    Route::any('/{caso}/actualizarPago', 'CasosController@actualizarPago');
     Route::get('/cerrarCaso/{caso}', 'CasosController@cerrarCaso');
     Route::get('Reportar/{caso}/{instruccion}', 'CasosController@reportarCaso');
     Route::get('Solicitudes/{caso}/{solicitud}/{opcion}', 'CasosController@actualizarSolicitud');

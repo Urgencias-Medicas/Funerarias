@@ -40,7 +40,7 @@
 @endif
 <div class="container">
     <a href="/Funerarias/Casos/ver" class="btn btn-link mb-2">
-        < Atrás</a> <button type="submit" class="btn btn-success float-right mr-2" form="modificarForm">Guardar
+        < Atrás</a> <button type="submit" class="btn btn-success float-right mr-2" id="btnGuardar" form="modificarForm">Guardar
             cambios</button>
             <div class="row ">
                 <div class="col-md-6">
@@ -529,5 +529,13 @@
         search: true
         });
 
+    @if($Caso->Estatus == 'Cerrado')
+        $(document).ready(function(){
+            $('#modificarForm :input').prop('disabled', true);
+            $('#btnGuardar').prop('disabled', true);
+            tail.select("#descripcion_causa_select").disable();
+
+        })
+    @endif
 </script>
 @endsection
