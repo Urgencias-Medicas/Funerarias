@@ -113,6 +113,10 @@ class AdminController extends Controller
     public function verUsuarios($msg = 0){
         $users = User::with('roles')->get();
 
+        $users = $users->reject(function ($user, $key) {
+            return $user->hasRole(['Funeraria', 'Super Admin']);
+        });
+
         foreach($users as $user){
             $user->rol = $user->roles->first()->name;
         }
