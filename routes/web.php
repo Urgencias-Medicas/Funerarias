@@ -70,9 +70,9 @@ Route::group(['prefix' => 'Personal'], function (){
         Route::get('LugaresCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteLugaresCSV');
         Route::get('General/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteGeneral');
         Route::get('GeneralCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteGeneralCSV');
-        Route::get('CSVConteoCausas/{fechaInicio}/{fechaFin}', 'PersonalUmController@CSVConteoCausas');
-        Route::get('CSVConteoFunerarias/{fechaInicio}/{fechaFin}', 'PersonalUmController@CSVConteoFunerarias');
-        Route::get('CSVCausasDeptos/{fechaInicio}/{fechaFin}', 'PersonalUmController@CSVCausasDeptos');
+        Route::get('CSVConteoCausas/{fechaInicio}/{fechaFin}', 'PersonalUMController@CSVConteoCausas');
+        Route::get('CSVConteoFunerarias/{fechaInicio}/{fechaFin}', 'PersonalUMController@CSVConteoFunerarias');
+        Route::get('CSVCausasDeptos/{fechaInicio}/{fechaFin}', 'PersonalUMController@CSVCausasDeptos');
         Route::get('Caso/{id}', 'PersonalUMController@reporteCaso');
     });
     
