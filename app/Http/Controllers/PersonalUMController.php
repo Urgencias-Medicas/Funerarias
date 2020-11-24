@@ -232,6 +232,8 @@ class PersonalUMController extends Controller
             $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
 
             $conteo_funerarias = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+
+            $departamentos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
         }else{
             //Seleccionar entre días, meses o años
             $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
@@ -239,9 +241,9 @@ class PersonalUMController extends Controller
             $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
 
             $conteo_funerarias = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
-        }
 
-        $departamentos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
+            $departamentos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
+        }
 
         foreach($departamentos as $departamento){
             $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
@@ -249,7 +251,7 @@ class PersonalUMController extends Controller
         }
 
         $pdf = PDF::loadView('Personal.Reportes.Plantillas.General', ['Casos' => $casos, 'Conteo' => $conteo, 'Conteo_funerarias' => $conteo_funerarias, 'Departamentos' => $departamentos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin])->setPaper('a2', 'landscape');
-        return $pdf->download('Reporte-Lugares.pdf');
+        return $pdf->download('Reporte-General.pdf');
     }
     public function reporteGeneralCSV($fechaInicio, $fechaFin){
         setlocale(LC_TIME, "spanish");
@@ -314,6 +316,83 @@ class PersonalUMController extends Controller
 
         return response()->stream($callback, 200, $headers);
     }
+
+    public function CSVConteoCausas($fechaInicio, $fechaFin){
+        if($fechaInicio != '' && $fechaFin == '0'){
+            //Seleccionar de un sólo día
+            $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+
+        }else{
+            $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+        }
+
+        $fileName = 'Conteo-Causas-'.$fechaInicio.'-'.$fechaFin.'.csv';
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('Causa', 'Total');
+
+        $callback = function() use($conteo, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($conteo as $cont) {
+                $row['Causa']  = $cont->Causa;
+                $row['Total']    = $cont->total;
+
+                fputcsv($file, array($row['Causa'], $row['Total']));
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    public function CSVConteoFunerarias($fechaInicio, $fechaFin){
+        if($fechaInicio != '' && $fechaFin == '0'){
+            //Seleccionar de un sólo día
+            $conteo_funerarias = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+
+        }else{
+            $conteo_funerarias = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+        }
+
+        $fileName = 'Conteo-Funerarias-'.$fechaInicio.'-'.$fechaFin.'.csv';
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('Funeraria', 'Total');
+
+        $callback = function() use($conteo, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($conteo as $cont) {
+                $row['Funeraria']  = $cont->Funeraria_Nombre;
+                $row['Total']    = $cont->total;
+
+                fputcsv($file, array($row['Funeraria'], $row['Total']));
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function reporteCaso($id){
         $caso = Casos::find($id);
         $files = File::files(public_path('images'));

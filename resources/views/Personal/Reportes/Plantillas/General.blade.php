@@ -117,7 +117,7 @@
                 @endphp
                 @foreach($Conteo_funerarias as $conteo)
                 <tr>
-                    <td>{{$conteo->Funeraria}}</td>
+                    <td>{{$conteo->Funeraria_Nombre}}</td>
                     <td>{{$conteo->total}}</td>
                 </tr>
                 @php
@@ -139,7 +139,6 @@
         <table class="table table-bordered text-center">
             <thead>
                 <tr>
-                    <td></td>
                     <th scope="col">Causa</th>
                     <th scope="col">Total</th>
                 </tr>
@@ -147,7 +146,7 @@
             <tbody>
                 @foreach($Departamentos as $departamento)
                     <tr>
-                        <th colspan="3" scope="colgroup">{{$departamento->Departamento}}</th>
+                        <th colspan="2" scope="colgroup">{{$departamento->Departamento}}</th>
                     </tr>
                     @foreach($departamento->Causas_arreglo as $causa)
                     <tr>

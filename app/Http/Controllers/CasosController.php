@@ -330,5 +330,11 @@ class CasosController extends Controller
         
         return $this->detallesCaso($caso, 2);
     }
+
+    public function getCostoFuneraria($id){
+        $costo = Funerarias::where('Id_Funeraria', $id)->value('Monto_Base');
+
+        return $costo;
+    }
 }
 

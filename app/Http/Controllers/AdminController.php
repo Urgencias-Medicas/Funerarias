@@ -93,7 +93,7 @@ class AdminController extends Controller
         $user = User::create([
             'name' => $request->nombre,
             'email' => $request->mail,
-            'password' => Hash::make('password'),
+            'password' => Hash::make($random_password),
             'created_at' => time(),
             'funeraria' => $request->funeraria
         ]);
