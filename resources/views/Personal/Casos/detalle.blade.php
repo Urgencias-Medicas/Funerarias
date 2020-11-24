@@ -877,6 +877,9 @@
             type: 'get',
             success: function (response) {
                 window.location.href = '/Casos/ver';
+            },
+            error: function (response) {
+                alert('Por favor rellene la información de la funeraria.');
             }
         });
     }
