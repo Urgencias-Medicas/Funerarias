@@ -73,7 +73,8 @@
                             escogidas.</p>
                         <div class="row text-center">
                             <div class="col-md-12">
-                                <span id="export" class="btn btn-success btn-sm" onclick="reporte('LugaresCSV');">Generar
+                                <span id="export" class="btn btn-success btn-sm"
+                                    onclick="reporte('LugaresCSV');">Generar
                                     CSV</span>
                             </div>
                         </div>
@@ -90,8 +91,8 @@
                         <p class="card-text">Reporte general.</p>
                         <div class="row text-center">
                             <div class="col-md-12">
-                            <span id="export" class="btn btn-success btn-sm"
-                                    onclick="reporte('GeneralCSV');">Generar CSV</span>
+                                <span id="export" class="btn btn-success btn-sm" onclick="reporte('GeneralCSV');">CSV
+                                    General</span>
                             </div>
                         </div>
                     </div>
@@ -108,16 +109,37 @@
         var fechafin = $('#fechaFin').val();
         var fechainicio_validar = new Date($('#fechaInicio').val());
         var fechafin_validar = new Date($('#fechaFin').val());
-        if (fechainicio == '' && fechafin == '') {
-            alert('Por favor seleccione una fecha.');
-        } else if (fechainicio == '') {
-            alert('Por favor seleccione una fecha válida.');
-        } else if (fechafin_validar <= fechainicio_validar) {
-            alert('Por favor seleccione una fecha válida.');
-        } else if (fechafin == '' && fechainicio != '') {
-            window.open('/Personal/Reportes/' + reportar + '/' + fechainicio + '/0');
-        } else if (fechainicio != '' && fechafin != '') {
-            window.open('/Personal/Reportes/' + reportar + '/' + fechainicio + '/' + fechafin);
+
+        if (reportar == 'GeneralCSV') {
+            if (fechainicio == '' && fechafin == '') {
+                alert('Por favor seleccione una fecha.');
+            } else if (fechainicio == '') {
+                alert('Por favor seleccione una fecha válida.');
+            } else if (fechafin_validar <= fechainicio_validar) {
+                alert('Por favor seleccione una fecha válida.');
+            } else if (fechafin == '' && fechainicio != '') {
+                window.open('/Personal/Reportes/GeneralCSV/' + fechainicio + '/0');
+                window.open('/Personal/Reportes/CSVConteoCausas/' + fechainicio + '/0');
+                window.open('/Personal/Reportes/CSVConteoFunerarias/' + fechainicio + '/0');
+                window.open('/Personal/Reportes/CSVCausasDeptos/' + fechainicio + '/0');
+            } else if (fechainicio != '' && fechafin != '') {
+                window.open('/Personal/Reportes/GeneralCSV/' + fechainicio + '/' + fechafin);
+                window.open('/Personal/Reportes/CSVConteoCausas/' + fechainicio + '/' + fechafin);
+                window.open('/Personal/Reportes/CSVConteoFunerarias/' + fechainicio + '/' + fechafin);
+                window.open('/Personal/Reportes/CSVCausasDeptos/' + fechainicio + '/' + fechafin);
+            }
+        } else {
+            if (fechainicio == '' && fechafin == '') {
+                alert('Por favor seleccione una fecha.');
+            } else if (fechainicio == '') {
+                alert('Por favor seleccione una fecha válida.');
+            } else if (fechafin_validar <= fechainicio_validar) {
+                alert('Por favor seleccione una fecha válida.');
+            } else if (fechafin == '' && fechainicio != '') {
+                window.open('/Personal/Reportes/' + reportar + '/' + fechainicio + '/0');
+            } else if (fechainicio != '' && fechafin != '') {
+                window.open('/Personal/Reportes/' + reportar + '/' + fechainicio + '/' + fechafin);
+            }
         }
     }
 
