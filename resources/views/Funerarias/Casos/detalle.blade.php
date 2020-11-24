@@ -40,7 +40,8 @@
 @endif
 <div class="container">
     <a href="/Funerarias/Casos/ver" class="btn btn-link mb-2">
-        < Atrás</a> <button type="submit" class="btn btn-success float-right mr-2" id="btnGuardar" form="modificarForm">Guardar
+        < Atrás</a> <button type="submit" class="btn btn-success float-right mr-2" id="btnGuardar" form="modificarForm">
+            Guardar
             cambios</button>
             <div class="row ">
                 <div class="col-md-6">
@@ -70,11 +71,13 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="edad">Edad</label>
-                                        <input type="text" name="edad" id="edad" class="form-control" value="{{$Caso->Edad}}">
+                                        <input type="text" name="edad" id="edad" class="form-control"
+                                            value="{{$Caso->Edad}}">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="Aseguradora">Cod. Aseguradora</label>
-                                        <input type="text" name="aseguradora" id="Aseguradora" class="form-control" value="{{$Caso->Aseguradora}}" readonly>
+                                        <input type="text" name="aseguradora" id="Aseguradora" class="form-control"
+                                            value="{{$Caso->Aseguradora}}" readonly>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -127,13 +130,40 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="departamento">Departamento</label>
-                                        <input type="text" name="departamento" id="departamento" class="form-control"
-                                            value="{{$Caso->Departamento}}">
+                                        <select name="departamento" id="departamento" class="form-control" required
+                                            onclick="makeSubmenu(this.value)">
+                                            <option>{{$Caso->Departamento}}</option>
+                                            <option disabled>- Seleccione una opción -</option>
+                                            <option value="Alta Verapaz">Alta Verapaz</option>
+                                            <option value="Baja Verapaz">Baja Verapaz</option>
+                                            <option value="Chimaltenango">Chimaltenango</option>
+                                            <option value="Chiquimula">Chiquimula</option>
+                                            <option value="Petén">Petén</option>
+                                            <option value="El Progreso">El Progreso</option>
+                                            <option value="Quiché">Quiché</option>
+                                            <option value="Escuintla">Escuintla</option>
+                                            <option value="Guatemala">Guatemala</option>
+                                            <option value="Huehuetenango">Huehuetenango</option>
+                                            <option value="Izabal">Izabal</option>
+                                            <option value="Jalapa">Jalapa</option>
+                                            <option value="Jutiapa">Jutiapa</option>
+                                            <option value="Quetzaltenango">Quetzaltenango</option>
+                                            <option value="Retalhuleu">Retalhuleu</option>
+                                            <option value="Sacatepéquez">Sacatepéquez</option>
+                                            <option value="San Marcos">San Marcos</option>
+                                            <option value="Santa Rosa">Santa Rosa</option>
+                                            <option value="Sololá">Sololá</option>
+                                            <option value="Suchitepéquez">Suchitepéquez</option>
+                                            <option value="Totonicapán">Totonicapán</option>
+                                            <option value="Zacapa">Zacapa</option>
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="municipio">Municipio</label>
-                                        <input type="text" name="municipio" id="municipio" class="form-control"
-                                            value="{{$Caso->Municipio}}">
+
+                                        <select name="municipio" id="municipio" class="form-control" required>
+                                            <option>{{$Caso->Municipio}}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -524,18 +554,34 @@
             }
         });
     }
-    
+
     tail.select("#descripcion_causa_select", {
         search: true
-        });
+    });
 
     @if($Caso->Estatus == 'Cerrado')
-        $(document).ready(function(){
-            $('#modificarForm :input').prop('disabled', true);
-            $('#btnGuardar').prop('disabled', true);
-            tail.select("#descripcion_causa_select").disable();
+    $(document).ready(function () {
+        $('#modificarForm :input').prop('disabled', true);
+        $('#btnGuardar').prop('disabled', true);
+        tail.select("#descripcion_causa_select").disable();
 
-        })
+    })
     @endif
+
+    function makeSubmenu(value) {
+        var municipio = {!! $Json !!};
+
+        if (value.length == 0) {
+            $('#municipio').html = "<option></option>";
+        } else {
+            var munOptions = "";
+            for (munId in municipio[value]) {
+                munOptions += "<option value='" + municipio[value][munId] + "'>" + municipio[value][munId] +
+                "</option>";
+            }
+            document.getElementById("municipio").innerHTML = munOptions;
+        }
+    }
+
 </script>
 @endsection

@@ -11,6 +11,7 @@ use App\SolicitudesCobro;
 use App\Notificaciones;
 use App\Causas;
 use Carbon\Carbon;
+use App\Helpers\Helper;
 
 class FunerariasController extends Controller
 {
@@ -48,14 +49,17 @@ class FunerariasController extends Controller
                 array_push($archivos, $nuevonombre);
             }
         }
+        $url = "https://gist.githubusercontent.com/tian2992/7439705/raw/1e5d0a766775a662039f3a838f422a1fc1600f74/guatemala.json";
+
+        $json = file_get_contents($url);
         $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'desc')->get();
         $causas = Causas::get();
         if($msg == 1){
-            return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'Su solicitud ha sido ingresada');
+            return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'Su solicitud ha sido ingresada');
         }else if($msg == 2){
-            return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'El caso fue actualizado exitosamente.');
+            return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'El caso fue actualizado exitosamente.');
         }else{
-            return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes, 'Causas' => $causas]);
+            return view('Funerarias.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes, 'Causas' => $causas]);
         }
     }
     public function actualizarCosto($caso, Request $request){
@@ -98,9 +102,9 @@ class FunerariasController extends Controller
         $user = auth()->user();
         $suceso = Carbon::parse($request->fecha);
         $fecha = $suceso->format('Y-m-d');
-        $data = ['Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 'Causa_Desc' => $request->descripcion_causa_input != '' ? $request->descripcion_causa_input : $request->descripcion_causa_select,  
-        'Causa_Especifica' => $request->causa_especifica, 'Direccion' => $request->direccion, 'Departamento' => strtoupper($request->departamento), 
-        'Municipio' => strtoupper($request->municipio), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
+        $data = ['Edad' => $request->edad, 'Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 'Causa_Desc' => $request->descripcion_causa_input != '' ? $request->descripcion_causa_input : $request->descripcion_causa_select,  
+        'Causa_Especifica' => $request->causa_especifica, 'Direccion' => $request->direccion, 'Departamento' => strtoupper(Helper::eliminar_acentos($request->departamento)), 
+        'Municipio' => strtoupper(Helper::eliminar_acentos($request->municipio)), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
         'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 'RelacionReporta' => $request->RelacionReporta, 
         'TelReporta' => $request->TelReporta, 'Lugar' => $request->lugar, 'Tutor' => $request->Tutor, 'TelTutor' => $request->TelTutor, 'DPITutor' => $request->DPITutor,
         'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, 'Comentario' => $request->ComentarioTutor, 'Medico' => $request->Medico, 'Idioma' => $request->Idioma];

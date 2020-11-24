@@ -106,11 +106,16 @@
                             <div class="form-group col-md-12">
                                 <label for="causa">Causa</label>
                                 <select name="causa" id="causa" class="form-control">
-                                    <option {{$Caso->Causa == 'Accidente' ? 'selected' : ''}} value="Accidente">Accidente</option>
-                                    <option {{$Caso->Causa == 'Suicidio' ? 'selected' : ''}} value="Suicidio">Suicidio</option>
-                                    <option {{$Caso->Causa == 'Asesinato' ? 'selected' : ''}} value="Asesinato">Asesinato</option>
-                                    <option {{$Caso->Causa == 'Causas Naturales' ? 'selected' : ''}} value="Causas Naturales">Causas Naturales</option>
-                                    <option {{$Caso->Causa == 'Enfermedad Comun' ? 'selected' : ''}} value="Enfermedad Comun">Enfermedad Com&uacute;n</option>
+                                    <option {{$Caso->Causa == 'Accidente' ? 'selected' : ''}} value="Accidente">
+                                        Accidente</option>
+                                    <option {{$Caso->Causa == 'Suicidio' ? 'selected' : ''}} value="Suicidio">Suicidio
+                                    </option>
+                                    <option {{$Caso->Causa == 'Asesinato' ? 'selected' : ''}} value="Asesinato">
+                                        Asesinato</option>
+                                    <option {{$Caso->Causa == 'Causas Naturales' ? 'selected' : ''}}
+                                        value="Causas Naturales">Causas Naturales</option>
+                                    <option {{$Caso->Causa == 'Enfermedad Comun' ? 'selected' : ''}}
+                                        value="Enfermedad Comun">Enfermedad Com&uacute;n</option>
                                 </select>
                             </div>
                         </div>
@@ -152,13 +157,40 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="departamento">Departamento</label>
-                                <input type="text" name="departamento" id="departamento" class="form-control"
-                                    value="{{$Caso->Departamento}}">
+                                <select name="departamento" id="departamento" class="form-control" required
+                                    onclick="makeSubmenu(this.value)">
+                                    <option>{{$Caso->Departamento}}</option>
+                                    <option disabled>- Seleccione una opción -</option>
+                                    <option value="Alta Verapaz">Alta Verapaz</option>
+                                    <option value="Baja Verapaz">Baja Verapaz</option>
+                                    <option value="Chimaltenango">Chimaltenango</option>
+                                    <option value="Chiquimula">Chiquimula</option>
+                                    <option value="Petén">Petén</option>
+                                    <option value="El Progreso">El Progreso</option>
+                                    <option value="Quiché">Quiché</option>
+                                    <option value="Escuintla">Escuintla</option>
+                                    <option value="Guatemala">Guatemala</option>
+                                    <option value="Huehuetenango">Huehuetenango</option>
+                                    <option value="Izabal">Izabal</option>
+                                    <option value="Jalapa">Jalapa</option>
+                                    <option value="Jutiapa">Jutiapa</option>
+                                    <option value="Quetzaltenango">Quetzaltenango</option>
+                                    <option value="Retalhuleu">Retalhuleu</option>
+                                    <option value="Sacatepéquez">Sacatepéquez</option>
+                                    <option value="San Marcos">San Marcos</option>
+                                    <option value="Santa Rosa">Santa Rosa</option>
+                                    <option value="Sololá">Sololá</option>
+                                    <option value="Suchitepéquez">Suchitepéquez</option>
+                                    <option value="Totonicapán">Totonicapán</option>
+                                    <option value="Zacapa">Zacapa</option>
+                                </select>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="municipio">Municipio</label>
-                                <input type="text" name="municipio" id="municipio" class="form-control"
-                                    value="{{$Caso->Municipio}}">
+
+                                <select name="municipio" id="municipio" class="form-control" required>
+                                    <option>{{$Caso->Municipio}}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-row">
@@ -834,7 +866,7 @@
                 $('#modal-detalle').html(html);
                 $('#detalleModal').modal('show');
             },
-            error: function(response){
+            error: function (response) {
                 alert('Por favor rellene la información de la funeraria.');
             }
         });
@@ -851,8 +883,11 @@
             success: function (response) {
                 result = response;
             },
-            error: function(response){
-                result = {"Email":"Rellene la información","Monto_Base":0};
+            error: function (response) {
+                result = {
+                    "Email": "Rellene la información",
+                    "Monto_Base": 0
+                };
                 alert('Por favor rellene la información de la funeraria.');
             }
         });
@@ -1044,6 +1079,21 @@
         });
 
     });
+
+    function makeSubmenu(value) {
+        var municipio = {!! $Json !!};
+
+        if (value.length == 0) {
+            $('#municipio').html = "<option></option>";
+        } else {
+            var munOptions = "";
+            for (munId in municipio[value]) {
+                munOptions += "<option value='" + municipio[value][munId] + "'>" + municipio[value][munId] +
+                "</option>";
+            }
+            document.getElementById("municipio").innerHTML = munOptions;
+        }
+    }
 
 </script>
 @endsection

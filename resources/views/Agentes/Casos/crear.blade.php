@@ -24,16 +24,16 @@
                             <div class="form-group col-md-3">
                                 <label for="codEstudiante">Código de Estudiante</label>
                                 <input type="text" class="form-control" id="codEstudiante" name="codEstudiante"
-                                    placeholder="0000000" onchange="alumno();"><span id="errmsg"></span>
+                                    placeholder="0000000" onchange="alumno();" required><span id="errmsg"></span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre"
-                                    placeholder="Ingrese nombre del estudiante">
+                                    placeholder="Ingrese nombre del estudiante" required>
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="Aseguradora">Cod. Aseguradora</label>
-                                <input type="text" name="aseguradora" id="Aseguradora" class="form-control">
+                                <input type="text" name="aseguradora" id="Aseguradora" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -56,7 +56,7 @@
                             <div class="form-group col-md-4">
                                 <label for="causa">Tipo de muerte</label>
                                 <!-- <textarea name="causa" id="causa" class="form-control" cols="80"></textarea> -->
-                                <select name="causa" id="causa" class="form-control">
+                                <select name="causa" id="causa" class="form-control" required>
                                     <option value="Accidente">Accidente</option>
                                     <option value="Suicidio">Suicidio</option>
                                     <option value="Asesinato">Asesinato</option>
@@ -84,7 +84,7 @@
 
                                 <label for="descripcion_causa_select">Causa de muerte</label>
                                 <select name="descripcion_causa_select" id="descripcion_causa_select"
-                                    class="form-control" placeholder="Causa de muerte">
+                                    class="form-control" placeholder="Causa de muerte" required>
                                     @foreach($Causas as $causa)
                                     <option value="{{$causa->Causa}}">{{$causa->Causa}}</option>
                                     @endforeach
@@ -109,11 +109,38 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="departamento">Departamento</label>
-                                <input type="text" name="departamento" id="departamento" class="form-control">
+                                <select name="departamento" id="departamento" class="form-control" required
+                                    onchange="makeSubmenu(this.value)">
+                                    <option value="Alta Verapaz">Alta Verapaz</option>
+                                    <option value="Baja Verapaz">Baja Verapaz</option>
+                                    <option value="Chimaltenango">Chimaltenango</option>
+                                    <option value="Chiquimula">Chiquimula</option>
+                                    <option value="Petén">Petén</option>
+                                    <option value="El Progreso">El Progreso</option>
+                                    <option value="Quiché">Quiché</option>
+                                    <option value="Escuintla">Escuintla</option>
+                                    <option value="Guatemala">Guatemala</option>
+                                    <option value="Huehuetenango">Huehuetenango</option>
+                                    <option value="Izabal">Izabal</option>
+                                    <option value="Jalapa">Jalapa</option>
+                                    <option value="Jutiapa">Jutiapa</option>
+                                    <option value="Quetzaltenango">Quetzaltenango</option>
+                                    <option value="Retalhuleu">Retalhuleu</option>
+                                    <option value="Sacatepéquez">Sacatepéquez</option>
+                                    <option value="San Marcos">San Marcos</option>
+                                    <option value="Santa Rosa">Santa Rosa</option>
+                                    <option value="Sololá">Sololá</option>
+                                    <option value="Suchitepéquez">Suchitepéquez</option>
+                                    <option value="Totonicapán">Totonicapán</option>
+                                    <option value="Zacapa">Zacapa</option>
+                                </select>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="municipio">Municipio</label>
-                                <input type="text" name="municipio" id="municipio" class="form-control">
+
+                                <select name="municipio" id="municipio" class="form-control" required>
+                                    <option>Seleccione un departamento primero.</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-row">
@@ -201,10 +228,6 @@
         </div>
     </div>
 </div>
-<script>
-    $.fn.selectpicker.Constructor.BootstrapVersion = '4';
-
-</script>
 <script type="text/javascript">
     function alumno() {
         var codigo = $('#codEstudiante').val();
@@ -261,6 +284,10 @@
         setInputFilter(document.getElementById("TelReporta"), function (value) {
             return /^\d*\.?\d*$/.test(value);
         });
+        setInputFilter(document.getElementById("edad"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+
 
     });
 
@@ -286,6 +313,42 @@
     tail.select("#descripcion_causa_select", {
         search: true
     });
+
+    function makeSubmenu(value) {
+        var municipio = {!! $Json !!};
+
+        if (value.length == 0) {
+            $('#municipio').html = "<option></option>";
+        } else {
+            var munOptions = "";
+            for (munId in municipio[value]) {
+                munOptions += "<option value='"+municipio[value][munId]+"'>" + municipio[value][munId] + "</option>";
+            }
+            document.getElementById("municipio").innerHTML = munOptions;
+        }
+    }
+
+    /*function getMunicipios() {
+        var result = null;
+        //$.ajax({
+        //    url: "https://gist.githubusercontent.com/tian2992/7439705/raw/1e5d0a766775a662039f3a838f422a1fc1600f74/guatemala.json",
+        //    type: 'get',
+        //    dataType: 'JSON',
+        //    success: function (response) {
+        //        result = response;
+        //    }
+        //})
+        //
+        //console.log(result);
+        $.getJSON(
+            "https://gist.githubusercontent.com/tian2992/7439705/raw/1e5d0a766775a662039f3a838f422a1fc1600f74/guatemala.json",
+            function (json) {
+                result = json;
+            });
+
+        console.log(result);
+        return result;
+    }*/
 
 </script>
 @endsection

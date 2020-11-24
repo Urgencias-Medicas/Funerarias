@@ -25,16 +25,21 @@ class CasosController extends Controller
     //     $this->middleware('auth');
     //     $this->middleware('role:Agente||Personal');
     // }
+
     public function viewCrear($msg = 0){
 
         $causas = Causas::get();
 
+        $url = "https://gist.githubusercontent.com/tian2992/7439705/raw/1e5d0a766775a662039f3a838f422a1fc1600f74/guatemala.json";
+
+        $json = file_get_contents($url);
+
         if($msg == 1){
-            return view('Agentes.Casos.crear', ['Causas' => $causas])->with('alerta', 'El caso ha sido creado exitosamente.');
+            return view('Agentes.Casos.crear', ['Causas' => $causas, 'Json' => $json])->with('alerta', 'El caso ha sido creado exitosamente.');
         }elseif($msg == 2){
             return back()->with('alerta', 'El caso ha sido modificado exitosamente');
         }else{
-            return view('Agentes.Casos.crear', ['Causas' => $causas]);
+            return view('Agentes.Casos.crear', ['Causas' => $causas, 'Json' => $json]);
         }
 
     }
@@ -44,8 +49,8 @@ class CasosController extends Controller
         $fecha = $suceso->format('Y-m-d');
         $data = ['Agente' => $user->id, 'Codigo' => $request->codEstudiante, 'Edad' => $request->edad, 'Nombre' => $request->nombre, 'Aseguradora' => $request->aseguradora,
         'Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 'Causa_Desc' => $request->descripcion_causa != '' ? $request->descripcion_causa : $request->descripcion_causa_select,  
-        'Causa_Especifica' => $request->causa_especifica, 'Direccion' => $request->direccion, 'Departamento' => strtoupper($request->departamento), 
-        'Municipio' => strtoupper($request->municipio), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
+        'Causa_Especifica' => $request->causa_especifica, 'Direccion' => $request->direccion, 'Departamento' => strtoupper(Helper::eliminar_acentos($request->departamento)), 
+        'Municipio' => strtoupper(Helper::eliminar_acentos($request->municipio)), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
         'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 'RelacionReporta' => $request->RelacionReporta, 
         'TelReporta' => $request->TelReporta, 'Lugar' => $request->lugar, 'Estatus' => 'Abierto', 'Reportar' => 'No', 'Idioma' => $request->Idioma, 
         'Medico' => $request->Medico, 'Tutor' => $request->Tutor, 'TelTutor' => $request->TelTutor, 'DPITutor' => $request->DPITutor,
@@ -123,15 +128,18 @@ class CasosController extends Controller
                 $contador = $contador + 1;
             }
         }
+        $url = "https://gist.githubusercontent.com/tian2992/7439705/raw/1e5d0a766775a662039f3a838f422a1fc1600f74/guatemala.json";
+
+        $json = file_get_contents($url);
         $pagos = HistorialPagos::where('caso', $id)->get();
         $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'desc')->get();
         $causas = Causas::get();
         if($msg == 0){
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas]);
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas]);
         }else if($msg == 2){
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'El caso ha sido modificado exitosamente');
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'El caso ha sido modificado exitosamente');
         }else{
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'Pago ingresado exitosamente.');
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'Pago ingresado exitosamente.');
         }
     }
     
@@ -313,8 +321,8 @@ class CasosController extends Controller
         $suceso = Carbon::parse($request->fecha);
         $fecha = $suceso->format('Y-m-d');
         $data = ['Aseguradora' => $request->aseguradora, 'Edad' => $request->edad, 'Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 'Causa_Desc' => $request->descripcion_causa_input != '' ? $request->descripcion_causa_input : $request->descripcion_causa_select,  
-        'Causa_Especifica' => $request->causa_especifica, 'Direccion' => $request->direccion, 'Departamento' => strtoupper($request->departamento), 
-        'Municipio' => strtoupper($request->municipio), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
+        'Causa_Especifica' => $request->causa_especifica, 'Direccion' => $request->direccion, 'Departamento' => strtoupper(Helper::eliminar_acentos($request->departamento)), 
+        'Municipio' => strtoupper(Helper::eliminar_acentos($request->municipio)), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
         'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 'RelacionReporta' => $request->RelacionReporta, 
         'TelReporta' => $request->TelReporta, 'Lugar' => $request->lugar, 'Tutor' => $request->Tutor, 'TelTutor' => $request->TelTutor, 'DPITutor' => $request->DPITutor,
         'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, 'Comentario' => $request->ComentarioTutor, 'Medico' => $request->Medico, 'Idioma' => $request->Idioma];
