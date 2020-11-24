@@ -103,7 +103,7 @@ class FunerariasController extends Controller
         'Municipio' => strtoupper($request->municipio), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
         'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 'RelacionReporta' => $request->RelacionReporta, 
         'TelReporta' => $request->TelReporta, 'Lugar' => $request->lugar, 'Tutor' => $request->Tutor, 'TelTutor' => $request->TelTutor, 'DPITutor' => $request->DPITutor,
-        'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, 'Comentario' => $request->ComentarioTutor];
+        'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, 'Comentario' => $request->ComentarioTutor, 'Medico' => $request->Medico, 'Idioma' => $request->Idioma];
         $caso_update = Casos::find($caso)->update($data);
 
         if($request->descripcion_causa != ''){

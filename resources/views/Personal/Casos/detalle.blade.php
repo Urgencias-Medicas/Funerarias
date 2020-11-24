@@ -820,34 +820,43 @@
                 for (let i = 0; i < len; i++) {
                     if (response[i].id == id) {
 
-                        var costo_servicio = getCostoFuneraria(id);
+                        var infoFuneraria = getInfoFuneraria(id);
 
                         html = '<h3>' + response[i].funeraria + '</h3>\
                         <p>Direcci&oacute;n:<br> ' + response[i].direccion + '</p>\
                         <p>Departamento:<br> ' + response[i].departamento + '</p>\
+                        <p>Correo electrónico:<br> ' + infoFuneraria.Email + '</p>\
                         <p>Tel. Contacto:<br> ' + response[i].tel_contacto + '</p>\
                         <p>Tel. Coordinador:<br> ' + response[i].tel_coordinador + '</p>\
-                        <p>Costo del servicio:<br> <b>Q' + costo_servicio + '</b></p>';
+                        <p>Costo del servicio:<br> <b>Q' + infoFuneraria.Monto_Base + '</b></p>';
                     }
                 }
                 $('#modal-detalle').html(html);
                 $('#detalleModal').modal('show');
+            },
+            error: function(response){
+                alert('Por favor rellene la información de la funeraria.');
             }
         });
     }
 
-    function getCostoFuneraria(id) {
+    function getInfoFuneraria(id) {
         var costo_servicio = 0;
+        var result = '';
         $.ajax({
-            url: "/Casos/getCostoFuneraria/" + id,
+            url: "/Casos/getInfoFuneraria/" + id,
             type: 'get',
             async: false,
-            dataType: 'text',
+            dataType: 'JSON',
             success: function (response) {
-                costo_servicio = response;
+                result = response;
+            },
+            error: function(response){
+                result = {"Email":"Rellene la información","Monto_Base":0};
+                alert('Por favor rellene la información de la funeraria.');
             }
         });
-        return costo_servicio;
+        return result;
     }
 
     function habilitarAsignar() {

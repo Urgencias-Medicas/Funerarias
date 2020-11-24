@@ -180,7 +180,23 @@ class AdminController extends Controller
 
     public function editarFuneraria($id, $nombre){
         $funeraria = Funerarias::where('Id_Funeraria', $id)->first();
+
         if($funeraria){
+            $api_uri = "https://umbd.excess.software/api/getFuneraria";
+            $client = new \GuzzleHttp\Client([
+                'headers' => [ 'Content-Type' => 'application/json' ]
+            ]);
+            $res = $client->request('GET', $api_uri, [
+                'body' => json_encode(
+                    [
+                        'cols' => 'departamento',
+                        'conds' => array('id' => $id)
+                    ]
+                ),
+            ]);
+            $data = json_decode($res->getBody());
+
+            $funeraria->Departamento = $data[0]->departamento;
             $detalle = DetallesFuneraria::find($funeraria->Id_Detalle);
             return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle]);
         }else{

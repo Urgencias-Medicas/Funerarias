@@ -150,9 +150,9 @@
                                 <a class="dropdown-item" href="/Personal/CrearUsuarioFuneraria"
                                     class="nav-link {{ (request()->is('Personal/CrearUsuarioFuneraria*')) ? 'active' : '' }}">Crear
                                     Usuario Funeraria</a>
-                                <a class="dropdown-item" href="/Personal/CrearFuneraria"
+                                <!--<a class="dropdown-item" href="/Personal/CrearFuneraria"
                                     class="nav-link {{ (request()->is('Personal/CrearFuneraria*')) ? 'active' : '' }}">Crear
-                                    Funeraria</a>
+                                    Funeraria</a>-->
                             </div>
                         </li>
                         @endrole

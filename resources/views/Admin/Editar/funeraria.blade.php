@@ -17,6 +17,11 @@
                                     <input type="text" class="form-control" id="nombre" name="nombre"
                                         placeholder="Nombre Funeraria" value="{{$Funeraria->Nombre}}" readonly>
                                 </div>
+                                <div class="form-group">
+                                    <label for="departamento">Departamento</label>
+                                    <input type="text" class="form-control" id="departamento" name="departamento"
+                                        placeholder="Nombre Funeraria" value="{{$Funeraria->Departamento}}" readonly>
+                                </div>
                                 <div class="form-group ">
                                     <label for="email">Email</label>
                                     <input type="text" name="email" id="email" class="form-control"

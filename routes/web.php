@@ -52,7 +52,7 @@ Route::group(['prefix' => 'Casos'], function () {
     Route::get('Causas/nueva/{causa}', 'CasosController@nuevaCausa');
     Route::post('{id}/Causas/actualizar', 'CasosController@actualizarCausa');
     Route::post('{id}/modificar', 'CasosController@modificarCaso');
-    Route::get('getCostoFuneraria/{id}', 'CasosController@getCostoFuneraria');
+    Route::get('getInfoFuneraria/{id}', 'CasosController@getInfoFuneraria');
 });
 
 Route::group(['prefix' => 'Personal'], function (){
