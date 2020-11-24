@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <button type="button" class="btn btn-link"><a href="">
+            <button type="button" class="btn btn-link"><a href="/Personal/verFunerarias">
                     < Atrás</a> </button> <div class="card">
                         <div class="card-header">Información</div>
 

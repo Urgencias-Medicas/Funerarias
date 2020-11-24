@@ -106,11 +106,11 @@
                             <div class="form-group col-md-12">
                                 <label for="causa">Causa</label>
                                 <select name="causa" id="causa" class="form-control">
-                                    <option value="Accidente">Accidente</option>
-                                    <option value="Suicidio">Suicidio</option>
-                                    <option value="Asesinato">Asesinato</option>
-                                    <option value="Causas Naturales">Causas Naturales</option>
-                                    <option value="Enfermedad Comun">Enfermedad Com&uacute;n</option>
+                                    <option {{$Caso->Causa == 'Accidente' ? 'selected' : ''}} value="Accidente">Accidente</option>
+                                    <option {{$Caso->Causa == 'Suicidio' ? 'selected' : ''}} value="Suicidio">Suicidio</option>
+                                    <option {{$Caso->Causa == 'Asesinato' ? 'selected' : ''}} value="Asesinato">Asesinato</option>
+                                    <option {{$Caso->Causa == 'Causas Naturales' ? 'selected' : ''}} value="Causas Naturales">Causas Naturales</option>
+                                    <option {{$Caso->Causa == 'Enfermedad Comun' ? 'selected' : ''}} value="Enfermedad Comun">Enfermedad Com&uacute;n</option>
                                 </select>
                             </div>
                         </div>
@@ -401,7 +401,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12 p-2 m-0 d-flex flex-column justify-content-end">
                                 <label for="evaluacion">Puntaje</label>
-                                <select name="evaluacion" class="form-control"
+                                <select name="evaluacion" class="form-control" {{$Caso->Funeraria ? '' : 'disabled'}}
                                     {{$Caso->Evaluacion == '' ? '' : 'disabled'}}>
                                     @if($Caso->Evaluacion == '')
                                     @for($i = 1; $i <= 10; $i+=0.5) <option value="{{$i}}">{{$i}}</option>
@@ -412,7 +412,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button class="btn btn-outline-primary btn-block my-2"
+                        <button class="btn btn-outline-primary btn-block my-2" {{$Caso->Funeraria ? '' : 'disabled'}}
                             {{$Caso->Evaluacion == '' ? '' : 'disabled'}}>
                             {{$Caso->Evaluacion == '' ? 'Guardar evaluación' : 'Caso ya evaluado'}}</button>
                     </form>
