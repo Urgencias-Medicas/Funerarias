@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::POST('insertFormData', 'CasosController@insertData');
+Route::post('insertFormData', 'CasosController@insertData');
