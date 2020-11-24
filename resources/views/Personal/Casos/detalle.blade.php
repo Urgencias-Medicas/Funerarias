@@ -796,7 +796,7 @@
                             '</td>\
                                     <td><button class="btn btn-outline-info" id="idFuneraria" onclick="detalleFuneraria(' +
                             response[j].id +
-                            ')">Ver</i></button> <button disabled class="btn btn-primary asignar" onclick="asignarFuneraria({{$Caso->id}},' +
+                            ')">Ver</i></button> <button disabled class="btn btn-primary asignar" onclick="preAsignarFuneraria({{$Caso->id}},' +
                             response[j].id + ',' + '\'' + response[j].funeraria + '\'' + ')">Asignar</button></td>\
                                 </tr>';
                     }
