@@ -65,10 +65,10 @@ class PersonalUMController extends Controller
 
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Codigo')->get();
+            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Codigo')->get();
+            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
         }
 
         $pdf = PDF::loadView('Personal.Reportes.Plantillas.Edades', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
@@ -82,10 +82,10 @@ class PersonalUMController extends Controller
 
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Codigo')->get();
+            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Codigo')->get();
+            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
         }
 
         $fileName = 'Edades-'.$fechaInicio.'-'.$fechaFin.'.csv';

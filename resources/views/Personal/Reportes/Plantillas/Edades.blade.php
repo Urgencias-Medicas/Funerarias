@@ -30,7 +30,7 @@
                 @foreach($Casos as $caso)
                 <tr>
                     <td>{{$caso->Nombre}}</td>
-                    <td>{{$caso->Codigo}}</td>
+                    <td>{{$caso->Edad}}</td>
                 </tr>
                 @endforeach
             </tbody>

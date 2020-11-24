@@ -43,7 +43,7 @@ Route::group(['prefix' => 'Casos'], function () {
     Route::post('guardarNuevo', 'CasosController@guardarNuevo');
     Route::get('ver', 'CasosController@verCasos')->middleware('role:Personal');
     Route::get('{id}/ver', 'CasosController@detallesCaso')->middleware('role:Personal');
-    Route::get('/{caso}/asignarFuneraria/{id}/{funeraria}/{correo}/{wp}', 'CasosController@asignarFuneraria');
+    Route::get('/{caso}/asignarFuneraria/{id}/{correo}/{wp}', 'CasosController@asignarFuneraria');
     Route::any('/{caso}/actualizarPago', 'CasosController@actualizarPago');
     Route::get('/cerrarCaso/{caso}', 'CasosController@cerrarCaso');
     Route::get('Reportar/{caso}/{instruccion}', 'CasosController@reportarCaso');

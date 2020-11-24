@@ -800,7 +800,7 @@
                                     <td><button class="btn btn-outline-info" id="idFuneraria" onclick="detalleFuneraria(' +
                             response[i].id +
                             ')">Ver</button> <button disabled class="btn btn-primary asignar" onclick="preAsignarFuneraria({{$Caso->id}},' +
-                            response[i].id + ',' + '\'' + response[i].funeraria + '\'' + ')">Asignar</button></td>\
+                            response[i].id + ')">Asignar</button></td>\
                                 </tr>\
                             </tbody>\
                         </table><hr class="my-4">';
@@ -829,7 +829,7 @@
                                     <td><button class="btn btn-outline-info" id="idFuneraria" onclick="detalleFuneraria(' +
                             response[j].id +
                             ')">Ver</i></button> <button disabled class="btn btn-primary asignar" onclick="preAsignarFuneraria({{$Caso->id}},' +
-                            response[j].id + ',' + '\'' + response[j].funeraria + '\'' + ')">Asignar</button></td>\
+                            response[j].id + ')">Asignar</button></td>\
                                 </tr>';
                     }
                 }
@@ -902,7 +902,7 @@
         }
     }
 
-    function preAsignarFuneraria(caso, id, funeraria) {
+    function preAsignarFuneraria(caso, id) {
         var correo = 'No';
         var whatsapp = 'No';
         var valor = 'No';
@@ -912,12 +912,12 @@
         if ($('#WhatsApp').is(':checked')) {
             whatsapp = 'Si';
         }
-        asignarFuneraria(caso, id, funeraria, correo, whatsapp);
+        asignarFuneraria(caso, id, correo, whatsapp);
     }
 
-    function asignarFuneraria(caso, id, funeraria, correo, wp) {
+    function asignarFuneraria(caso, id, correo, wp) {
         $.ajax({
-            url: "/Casos/" + caso + "/asignarFuneraria/" + id + "/" + funeraria + "/" + correo + "/" + wp,
+            url: "/Casos/" + caso + "/asignarFuneraria/" + id + "/" + correo + "/" + wp,
             type: 'get',
             success: function (response) {
                 window.location.href = '/Casos/ver';

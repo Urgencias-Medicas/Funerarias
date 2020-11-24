@@ -173,8 +173,25 @@ class CasosController extends Controller
         echo 'Hecho';
     }
 
-    public function asignarFuneraria($caso, $funeraria, $nombre_funeraria, $correo, $wp){
+    public function asignarFuneraria($caso, $funeraria, $correo, $wp){
         $costo_servicio = 0;
+
+        $api_uri = "https://umbd.excess.software/api/getFuneraria";
+        $client = new \GuzzleHttp\Client([
+            'headers' => [ 'Content-Type' => 'application/json' ]
+        ]);
+        $res = $client->request('GET', $api_uri, [
+            'body' => json_encode(
+                [
+                    'cols' => 'funeraria',
+                    'conds' => array('id' => $funeraria)
+                ]
+            ),
+        ]);
+        $data = json_decode($res->getBody());
+
+        $nombre_funeraria = $data[0]->funeraria;
+
         $casos = Casos::find($caso);
         $casos->Funeraria = $funeraria;
         $casos->Funeraria_Nombre = $nombre_funeraria;
