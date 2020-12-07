@@ -28,10 +28,10 @@
     }
 
 </style>
-@if(!empty($alerta))
+@if(session('alerta'))
 <div class="container">
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>{{$alerta}}</strong>
+        <strong>{{session('alerta')}}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -57,14 +57,14 @@
                                             value="{{$Caso->Agente}}" readonly>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label for="codEstudiante">Cód. Estudiante</label>
+                                        <label for="codEstudiante">Codigo</label>
                                         <input type="text" class="form-control" id="codEstudiante" name="codEstudiante"
                                             placeholder="" value="{{$Caso->Codigo}}" readonly><span id="errmsg"></span>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="nombre">Nombre</label>
                                         <input type="text" class="form-control" id="nombre" name="nombre"
-                                            placeholder="Ingrese nombre del estudiante" value="{{$Caso->Nombre}}"
+                                            placeholder="Ingrese el nombre" value="{{$Caso->Nombre}}"
                                             readonly>
                                     </div>
                                 </div>

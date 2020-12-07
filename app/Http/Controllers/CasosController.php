@@ -42,6 +42,8 @@ class CasosController extends Controller
             return view('Agentes.Casos.crear', ['Causas' => $causas, 'Json' => $json]);
         }
 
+        return view('Agentes.Casos.crear', ['Causas' => $causas, 'Json' => $json]);
+
     }
     public function guardarNuevo(Request $request){
         $user = auth()->user();
@@ -65,7 +67,8 @@ class CasosController extends Controller
 
         Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #'.$caso->id.' creado.', 'estatus' => 'Activa', 'caso' => $caso->id]);
         
-        return $this->viewCrear(1);
+        //return $this->viewCrear(1);
+        return redirect('/Casos/vistaCrear')->with('alerta', 'El caso ha sido modificado exitosamente');
 
     }
     public function guardarMedia($caso, Request $request){
@@ -141,6 +144,7 @@ class CasosController extends Controller
         }else{
             return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'Pago ingresado exitosamente.');
         }
+        return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas]);
     }
     
     public function evaluarFuneraria($id, Request $request){
@@ -233,8 +237,8 @@ class CasosController extends Controller
         $caso->Pendiente = $caso->Costo - $caso->Pagado;
         $caso->save();
         //return back()->with('msg', 'Pagos añadidos exitosamente.');
-        return $this->detallesCaso($caso->id, 1);
-        //return redirect('/Casos/'.$caso->id.'/ver')->with('alerta', 'Pago ingresado exitosamente.');
+        //return $this->detallesCaso($caso->id, 1);}
+        return redirect('/Casos/'.$caso->id.'/ver')->with('alerta', 'Pago ingresado exitosamente.');
     }
 
     public function cerrarCaso($caso){
@@ -293,7 +297,7 @@ class CasosController extends Controller
     }
 
     public function insertData(Request $request) {
-
+        
         $data = Helper::cryptR($request->input('data'), 0);
 
         $data->Estatus = 'Abierto';
@@ -353,7 +357,8 @@ class CasosController extends Controller
 
         Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #'.$caso.' actualizado.', 'estatus' => 'Activa', 'caso' => $caso]);
         
-        return $this->detallesCaso($caso, 2);
+        //return $this->detallesCaso($caso, 2);
+        return redirect('/Casos/'.$caso.'/ver')->with('alerta', 'El caso ha sido modificado exitosamente.');
     }
 
     public function getInfoFuneraria($id){

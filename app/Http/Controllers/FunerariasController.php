@@ -74,7 +74,8 @@ class FunerariasController extends Controller
         SolicitudesCobro::create(['caso' => $caso, 'estatus' => 'Pendiente', 'costo' => $request->Costo, 'descripcion' => $request->Descripcion]);
         Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$caso.' tiene una nueva solicitud.', 'estatus' => 'Activa', 'caso' => $caso]);
         
-        return $this->detallesCaso($caso, 1);
+        //return $this->detallesCaso($caso, 1);
+        return redirect('/Funerarias/Casos/'.$caso.'/ver')->with('alerta', 'Su solicitud ha sido ingresada.');
     }
     public function guardarMedia($caso, Request $request){
         $image = $request->file('file');
@@ -118,6 +119,7 @@ class FunerariasController extends Controller
 
         Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #'.$caso.' actualizado.', 'estatus' => 'Activa', 'caso' => $caso]);
         
-        return $this->detallesCaso($caso, 2);
+        //return $this->detallesCaso($caso, 2);
+        return redirect('/Funerarias/Casos/'.$caso.'/ver')->with('alerta', 'El caso fue actualizado exitosamente.');
     }
 }

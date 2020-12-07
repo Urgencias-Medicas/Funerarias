@@ -56,7 +56,8 @@ class AdminController extends Controller
                 $message->to($mail, 'Nuevo Usuario')->subject('Usuario creado')->from('no-reply@excess.software', 'Urgencias Médicas');
             });
 
-        return $this->verUsuarios(1);
+        //return $this->verUsuarios(1);
+        return redirect('/Personal/verUsuarios')->with('alerta', 'Se ha creado el usuario exitosamente.');
     }
     public function guardarFuneraria(Request $request){
 
@@ -85,7 +86,8 @@ class AdminController extends Controller
 
         //$user->assignRole('Funeraria');
 
-        return $this->verFunerarias(1);
+        //return $this->verFunerarias(1);
+        return redirect('/Personal/verFunerarias')->with('alerta', 'Se ha creado la funeraria exitosamente.');
     }
     public function guardarUsuarioFuneraria(Request $request){
         $mail = $request->mail;
@@ -107,7 +109,8 @@ class AdminController extends Controller
                 $message->to($mail, 'Nuevo Usuario')->subject('Usuario creado')->from('no-reply@excess.software', 'Urgencias Médicas');
             });
 
-        return $this->verUsuarios(1);
+        //return $this->verUsuarios(1);
+        return redirect('/Personal/verUsuariosFunerarias')->with('alerta', 'Se ha creado el usuario exitosamente.');
     }
 
     public function verUsuarios($msg = 0){
