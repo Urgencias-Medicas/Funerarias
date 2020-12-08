@@ -37,7 +37,6 @@
     </div>
 </div>
 @endif
-
 @foreach($Descargables as $descargable)
 <a href="/images/{{$descargable['archivo']}}" id="descargable-{{$descargable['id']}}" download
     style="display: none;"></a>
@@ -47,10 +46,8 @@
     <div class="row my-3">
         <div class="col-12">
             <button type="button" class="btn btn-link"><a href="/Casos/ver">
-                    < Atrás</a> </button> <a href="/Personal/Reportes/Caso/{{$Caso->id}}"
-                        onClick="descargarAdjuntos();"><button type="button"
-                            class="btn btn-info float-right mr-2">Generar pdf</button>
-                </a>
+                    < Atrás</a> </button>
+                    <button type="button" onClick="descargarAdjuntos();" class="btn btn-info float-right mr-2">Generar pdf</button>
                 <div class="float-right mx-2">
                     @if($Caso->Reportar == 'Si')
                     <input type="checkbox" checked data-toggle="toggle" data-on="Reportar" data-off="No Reportar"
@@ -454,11 +451,20 @@
                 <div class="card-header">Archivos</div>
                 <div class="card-body align-items-center justify-content-center">
                     <ul class="list-group">
-                        @foreach($Archivos as $archivo)
-                        <li class="list-group-item"><b><a target="popup"
-                                    onclick="window.open('/images/Caso{{$Caso->id}}-{{$archivo}}','Archivo-Caso{{$Caso->id}}','width=600,height=400')">{{$archivo}}</a></b>
-                        </li>
-                        @endforeach
+                        <form action="/Personal/Reportes/Caso/{{$Caso->id}}" id="generarReporte" method="get">
+                            @foreach($Archivos as $archivo)
+                                @php
+                                    $file_parts = pathinfo($archivo)    
+                                @endphp
+                            <li class="list-group-item"><b>
+                                @if($file_parts['extension'] == 'jpg' || $file_parts['extension'] == 'png' || $file_parts['extension'] == 'jfif' || $file_parts['extension'] == 'jpeg')
+                                    <input type="checkbox" name="descargar[]" value="/images/Caso{{$Caso->id}}-{{$archivo}}"> 
+                                @endif
+                                <a target="popup"
+                                        onclick="window.open('/images/Caso{{$Caso->id}}-{{$archivo}}','Archivo-Caso{{$Caso->id}}','width=600,height=400')">{{$archivo}}</a></b>
+                            </li>
+                            @endforeach
+                        </form>
                     </ul>
                     <hr>
                     <div class="form-group">
@@ -1036,9 +1042,9 @@
     }
 
     function descargarAdjuntos() {
-
         @foreach($Descargables as $descargable)
         document.getElementById("descargable-{{$descargable['id']}}").click();
+        document.getElementById("generarReporte").submit();
         @endforeach
     }
 

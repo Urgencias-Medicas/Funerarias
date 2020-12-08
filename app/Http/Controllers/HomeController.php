@@ -7,6 +7,7 @@ use Spatie\Permission\Models\Role;
 use App\Notificaciones;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Funerarias;
 
 class HomeController extends Controller
 {
@@ -39,7 +40,10 @@ class HomeController extends Controller
         }
     }
     public function funerariaInactiva(){
-        return view('Funerarias.Inactiva');
+        $user = auth()->user();
+        $funeraria = $user->funeraria;
+        $estado_funeraria = Funerarias::where('Id_Funeraria', $funeraria)->value('Activa');
+        return view('Funerarias.Inactiva', ['Activa' => $estado_funeraria]);
     }
     public function quitarNotificacion($id){
         $notificacion = Notificaciones::find($id);

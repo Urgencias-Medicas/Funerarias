@@ -447,28 +447,29 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    public function reporteCaso($id){
+    public function reporteCaso($id, Request $request){
+        $imagenes = $request->descargar;
         $caso = Casos::find($id);
-        $files = File::files(public_path('images'));
-        $allowed='png,jpg,jpeg,gif,tiff';  //which file types are allowed seperated by comma
-        $extension_allowed=  explode(',', $allowed);
-        $archivos = array();
-        $descargables = array();
-        foreach ($files as $file) {
-            $nombre = basename($file);
-            $posicion_indicador = strpos($nombre, '-');
-            $nuevonombre = substr($nombre, $posicion_indicador+1);
-            $nombrecaso = substr($nombre, 0, $posicion_indicador-1);
-            $posicion_caso = strpos($nombrecaso, 'Caso');
-            $no_caso = substr($nombre, $posicion_caso+4, $posicion_indicador-4);
-            if($no_caso == $id && array_search(pathinfo($file, PATHINFO_EXTENSION), $extension_allowed)){
-                array_push($archivos, $nombre);
-            }elseif($no_caso == $id && !array_search(pathinfo($file, PATHINFO_EXTENSION), $extension_allowed)){
-                array_push($descargables, $nombre);
-            }
-        }
+        //$files = File::files(public_path('images'));
+        //$allowed='png,jpg,jpeg,gif,tiff';  //which file types are allowed seperated by comma
+        //$extension_allowed=  explode(',', $allowed);
+        //$archivos = array();
+        //$descargables = array();
+        //foreach ($files as $file) {
+        //    $nombre = basename($file);
+        //    $posicion_indicador = strpos($nombre, '-');
+        //    $nuevonombre = substr($nombre, $posicion_indicador+1);
+        //    $nombrecaso = substr($nombre, 0, $posicion_indicador-1);
+        //    $posicion_caso = strpos($nombrecaso, 'Caso');
+        //    $no_caso = substr($nombre, $posicion_caso+4, $posicion_indicador-4);
+        //    if($no_caso == $id && array_search(pathinfo($file, PATHINFO_EXTENSION), $extension_allowed)){
+        //        array_push($archivos, $nombre);
+        //    }elseif($no_caso == $id && !array_search(pathinfo($file, PATHINFO_EXTENSION), $extension_allowed)){
+        //        array_push($descargables, $nombre);
+        //    }
+        //}
         $pagos = HistorialPagos::where('caso', $id)->get();
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Personal.Reportes.Plantillas.Caso', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos])->setPaper('a4', 'portrait');
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Personal.Reportes.Plantillas.Caso', ['Caso' => $caso, 'Archivos' => $imagenes, 'Pagos' => $pagos])->setPaper('a4', 'landscape');
         return $pdf->download('Caso-'.$id.'.pdf');
         //return view('Personal.Reportes.Plantillas.Caso', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos]);
     }
