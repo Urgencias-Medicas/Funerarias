@@ -10,6 +10,8 @@ use App\Casos;
 use App\Funerarias;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use App\Aseguradoras;
+use App\Campanias;
 
 
 class AdminController extends Controller
@@ -201,7 +203,8 @@ class AdminController extends Controller
 
             $funeraria->Departamento = $data[0]->departamento;
             $detalle = DetallesFuneraria::find($funeraria->Id_Detalle);
-            return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle]);
+            $campanias = Campanias::all();
+            return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Campanias' => $campanias]);
         }else{
             //Almacenar data detalles
             $data = ['paso_uno' => 'No', 'paso_dos' => 'No', 'paso_tres' => 'No'];
@@ -235,7 +238,12 @@ class AdminController extends Controller
     }
 
     public function guardarCambiosFuneraria($id, $detalle, Request $request){
-        $user = Funerarias::find($id)->update(['Email' => $request->email, 'Telefono' => $request->telefono, 'Monto_Base' => $request->MontoBase, 'Activa' => $request->activo]);
+        $array_campanias = array();
+        foreach($request->campania as $campania){
+            array_push($array_campanias, array("id" => $campania['id'], "nombre" => $campania['campania'], "monto" => $campania['monto_base']));
+        }
+        $json_campanias = json_encode($array_campanias);
+        $user = Funerarias::find($id)->update(['Email' => $request->email, 'Telefono' => $request->telefono, 'Activa' => $request->activo, 'Campanias' => $json_campanias]);
 
         $pasos = array();
         if($request->paso_uno == ''){
@@ -258,5 +266,31 @@ class AdminController extends Controller
 
         $detalle = DetallesFuneraria::find($detalle)->update(['paso_uno' => $pasos[0], 'paso_dos' => $pasos[1], 'paso_tres' => $pasos[2]]);
         return redirect('/Personal/verFunerarias');
+    }
+
+    public function verCampanias(){
+        $campanias = Campanias::get();
+
+        return view('Admin.Crear.verCampanias', ['Campanias' => $campanias]);
+    }
+
+    public function crearCampania(){
+        return view('Admin.Crear.campanias');
+    }
+
+    public function guardarCampania(Request $request){
+        $campania = Campanias::create([
+            'Nombre' => $request->Nombre,
+            'Nombre_Aseguradora' => $request->NombreAseguradora,
+            'Aseguradora' => $request->CodigoAseguradora,
+        ]);
+
+        return redirect('Personal/Campanias/')->with('alerta', 'Campaña creada exitosamente.');
+    }
+
+    public function eliminarCampania($id){
+        $campania = Campanias::find($id)->delete();
+
+        return back()->with('alerta', 'Se eliminó la campaña.');
     }
 }

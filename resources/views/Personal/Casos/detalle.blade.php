@@ -865,8 +865,21 @@
                         <p>Departamento:<br> ' + response[i].departamento + '</p>\
                         <p>Correo electrónico:<br> ' + infoFuneraria.Email + '</p>\
                         <p>Tel. Contacto:<br> ' + response[i].tel_contacto + '</p>\
-                        <p>Tel. Coordinador:<br> ' + response[i].tel_coordinador + '</p>\
-                        <p>Costo del servicio:<br> <b>Q' + infoFuneraria.Monto_Base + '</b></p>';
+                        <p>Tel. Coordinador:<br> ' + response[i].tel_coordinador + '</p>';
+
+                        html += '<p>Campañas:</p>\
+                            <div class="row">\
+                                <div class="col-md-12">\
+                                    <select id="monto_base" class="form-control">\
+                                    <option value="0">-- Seleccione una campaña --</option>';
+                        $.each(JSON.parse(infoFuneraria.Campanias), function(key, entry){
+                            html += '<option value="'+entry.monto+'">'+entry.nombre+'</option>';
+                                    
+                        });
+
+                        html += '</select>\
+                                </div>\
+                            </div>';
                     }
                 }
                 $('#modal-detalle').html(html);
@@ -918,12 +931,13 @@
         if ($('#WhatsApp').is(':checked')) {
             whatsapp = 'Si';
         }
-        asignarFuneraria(caso, id, correo, whatsapp);
+        var monto = $('#monto_base').val();
+        asignarFuneraria(caso, id, monto, correo, whatsapp);
     }
 
-    function asignarFuneraria(caso, id, correo, wp) {
+    function asignarFuneraria(caso, id, monto, correo, wp) {
         $.ajax({
-            url: "/Casos/" + caso + "/asignarFuneraria/" + id + "/" + correo + "/" + wp,
+            url: "/Casos/" + caso + "/asignarFuneraria/" + id + "/" + monto + "/" + correo + "/" + wp,
             type: 'get',
             success: function (response) {
                 window.location.href = '/Casos/ver';

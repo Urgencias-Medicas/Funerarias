@@ -96,6 +96,22 @@
                                 class="nav-link {{ (request()->is('Personal/Reportes*')) ? 'active' : '' }}"><span>
                                     Reportes </span></a>
                         </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Campanias
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a href="/Personal/Campanias/"
+                                    class="dropdown-item {{ (request()->is('Personal/Campanias/')) ? 'active' : '' }}"><span>
+                                        Ver Campañas </span></a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Personal/Campanias/crear"
+                                    class="nav-link {{ (request()->is('Personal/Campanias/crear*')) ? 'active' : '' }}">Crear
+                                    Campaña</a>
+                            </div>
+                        </li>
                         @endrole
                         @role('Funeraria')
                         <li class="nav-item">

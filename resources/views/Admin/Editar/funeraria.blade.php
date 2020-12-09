@@ -32,11 +32,49 @@
                                     <input type="text" name="telefono" id="telefono" class="form-control"
                                         value="{{$Funeraria->Telefono}}" maxlength="8">
                                 </div>
-                                <div class="form-group ">
+                                <!--<div class="form-group ">
                                     <label for="MontoBase">Monto base</label>
                                     <input type="text" name="MontoBase" id="MontoBase" class="form-control"
                                         value="{{$Funeraria->Monto_Base}}">
+                                </div>-->
+                                <div class="form-group">
+                                    <label for="selectCampaña">Campaña</label>
+                                    <select name="selectCampaña" id="selectCampaña" class="form-control">
+                                        <option>-- Seleccione campaña --</option>
+                                        @foreach($Campanias as $campania)
+                                            <option value="{{$campania->id}}">{{$campania->Nombre.', '.$campania->Nombre_Aseguradora}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-left">
+                                        <button type="button" class="btn btn-success" onClick="agregarCampania($('#selectCampaña').val(), $('#selectCampaña option:selected').text())"><i class="fa fa-plus"
+                                    aria-hidden="true"></i> Agregar campaña</button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div id="campanias">
+                                    @foreach(json_decode($Funeraria->Campanias) as $campania)
+                                    <div class="form-row" id="campania-{{$campania->id}}">
+                                        <input type="hidden" name="campania[{{$campania->id}}][id]" class="form-control" value="{{$campania->id}}">
+                                        <div class="form-group col-md-5">
+                                            <label for="Campaña">Campaña</label>
+                                            <input type="text" name="campania[{{$campania->id}}][campania]" class="form-control"
+                                                value="{{$campania->nombre}}" readonly>
+                                        </div>
+                                        <div class="form-group col-md-5">
+                                            <label for="Monto_Base">Monto Base</label>
+                                            <input type="text" name="campania[{{$campania->id}}][monto_base]" class="form-control"
+                                                value="{{$campania->monto}}">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>Eliminar</label>
+                                            <button type="button" class="btn btn-danger btn-block" onClick="eliminarCampania({{$campania->id}})"><b>X</b></button>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <hr>
                                 <div class="form-group">
                                     <label for="activa">Activa</label>
                                     <select name="activo" id="activo" class="form-control">
@@ -134,5 +172,31 @@ function setInputFilter(textbox, inputFilter) {
         });
 
     });
+
+function agregarCampania(id, campania){
+    var fila = id;
+    var html = '<div class="form-row" id="campania-'+id+'">\
+                    <input type="hidden" name="campania['+id+'][id]" class="form-control" value="'+id+'">\
+                    <div class="form-group col-md-5">\
+                        <label for="Campaña">Campaña</label>\
+                        <input type="text" name="campania['+id+'][campania]" class="form-control"\
+                            value="'+campania+'" readonly>\
+                    </div>\
+                    <div class="form-group col-md-5">\
+                        <label for="Monto_Base">Monto Base</label>\
+                        <input type="text" name="campania['+id+'][monto_base]" class="form-control"\
+                            value="">\
+                    </div>\
+                    <div class="form-group col-md-2">\
+                        <label>Eliminar</label>\
+                        <button type="button" class="btn btn-danger btn-block" onClick="eliminarCampania('+id+')"><b>X</b></button>\
+                    </div>\
+                </div>';
+    $('#campanias').append(html);
+}
+
+function eliminarCampania(id){
+    $('#campania-' + id).remove();
+}
 </script>
 @endsection

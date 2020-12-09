@@ -177,7 +177,7 @@ class CasosController extends Controller
         echo 'Hecho';
     }
 
-    public function asignarFuneraria($caso, $funeraria, $correo, $wp){
+    public function asignarFuneraria($caso, $funeraria, $monto, $correo, $wp){
         $costo_servicio = 0;
 
         $api_uri = "https://umbd.excess.software/api/getFuneraria";
@@ -200,10 +200,7 @@ class CasosController extends Controller
         $casos->Funeraria = $funeraria;
         $casos->Funeraria_Nombre = $nombre_funeraria;
         $casos->Estatus = 'Asignado';
-
-        $costo_servicio = Funerarias::where('Id_Funeraria', $funeraria)->value('Monto_Base');
-
-        $casos->Costo = $costo_servicio;
+        $casos->Costo = $monto;
         $casos->save();
 
         $correo_funeraria = Funerarias::where('Id_Funeraria', $funeraria)->value('Email');
@@ -362,7 +359,7 @@ class CasosController extends Controller
     }
 
     public function getInfoFuneraria($id){
-        $costo = Funerarias::where('Id_Funeraria', $id)->select('Email', 'Monto_Base')->first()->toJson();
+        $costo = Funerarias::where('Id_Funeraria', $id)->select('Email', 'Campanias')->first()->toJson();
 
         return $costo;
     }
