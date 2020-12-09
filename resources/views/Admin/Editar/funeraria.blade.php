@@ -54,25 +54,27 @@
                                 </div>
                                 <hr>
                                 <div id="campanias">
-                                    @foreach(json_decode($Funeraria->Campanias) as $campania)
-                                    <div class="form-row" id="campania-{{$campania->id}}">
-                                        <input type="hidden" name="campania[{{$campania->id}}][id]" class="form-control" value="{{$campania->id}}">
-                                        <div class="form-group col-md-5">
-                                            <label for="Campaña">Campaña</label>
-                                            <input type="text" name="campania[{{$campania->id}}][campania]" class="form-control"
-                                                value="{{$campania->nombre}}" readonly>
+                                    @if($Funeraria->Campania)
+                                        @foreach(json_decode($Funeraria->Campanias) as $campania)
+                                        <div class="form-row" id="campania-{{$campania->id}}">
+                                            <input type="hidden" name="campania[{{$campania->id}}][id]" class="form-control" value="{{$campania->id}}">
+                                            <div class="form-group col-md-5">
+                                                <label for="Campaña">Campaña</label>
+                                                <input type="text" name="campania[{{$campania->id}}][campania]" class="form-control"
+                                                    value="{{$campania->nombre}}" readonly>
+                                            </div>
+                                            <div class="form-group col-md-5">
+                                                <label for="Monto_Base">Monto Base</label>
+                                                <input type="text" name="campania[{{$campania->id}}][monto_base]" class="form-control"
+                                                    value="{{$campania->monto}}">
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label>Eliminar</label>
+                                                <button type="button" class="btn btn-danger btn-block" onClick="eliminarCampania({{$campania->id}})"><b>X</b></button>
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-5">
-                                            <label for="Monto_Base">Monto Base</label>
-                                            <input type="text" name="campania[{{$campania->id}}][monto_base]" class="form-control"
-                                                value="{{$campania->monto}}">
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <label>Eliminar</label>
-                                            <button type="button" class="btn btn-danger btn-block" onClick="eliminarCampania({{$campania->id}})"><b>X</b></button>
-                                        </div>
-                                    </div>
-                                    @endforeach
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <hr>
                                 <div class="form-group">

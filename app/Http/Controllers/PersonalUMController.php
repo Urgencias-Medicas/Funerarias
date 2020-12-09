@@ -469,7 +469,7 @@ class PersonalUMController extends Controller
         //    }
         //}
         $pagos = HistorialPagos::where('caso', $id)->get();
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Personal.Reportes.Plantillas.Caso', ['Caso' => $caso, 'Archivos' => $imagenes, 'Pagos' => $pagos])->setPaper('a4', 'landscape');
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Personal.Reportes.Plantillas.Caso', ['Caso' => $caso, 'Archivos' => $imagenes, 'Pagos' => $pagos])->setPaper('a4', 'portrait');
         return $pdf->download('Caso-'.$id.'.pdf');
         //return view('Personal.Reportes.Plantillas.Caso', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos]);
     }

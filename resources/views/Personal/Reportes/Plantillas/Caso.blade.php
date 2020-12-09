@@ -19,6 +19,50 @@
         <table class="table table-bordered text-center">
             <thead>
                 <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th><b>Nombre</b></th>
+                    <th>{{$Caso->Nombre}}</th>
+                    <th><b>Tutor</b></th>
+                    <th>{{$Caso->Tutor}}</th>
+                </tr>
+                <tr>
+                    <th><b>Codigo</b></th>
+                    <th>{{$Caso->Codigo}}</th>
+                    <th><b>Municipio</b></th>
+                    <th>{{strtoupper($Caso->Municipio)}}</th>
+                </tr>
+                <tr>
+                    <th><b>Tipo de muerte</b></th>
+                    <th>{{$Caso->Causa}}</th>
+                    <th><b>Departamento</b></th>
+                    <th>{{strtoupper($Caso->Departamento)}}</th>
+                </tr>
+                <tr>
+                    <th><b>Causa</b></th>
+                    <th>{{$Caso->Causa_Desc}}</th>
+                    <th>Reporta</th>
+                    <th>{{$Caso->NombreReporta}}</th>
+                </tr>
+                <tr>
+                    <th><b>Desc. Causa</b></th>
+                    <th>{{$Caso->Causa_Especifica}}</th>
+                    <th><b>Fecha/Hora</b></th>
+                    <th>{{date('d-m-Y', strtotime($Caso->Fecha)).' / '.date('H:i', strtotime($Caso->Hora))}}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--<div class="row">
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr>
                     <th scope="col">Caso</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Tutor</th>
@@ -48,8 +92,8 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <br>
+    </div>-->
+    <!--<br>
     <br>
     <div class="row text-center">
         <div class="col">
@@ -84,7 +128,7 @@
         </table>
     </div>
     <br>
-    <br>
+    <br>-->
     <div class="row text-center">
         <div class="col">
             <h1><b>Fotografías</b></h1>
