@@ -45,6 +45,8 @@
                             <div class="col-md-12">
                                 <span id="export" class="btn btn-success btn-sm" onclick="reporte('EdadesCSV');">Generar
                                     CSV</span>
+                                <span id="export" class="btn btn-success btn-sm" onclick="reporte('EdadesExcel');">Generar
+                                    Excel</span>
                             </div>
                         </div>
                     </div>
@@ -60,6 +62,8 @@
                             <div class="col-md-12">
                                 <span id="export" class="btn btn-success btn-sm" onclick="reporte('CausasCSV');">Generar
                                     CSV</span>
+                                <span id="export" class="btn btn-success btn-sm" onclick="reporte('CausasExcel');">Generar
+                                    Excel</span>
                             </div>
                         </div>
                     </div>
@@ -76,6 +80,9 @@
                                 <span id="export" class="btn btn-success btn-sm"
                                     onclick="reporte('LugaresCSV');">Generar
                                     CSV</span>
+                                <span id="export" class="btn btn-success btn-sm"
+                                onclick="reporte('LugaresExcel');">Generar
+                                Excel</span>
                             </div>
                         </div>
                     </div>
@@ -92,6 +99,8 @@
                         <div class="row text-center">
                             <div class="col-md-12">
                                 <span id="export" class="btn btn-success btn-sm" onclick="reporte('GeneralCSV');">CSV
+                                    General</span>
+                                <span id="export" class="btn btn-success btn-sm" onclick="reporte('ExcelGeneral');">Excel
                                     General</span>
                             </div>
                         </div>
@@ -127,6 +136,24 @@
                 window.open('/Personal/Reportes/CSVConteoCausas/' + fechainicio + '/' + fechafin);
                 window.open('/Personal/Reportes/CSVConteoFunerarias/' + fechainicio + '/' + fechafin);
                 window.open('/Personal/Reportes/CSVCausasDeptos/' + fechainicio + '/' + fechafin);
+            }
+        } else if(reportar == 'ExcelGeneral'){
+            if (fechainicio == '' && fechafin == '') {
+                alert('Por favor seleccione una fecha.');
+            } else if (fechainicio == '') {
+                alert('Por favor seleccione una fecha válida.');
+            } else if (fechafin_validar <= fechainicio_validar) {
+                alert('Por favor seleccione una fecha válida.');
+            } else if (fechafin == '' && fechainicio != '') {
+                window.open('/Personal/Reportes/ExcelGeneral/' + fechainicio + '/0');
+                window.open('/Personal/Reportes/ExcelConteoCausas/' + fechainicio + '/0');
+                window.open('/Personal/Reportes/ExcelConteoFunerarias/' + fechainicio + '/0');
+                window.open('/Personal/Reportes/ExcelCausasDeptos/' + fechainicio + '/0');
+            } else if (fechainicio != '' && fechafin != '') {
+                window.open('/Personal/Reportes/ExcelGeneral/' + fechainicio + '/' + fechafin);
+                window.open('/Personal/Reportes/ExcelConteoCausas/' + fechainicio + '/' + fechafin);
+                window.open('/Personal/Reportes/ExcelConteoFunerarias/' + fechainicio + '/' + fechafin);
+                window.open('/Personal/Reportes/ExcelCausasDeptos/' + fechainicio + '/' + fechafin);
             }
         } else {
             if (fechainicio == '' && fechafin == '') {

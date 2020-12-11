@@ -117,6 +117,49 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
         
     }
+
+    public function reporteEdadesExcel($fechaInicio, $fechaFin){
+        $fechaInicio = date($fechaInicio);
+        $fechaFin = date($fechaFin);
+
+        if($fechaInicio != '' && $fechaFin == '0'){
+            //Seleccionar de un sólo día
+            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+        }else{
+            //Seleccionar entre días, meses o años
+            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+        }
+
+        $fileName = 'Edades-'.$fechaInicio.'-'.$fechaFin.'.xls';
+
+        $headers = array(
+            "Content-type"        => "application/vnd.ms-excel",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $callback = function() use($casos) {
+
+            $flag = false;
+
+            foreach($casos as $caso){
+                $row['Nombre']  = utf8_decode($caso->Nombre);
+                $row['Edad']    = $caso->Edad;
+
+                if(!$flag){
+                    echo implode("\t", array_keys($row)) . "\r\n";
+                    $flag = true;
+                }
+                echo implode("\t", array_values($row)) . "\r\n";
+            }
+
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function reporteCausas($fechaInicio, $fechaFin){
 
         if($fechaInicio != '' && $fechaFin == '0'){
@@ -170,6 +213,46 @@ class PersonalUMController extends Controller
 
         return response()->stream($callback, 200, $headers);
     }
+
+    public function reporteCausasExcel($fechaInicio, $fechaFin){
+        if($fechaInicio != '' && $fechaFin == '0'){
+            //Seleccionar de un sólo día
+            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+        }else{
+            //Seleccionar entre días, meses o años
+            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+        }
+
+        $fileName = 'Causas-'.$fechaInicio.'-'.$fechaFin.'.xls';
+
+        $headers = array(
+            "Content-type"        => "application/vnd.ms-excel",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $callback = function() use($casos) {
+
+            $flag = false;
+
+            foreach($casos as $caso){
+                $row['Nombre']  = utf8_decode($caso->Nombre);
+                $row['Causa']    = $caso->Causa;
+
+                if(!$flag){
+                    echo implode("\t", array_keys($row)) . "\r\n";
+                    $flag = true;
+                }
+                echo implode("\t", array_values($row)) . "\r\n";
+            }
+
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function reporteLugares($fechaInicio, $fechaFin){
 
         if($fechaInicio != '' && $fechaFin == '0'){
@@ -223,6 +306,48 @@ class PersonalUMController extends Controller
 
         return response()->stream($callback, 200, $headers);
     }
+
+    public function reporteLugaresExcel($fechaInicio, $fechaFin){
+        if($fechaInicio != '' && $fechaFin == '0'){
+            //Seleccionar de un sólo día
+            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+        }else{
+            //Seleccionar entre días, meses o años
+            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+        }
+
+        $fileName = 'Lugares-'.$fechaInicio.'-'.$fechaFin.'.xls';
+
+        $headers = array(
+            "Content-type"        => "application/vnd.ms-excel",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $callback = function() use($casos) {
+
+            $flag = false;
+
+            foreach($casos as $caso){
+                $row['Nombre']  = utf8_decode($caso->Nombre);
+                $row['Lugar']    = $caso->Lugar;
+                $row['Municipio']    = strtoupper($caso->Municipio);
+                $row['Departamento']    = strtoupper($caso->Departamento);
+
+                if(!$flag){
+                    echo implode("\t", array_keys($row)) . "\r\n";
+                    $flag = true;
+                }
+                echo implode("\t", array_values($row)) . "\r\n";
+            }
+
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function reporteGeneral($fechaInicio, $fechaFin){
 
         if($fechaInicio != '' && $fechaFin == '0'){
@@ -322,6 +447,58 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
+    public function ExcelReporteGeneral($fechaInicio, $fechaFin){
+        setlocale(LC_TIME, "spanish");
+        if($fechaInicio != '' && $fechaFin == '0'){
+            //Seleccionar de un sólo día
+            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
+        }else{
+            //Seleccionar entre días, meses o años
+            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
+        }
+
+        $fileName = 'General-'.$fechaInicio.'-'.$fechaFin.'.xls';
+
+        $headers = array(
+            "Content-type"        => "application/vnd.ms-excel",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $callback = function() use($casos) {
+
+            $flag = false;
+
+            foreach($casos as $caso){
+                $row['Caso']  = $caso->id;
+                $row['Mes']  = date('F', strtotime($caso->Fecha));
+                $row['Estudiante']  = $caso->Codigo;
+                $row['Nombre Estudiante']  = utf8_decode($caso->Nombre);
+                $row['Tutor']  = utf8_decode($caso->Tutor);
+                $row['Municipio']  = strtoupper($caso->Municipio);
+                $row['Departamento']  = strtoupper($caso->Departamento);
+                $row['Causa de muerte']  = utf8_decode($caso->Causa);
+                $row['Causa']  = utf8_decode($caso->Causa_Desc);
+                $row['Descripcion Causa']  = utf8_decode($caso->Causa_Especifica);
+                $row['Funeraria']  = utf8_decode($caso->Funeraria_Nombre);
+                $row['Fecha']  = $caso->Fecha;
+                $row['Evaluacion']  = $caso->Evaluacion;
+                $row['Precio']  = $caso->Costo;
+
+                if(!$flag){
+                    echo implode("\t", array_keys($row)) . "\r\n";
+                    $flag = true;
+                }
+                echo implode("\t", array_values($row)) . "\r\n";
+            }
+
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function CSVConteoCausas($fechaInicio, $fechaFin){
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
@@ -360,6 +537,45 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
+    public function ExcelConteoCausas($fechaInicio, $fechaFin){
+        if($fechaInicio != '' && $fechaFin == '0'){
+            //Seleccionar de un sólo día
+            $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+
+        }else{
+            $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+        }
+
+        $fileName = 'Conteo-Causas-'.$fechaInicio.'-'.$fechaFin.'.xls';
+
+        $headers = array(
+            "Content-type"        => "application/vnd.ms-excel",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $callback = function() use($conteo) {
+
+            $flag = false;
+
+            foreach($conteo as $cont){
+                $row['Causa']  = $cont->Causa;
+                $row['Total']    = $cont->total;
+
+                if(!$flag){
+                    echo implode("\t", array_keys($row)) . "\r\n";
+                    $flag = true;
+                }
+                echo implode("\t", array_values($row)) . "\r\n";
+            }
+
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function CSVConteoFunerarias($fechaInicio, $fechaFin){
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
@@ -393,6 +609,45 @@ class PersonalUMController extends Controller
             }
 
             fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    public function ExcelConteoFunerarias($fechaInicio, $fechaFin){
+        if($fechaInicio != '' && $fechaFin == '0'){
+            //Seleccionar de un sólo día
+            $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+
+        }else{
+            $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+        }
+
+        $fileName = 'Conteo-Funerarias-'.$fechaInicio.'-'.$fechaFin.'.xls';
+
+        $headers = array(
+            "Content-type"        => "application/vnd.ms-excel",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $callback = function() use($conteo) {
+
+            $flag = false;
+
+            foreach($conteo as $cont){
+                $row['Funeraria']  = $cont->Funeraria_Nombre;
+                $row['Total']    = $cont->total;
+
+                if(!$flag){
+                    echo implode("\t", array_keys($row)) . "\r\n";
+                    $flag = true;
+                }
+                echo implode("\t", array_values($row)) . "\r\n";
+            }
+
         };
 
         return response()->stream($callback, 200, $headers);
@@ -442,6 +697,55 @@ class PersonalUMController extends Controller
             }
 
             fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    public function ExcelCausasDeptos($fechaInicio, $fechaFin){
+        if($fechaInicio != '' && $fechaFin == '0'){
+            //Seleccionar de un sólo día
+            $departamentos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
+            foreach($departamentos as $departamento){
+                $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                $departamento->Causas_arreglo = $causas_deptos;
+            }
+        }else{
+            $departamentos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
+            foreach($departamentos as $departamento){
+                $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                $departamento->Causas_arreglo = $causas_deptos;
+            }
+        }
+
+        $fileName = 'Causas-Deptos-'.$fechaInicio.'-'.$fechaFin.'.xls';
+
+        $headers = array(
+            "Content-type"        => "application/vnd.ms-excel",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $callback = function() use($departamentos) {
+
+            $flag = false;
+
+            foreach($departamentos as $conteo){
+                foreach($conteo->Causas_arreglo as $causa){
+                    $row['Departamento']  = $conteo->Departamento;
+                    $row['Causa']  = $causa->Causa;
+                    $row['Total']    = $causa->total;
+
+                    if(!$flag){
+                        echo implode("\t", array_keys($row)) . "\r\n";
+                        $flag = true;
+                    }
+                    echo implode("\t", array_values($row)) . "\r\n";
+                }
+            }
+
         };
 
         return response()->stream($callback, 200, $headers);

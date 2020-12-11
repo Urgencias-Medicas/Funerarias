@@ -64,15 +64,22 @@ Route::group(['prefix' => 'Personal'], function (){
         Route::get('ver', 'PersonalUMController@verReportes');
         Route::get('Edades/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteEdades');
         Route::get('EdadesCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteEdadesCSV');
+        Route::get('EdadesExcel/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteEdadesExcel');
         Route::get('Causas/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteCausas');
         Route::get('CausasCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteCausasCSV');
+        Route::get('CausasExcel/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteCausasExcel');
         Route::get('Lugares/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteLugares');
         Route::get('LugaresCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteLugaresCSV');
+        Route::get('LugaresExcel/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteLugaresExcel');
         Route::get('General/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteGeneral');
         Route::get('GeneralCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteGeneralCSV');
         Route::get('CSVConteoCausas/{fechaInicio}/{fechaFin}', 'PersonalUMController@CSVConteoCausas');
         Route::get('CSVConteoFunerarias/{fechaInicio}/{fechaFin}', 'PersonalUMController@CSVConteoFunerarias');
         Route::get('CSVCausasDeptos/{fechaInicio}/{fechaFin}', 'PersonalUMController@CSVCausasDeptos');
+        Route::get('ExcelGeneral/{fechaInicio}/{fechaFin}', 'PersonalUMController@ExcelReporteGeneral');
+        Route::get('ExcelConteoCausas/{fechaInicio}/{fechaFin}', 'PersonalUMController@ExcelConteoCausas');
+        Route::get('ExcelConteoFunerarias/{fechaInicio}/{fechaFin}', 'PersonalUMController@ExcelConteoFunerarias');
+        Route::get('ExcelCausasDeptos/{fechaInicio}/{fechaFin}', 'PersonalUMController@ExcelCausasDeptos');
         Route::get('Caso/{id}', 'PersonalUMController@reporteCaso');
     });
     
