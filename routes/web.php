@@ -81,6 +81,8 @@ Route::group(['prefix' => 'Personal'], function (){
         Route::get('ExcelConteoFunerarias/{fechaInicio}/{fechaFin}', 'PersonalUMController@ExcelConteoFunerarias');
         Route::get('ExcelCausasDeptos/{fechaInicio}/{fechaFin}', 'PersonalUMController@ExcelCausasDeptos');
         Route::get('Caso/{id}', 'PersonalUMController@reporteCaso');
+        Route::get('Graficas', 'PersonalUMController@Graficas');
+        Route::get('Graficas/{fechaInicio}/{fechaFin}', 'PersonalUMController@GraficasPorFecha');
     });
     
     Route::get('CrearUsuario', 'AdminController@nuevoUsuario');

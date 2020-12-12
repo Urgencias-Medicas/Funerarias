@@ -777,4 +777,112 @@ class PersonalUMController extends Controller
         return $pdf->download('Caso-'.$id.'.pdf');
         //return view('Personal.Reportes.Plantillas.Caso', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos]);
     }
+
+    public function Graficas(){
+
+        $keys_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->orderBy('Funeraria_Nombre', 'asc')->pluck('Funeraria_Nombre');
+
+        $servicios_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('count(*) as total'))->get();
+        $array_servicios = array();
+        foreach($servicios_funerarias as $servicios){
+            array_push($array_servicios, $servicios->total);
+        }
+
+        $servicios_conteo = collect($array_servicios);
+
+        $array_promedio = array();
+        $promedio_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('avg(Evaluacion) as total'))->get();
+        foreach($promedio_funerarias as $promedio){
+            array_push($array_promedio, $promedio->total);
+        }
+
+        $promedio_conteo = collect($array_promedio);
+
+        //$promedio_funerarias = Casos::selectRaw('AVG(Eval)')
+
+        $keys_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->orderBy('Causa', 'asc')->pluck('Causa');
+
+        $conteo_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->orderBy('Causa', 'asc')->select('Causa', DB::raw('count(*) as total'))->get();
+        $array_conteo_muerte = array();
+        foreach($conteo_tipos_muerte as $conteo){
+            array_push($array_conteo_muerte, $conteo->total);
+        }
+
+        $muertes_conteo = collect($array_conteo_muerte);
+
+        //return $muertes_conteo;
+
+        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo]);
+    }
+
+    public function GraficasPorFecha($fechaInicio, $fechaFin){
+
+        if($fechaInicio != '' && $fechaFin == '0'){
+            //Seleccionar de un sólo día
+
+            $keys_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->pluck('Funeraria_Nombre');
+
+            $servicios_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('count(*) as total'))->get();
+            $array_servicios = array();
+            foreach($servicios_funerarias as $servicios){
+                array_push($array_servicios, $servicios->total);
+            }
+
+            $servicios_conteo = collect($array_servicios);
+
+            $array_promedio = array();
+            $promedio_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('avg(Evaluacion) as total'))->get();
+            foreach($promedio_funerarias as $promedio){
+                array_push($array_promedio, $promedio->total);
+            }
+
+            $promedio_conteo = collect($array_promedio);
+
+            //$promedio_funerarias = Casos::selectRaw('AVG(Eval)')
+
+            $keys_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'asc')->pluck('Causa');
+
+            $conteo_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'asc')->select('Causa', DB::raw('count(*) as total'))->get();
+            $array_conteo_muerte = array();
+            foreach($conteo_tipos_muerte as $conteo){
+                array_push($array_conteo_muerte, $conteo->total);
+            }
+
+            $muertes_conteo = collect($array_conteo_muerte);
+        }else{
+            $keys_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Funeraria_Nombre', 'asc')->pluck('Funeraria_Nombre');
+
+            $servicios_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('count(*) as total'))->get();
+            $array_servicios = array();
+            foreach($servicios_funerarias as $servicios){
+                array_push($array_servicios, $servicios->total);
+            }
+
+            $servicios_conteo = collect($array_servicios);
+
+            $array_promedio = array();
+            $promedio_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('avg(Evaluacion) as total'))->get();
+            foreach($promedio_funerarias as $promedio){
+                array_push($array_promedio, $promedio->total);
+            }
+
+            $promedio_conteo = collect($array_promedio);
+
+            //$promedio_funerarias = Casos::selectRaw('AVG(Eval)')
+
+            $keys_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'asc')->pluck('Causa');
+
+            $conteo_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'asc')->select('Causa', DB::raw('count(*) as total'))->get();
+            $array_conteo_muerte = array();
+            foreach($conteo_tipos_muerte as $conteo){
+                array_push($array_conteo_muerte, $conteo->total);
+            }
+
+            $muertes_conteo = collect($array_conteo_muerte);
+        }
+
+        //return $muertes_conteo;
+
+        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Fecha_Inicio' => $fechaInicio, 'Fecha_Fin' => $fechaFin]);
+    }
 }

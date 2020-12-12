@@ -91,10 +91,18 @@
                             </div>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="/Personal/Reportes/ver"
-                                class="nav-link {{ (request()->is('Personal/Reportes*')) ? 'active' : '' }}"><span>
-                                    Reportes </span></a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Reportes
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a href="/Personal/Reportes/ver"
+                                class="dropdown-item {{ (request()->is('Personal/Reportes/ver*')) ? 'active' : '' }}">
+                                    Reportes</a>
+                                <a href="/Personal/Reportes/Graficas"
+                                    class="dropdown-item {{ (request()->is('Casos/Reportes/Graficas*')) ? 'active' : '' }}">Gráficas</a>
+                            </div>
                         </li>
 
                         <li class="nav-item dropdown">
