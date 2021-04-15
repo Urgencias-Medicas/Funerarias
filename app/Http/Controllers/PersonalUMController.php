@@ -7,6 +7,7 @@ use App\User;
 use App\DetallesFuneraria;
 use App\Casos;
 use App\HistorialPagos;
+use App\Configuracion;
 use Illuminate\Support\Facades\File;
 use PDF;
 use DB;
@@ -884,5 +885,14 @@ class PersonalUMController extends Controller
         //return $muertes_conteo;
 
         return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Fecha_Inicio' => $fechaInicio, 'Fecha_Fin' => $fechaFin]);
+    }
+
+    public function configuraciones(){
+        $tasa_cambio = Configuracion::where('opcion', 'Tasa_Cambio')->value('valor');
+        return view('Personal.Configuraciones', ['Tasa_Cambio' => $tasa_cambio]);
+    }
+    public function configuracionesGuardar(Request $request){
+        Configuracion::where('opcion', 'Tasa_Cambio')->update(['valor' => $request->tasa_cambio]);
+        return back();
     }
 }

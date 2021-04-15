@@ -324,6 +324,8 @@
             <div class="card ">
                 <div class="card-header">Costos</div>
                 <div class="card-body align-items-center justify-content-center">
+                    @if($Caso->Moneda == 'GTQ')
+                    <h6><b>GTQ</b></h6>
                     <div class="form-row">
                         <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
                             <label for="costoServicio">Costo</label>
@@ -335,9 +337,56 @@
                         </div>
                         <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
                             <label for="pagado">Pagado</label>
-                            <input type="text" class="form-control" value="{{$Caso->Pagado}}" readonly>
+                            <input type="text" class="form-control" value="{{isset($Caso->Pagado) ? $Caso->Pagado : '0'}}" readonly>
+                        </div>
+                    </div>   
+                    <h6><b>USD</b></h6>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="costoServicio">Costo</label>
+                            <input type="text" class="form-control" value="{{$Caso->Costo/$Tasa_Cambio}}" readonly>
+                        </div>
+                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="Pendiente">Pendiente</label>
+                            <input type="text" class="form-control" value="{{($Caso->Costo - $Caso->Pagado)/$Tasa_Cambio}}" readonly>
+                        </div>
+                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="pagado">Pagado</label>
+                            <input type="text" class="form-control" value="{{$Caso->Pagado/$Tasa_Cambio}}" readonly>
+                        </div>
+                    </div> 
+                    @else
+                    <h6><b>USD</b></h6>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="costoServicio">Costo</label>
+                            <input type="text" class="form-control" value="{{$Caso->Costo}}" readonly>
+                        </div>
+                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="Pendiente">Pendiente</label>
+                            <input type="text" class="form-control" value="{{$Caso->Costo - $Caso->Pagado}}" readonly>
+                        </div>
+                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="pagado">Pagado</label>
+                            <input type="text" class="form-control" value="{{isset($Caso->Pagado) ? $Caso->Pagado : '0'}}" readonly>
                         </div>
                     </div>
+                    <h6><b>GTQ</b></h6>
+                    <div class="form-row">
+                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="costoServicio">Costo</label>
+                            <input type="text" class="form-control" value="{{$Caso->Costo*8}}" readonly>
+                        </div>
+                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="Pendiente">Pendiente</label>
+                            <input type="text" class="form-control" value="{{($Caso->Costo - $Caso->Pagado)*8}}" readonly>
+                        </div>
+                        <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                            <label for="pagado">Pagado</label>
+                            <input type="text" class="form-control" value="{{$Caso->Pagado*8}}" readonly>
+                        </div>
+                    </div> 
+                    @endif
                     @if($Caso->Solicitud != 'Pendiente')
                     <button type="button" class="btn btn-outline-primary btn-block my-2" data-toggle="modal"
                         data-target="#solicitudModal">Ver solicitudes</button>
@@ -873,7 +922,11 @@
                                     <select id="monto_base" class="form-control">\
                                     <option value="0">-- Seleccione una campaña --</option>';
                         $.each(JSON.parse(infoFuneraria.Campanias), function(key, entry){
-                            html += '<option value="'+entry.monto+'">'+entry.nombre+'</option>';
+                            if($('#edad').val() >= entry.edad_inicial && $('#edad').val() <= entry.edad_final){
+                                html += '<option value="'+entry.monto+'">'+entry.nombre+'</option>';
+                            }else{
+                                html += '<option value="'+entry.monto+'" disabled>'+entry.nombre+'</option>';
+                            }
                                     
                         });
 
@@ -932,12 +985,18 @@
             whatsapp = 'Si';
         }
         var monto = $('#monto_base').val();
-        asignarFuneraria(caso, id, monto, correo, whatsapp);
+
+        var regExp = /\(([^)]+)\)/;
+        var moneda = regExp.exec($('#monto_base option:selected').text());
+
+        console.log(moneda[1]);
+
+        asignarFuneraria(caso, id, monto, moneda[1], correo, whatsapp);
     }
 
-    function asignarFuneraria(caso, id, monto, correo, wp) {
+    function asignarFuneraria(caso, id, monto, moneda, correo, wp) {
         $.ajax({
-            url: "/Casos/" + caso + "/asignarFuneraria/" + id + "/" + monto + "/" + correo + "/" + wp,
+            url: "/Casos/" + caso + "/asignarFuneraria/" + id + "/" + monto + "/" + moneda + "/" + correo + "/" + wp,
             type: 'get',
             success: function (response) {
                 window.location.href = '/Casos/ver';

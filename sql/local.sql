@@ -50,8 +50,9 @@ CREATE TABLE `campanias` (
   `Nombre` text NOT NULL,
   `Aseguradora` int(11) NOT NULL,
   `Nombre_Aseguradora` text,
+  `Moneda` text CHARACTER SET utf8 COLLATE utf8_general_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,8 +61,9 @@ CREATE TABLE `campanias` (
 
 LOCK TABLES `campanias` WRITE;
 /*!40000 ALTER TABLE `campanias` DISABLE KEYS */;
-INSERT INTO `campanias` VALUES (2,'Test campaña',7,'Aseguradora Prueba');
-INSERT INTO `campanias` VALUES (3,'Test campaña 2',36,'Test 2');
+INSERT INTO `campanias` VALUES (2,'Test campaña',7,'Aseguradora Prueba',NULL);
+INSERT INTO `campanias` VALUES (3,'Test campaña 2',36,'Test 2',NULL);
+INSERT INTO `campanias` VALUES (4,'Test usd',1235,'TEst','USD');
 /*!40000 ALTER TABLE `campanias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,25 +124,25 @@ CREATE TABLE `casos` (
 
 LOCK TABLES `casos` WRITE;
 /*!40000 ALTER TABLE `casos` DISABLE KEYS */;
-INSERT INTO `casos` VALUES (3,NULL,1,'Estudiante de prueba',NULL,NULL,'2020-09-09','13:50:00','Test',NULL,NULL,'Esto es una prueba','GUATEMALA','MIXCO','Test',NULL,'Test',NULL,NULL,NULL,NULL,'6',6,'El Roble','Asignado','No',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (4,NULL,2,'Prueba Estudiante',NULL,NULL,'2020-09-09','18:01:00','Esto es una prueba',NULL,NULL,'Test','GUATEMALA','MIXCO','Test',NULL,'Test2',NULL,NULL,NULL,NULL,NULL,6,'El Roble','Cerrado','No',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (3,NULL,1,'Estudiante de prueba',NULL,NULL,'2020-09-09','13:50:00','Test',NULL,NULL,'Esto es una prueba','GUATEMALA','MIXCO','Test',NULL,'Test',NULL,NULL,NULL,NULL,'6',6,'Funerales  El Roble','Asignado','No',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (4,NULL,2,'Prueba Estudiante',NULL,NULL,'2020-09-09','18:01:00','Esto es una prueba',NULL,NULL,'Test','GUATEMALA','MIXCO','Test',NULL,'Test2',NULL,NULL,NULL,NULL,NULL,6,'Funerales  El Roble','Cerrado','No',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO `casos` VALUES (5,NULL,5,'Ana Lucía Robles',NULL,NULL,'2020-09-11','20:59:00','Muerte Natural',NULL,NULL,'Prueba de dirección','PETEN','Desconocido','Juan Robles',NULL,'Lucía Medina',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Abierto','No',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO `casos` VALUES (6,NULL,4,'Patricia Morales',NULL,NULL,'2020-09-11','19:04:00','Muerte natural',NULL,NULL,'Test','IZABAL','TEST','Prueba',NULL,'Prueba',NULL,NULL,NULL,NULL,NULL,9,'Funeraria dos','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (7,NULL,1,'Jefferson Morataya',NULL,NULL,'2020-09-11','15:15:00','Accidente',NULL,NULL,'Dirección de prueba Guatemala','GUATEMALA','Mixco','Test Padre',NULL,'Test Madre',NULL,NULL,NULL,NULL,'Edificio Tikal Futura',6,'El Roble','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (8,NULL,2,'Luis Medina',NULL,NULL,'2020-09-11','16:44:00','Accidente',NULL,NULL,'Dirección de prueba capital','GUATEMALA','GUATEMALA','Test Padre',NULL,'Test Madre',NULL,NULL,NULL,NULL,'Edificio Miraflores',6,'El Roble','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (9,NULL,5,'Ana Lucía Robles',NULL,NULL,'2020-09-19','10:55:00','Asesinato',NULL,NULL,'Ciudad de Guatemala','GUATEMALA','GUATEMALA','Test padre',NULL,'Test madre',NULL,NULL,NULL,NULL,'Boulevard Liberación',6,'El Roble','Asignado','No',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,9);
-INSERT INTO `casos` VALUES (10,NULL,2,'Luis Medina',NULL,NULL,'2020-09-19','10:10:00','Suicidio',NULL,NULL,'Guatemala','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Test Reporta','Tutor legal','12345678',NULL,6,'El Roble','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (11,NULL,3,'Carlos Sagastume',NULL,NULL,'2020-09-19','14:55:00','Enfermedad Comun',NULL,NULL,'GUATEMALA','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Edgar Prueba','Tío del estudiante','12345678',NULL,6,'El Roble','Asignado','Si',1500,900,1600,'Pendiente',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (12,NULL,5,'Ana Lucía Robles',NULL,NULL,'2020-10-08','12:19:00','Accidente',NULL,NULL,'CC Miraflores','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Edwin Test','Tutor','12345678','CC Miraflores',6,'El Roble','Cerrado','No',1900,500,1400,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (13,NULL,6,'Juan Antonio Palma',NULL,NULL,'2020-10-08','12:39:00','Suicidio','Test de causa',NULL,'Roosevelt','GUATEMALA','GUATEMALA','Padre Test','12345678','Madre Test','87654321','Reporta test2','Tutor','54687213','Edificio Tikal Futura',6,'El Roble','Asignado','Si',2500,1864,636,'Pendiente',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,9.5);
-INSERT INTO `casos` VALUES (14,NULL,9,'Rosa Mendoza',NULL,NULL,'2020-10-26','19:19:00','Accidente',NULL,NULL,'Test','GUATEMALA','GUATEMALA','Test','12345678','Test','12345678','Edgar Ambrosio','Tester','12345678',NULL,6,'El Roble','Cerrado','Si',2000,1200,800,'Aprobar','Español','Test',NULL,NULL,NULL,'Sin comentarios',NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (15,NULL,8,'Silvia Arévalo',NULL,NULL,'2020-10-27','15:15:00','Accidente',NULL,NULL,'Test','GUATEMALA','GUATEMALA','Test Padre','12345678','Madre Test','12345678','Edgar Test','Doctor','85481813',NULL,6,'El Roble','Cerrado','Si',1500,600,900,'Declinar','Español','Edgar Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (7,NULL,1,'Jefferson Morataya',NULL,NULL,'2020-09-11','15:15:00','Accidente',NULL,NULL,'Dirección de prueba Guatemala','GUATEMALA','Mixco','Test Padre',NULL,'Test Madre',NULL,NULL,NULL,NULL,'Edificio Tikal Futura',6,'Funerales  El Roble','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (8,NULL,2,'Luis Medina',NULL,NULL,'2020-09-11','16:44:00','Accidente',NULL,NULL,'Dirección de prueba capital','GUATEMALA','GUATEMALA','Test Padre',NULL,'Test Madre',NULL,NULL,NULL,NULL,'Edificio Miraflores',6,'Funerales  El Roble','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (9,NULL,5,'Ana Lucía Robles',NULL,NULL,'2020-09-19','10:55:00','Asesinato',NULL,NULL,'Ciudad de Guatemala','GUATEMALA','GUATEMALA','Test padre',NULL,'Test madre',NULL,NULL,NULL,NULL,'Boulevard Liberación',6,'Funerales  El Roble','Asignado','No',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,9);
+INSERT INTO `casos` VALUES (10,NULL,2,'Luis Medina',NULL,NULL,'2020-09-19','10:10:00','Suicidio',NULL,NULL,'Guatemala','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Test Reporta','Tutor legal','12345678',NULL,6,'Funerales  El Roble','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (11,NULL,3,'Carlos Sagastume',NULL,NULL,'2020-09-19','14:55:00','Enfermedad Comun',NULL,NULL,'GUATEMALA','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Edgar Prueba','Tío del estudiante','12345678',NULL,6,'Funerales  El Roble','Asignado','Si',1500,900,1600,'Pendiente',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,8);
+INSERT INTO `casos` VALUES (12,NULL,5,'Ana Lucía Robles',NULL,NULL,'2020-10-08','12:19:00','Accidente',NULL,NULL,'CC Miraflores','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Edwin Test','Tutor','12345678','CC Miraflores',6,'Funerales  El Roble','Cerrado','No',1900,500,1400,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,8);
+INSERT INTO `casos` VALUES (13,NULL,6,'Juan Antonio Palma',NULL,NULL,'2020-10-08','12:39:00','Suicidio','Test de causa',NULL,'Roosevelt','GUATEMALA','GUATEMALA','Padre Test','12345678','Madre Test','87654321','Reporta test2','Tutor','54687213','Edificio Tikal Futura',6,'Funerales  El Roble','Asignado','Si',2500,1864,636,'Pendiente',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,9.5);
+INSERT INTO `casos` VALUES (14,NULL,9,'Rosa Mendoza',NULL,NULL,'2020-10-26','19:19:00','Accidente',NULL,NULL,'Test','GUATEMALA','GUATEMALA','Test','12345678','Test','12345678','Edgar Ambrosio','Tester','12345678',NULL,6,'Funerales  El Roble','Cerrado','Si',2000,1200,800,'Aprobar','Español','Test',NULL,NULL,NULL,'Sin comentarios',NULL,NULL,8);
+INSERT INTO `casos` VALUES (15,NULL,8,'Silvia Arévalo',NULL,NULL,'2020-10-27','15:15:00','Accidente',NULL,NULL,'Test','GUATEMALA','GUATEMALA','Test Padre','12345678','Madre Test','12345678','Edgar Test','Doctor','85481813',NULL,6,'Funerales  El Roble','Cerrado','Si',1500,600,900,'Declinar','Español','Edgar Test',NULL,NULL,NULL,NULL,NULL,NULL,8);
 INSERT INTO `casos` VALUES (16,NULL,5,'Ana Lucía Robles',NULL,NULL,'2020-10-27','16:10:00','Accidente',NULL,NULL,'Test','GUATEMALA','GUATEMALA','test','12138485','test','41414548','Edgar test','Test','15848415',NULL,NULL,NULL,'Cerrado','No',NULL,NULL,NULL,NULL,'Español','Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (17,2,5,'Ana Lucía Robles',NULL,NULL,'2020-11-14','15:00:00','Accidente','nueva causa 2',NULL,'test','GUATEMALA','GUATEMALA','test','18515815','test','18718185','test','test','15151818',NULL,6,'Funerales  El Roble','Asignado','No',5184,NULL,NULL,NULL,'Español','test',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (17,2,5,'Ana Lucía Robles',NULL,NULL,'2020-11-14','15:00:00','Accidente','nueva causa 2',NULL,'test','GUATEMALA','GUATEMALA','test','18515815','test','18718185','test','test','15151818',NULL,6,'Funerales  El Roble','Asignado','No',5184,NULL,NULL,NULL,'Español','test',NULL,NULL,NULL,NULL,NULL,NULL,8);
 INSERT INTO `casos` VALUES (18,2,5,'Ana Lucía Robles',15,NULL,'2020-11-14','15:00:00','Accidente','test nuevo',NULL,'test','GUATEMALA','GUATEMALA','test','54141515','test','15151515','test','test','51515151',NULL,6,'Funerales  El Roble','Asignado','No',1500,NULL,NULL,'Declinar','Español','Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (19,2,5,'Ana Lucía Robles',12,'7','2020-11-14','15:00:00','Accidente','test nuevo 4','test','test234','PETEN','SAN JOSE','test','11111111','test','15185185','test3','test2','12345678','testtest',26,'\"Funeraria \"\"El Buen Pastor\"\"\"','Asignado','No',0,1415,-1415,NULL,'Española','Tests','testt','15151','155151','test','15151','1515',NULL);
-INSERT INTO `casos` VALUES (20,2,15051,'Test Estudiante',15,'7','2020-11-23','15:03:00','Accidente','Se ahorcó test','Se colgó','test','GUATEMALA','GUATEMALA','test','15181818','test','18181818','test','test','15151515',NULL,6,'Funerales  El Roble','Cerrado','No',5184,NULL,NULL,NULL,'Español','Test',NULL,NULL,NULL,'Ninguno',NULL,NULL,9.5);
-INSERT INTO `casos` VALUES (21,2,15154,'Test',15,'7','2020-11-24','15:15:00','Accidente','Test de causa','test','test','GUATEMALA','MIXCO','test','51515151','test','15151515','test','test','15151515',NULL,6,'Funerales  El Roble','Asignado','No',1500,NULL,NULL,NULL,'Español','test',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (19,2,5,'Ana Lucía Robles',12,'7','2020-11-14','15:00:00','Accidente','test nuevo 4','test','test234','PETEN','SAN JOSE','test','11111111','test','15185185','test3','test2','12345678','testtest',26,'\"Funeraria \"\"El Buen Pastor\"\"\"','Cerrado','Si',0,1415,-1415,NULL,'Española','Tests','testt','15151','155151','test','15151','1515',NULL);
+INSERT INTO `casos` VALUES (20,2,15051,'Test Estudiante',15,'7','2020-11-23','15:03:00','Accidente','Se ahorcó test','Se colgó','test','GUATEMALA','GUATEMALA','test','15181818','test','18181818','test','test','15151515',NULL,6,'Funerales  El Roble','Cerrado','No',5184,NULL,NULL,NULL,'Español','Test',NULL,NULL,NULL,'Ninguno',NULL,NULL,8);
+INSERT INTO `casos` VALUES (21,2,15154,'Test',15,'7','2020-11-24','15:15:00','Accidente','Test de causa','test','test','GUATEMALA','MIXCO','test','51515151','test','15151515','test','test','15151515',NULL,6,'Funerales  El Roble','Asignado','No',1500,NULL,NULL,NULL,'Español','test',NULL,NULL,NULL,NULL,NULL,NULL,8);
 INSERT INTO `casos` VALUES (22,2,1515,'test',18,'7','2020-11-05','15:15:00','Accidente','Test de causa','test','test','JUTIAPA','SAN JOSE ACATEMPA','test','15151515','test','15151515','test','test','15151515',NULL,NULL,NULL,'Abierto','No',NULL,NULL,NULL,NULL,'test','test',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `casos` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -222,7 +224,7 @@ INSERT INTO `detalles_funeraria` VALUES (7,'No','Si','Si');
 INSERT INTO `detalles_funeraria` VALUES (8,'Si','Si','Si');
 INSERT INTO `detalles_funeraria` VALUES (9,'Si','No','Si');
 INSERT INTO `detalles_funeraria` VALUES (10,'Si','Si','No');
-INSERT INTO `detalles_funeraria` VALUES (11,'No','No','No');
+INSERT INTO `detalles_funeraria` VALUES (11,'Si','Si','Si');
 INSERT INTO `detalles_funeraria` VALUES (12,'No','No','No');
 INSERT INTO `detalles_funeraria` VALUES (13,'No','No','No');
 INSERT INTO `detalles_funeraria` VALUES (14,'No','No','No');
@@ -288,7 +290,7 @@ LOCK TABLES `funerarias` WRITE;
 /*!40000 ALTER TABLE `funerarias` DISABLE KEYS */;
 INSERT INTO `funerarias` VALUES (1,6,'Funerales  El Roble','samedgar15@gmail.com','12345678',5184,'Si',9,'[{\"id\": \"2\", \"monto\": \"1100\", \"nombre\": \"Test campaña, Aseguradora Prueba\"}, {\"id\": \"3\", \"monto\": \"1500\", \"nombre\": \"Test campaña 2, Test 2\"}]');
 INSERT INTO `funerarias` VALUES (2,13,'Funeraria Quetzaltenango','quetzaltenango@funeraria.com','12345678',10000,'Si',10,NULL);
-INSERT INTO `funerarias` VALUES (3,1,'Funeraria La Piedad','','',0,'Si',11,NULL);
+INSERT INTO `funerarias` VALUES (3,1,'Funeraria La Piedad','samuelambrosio99@gmail.com','49750995',0,'Si',11,'[{\"id\": \"4\", \"monto\": \"1000\", \"nombre\": \"Test usd, TEst (USD)\"}]');
 INSERT INTO `funerarias` VALUES (4,2,'Funeraria San Miguel','test@test.com','15151545',0,'Si',12,NULL);
 INSERT INTO `funerarias` VALUES (5,3,'Funeraria Morazán','','',0,'Si',13,NULL);
 INSERT INTO `funerarias` VALUES (6,5,'Funerales y Capillas San José','','',0,'Si',14,NULL);
@@ -891,4 +893,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-09 14:39:28
+-- Dump completed on 2021-04-13 16:20:34

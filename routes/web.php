@@ -43,7 +43,7 @@ Route::group(['prefix' => 'Casos'], function () {
     Route::post('guardarNuevo', 'CasosController@guardarNuevo');
     Route::get('ver', 'CasosController@verCasos')->middleware('role:Personal');
     Route::get('{id}/ver', 'CasosController@detallesCaso')->middleware('role:Personal');
-    Route::get('/{caso}/asignarFuneraria/{id}/{monto}/{correo}/{wp}', 'CasosController@asignarFuneraria');
+    Route::get('/{caso}/asignarFuneraria/{id}/{monto}/{moneda}/{correo}/{wp}', 'CasosController@asignarFuneraria');
     Route::any('/{caso}/actualizarPago', 'CasosController@actualizarPago');
     Route::get('/cerrarCaso/{caso}', 'CasosController@cerrarCaso');
     Route::get('Reportar/{caso}/{instruccion}', 'CasosController@reportarCaso');
@@ -59,6 +59,8 @@ Route::group(['prefix' => 'Personal'], function (){
     Route::get('Funerarias/ver', 'PersonalUMController@verFunerarias');
     Route::get('Funeraria/{id}/ver', 'PersonalUMController@verFuneraria');
     Route::post('Funeraria/{id}/{detalle}/guardar', 'AdminController@guardarCambiosFuneraria');
+    Route::get('configuraciones', 'PersonalUMController@configuraciones');
+    Route::post('configuraciones/guardar', 'PersonalUMController@configuracionesGuardar');
 
     Route::group(['prefix' => 'Reportes'], function () {
         Route::get('ver', 'PersonalUMController@verReportes');

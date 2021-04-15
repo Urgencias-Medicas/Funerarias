@@ -42,7 +42,7 @@
                                     <select name="selectCampaña" id="selectCampaña" class="form-control">
                                         <option>-- Seleccione campaña --</option>
                                         @foreach($Campanias as $campania)
-                                            <option value="{{$campania->id}}">{{$campania->Nombre.', '.$campania->Nombre_Aseguradora}}</option>
+                                            <option value="{{$campania->id}}">{{$campania->Nombre.', '.$campania->Nombre_Aseguradora. ' ('.$campania->Moneda.')'}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -54,7 +54,7 @@
                                 </div>
                                 <hr>
                                 <div id="campanias">
-                                    @if($Funeraria->Campania)
+                                    @if($Funeraria->Campanias)
                                         @foreach(json_decode($Funeraria->Campanias) as $campania)
                                         <div class="form-row" id="campania-{{$campania->id}}">
                                             <input type="hidden" name="campania[{{$campania->id}}][id]" class="form-control" value="{{$campania->id}}">
@@ -63,12 +63,22 @@
                                                 <input type="text" name="campania[{{$campania->id}}][campania]" class="form-control"
                                                     value="{{$campania->nombre}}" readonly>
                                             </div>
-                                            <div class="form-group col-md-5">
+                                            <div class="form-group col-md-2">
                                                 <label for="Monto_Base">Monto Base</label>
                                                 <input type="text" name="campania[{{$campania->id}}][monto_base]" class="form-control"
                                                     value="{{$campania->monto}}">
                                             </div>
                                             <div class="form-group col-md-2">
+                                                <label for="Edad_Inicial">Edad Inicial</label>
+                                                <input type="text" name="campania[{{$campania->id}}][edad_inicial]" class="form-control"
+                                                    value="{{$campania->edad_inicial}}">
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label for="Edad_Final">Edad Final</label>
+                                                <input type="text" name="campania[{{$campania->id}}][edad_final]" class="form-control"
+                                                    value="{{$campania->edad_final}}">
+                                            </div>
+                                            <div class="form-group col-md-1">
                                                 <label>Eliminar</label>
                                                 <button type="button" class="btn btn-danger btn-block" onClick="eliminarCampania({{$campania->id}})"><b>X</b></button>
                                             </div>
@@ -76,7 +86,7 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <hr>
+                                <hr>                                
                                 <div class="form-group">
                                     <label for="activa">Activa</label>
                                     <select name="activo" id="activo" class="form-control">
@@ -90,48 +100,39 @@
                                     </select>
                                 </div>
                                 <hr>
-                                <div class="form-row">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            @if($Detalle->paso_uno == 'Si')
-                                            <input type="checkbox" class="form-check-input" value="Hecho"
-                                                name="paso_uno" checked>Paso 1 Completado
+                                @php
+                                $contadorJson = 0
+                                @endphp
+                                @foreach(json_decode($Checks) as $check)
+                                    @foreach(json_decode($Detalle->Campos) as $rellenos)
+                                        @if($rellenos->campo == $check->campo)
+                                            @if($rellenos->result == 'Si')
+                                            <div class="form-row">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" value="Hecho"
+                                                            name="campo_{{$check->campo}}" id="campo_{{$check->campo}}" checked>{{$check->nombre}}
+                                                    </label>
+                                                </div>
+                                            </div>
                                             @else
-                                            <input type="checkbox" class="form-check-input" name="paso_uno"
-                                                value="Hecho">Paso 1 Completado
+                                            <div class="form-row">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" value="Hecho"
+                                                            name="campo_{{$check->campo}}" id="campo_{{$check->campo}}">{{$check->nombre}}
+                                                    </label>
+                                                </div>
+                                            </div>
                                             @endif
-                                        </label>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="form-row">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            @if($Detalle->paso_dos == 'Si')
-                                            <input type="checkbox" class="form-check-input" value="Hecho"
-                                                name="paso_dos" checked>Paso 2 Completado
-                                            @else
-                                            <input type="checkbox" class="form-check-input" name="paso_dos"
-                                                value="Hecho">Paso 2 Completado
-                                            @endif
-                                        </label>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="form-row">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            @if($Detalle->paso_tres == 'Si')
-                                            <input type="checkbox" class="form-check-input" value="Hecho"
-                                                name="paso_tres" checked>Paso 3 Completado
-                                            @else
-                                            <input type="checkbox" class="form-check-input" name="paso_tres"
-                                                value="Hecho">Paso 3 Completado
-                                            @endif
-                                        </label>
-                                    </div>
-                                </div>
-                                <hr>
+                                        @endif
+                                    @endforeach                                    
+                                    <hr>
+                                @php
+                                $contadorJson = $contadorJson + 1
+                                @endphp
+                                @endforeach
+                                <input type="hidden" name="cantidadJson" value="{{$contadorJson}}">
                                 <div class="row">
                                     <div class="col">
                                         <button type="submit" class="btn btn-primary float-right">Guardar</button>
@@ -184,12 +185,22 @@ function agregarCampania(id, campania){
                         <input type="text" name="campania['+id+'][campania]" class="form-control"\
                             value="'+campania+'" readonly>\
                     </div>\
-                    <div class="form-group col-md-5">\
+                    <div class="form-group col-md-2">\
                         <label for="Monto_Base">Monto Base</label>\
                         <input type="text" name="campania['+id+'][monto_base]" class="form-control"\
                             value="">\
                     </div>\
                     <div class="form-group col-md-2">\
+                        <label for="Edad_Inicial">Edad Inicial</label>\
+                        <input type="text" name="campania['+id+'][edad_inicial]" class="form-control"\
+                            value="">\
+                    </div>\
+                    <div class="form-group col-md-2">\
+                        <label for="Edad_Final">Edad Final</label>\
+                        <input type="text" name="campania['+id+'][edad_final]" class="form-control"\
+                            value="">\
+                    </div>\
+                    <div class="form-group col-md-1">\
                         <label>Eliminar</label>\
                         <button type="button" class="btn btn-danger btn-block" onClick="eliminarCampania('+id+')"><b>X</b></button>\
                     </div>\

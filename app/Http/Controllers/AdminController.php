@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Aseguradoras;
 use App\Campanias;
-
+use App\Configuracion;
 
 class AdminController extends Controller
 {
@@ -204,10 +204,11 @@ class AdminController extends Controller
             $funeraria->Departamento = $data[0]->departamento;
             $detalle = DetallesFuneraria::find($funeraria->Id_Detalle);
             $campanias = Campanias::all();
-            return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Campanias' => $campanias]);
+            $checks = Configuracion::where('opcion', 'Campos_Check')->value('valor');
+            return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Campanias' => $campanias, 'Checks' => $checks]);
         }else{
             //Almacenar data detalles
-            $data = ['paso_uno' => 'No', 'paso_dos' => 'No', 'paso_tres' => 'No'];
+            $data = ['Campos' => ''];
             $id_detalle = DetallesFuneraria::insertGetId($data);
 
             $funeraria = Funerarias::create([
@@ -240,31 +241,24 @@ class AdminController extends Controller
     public function guardarCambiosFuneraria($id, $detalle, Request $request){
         $array_campanias = array();
         foreach($request->campania as $campania){
-            array_push($array_campanias, array("id" => $campania['id'], "nombre" => $campania['campania'], "monto" => $campania['monto_base']));
+            array_push($array_campanias, array("id" => $campania['id'], "nombre" => $campania['campania'], "monto" => $campania['monto_base'], "edad_inicial" => $campania['edad_inicial'], "edad_final" => $campania['edad_final']));
         }
         $json_campanias = json_encode($array_campanias);
         $user = Funerarias::find($id)->update(['Email' => $request->email, 'Telefono' => $request->telefono, 'Activa' => $request->activo, 'Campanias' => $json_campanias]);
 
         $pasos = array();
-        if($request->paso_uno == ''){
-            array_push($pasos, 'No');
-        }else{
-            array_push($pasos, 'Si');
-        }
-        
-        if($request->paso_dos == ''){
-            array_push($pasos, 'No');
-        }else{
-            array_push($pasos, 'Si');
+
+        for($i = 1; $i <= $request->cantidadJson; $i++){
+            if($request->input('campo_'.$i) == ''){
+                array_push($pasos, array('campo' => $i, 'result' => 'No'));
+            }else{
+                array_push($pasos, array('campo' => $i, 'result' => 'Si'));
+            }
         }
 
-        if($request->paso_tres == ''){
-            array_push($pasos, 'No');
-        }else{
-            array_push($pasos, 'Si');
-        }
+        $json_pasos = json_encode($pasos);
 
-        $detalle = DetallesFuneraria::find($detalle)->update(['paso_uno' => $pasos[0], 'paso_dos' => $pasos[1], 'paso_tres' => $pasos[2]]);
+        $detalle = DetallesFuneraria::find($detalle)->update(['Campos' => $json_pasos]);
         return redirect('/Personal/verFunerarias');
     }
 
@@ -283,6 +277,7 @@ class AdminController extends Controller
             'Nombre' => $request->Nombre,
             'Nombre_Aseguradora' => $request->NombreAseguradora,
             'Aseguradora' => $request->CodigoAseguradora,
+            'Moneda' => $request->Moneda,
         ]);
 
         return redirect('Personal/Campanias/')->with('alerta', 'Campaña creada exitosamente.');

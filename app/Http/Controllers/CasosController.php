@@ -17,6 +17,7 @@ use App\Notificaciones;
 use App\Helpers\Helper;
 use App\Causas;
 use App\Funerarias;
+use App\Configuracion;
 
 class CasosController extends Controller
 {
@@ -137,12 +138,13 @@ class CasosController extends Controller
         $pagos = HistorialPagos::where('caso', $id)->get();
         $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'desc')->get();
         $causas = Causas::get();
+        $tasa_cambio = Configuracion::where('opcion', 'Tasa_Cambio')->value('valor');
         if($msg == 0){
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas]);
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio]);
         }else if($msg == 2){
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'El caso ha sido modificado exitosamente');
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio])->with('alerta', 'El caso ha sido modificado exitosamente');
         }else{
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'Pago ingresado exitosamente.');
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio])->with('alerta', 'Pago ingresado exitosamente.');
         }
         return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas]);
     }
@@ -177,7 +179,7 @@ class CasosController extends Controller
         echo 'Hecho';
     }
 
-    public function asignarFuneraria($caso, $funeraria, $monto, $correo, $wp){
+    public function asignarFuneraria($caso, $funeraria, $monto, $moneda, $correo, $wp){
         $costo_servicio = 0;
 
         $api_uri = "https://umbd.excess.software/api/getFuneraria";
@@ -201,6 +203,7 @@ class CasosController extends Controller
         $casos->Funeraria_Nombre = $nombre_funeraria;
         $casos->Estatus = 'Asignado';
         $casos->Costo = $monto;
+        $casos->Moneda = $moneda;
         $casos->save();
 
         $correo_funeraria = Funerarias::where('Id_Funeraria', $funeraria)->value('Email');

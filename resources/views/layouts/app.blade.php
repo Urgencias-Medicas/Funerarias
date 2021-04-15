@@ -235,6 +235,11 @@
                                 <a class="dropdown-item" href="/password/cambio">
                                     Cambiar contrase&nacute;a
                                 </a>
+                                @role('Personal')
+                                <a class="dropdown-item" href="/Personal/configuraciones">
+                                <!--<i class="fa fa-cog" aria-hidden="true"></i>-->Configuraciones 
+                                </a>
+                                @endrole
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
