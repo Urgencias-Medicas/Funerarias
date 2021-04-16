@@ -208,7 +208,7 @@ class AdminController extends Controller
             return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Campanias' => $campanias, 'Checks' => $checks]);
         }else{
             //Almacenar data detalles
-            $data = ['Campos' => ''];
+            $data = ['Campos' => '[{"campo":1,"result":"No"}'];
             $id_detalle = DetallesFuneraria::insertGetId($data);
 
             $funeraria = Funerarias::create([

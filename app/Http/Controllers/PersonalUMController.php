@@ -889,10 +889,25 @@ class PersonalUMController extends Controller
 
     public function configuraciones(){
         $tasa_cambio = Configuracion::where('opcion', 'Tasa_Cambio')->value('valor');
-        return view('Personal.Configuraciones', ['Tasa_Cambio' => $tasa_cambio]);
+        $checks = Configuracion::where('opcion', 'Campos_Check')->value('valor');
+        return view('Personal.Configuraciones', ['Tasa_Cambio' => $tasa_cambio, 'Checks' => $checks]);
     }
     public function configuracionesGuardar(Request $request){
         Configuracion::where('opcion', 'Tasa_Cambio')->update(['valor' => $request->tasa_cambio]);
+
+        $cantidad_checks = $request->contadorCampos;
+
+        $arrayChecks = array();
+
+        for($i = 1; $i <= $cantidad_checks; $i++){
+            $campo = (string)$i;
+            $nombre = $request->input('campo_'.$i);
+            array_push($arrayChecks, array("campo" => $campo, "nombre" => $nombre));
+        }
+
+        $jsonChecks = json_encode($arrayChecks);
+
+        Configuracion::where('opcion', 'Campos_Check')->update(['valor' => $jsonChecks]);
         return back();
     }
 }
