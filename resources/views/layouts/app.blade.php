@@ -165,8 +165,11 @@
                                 <a class="dropdown-item {{ (request()->is('Personal/verUsuariosFunerarias*')) ? 'active' : '' }}" href="/Personal/verUsuariosFunerarias">Ver Usuarios
                                     Funerarias</a>
                                 <a href="/Personal/verFunerarias"
-                                    class="dropdown-item {{ (request()->is('Personal/verFunerarias*')) ? 'active' : '' }}"><span>
+                                    class="dropdown-item {{ (request()->is('Personal/verFunerarias')) ? 'active' : '' }}"><span>
                                         Ver Funerarias </span></a>
+                                <a href="/Personal/verFunerariasPendientes"
+                                    class="dropdown-item {{ (request()->is('Personal/verFunerariasPendientes*')) ? 'active' : '' }}"><span>
+                                        Funerarias Pendientes</span></a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/Personal/CrearUsuario"
                                     class="nav-link {{ (request()->is('Personal/CrearUsuario*')) ? 'active' : '' }}">Crear

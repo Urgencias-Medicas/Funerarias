@@ -58,6 +58,8 @@ Route::group(['prefix' => 'Casos'], function () {
 Route::group(['prefix' => 'Personal'], function (){
     Route::get('Funerarias/ver', 'PersonalUMController@verFunerarias');
     Route::get('Funeraria/{id}/ver', 'PersonalUMController@verFuneraria');
+    Route::get('Funeraria/{id}/{docto}/{accion}', 'PersonalUMController@accionDocto');
+    Route::get('Funeraria/pasos/{funeraria}/{accion}', 'PersonalUMController@accionPaso');
     Route::post('Funeraria/{id}/{detalle}/guardar', 'AdminController@guardarCambiosFuneraria');
     Route::get('configuraciones', 'PersonalUMController@configuraciones');
     Route::post('configuraciones/guardar', 'PersonalUMController@configuracionesGuardar');
@@ -96,6 +98,7 @@ Route::group(['prefix' => 'Personal'], function (){
     Route::get('verUsuarios', 'AdminController@verUsuarios');
     Route::get('verUsuariosFunerarias', 'AdminController@verUsuariosFunerarias');
     Route::get('verFunerarias', 'AdminController@verFunerarias');
+    Route::get('verFunerariasPendientes', 'PersonalUMController@verFunerariasPendientes');
     Route::get('eliminarUsuario/{id}', 'AdminController@eliminarUsuario');
     Route::get('eliminarFuneraria/{id}', 'AdminController@eliminarFuneraria');
     Route::get('editarFuneraria/{id}/{nombre}', 'AdminController@editarFuneraria');
@@ -116,6 +119,9 @@ Route::group(['prefix' => 'Personal'], function (){
 Route::post('Caso/{id}/guardarMedia', 'CasosController@guardarMedia');
 Route::post('Funeraria/Caso/{id}/guardarMedia', 'FunerariasController@guardarMedia');
 Route::get('Notificacion/{id}/quitar', 'HomeController@quitarNotificacion');
+
+Route::post('Funeraria/info/guardarMedia/{media}', 'HomeController@guardarMedia');
+Route::post('Funeraria/info/actualizarInfo', 'HomeController@guardarInfo');
 
 Route::group(['prefix' => 'Funerarias'], function () {
     Route::get('Casos/ver', 'FunerariasController@verCasos');

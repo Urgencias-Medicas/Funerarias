@@ -625,6 +625,27 @@
     </div>
 </div>
 
+<div class="modal fade" id="campaniaModal" tabindex="-1" role="dialog" aria-labelledby="campaniaLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="campaniaLabel">Seleccione la campaña para asignar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-campania">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" id="btn-asignar-campania" data-dismiss="modal">Asignar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="cerrarModal" tabindex="-1" role="dialog" aria-labelledby="cerrarModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -854,7 +875,7 @@
                             '</td>\
                                     <td><button class="btn btn-outline-info" id="idFuneraria" onclick="detalleFuneraria(' +
                             response[i].id +
-                            ')">Ver</button> <button disabled class="btn btn-primary asignar" onclick="preAsignarFuneraria({{$Caso->id}},' +
+                            ')">Ver</button> <button disabled class="btn btn-primary asignar" onclick="seleccionarCampania(' +
                             response[i].id + ')">Asignar</button></td>\
                                 </tr>\
                             </tbody>\
@@ -883,7 +904,7 @@
                             '</td>\
                                     <td><button class="btn btn-outline-info" id="idFuneraria" onclick="detalleFuneraria(' +
                             response[j].id +
-                            ')">Ver</i></button> <button disabled class="btn btn-primary asignar" onclick="preAsignarFuneraria({{$Caso->id}},' +
+                            ')">Ver</i></button> <button disabled class="btn btn-primary asignar" onclick="seleccionarCampania(' +
                             response[j].id + ')">Asignar</button></td>\
                                 </tr>';
                     }
@@ -894,6 +915,49 @@
             }
         });
     });
+
+    function seleccionarCampania(id){
+        $.ajax({
+            url: "https://umbd.excess.software/api/getFunerarias",
+            type: 'get',
+            dataType: 'JSON',
+            success: function (response) {
+                var len = response.length;
+                var html = '';
+                var costo_servicio = 0;
+                for (let i = 0; i < len; i++) {
+                    if (response[i].id == id) {
+
+                        var infoFuneraria = getInfoFuneraria(id);
+
+                        html += '<p>Campañas:</p>\
+                            <div class="row">\
+                                <div class="col-md-12">\
+                                    <select id="monto_base" class="form-control">\
+                                    <option value="0">-- Seleccione una campaña --</option>';
+                        $.each(JSON.parse(infoFuneraria.Campanias), function(key, entry){
+                            if($('#edad').val() >= entry.edad_inicial && $('#edad').val() <= entry.edad_final){
+                                html += '<option value="'+entry.monto+'">'+entry.nombre+'</option>';
+                            }else{
+                                html += '<option value="'+entry.monto+'" disabled>'+entry.nombre+'</option>';
+                            }
+                                    
+                        });
+
+                        html += '</select>\
+                                </div>';
+                    }
+                }
+                $('#btn-asignar-campania').attr("onclick", 'preAsignarFuneraria({{$Caso->id}},'+id + ')');
+                $('#modal-campania').html(html);
+                $('#campaniaModal').modal('show');
+                console.log('done');
+            },
+            error: function (response) {
+                alert('Por favor rellene la información de la funeraria.');
+            }
+        });
+    }
 
     function detalleFuneraria(id) {
         $.ajax({
@@ -914,25 +978,8 @@
                         <p>Departamento:<br> ' + response[i].departamento + '</p>\
                         <p>Correo electrónico:<br> ' + infoFuneraria.Email + '</p>\
                         <p>Tel. Contacto:<br> ' + response[i].tel_contacto + '</p>\
-                        <p>Tel. Coordinador:<br> ' + response[i].tel_coordinador + '</p>';
-
-                        html += '<p>Campañas:</p>\
-                            <div class="row">\
-                                <div class="col-md-12">\
-                                    <select id="monto_base" class="form-control">\
-                                    <option value="0">-- Seleccione una campaña --</option>';
-                        $.each(JSON.parse(infoFuneraria.Campanias), function(key, entry){
-                            if($('#edad').val() >= entry.edad_inicial && $('#edad').val() <= entry.edad_final){
-                                html += '<option value="'+entry.monto+'">'+entry.nombre+'</option>';
-                            }else{
-                                html += '<option value="'+entry.monto+'" disabled>'+entry.nombre+'</option>';
-                            }
-                                    
-                        });
-
-                        html += '</select>\
-                                </div>\
-                            </div>';
+                        <p>Tel. Coordinador:<br> ' + response[i].tel_coordinador + '</p>\
+                        </div>';
                     }
                 }
                 $('#modal-detalle').html(html);

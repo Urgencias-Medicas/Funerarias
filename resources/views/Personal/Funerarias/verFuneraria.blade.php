@@ -38,37 +38,64 @@
                         <hr>
                         <div class="form-row">
                             <div class="form-check">
-                                <label class="form-check-label">
-                                    @if($Detalle->paso_uno == 'Si')
-                                        <input type="checkbox" class="form-check-input" value="Hecho" name="paso_uno" checked>Paso 1 Completado
-                                    @else
-                                        <input type="checkbox" class="form-check-input" name="paso_uno" value="Hecho">Paso 1 Completado
-                                    @endif
-                                </label>
+                                <h3>Información general</h3>
+                                <button class="btn btn-info" type="button" data-toggle="modal" data-target="#info">Ver información</button>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                            <a href="/Personal/Funeraria/pasos/{{$Funeraria->id}}/Aprobar" type="button" class="btn btn-success">Aprobar</a>
+                            <a href="/Personal/Funeraria/pasos/{{$Funeraria->id}}/Denegar" type="button" class="btn btn-danger">Denegar</a>
                             </div>
                         </div>
                         <hr>
                         <div class="form-row">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    @if($Detalle->paso_dos == 'Si')
-                                        <input type="checkbox" class="form-check-input" value="Hecho" name="paso_dos" checked>Paso 2 Completado
-                                    @else
-                                        <input type="checkbox" class="form-check-input" name="paso_dos" value="Hecho">Paso 2 Completado
-                                    @endif
+                                    <h3>Documentación</h3>
                                 </label>
+                            </div>
+                        </div>
+                        <hr>
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th>Documento</th>
+                                    <th>Estatus</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($DoctosFuneraria as $docto)
+                                    <tr>
+                                        <td>{{$docto->Documento}}</td>
+                                        <td>{{$docto->Estatus}}</td>
+                                        <td><a href="{{$docto->Ruta}}" class="btn btn-info">Ver</a><a onclick="denegarDocto({{$docto->Id}});" class="btn btn-danger">Denegar</a><a href="/Personal/Funeraria/{{$Funeraria->id}}/{{$docto->Id}}/Aprobado" class="btn btn-success">Aprobar</a></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                            <a href="/Personal/Funeraria/pasos/{{$Funeraria->id}}/Aprobar" class="btn btn-success">Aprobar</a>
+                            <a href="/Personal/Funeraria/pasos/{{$Funeraria->id}}/Denegar" class="btn btn-danger">Denegar</a>
                             </div>
                         </div>
                         <hr>
                         <div class="form-row">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    @if($Detalle->paso_tres == 'Si')
-                                        <input type="checkbox" class="form-check-input" value="Hecho" name="paso_tres" checked>Paso 3 Completado
-                                    @else
-                                        <input type="checkbox" class="form-check-input" name="paso_tres" value="Hecho">Paso 3 Completado
-                                    @endif
+                                    <h3>Contrato</h3>
                                 </label>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                            <a href="/Personal/Funeraria/pasos/{{$Funeraria->id}}/Aprobar" class="btn btn-success">Aprobar</a>
+                            <a href="/Personal/Funeraria/pasos/{{$Funeraria->id}}/Denegar" class="btn btn-danger">Denegar</a>
                             </div>
                         </div>
                         <hr>
@@ -83,6 +110,66 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="infoLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infoLabel">Información de funeraria</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            @foreach($Detalles_Funeraria as $detalle)
+                @if($detalle->Campo == 'LicenciaAmbiental')
+
+                @elseif($detalle->Campo == 'InfoGeneral')
+
+                @elseif($detalle->Campo == 'Documentacion')
+
+                @else
+                {{$detalle->Campo}} - {{$detalle->Valor}}
+                <br>
+                @endif
+            @endforeach
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Denegar documento</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h3>Motivos</h3>
+        <textarea name="denegar" id="denegar" class="form-control"></textarea>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary" id="btn-denegar" href="">Aceptar</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script>
+function denegarDocto(id){
+    console.log(id);
+    $('#myModal').modal('show')
+    $("#btn-denegar").attr("href", "/Personal/Funeraria/6/"+id+"/Denegado")
+}
+</script>
 @endsection

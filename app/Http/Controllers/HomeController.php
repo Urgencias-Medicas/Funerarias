@@ -8,6 +8,9 @@ use App\Notificaciones;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Funerarias;
+use App\DetallesFuneraria;
+use App\DocumentosFuneraria;
+use App\DetallesDeFuneraria;
 
 class HomeController extends Controller
 {
@@ -43,7 +46,70 @@ class HomeController extends Controller
         $user = auth()->user();
         $funeraria = $user->funeraria;
         $estado_funeraria = Funerarias::where('Id_Funeraria', $funeraria)->value('Activa');
-        return view('Funerarias.Inactiva', ['Activa' => $estado_funeraria]);
+        $detalle = DetallesFuneraria::find($user->detalle);
+        $url = "https://gist.githubusercontent.com/tian2992/7439705/raw/1e5d0a766775a662039f3a838f422a1fc1600f74/guatemala.json";
+
+        $tipo_funeraria = $user->tipo_funeraria;
+
+        $licenciaAmbiental = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'LicenciaAmbiental')->value('Estado');
+        $infoGeneral = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'InfoGeneral')->value('Estado');
+        $documentacion = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'Documentacion')->value('Estado');
+        $convenio = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'Convenio')->value('Estado');
+
+        $json = file_get_contents($url);
+        return view('Funerarias.Inactiva', ['Activa' => $estado_funeraria, 'Detalle' => $detalle, 'Json' => $json, 'InfoGeneral' => $infoGeneral, 'LicenciaAmbiental' => $licenciaAmbiental, 'Documentacion' => $documentacion, 'Convenio' => $convenio, 'Tipo_Funeraria' => $tipo_funeraria]);
+    }
+    public function guardarMedia($media, Request $request){
+        $user = auth()->user();
+        $image = $request->file('file');
+        if($media == 'licenciaAmbiental'){
+            $imageName = 'Funeraria-'.$user->id.'-licenciaAmbiental.'.$image->getClientOriginalExtension();
+            DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'LicenciaAmbiental', 'Estado' => 'Pendiente']);
+        }elseif($media == 'patenteComercio'){
+            $imageName = 'Funeraria-'.$user->id.'-patenteComercio.'.$image->getClientOriginalExtension();
+        }elseif($media == 'rtu'){
+            $imageName = 'Funeraria-'.$user->id.'-rtu.'.$image->getClientOriginalExtension();
+        }elseif($media == 'licenciaSanitaria'){
+            $imageName = 'Funeraria-'.$user->id.'-licenciaSanitaria.'.$image->getClientOriginalExtension();
+        }elseif($media == 'dpi'){
+            $imageName = 'Funeraria-'.$user->id.'-dpi.'.$image->getClientOriginalExtension();
+        }elseif($media == 'certManipulacionCuerpos'){
+            $imageName = 'Funeraria-'.$user->id.'-certManipulacionCuerpos.'.$image->getClientOriginalExtension();
+        }elseif($media == 'licManipulacionCuerpos'){
+            $imageName = 'Funeraria-'.$user->id.'-licManipulacionCuerpos.'.$image->getClientOriginalExtension();
+        }elseif($media == 'manipulacionAlimentos'){
+            $imageName = 'Funeraria-'.$user->id.'-manipulacionAlimentos.'.$image->getClientOriginalExtension();
+        }elseif($media == 'bioinfecciosos'){
+            $imageName = 'Funeraria-'.$user->id.'-bioinfecciosos.'.$image->getClientOriginalExtension();
+        }
+
+        $upload_success = $image->move(public_path('images'),$imageName);
+        if ($upload_success) {
+            DocumentosFuneraria::create(['Funeraria' => $user->id, 'Documento' => $media, 'Ruta' => '/images/'.$imageName]);
+            return response()->json($upload_success, 200);
+        }
+        // Else, return error 400
+        else {
+            return response()->json('error', 400);
+        }
+    }
+    public function guardarInfo(Request $request){
+        $user = auth()->user();
+
+        User::where('id', $user->id)->update(['tipo_funeraria' => $request->tipo_funeraria]);
+
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'TipoFuneraria', 'Valor' => $request->tipo_funeraria]);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'NIT', 'Valor' => $request->nit]);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'Telefono', 'Valor' => $request->telefono]);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'Direccion', 'Valor' => $request->direccion]);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'Departamento', 'Valor' => $request->departamento]);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'NombreContacto', 'Valor' => $request->nombre_contacto]);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'TelContacto', 'Valor' => $request->numero_contacto]);
+
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'InfoGeneral', 'Estado' => 'Pendiente']);
+
+        return back();
+
     }
     public function quitarNotificacion($id){
         $notificacion = Notificaciones::find($id);

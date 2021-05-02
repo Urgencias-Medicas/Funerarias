@@ -35,7 +35,7 @@ trait RegistersUsers
         $this->validator($request->all())->validate();
 
         //Almacenar data detalles
-        $data = ['paso_uno' => 'No', 'paso_dos' => 'No', 'paso_tres' => 'No'];
+        $data = ['Campos' => json_encode(array(array('campo' => 'InfoGeneral',  'result' => 'No'), array('campo' => 'Documentos' , 'result' => 'No'), array('campo' => 'Contrato', 'result' => 'No')))];
         $id_detalle = DetallesFuneraria::insertGetId($data);
 
         event(new Registered($user = $this->create($request->all() + ['activo' => $activo, 'detalle' => $id_detalle])));

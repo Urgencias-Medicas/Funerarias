@@ -8,6 +8,9 @@ use App\DetallesFuneraria;
 use App\Casos;
 use App\HistorialPagos;
 use App\Configuracion;
+use App\Documentos;
+use App\DocumentosFuneraria;
+use App\DetallesDeFuneraria;
 use Illuminate\Support\Facades\File;
 use PDF;
 use DB;
@@ -20,15 +23,49 @@ class PersonalUMController extends Controller
         $this->middleware('role:Personal');
     }
     public function verFunerarias(){
-        $users = User::where('activo', '!=', null)->get();
+        $users = User::where('activo', '=', null)->get();
+
+        return view('Personal.Funerarias.ver', ['Funerarias' => $users]);
+    }
+    public function verFunerariasPendientes(){
+        $users = User::where('activo', 'No')->get();
 
         return view('Personal.Funerarias.ver', ['Funerarias' => $users]);
     }
     public function verFuneraria($id){
         $funeraria = User::find($id);
         $detalle = DetallesFuneraria::find($funeraria->detalle);
+        $documentos = Documentos::get();
+
+        $documentos_funeraria = DocumentosFuneraria::where('Funeraria', $id)->get();
+
+        $detalles_funeraria = DetallesDeFuneraria::where('Funeraria', $id)->get();
         
-        return view('Personal.Funerarias.verFuneraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle]);
+        return view('Personal.Funerarias.verFuneraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Documentos' => $documentos, 'DoctosFuneraria' => $documentos_funeraria, 'Detalles_Funeraria' => $detalles_funeraria]);
+    }
+    public function accionDocto($id, $docto, $accion){
+        DocumentosFuneraria::where('Id', $docto)->update(['Estatus' => $accion]);
+        $documento = DocumentosFuneraria::where('Id', $docto)->value('Documento');
+
+        if($documento == 'licenciaAmbiental'){
+            DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'LicenciaAmbiental')->update(['Estado' => $accion]);
+        }
+
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'Documentacion', 'Estado' => 'Pendiente']);
+
+        return back();
+    }
+    public function accionPaso($funeraria, $accion){
+        $respuesta = '';
+        if($accion == 'Aprobar'){
+            $respuesta = 'Verifique su procedimiento de aplicación, un paso ha sido aprobado';
+        }elseif($acción === 'Denegar'){
+            $respuesta = 'Verifique su procedimiento de aplicación, un paso ha sido denegado';
+        }
+        Notificaciones::create(['funeraria' => $funeraria, 'contenido' => $respuesta, 'estatus' => 'Activa']);
+
+        //return back();
+        return 'test';
     }
     public function actualizarFuneraria($id, $detalle, Request $request){
         $user = User::find($id)->update(['activo' => $request->activo]);

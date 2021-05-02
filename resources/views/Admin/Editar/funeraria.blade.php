@@ -100,12 +100,34 @@
                                     </select>
                                 </div>
                                 <hr>
+<!--
+                                @php
+                                $cantJson = count(json_decode($Checks))
+                                @endphp
+
+                                @php
+                                $check_rellenos = json_decode($Detalle->Campos)
+                                @endphp
+
+                                @foreach(json_decode($Checks) as $check)
+                                {{array_search('Si', $check_rellenos)}}
+                                <div class="form-row">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" value="Hecho"
+                                                name="campo_{{$check->campo}}" id="campo_{{$check->campo}}">{{$check->nombre}}
+                                        </label>
+                                    </div>
+                                </div>
+                                @endforeach-->
+
+                                
                                 @php
                                 $contadorJson = 0
                                 @endphp
                                 @foreach(json_decode($Checks) as $check)
                                     @foreach(json_decode($Detalle->Campos) as $rellenos)
-                                        @if($rellenos->campo == $check->campo)
+                                        @if($check->campo == $rellenos->campo)
                                             @if($rellenos->result == 'Si')
                                             <div class="form-row">
                                                 <div class="form-check">
@@ -125,6 +147,7 @@
                                                 </div>
                                             </div>
                                             @endif
+                                        @else
                                         @endif
                                     @endforeach                                    
                                     <hr>
