@@ -69,6 +69,7 @@ class CasosController extends Controller
         Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #'.$caso->id.' creado.', 'estatus' => 'Activa', 'caso' => $caso->id]);
         
         //return $this->viewCrear(1);
+        activity()->log('Se creo el nuevo caso No. '.$caso->id);
         return redirect('/Casos/vistaCrear')->with('alerta', 'El caso ha sido modificado exitosamente');
 
     }
@@ -154,6 +155,7 @@ class CasosController extends Controller
         $caso->Evaluacion = $request->evaluacion;
         $caso->save();
 
+        activity()->log('Se evaluó la funeraria en el caso No. '.$id);
         return back();
     }
 
@@ -176,6 +178,7 @@ class CasosController extends Controller
             $respuesta = 'La solicitud del caso #'.$caso.' ha sido rechazada.';
         }
         Notificaciones::create(['funeraria' => $getCaso->Funeraria, 'contenido' => $respuesta, 'estatus' => 'Activa', 'caso' => $caso]);
+        activity()->log($respuesta);
         echo 'Hecho';
     }
 
@@ -220,6 +223,7 @@ class CasosController extends Controller
             $this->mensajeWhatsApp($mensaje, 'whatsapp:+50249750995');
         }*/
         Notificaciones::create(['funeraria' => $funeraria, 'contenido' => 'Caso #'.$caso.' asignado.', 'estatus' => 'Activa', 'caso' => $caso]);
+        activity()->log('Caso #'.$caso.' asignado a la funeraria No. '.$funeraria);
         return 'Hecho';
     }
 
@@ -238,6 +242,7 @@ class CasosController extends Controller
         $caso->save();
         //return back()->with('msg', 'Pagos añadidos exitosamente.');
         //return $this->detallesCaso($caso->id, 1);}
+        activity()->log('Se ha ingresado un nuevo pago en el caso No. '.$caso);
         return redirect('/Casos/'.$caso->id.'/ver')->with('alerta', 'Pago ingresado exitosamente.');
     }
 
@@ -278,7 +283,7 @@ class CasosController extends Controller
         ]);
         
         $data = json_decode($res->getBody());
-
+        activity()->log('Se cerró el caso No. '.$caso->Funeraria);
         return $data;
     }
     public function mensajeWhatsApp($message, $recipient){
@@ -293,6 +298,7 @@ class CasosController extends Controller
         $casos = Casos::find($caso);
         $casos->Reportar = $instruccion;
         $casos->save();
+        activity()->log('El caso No. '.$caso.' se reportará '.$instruccion);
         echo 'Hecho';
     }
 
@@ -358,6 +364,7 @@ class CasosController extends Controller
         Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #'.$caso.' actualizado.', 'estatus' => 'Activa', 'caso' => $caso]);
         
         //return $this->detallesCaso($caso, 2);
+        activity()->log('Caso #'.$caso.' modificado.');
         return redirect('/Casos/'.$caso.'/ver')->with('alerta', 'El caso ha sido modificado exitosamente.');
     }
 

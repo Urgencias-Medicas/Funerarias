@@ -11,6 +11,8 @@ use App\Configuracion;
 use App\Documentos;
 use App\DocumentosFuneraria;
 use App\DetallesDeFuneraria;
+use App\Notificaciones;
+use Spatie\Activitylog\Models\Activity;
 use Illuminate\Support\Facades\File;
 use PDF;
 use DB;
@@ -43,29 +45,41 @@ class PersonalUMController extends Controller
         
         return view('Personal.Funerarias.verFuneraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Documentos' => $documentos, 'DoctosFuneraria' => $documentos_funeraria, 'Detalles_Funeraria' => $detalles_funeraria]);
     }
-    public function accionDocto($id, $docto, $accion){
-        DocumentosFuneraria::where('Id', $docto)->update(['Estatus' => $accion]);
+    public function accionDocto($id, $docto, $accion, $comentario){
+        DocumentosFuneraria::where('Id', $docto)->update(['Estatus' => $accion, 'Comentarios' => $comentario]);
         $documento = DocumentosFuneraria::where('Id', $docto)->value('Documento');
-
-        if($documento == 'licenciaAmbiental'){
-            DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'LicenciaAmbiental')->update(['Estado' => $accion]);
-        }
-
+        
         DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'Documentacion', 'Estado' => 'Pendiente']);
 
+        activity()->log('El documento '.$documento.' fue '.$accion. ' para la funeraria No. '.$id);
         return back();
     }
-    public function accionPaso($funeraria, $accion){
+    public function accionPaso($funeraria, $accion, $paso){
+
+        if($paso == 1){
+            DetallesDeFuneraria::where('Funeraria', $funeraria)->where('Campo', 'LicenciaAmbiental')->update(['Estado' => $accion]);
+        }elseif($paso == 2){
+            DetallesDeFuneraria::where('Funeraria', $funeraria)->where('Campo', 'InfoGeneral')->update(['Estado' => $accion]);
+        }elseif($paso == 3){
+            DetallesDeFuneraria::where('Funeraria', $funeraria)->where('Campo', 'Documentacion')->update(['Estado' => $accion]);
+            if($accion == 'Aprobado'){
+                DetallesDeFuneraria::updateOrCreate(['Funeraria' => $funeraria, 'Campo' => 'Convenio', 'Estado' => 'Pendiente']);
+            }
+        }elseif($paso == 4){
+            if($accion == 'Denegado'){
+                DetallesDeFuneraria::where('Funeraria', $funeraria)->where('Campo', 'Convenio')->update(['Estado' => $accion]);
+            }
+        }
+
         $respuesta = '';
         if($accion == 'Aprobar'){
             $respuesta = 'Verifique su procedimiento de aplicación, un paso ha sido aprobado';
-        }elseif($acción === 'Denegar'){
+        }elseif($accion === 'Denegar'){
             $respuesta = 'Verifique su procedimiento de aplicación, un paso ha sido denegado';
         }
         Notificaciones::create(['funeraria' => $funeraria, 'contenido' => $respuesta, 'estatus' => 'Activa']);
 
-        //return back();
-        return 'test';
+        return back();
     }
     public function actualizarFuneraria($id, $detalle, Request $request){
         $user = User::find($id)->update(['activo' => $request->activo]);
@@ -76,7 +90,7 @@ class PersonalUMController extends Controller
         }else{
             array_push($pasos, 'Si');
         }
-        
+
         if($request->paso_dos == ''){
             array_push($pasos, 'No');
         }else{
@@ -90,7 +104,10 @@ class PersonalUMController extends Controller
         }
 
         $detalle = DetallesFuneraria::find($detalle)->update(['paso_uno' => $pasos[0], 'paso_dos' => $pasos[1], 'paso_tres' => $pasos[2]]);
-
+        activity()->log('La funeraria '.$id.' fue actualizada');
+        if($user->isDirty('activo')){
+            activity()->log('El estatus de la funeraria '.$id.' fue actualizado a '.$request->activo);
+        }
         return redirect('/Personal/Funerarias/ver');
     }
     public function verReportes(){
@@ -943,8 +960,17 @@ class PersonalUMController extends Controller
         }
 
         $jsonChecks = json_encode($arrayChecks);
-
         Configuracion::where('opcion', 'Campos_Check')->update(['valor' => $jsonChecks]);
+        activity()->log('Las configuraciones del sitio fueron cambiadas');
         return back();
+    }
+
+    public function verlogs(){
+        $log = Activity::all();
+        foreach($log as $log_activitie){
+            $user_name = User::where('id', $log_activitie->causer_id)->value('name');
+            $log_activitie->user_name = $user_name;
+        }
+        return view('Personal.log', ['Logs' => $log]);
     }
 }

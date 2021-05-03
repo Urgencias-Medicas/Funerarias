@@ -75,6 +75,7 @@ class FunerariasController extends Controller
         Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$caso.' tiene una nueva solicitud.', 'estatus' => 'Activa', 'caso' => $caso]);
         
         //return $this->detallesCaso($caso, 1);
+        activity()->log('El hizo una solicitud para actualizar el costo del caso No. '.$caso);
         return redirect('/Funerarias/Casos/'.$caso.'/ver')->with('alerta', 'Su solicitud ha sido ingresada.');
     }
     public function guardarMedia($caso, Request $request){
@@ -120,6 +121,7 @@ class FunerariasController extends Controller
         Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #'.$caso.' actualizado.', 'estatus' => 'Activa', 'caso' => $caso]);
         
         //return $this->detallesCaso($caso, 2);
+        activity()->log('Se actualizó el caso No. '. $caso);
         return redirect('/Funerarias/Casos/'.$caso.'/ver')->with('alerta', 'El caso fue actualizado exitosamente.');
     }
 }

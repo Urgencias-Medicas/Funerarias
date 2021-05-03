@@ -57,7 +57,7 @@ class AdminController extends Controller
             {
                 $message->to($mail, 'Nuevo Usuario')->subject('Usuario creado')->from('no-reply@excess.software', 'Urgencias Médicas');
             });
-
+        activity()->log('Se ha creado un nuevo usuario con el siguiente email '.$mail);
         //return $this->verUsuarios(1);
         return redirect('/Personal/verUsuarios')->with('alerta', 'Se ha creado el usuario exitosamente.');
     }
@@ -112,6 +112,7 @@ class AdminController extends Controller
             });
 
         //return $this->verUsuarios(1);
+        activity()->log('Se ha creado el usuario con el email '.$mail.' para la funeraria No. '.$request->funeraria);
         return redirect('/Personal/verUsuariosFunerarias')->with('alerta', 'Se ha creado el usuario exitosamente.');
     }
 
@@ -167,13 +168,13 @@ class AdminController extends Controller
 
     public function eliminarUsuario($id){
         $user = User::find($id)->delete();
-
+        activity()->log('Se ha eliminado el usuario No. '.$id);
         return 'Hecho';
     }
 
     public function eliminarFuneraria($id){
         $funeraria = Funerarias::find($id)->delete();
-
+        activity()->log('Se ha eliminado la funeraria No. '.$id);
         return 'Hecho';
     }
 
@@ -234,7 +235,7 @@ class AdminController extends Controller
         $user->email = $request->mail;
         
         $user->save();
-
+        activity()->log('Se ha modificado el usuario No. '.$id);
         return redirect('/Personal/verUsuarios');
     }
 
@@ -259,6 +260,7 @@ class AdminController extends Controller
         $json_pasos = json_encode($pasos);
 
         $detalle = DetallesFuneraria::find($detalle)->update(['Campos' => $json_pasos]);
+        activity()->log('Se ha modificado la funeraria No. '.$id);
         return redirect('/Personal/verFunerarias');
     }
 
@@ -279,13 +281,13 @@ class AdminController extends Controller
             'Aseguradora' => $request->CodigoAseguradora,
             'Moneda' => $request->Moneda,
         ]);
-
+        activity()->log('Se ha creado la campañia '.$request->Nombre);
         return redirect('Personal/Campanias/')->with('alerta', 'Campaña creada exitosamente.');
     }
 
     public function eliminarCampania($id){
         $campania = Campanias::find($id)->delete();
-
+        activity()->log('Se ha eliminado la campañia No. '.$id);
         return back()->with('alerta', 'Se eliminó la campaña.');
     }
 }

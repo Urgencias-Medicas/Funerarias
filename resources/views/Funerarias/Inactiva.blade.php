@@ -49,20 +49,25 @@
     <a class="nav-link " id="infoGeneral-tab" data-toggle="tab" href="#infoGeneral" role="tab" aria-controls="infoGeneral" aria-selected="false">Información general</a>
   </li>
   @endif
-  @if(isset($Documentacion))
-  <li class="nav-item">
-    <a class="nav-link" id="documentacion-tab" data-toggle="tab" href="#documentacion" role="tab" aria-controls="documentacion" aria-selected="false">Documentacion</a>
-  </li>
-  @else
+  @if($Documentacion == 'Pendiente' || $Documentacion == 'Aprobado') 
   <li class="nav-item">
     <a class="nav-link disabled" id="documentacion-tab" data-toggle="tab" href="#documentacion" role="tab" aria-controls="documentacion" aria-selected="false">Documentacion</a>
   </li>
-  @endif
-  
-  @if(isset($Convenio))
+  @else
   <li class="nav-item">
-    <a class="nav-link" id="convenio-tab" data-toggle="tab" href="#convenio" role="tab" aria-controls="convenio" aria-selected="false">Convenio</a>
+    <a class="nav-link" id="documentacion-tab" data-toggle="tab" href="#documentacion" role="tab" aria-controls="documentacion" aria-selected="false">Documentacion</a>
   </li>
+  @endif  
+  @if(isset($Convenio))
+    @if($Convenio == 'Pendiente' || $Convenio == 'Aprobado')
+    <li class="nav-item">
+        <a class="nav-link disabled" id="convenio-tab" data-toggle="tab" href="#convenio" role="tab" aria-controls="convenio" aria-selected="false">Convenio</a>
+    </li>
+    @else
+    <li class="nav-item">
+        <a class="nav-link" id="convenio-tab" data-toggle="tab" href="#convenio" role="tab" aria-controls="convenio" aria-selected="false">Convenio</a>
+    </li>
+    @endif
   @else
   <li class="nav-item">
     <a class="nav-link disabled" id="convenio-tab" data-toggle="tab" href="#convenio" role="tab" aria-controls="convenio" aria-selected="false">Convenio</a>
@@ -74,12 +79,17 @@
     <div class="card text-center">
         @if($LicenciaAmbiental == 'Pendiente')
         <br>
+        <br>
         <h3>Licencia ambiental pendiente de verificar</h3>
         <br>
         @elseif($LicenciaAmbiental == 'Aprobado')
         <h3>Aprobado, proceda al siguiente paso</h3>
         @endif
+        @if($LicenciaAmbiental == 'Pendiente' || $LicenciaAmbiental == 'Aprobado')
+        <div class="card-body align-items-center" style="display: none;">
+        @else
         <div class="card-body align-items-center">
+        @endif
             <div class="form-group">
                 <form action="/Funeraria/info/guardarMedia/licenciaAmbiental" enctype="multipart/form-data"
                     class="dropzone" id="fileupload" method="POST">

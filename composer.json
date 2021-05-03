@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.2",
         "snapappointments/bootstrap-select": "^1.13",
+        "spatie/laravel-activitylog": "^3.17",
         "spatie/laravel-permission": "^3.16",
         "twilio/sdk": "^6.10"
     },

@@ -243,6 +243,11 @@
                                 <!--<i class="fa fa-cog" aria-hidden="true"></i>-->Configuraciones 
                                 </a>
                                 @endrole
+                                @role('Personal')
+                                <a class="dropdown-item" href="/Personal/log">
+                                <!--<i class="fa fa-cog" aria-hidden="true"></i>-->Logs 
+                                </a>
+                                @endrole
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
