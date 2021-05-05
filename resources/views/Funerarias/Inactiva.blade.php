@@ -49,7 +49,7 @@
     <a class="nav-link " id="infoGeneral-tab" data-toggle="tab" href="#infoGeneral" role="tab" aria-controls="infoGeneral" aria-selected="false">Información general</a>
   </li>
   @endif
-  @if($Documentacion == 'Pendiente' || $Documentacion == 'Aprobado') 
+  @if($Documentacion == 'Pendiente' || $Documentacion == 'Aprobado' || !isset($Documentacion)) 
   <li class="nav-item">
     <a class="nav-link disabled" id="documentacion-tab" data-toggle="tab" href="#documentacion" role="tab" aria-controls="documentacion" aria-selected="false">Documentacion</a>
   </li>
@@ -200,8 +200,25 @@
   <div class="tab-pane fade" id="documentacion" role="tabpanel" aria-labelledby="documentacion-tab">
         <div class="card">
             <div class="card-body align-items-center">
-                <div class="form-group">
+                
+                @foreach($AllDocuments as $documents)
+                    @if($documents->Documento == 'patenteComercio')
+                        @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
+                            <div class="form-group" style="display: none;">
+                        @else
+                            <div class="form-group"> 
+                        @endif
+                    @endif
+                @endforeach
                     <h3>Patente de comercio</h3>
+                    @foreach($AllDocuments as $documents)
+                        @if($documents->Documento == 'patenteComercio')
+                            @if($documents->Estatus == 'Denegado')
+                                <p class="text-danger">Su documento ha sido rechazado, rectifique a continuación.</p>
+                                <b>Motivo: </b> <p class="text-danger">{{$documents->Comentarios}}</p>
+                            @endif
+                        @endif
+                    @endforeach
                     <form action="/Funeraria/info/guardarMedia/patenteComercio" enctype="multipart/form-data"
                         class="dropzone" id="patenteComercio" method="POST">
                         @csrf
@@ -211,8 +228,25 @@
                         </div>
                     </form>
                 </div>
-                <div class="form-group">
+
+                @foreach($AllDocuments as $documents)
+                    @if($documents->Documento == 'rtu')
+                        @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
+                            <div class="form-group" style="display: none;">
+                        @else
+                            <div class="form-group"> 
+                        @endif
+                    @endif
+                @endforeach
                     <h3>RTU Actualizado</h3>
+                    @foreach($AllDocuments as $documents)
+                        @if($documents->Documento == 'rtu')
+                            @if($documents->Estatus == 'Denegado')
+                                <p class="text-danger">Su documento ha sido rechazado, rectifique a continuación.</p>
+                                <b>Motivo: </b> <p class="text-danger">{{$documents->Comentarios}}</p>
+                            @endif
+                        @endif
+                    @endforeach
                     <form action="/Funeraria/info/guardarMedia/rtu" enctype="multipart/form-data"
                         class="dropzone" id="rtu" method="POST">
                         @csrf
@@ -222,8 +256,52 @@
                         </div>
                     </form>
                 </div>
-                <div class="form-group">
+
+                @foreach($AllDocuments as $documents)
+                    @if($documents->Documento == 'dpi')
+                        @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
+                            <div class="form-group" style="display: none;">
+                        @else
+                            < class="form-group"> 
+                        @endif
+                    @endif
+                @endforeach
+                    <h3>Copia de DPI</h3>
+                    @foreach($AllDocuments as $documents)
+                        @if($documents->Documento == 'dpi')
+                            @if($documents->Estatus == 'Denegado')
+                                <p class="text-danger">Su documento ha sido rechazado, rectifique a continuación.</p>
+                                <b>Motivo: </b> <p class="text-danger">{{$documents->Comentarios}}</p>
+                            @endif
+                        @endif
+                    @endforeach
+                    <form action="/Funeraria/info/guardarMedia/dpi" enctype="multipart/form-data"
+                        class="dropzone" id="dpi" method="POST">
+                        @csrf
+                        <div class="fallback">
+                            <input name="file" type="files" multiple
+                                accept="image/jpeg, image/png, image/jpg" />
+                        </div>
+                    </form>
+                
+                @foreach($AllDocuments as $documents)
+                    @if($documents->Documento == 'licenciaSanitaria')
+                        @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
+                            <div class="form-group" style="display: none;">
+                        @else
+                            <div class="form-group"> 
+                        @endif
+                    @endif
+                @endforeach
                     <h3>Licencia Sanitaria</h3>
+                    @foreach($AllDocuments as $documents)
+                        @if($documents->Documento == 'licenciaSanitaria')
+                            @if($documents->Estatus == 'Denegado')
+                                <p class="text-danger">Su documento ha sido rechazado, rectifique a continuación.</p>
+                                <b>Motivo: </b> <p class="text-danger">{{$documents->Comentarios}}</p>
+                            @endif
+                        @endif
+                    @endforeach
                     <form action="/Funeraria/info/guardarMedia/licenciaSanitaria" enctype="multipart/form-data"
                         class="dropzone" id="licenciaSanitaria" method="POST">
                         @csrf
@@ -233,20 +311,28 @@
                         </div>
                     </form>
                 </div>
-                <div class="form-group">
-                    <h3>Copia de DPI</h3>
-                    <form action="/Funeraria/info/guardarMedia/dpi" enctype="multipart/form-data"
-                        class="dropzone" id="dpi" method="POST">
-                        @csrf
-                        <div class="fallback">
-                            <input name="file" type="files" multiple
-                                accept="image/jpeg, image/png, image/jpg" />
-                        </div>
-                    </form>
+                
                 </div>
                 @if($Tipo_Funeraria == 'B' || $Tipo_Funeraria == 'A')
-                <div class="form-group">
+                
+                @foreach($AllDocuments as $documents)
+                    @if($documents->Documento == 'certManipulacionCuerpos')
+                        @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
+                            <div class="form-group" style="display: none;">
+                        @else
+                            <div class="form-group"> 
+                        @endif
+                    @endif
+                @endforeach
                     <h3>Certificado de manipulación de cuerpos</h3>
+                    @foreach($AllDocuments as $documents)
+                        @if($documents->Documento == 'certManipulacionCuerpos')
+                            @if($documents->Estatus == 'Denegado')
+                                <p class="text-danger">Su documento ha sido rechazado, rectifique a continuación.</p>
+                                <b>Motivo: </b> <p class="text-danger">{{$documents->Comentarios}}</p>
+                            @endif
+                        @endif
+                    @endforeach
                     <form action="/Funeraria/info/guardarMedia/certManipulacionCuerpos" enctype="multipart/form-data"
                         class="dropzone" id="certManipulacionCuerpos" method="POST">
                         @csrf
@@ -258,8 +344,25 @@
                 </div>
                 @endif
                 @if($Tipo_Funeraria == 'A')
-                <div class="form-group">
+                
+                @foreach($AllDocuments as $documents)
+                    @if($documents->Documento == 'licManipulacionCuerpos')
+                        @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
+                            <div class="form-group" style="display: none;">
+                        @else
+                            <div class="form-group"> 
+                        @endif
+                    @endif
+                @endforeach
                     <h3>Licencia de manipulación de cuerpos</h3>
+                    @foreach($AllDocuments as $documents)
+                        @if($documents->Documento == 'licManipulacionCuerpos')
+                            @if($documents->Estatus == 'Denegado')
+                                <p class="text-danger">Su documento ha sido rechazado, rectifique a continuación.</p>
+                                <b>Motivo: </b> <p class="text-danger">{{$documents->Comentarios}}</p>
+                            @endif
+                        @endif
+                    @endforeach
                     <form action="/Funeraria/info/guardarMedia/licManipulacionCuerpos" enctype="multipart/form-data"
                         class="dropzone" id="licManipulacionCuerpos" method="POST">
                         @csrf
@@ -271,8 +374,25 @@
                 </div>
                 @endif
                 @if($Tipo_Funeraria == 'B' || $Tipo_Funeraria == 'A')
-                <div class="form-group">
+                
+                @foreach($AllDocuments as $documents)
+                    @if($documents->Documento == 'manipulacionAlimentos')
+                        @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
+                            <div class="form-group" style="display: none;">
+                        @else
+                            <div class="form-group"> 
+                        @endif
+                    @endif
+                @endforeach
                     <h3>Licencia de manipulación de alimentos o carta de restaurante que apoye</h3>
+                    @foreach($AllDocuments as $documents)
+                        @if($documents->Documento == 'manipulacionAlimentos')
+                            @if($documents->Estatus == 'Denegado')
+                                <p class="text-danger">Su documento ha sido rechazado, rectifique a continuación.</p>
+                                <b>Motivo: </b> <p class="text-danger">{{$documents->Comentarios}}</p>
+                            @endif
+                        @endif
+                    @endforeach
                     <form action="/Funeraria/info/guardarMedia/manipulacionAlimentos" enctype="multipart/form-data"
                         class="dropzone" id="manipulacionAlimentos" method="POST">
                         @csrf
@@ -284,8 +404,25 @@
                 </div>
                 @endif
                 @if($Tipo_Funeraria == 'A')
-                <div class="form-group">
+                
+                @foreach($AllDocuments as $documents)
+                    @if($documents->Documento == 'bioinfecciosos')
+                        @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
+                            <div class="form-group" style="display: none;">
+                        @else
+                            <div class="form-group"> 
+                        @endif
+                    @endif
+                @endforeach
                     <h3>Certificado de desechos bioinfecciosos</h3>
+                    @foreach($AllDocuments as $documents)
+                        @if($documents->Documento == 'bioinfecciosos')
+                            @if($documents->Estatus == 'Denegado')
+                                <p class="text-danger">Su documento ha sido rechazado, rectifique a continuación.</p>
+                                <b>Motivo: </b> <p class="text-danger">{{$documents->Comentarios}}</p>
+                            @endif
+                        @endif
+                    @endforeach
                     <form action="/Funeraria/info/guardarMedia/bioinfecciosos" enctype="multipart/form-data"
                         class="dropzone" id="bioinfecciosos" method="POST">
                         @csrf
@@ -302,7 +439,7 @@
   <div class="tab-pane fade" id="convenio" role="tabpanel" aria-labelledby="convenio-tab">
     <div class="card">
         <div class="card-body align-items-center">
-            <h1>Descargar convenio</h1>
+            <a href="/convenio"><h1>Descargar convenio</h1></a>
         </div>
     </div>
     </div>

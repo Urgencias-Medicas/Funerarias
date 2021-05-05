@@ -20,7 +20,9 @@ class FunerariaActiva
         
         $user = auth()->user();
         $funeraria = Funerarias::where('Id_Funeraria', $user['funeraria'])->value('Activa');
+        $funeraria_user = Funerarias::where('Id_Funeraria', $user['id'])->value('Activa');
         $activo = $funeraria;
+        $activa = $funeraria_user;
         if($activo == 'No' || $activo == 'no' || $activo != 'Si'){
             return redirect('/Funerarias/Inactiva');
         }else{

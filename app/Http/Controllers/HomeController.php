@@ -11,6 +11,8 @@ use App\Funerarias;
 use App\DetallesFuneraria;
 use App\DocumentosFuneraria;
 use App\DetallesDeFuneraria;
+use PDF;
+use DB;
 
 class HomeController extends Controller
 {
@@ -55,9 +57,10 @@ class HomeController extends Controller
         $infoGeneral = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'InfoGeneral')->value('Estado');
         $documentacion = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'Documentacion')->value('Estado');
         $convenio = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'Convenio')->value('Estado');
+        $alldocuments = DocumentosFuneraria::where('Funeraria', $user->id)->get();
 
         $json = file_get_contents($url);
-        return view('Funerarias.Inactiva', ['Activa' => $estado_funeraria, 'Detalle' => $detalle, 'Json' => $json, 'InfoGeneral' => $infoGeneral, 'LicenciaAmbiental' => $licenciaAmbiental, 'Documentacion' => $documentacion, 'Convenio' => $convenio, 'Tipo_Funeraria' => $tipo_funeraria]);
+        return view('Funerarias.Inactiva', ['Activa' => $estado_funeraria, 'Detalle' => $detalle, 'Json' => $json, 'InfoGeneral' => $infoGeneral, 'LicenciaAmbiental' => $licenciaAmbiental, 'Documentacion' => $documentacion, 'Convenio' => $convenio, 'Tipo_Funeraria' => $tipo_funeraria, 'AllDocuments' => $alldocuments]);
     }
     public function guardarMedia($media, Request $request){
         $user = auth()->user();
@@ -85,7 +88,7 @@ class HomeController extends Controller
 
         $upload_success = $image->move(public_path('images'),$imageName);
         if ($upload_success) {
-            DocumentosFuneraria::create(['Funeraria' => $user->id, 'Documento' => $media, 'Ruta' => '/images/'.$imageName]);
+            DocumentosFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Documento' => $media, 'Ruta' => '/images/'.$imageName]);
             return response()->json($upload_success, 200);
         }
         // Else, return error 400
@@ -161,5 +164,14 @@ class HomeController extends Controller
         $id = $user['id'];
         User::where("id", $id)->update(['Email' => $request->mail]);
         return redirect("/home");
+    }
+
+    public function generarConvenio(){
+        $user = auth()->user();
+        $direccion = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'Direccion')->value('Valor');
+        $departamento = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'Departamento')->value('Valor');
+        $nit = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'NIT')->value('Valor');
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Personal.Reportes.Plantillas.Convenio', ['direccion' => $direccion, 'nombre' => $user->name, 'departamento' => $departamento, 'nit' => $nit])->setPaper('a4', 'portrait');
+        return $pdf->download('Convenio.pdf');
     }
 }

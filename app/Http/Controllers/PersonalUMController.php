@@ -49,10 +49,11 @@ class PersonalUMController extends Controller
         DocumentosFuneraria::where('Id', $docto)->update(['Estatus' => $accion, 'Comentarios' => $comentario]);
         $documento = DocumentosFuneraria::where('Id', $docto)->value('Documento');
         
-        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'Documentacion', 'Estado' => 'Pendiente']);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'Documentacion', 'Estado' => 'Denegado']);
 
         activity()->log('El documento '.$documento.' fue '.$accion. ' para la funeraria No. '.$id);
         return back();
+        //return $docto;
     }
     public function accionPaso($funeraria, $accion, $paso){
 
@@ -63,7 +64,7 @@ class PersonalUMController extends Controller
         }elseif($paso == 3){
             DetallesDeFuneraria::where('Funeraria', $funeraria)->where('Campo', 'Documentacion')->update(['Estado' => $accion]);
             if($accion == 'Aprobado'){
-                DetallesDeFuneraria::updateOrCreate(['Funeraria' => $funeraria, 'Campo' => 'Convenio', 'Estado' => 'Pendiente']);
+                DetallesDeFuneraria::updateOrCreate(['Funeraria' => $funeraria, 'Campo' => 'Convenio', 'Estado' => 'Denegado']);
             }
         }elseif($paso == 4){
             if($accion == 'Denegado'){

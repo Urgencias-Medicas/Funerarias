@@ -241,11 +241,17 @@ class AdminController extends Controller
 
     public function guardarCambiosFuneraria($id, $detalle, Request $request){
         $array_campanias = array();
-        foreach($request->campania as $campania){
-            array_push($array_campanias, array("id" => $campania['id'], "nombre" => $campania['campania'], "monto" => $campania['monto_base'], "edad_inicial" => $campania['edad_inicial'], "edad_final" => $campania['edad_final']));
+        if(isset($request->campania)){
+            foreach($request->campania as $campania){
+                array_push($array_campanias, array("id" => $campania['id'], "nombre" => $campania['campania'], "monto" => $campania['monto_base'], "edad_inicial" => $campania['edad_inicial'], "edad_final" => $campania['edad_final']));
+            }
         }
         $json_campanias = json_encode($array_campanias);
-        $user = Funerarias::find($id)->update(['Email' => $request->email, 'Telefono' => $request->telefono, 'Activa' => $request->activo, 'Campanias' => $json_campanias]);
+        $user = Funerarias::where('id', $id)->updateOrCreate(['Id_Funeraria' => $id, 'Nombre' => $request->nombre, 'Email' => $request->email, 'Telefono' => $request->telefono, 'Activa' => $request->activo, 'Campanias' => $json_campanias]);
+
+        $funeraria_id = Funerarias::where('Id_Funeraria', $id)->value('id');
+
+        $user_funeraria = User::where('id', $id)->update(['activo' => 'Si', 'funeraria' => $funeraria_id]);
 
         $pasos = array();
 
@@ -259,7 +265,7 @@ class AdminController extends Controller
 
         $json_pasos = json_encode($pasos);
 
-        $detalle = DetallesFuneraria::find($detalle)->update(['Campos' => $json_pasos]);
+        $detalle = DetallesFuneraria::find($detalle)->updateOrCreate(['Campos' => $json_pasos]);
         activity()->log('Se ha modificado la funeraria No. '.$id);
         return redirect('/Personal/verFunerarias');
     }
