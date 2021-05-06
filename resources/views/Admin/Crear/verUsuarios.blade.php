@@ -40,7 +40,7 @@
                                 @if($user->rol == 'Agente' || $user->rol == 'Personal')
                                     <a href="/Personal/editarUsuario/{{$user->id}}"><button class="btn btn-link">Editar</button></a>
                                 @else
-                                    <a href="/Personal/editarFuneraria/{{$user->id}}"><button class="btn btn-link">Editar</button></a>
+                                    <a href="/Personal/editarUsuario/{{$user->id}}"><button class="btn btn-link">Editar</button></a>
                                 @endif
                                 <button class="btn btn-link" onclick="eliminar({{$user->id}})">Eliminar</button>
                                 </td>
