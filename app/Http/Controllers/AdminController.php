@@ -120,11 +120,15 @@ class AdminController extends Controller
         $users = User::with('roles')->get();
 
         $users = $users->reject(function ($user, $key) {
-            return $user->hasRole(['Funeraria', 'Super Admin']);
+            return $user->hasRole(['Super Admin']);
         });
 
         foreach($users as $user){
             $user->rol = $user->roles->first()->name;
+            if($user->funeraria){
+                $nombre_funeraria = Funerarias::where('id', $user->funeraria)->value('Nombre');
+                $user->funeraria = $nombre_funeraria;
+            }
         }
         if($msg == 0){
             return view('Admin.Crear.verUsuarios', ['usuarios' => $users]);

@@ -275,6 +275,8 @@ class CasosController extends Controller
 
         $data = Helper::cryptR($arrayCaso, 1, 1);
 
+        //return $data;
+
         $client = new \GuzzleHttp\Client();
         $api_uri = "http://umwsdl.smartla.net/wsdl_um.php";
         $res = $client->request('POST', $api_uri, ['form_params' => [
@@ -307,6 +309,22 @@ class CasosController extends Controller
         $data = Helper::cryptR($request->input('data'), 0);
 
         $data->Estatus = 'Abierto';
+
+        if(isset($data->Motivo)){
+            $data->Causa = $data->Motivo; 
+        }
+
+        if(isset($data->Funeraria)){
+            unset($data->Funeraria);
+        }
+
+        if(isset($data->ServicioFunerarioContratado)){
+            unset($data->ServicioFunerarioContratado);
+        }
+
+        if(isset($data->Comentario)){
+            unset($data->Comentario);
+        }
 
         $res = Casos::create( (array) $data);
 

@@ -24,6 +24,7 @@
                                 <th>Nombre</th>
                                 <th>E-Mail</th>
                                 <th>Rol</th>
+                                <th>Funeraria</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -34,6 +35,7 @@
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->rol}}</td>
+                                <td>{{$user->funeraria}}</td>
                                 <td>
                                 @if($user->rol == 'Agente' || $user->rol == 'Personal')
                                     <a href="/Personal/editarUsuario/{{$user->id}}"><button class="btn btn-link">Editar</button></a>
