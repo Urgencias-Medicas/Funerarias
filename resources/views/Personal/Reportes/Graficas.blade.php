@@ -70,7 +70,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5>Funerarias</h5>
-                    <p class="display-4">1234</p>
+                    <p class="display-4">{{$Conteos['Conteo_Funerarias']}}</p>
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5>Servicios Atendidos</h5>
-                    <p class="display-4">154</p>
+                    <p class="display-4">{{$Conteos['Conteo_Casos']}}</p>
                 </div>
             </div>
         </div>
@@ -86,7 +86,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5>Edad promedio</h5>
-                    <p class="display-4">11</p>
+                    <p class="display-4">{{$Conteos['Promedio_Edad']}}</p>
                 </div>
             </div>
         </div>
@@ -94,14 +94,14 @@
             <div class="card">
                 <div class="card-body">
                     <h5>Costos</h5>
-                    <p class="display-4">1234</p>
+                    <p class="display-4">{{$Conteos['Costos']}}</p>
                     <small>Miles de quetzales</small>
                 </div>
             </div>
         </div>
     </div>
     <div class="row mb-3 justify-content-center text-center">
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="card">
                 <div class="card-body">
                     <h5>Departamentos</h5>
@@ -117,18 +117,18 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card mb-2">
                 <div class="card-body">
                     <h5>Pendientes por pagar</h5>
-                    <p class="display-4">1234</p>
+                    <p class="display-4">{{$Conteos['Pendiente']}}</p>
                     <small>Miles de quetzales</small>
                 </div>
             </div>
             <div class="card">
                 <div class="card-body">
                     <h5>Servicios pagados</h5>
-                    <p class="display-4">1234</p>
+                    <p class="display-4">{{$Conteos['Pagado']}}</p>
                     <small>Miles de quetzales</small>
                 </div>
             </div>
@@ -139,7 +139,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5>Valoración promedio</h5>
-                    <p class="display-4">1234</p>
+                    <p class="display-4">{{$Conteos['Evaluacion']}}</p>
                 </div>
             </div>
         </div>
@@ -155,7 +155,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5>Porcentaje de satisfacción</h5>
-                    <p class="display-4">98%</p>
+                    <p class="display-4">{{$Conteos['Satisfaccion']}}%</p>
                 </div>
             </div>
         </div>
@@ -163,7 +163,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5>Aseguradoras</h5>
-                    <p class="display-4">1234</p>
+                    <p class="display-4">{{$Conteos['Aseguradoras']}}</p>
                 </div>
             </div>
         </div>
@@ -288,7 +288,7 @@ var chart = new Chart(ctx, {
 var ctx = document.getElementById('TiposMuerte').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
-    type: 'bar',
+    type: 'horizontalBar',
 
     // The data for our dataset
     data: {

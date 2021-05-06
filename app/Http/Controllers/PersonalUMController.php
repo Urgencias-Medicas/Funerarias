@@ -866,9 +866,41 @@ class PersonalUMController extends Controller
 
         $muertes_conteo = collect($array_conteo_muerte);
 
+        $conteo_funerarias = User::with('roles')->get();
+
+        $conteo_funerarias = $conteo_funerarias->reject(function ($user, $key) {
+            return $user->hasRole(['Super Admin', 'Personal', 'Agente']);
+        });
+
+        $conteo_funerarias = $conteo_funerarias->count();
+
+        $conteo_casos = Casos::count();
+
+        $promedio_edades = Casos::avg('Edad');
+
+        $costos = Casos::sum('Costo');
+
+        $pendiente = Casos::sum('Pendiente');
+
+        $pagado = Casos::sum('Pagado');
+
+        $evaluacion = Casos::avg('Evaluacion');
+
+        $conteos = [
+            'Conteo_Funerarias' => $conteo_funerarias,
+            'Conteo_Casos' => $conteo_casos,
+            'Promedio_Edad' => round($promedio_edades),
+            'Costos' => $costos, 
+            'Pendiente' => $pendiente,
+            'Pagado' => $pagado,
+            'Evaluacion' => round($evaluacion),
+            'Satisfaccion' => round(round($evaluacion) * 100 / $conteo_casos),
+            'Aseguradoras' => '2',
+        ];
+
         //return $muertes_conteo;
 
-        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo]);
+        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Conteos' => $conteos]);
     }
 
     public function GraficasPorFecha($fechaInicio, $fechaFin){
@@ -905,6 +937,26 @@ class PersonalUMController extends Controller
             }
 
             $muertes_conteo = collect($array_conteo_muerte);
+
+            $conteo_funerarias = User::with('roles')->get();
+
+            $conteo_funerarias = $conteo_funerarias->reject(function ($user, $key) {
+                return $user->hasRole(['Super Admin', 'Personal', 'Agente']);
+            });
+
+            $conteo_funerarias = $conteo_funerarias->count();
+
+            $conteo_casos = Casos::whereDate('Fecha', '=', $fechaInicio)->count();
+
+            $promedio_edades = Casos::whereDate('Fecha', '=', $fechaInicio)->avg('Edad');
+
+            $costos = Casos::whereDate('Fecha', '=', $fechaInicio)->sum('Costo');
+
+            $pendiente = Casos::whereDate('Fecha', '=', $fechaInicio)->sum('Pendiente');
+
+            $pagado = Casos::whereDate('Fecha', '=', $fechaInicio)->sum('Pagado');
+
+            $evaluacion = Casos::whereDate('Fecha', '=', $fechaInicio)->avg('Evaluacion');
         }else{
             $keys_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Funeraria_Nombre', 'asc')->pluck('Funeraria_Nombre');
 
@@ -935,11 +987,44 @@ class PersonalUMController extends Controller
             }
 
             $muertes_conteo = collect($array_conteo_muerte);
+
+            $conteo_funerarias = User::with('roles')->get();
+
+            $conteo_funerarias = $conteo_funerarias->reject(function ($user, $key) {
+                return $user->hasRole(['Super Admin', 'Personal', 'Agente']);
+            });
+
+            $conteo_funerarias = $conteo_funerarias->count();
+
+            $conteo_casos = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->count();
+
+            $promedio_edades = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->avg('Edad');
+
+            $costos = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->sum('Costo');
+
+            $pendiente = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->sum('Pendiente');
+
+            $pagado = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->sum('Pagado');
+
+            $evaluacion = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->avg('Evaluacion');
+            
         }
+
+        $conteos = [
+            'Conteo_Funerarias' => $conteo_funerarias,
+            'Conteo_Casos' => $conteo_casos,
+            'Promedio_Edad' => round($promedio_edades),
+            'Costos' => $costos, 
+            'Pendiente' => $pendiente,
+            'Pagado' => $pagado,
+            'Evaluacion' => round($evaluacion),
+            'Satisfaccion' => round(round($evaluacion) * 100 / $conteo_casos),
+            'Aseguradoras' => '2',
+        ];
 
         //return $muertes_conteo;
 
-        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Fecha_Inicio' => $fechaInicio, 'Fecha_Fin' => $fechaFin]);
+        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Fecha_Inicio' => $fechaInicio, 'Fecha_Fin' => $fechaFin, 'Conteos' => $conteos]);
     }
 
     public function configuraciones(){

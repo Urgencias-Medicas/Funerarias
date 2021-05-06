@@ -25,6 +25,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/dashboard', 'PersonalUMController@dashboard');
+
 Route::group(['prefix' => 'password'], function () {
     Route::get('cambio', 'HomeController@cambioPassword');
     Route::get('verificar/{password}', 'HomeController@verificarPassword');
