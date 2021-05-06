@@ -3,12 +3,47 @@
 @section('content')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row mb-1 justify-content-center">
         <div class="col-md-12">
-            <h3>Gráficas</h3>
-            <div class="row mt-4">
-                <div class="col">
+            <h3>Tablero</h3>
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <label>Funeraria</label>
+                </div>
+                <div class="col-md-3">
+                    <label>Departamento</label>
+                </div>
+                <div class="col-md-2">
                     <label for="fechaInicio">Fecha de Inicio</label>
+                </div>
+                <div class="col-md-2">
+                    <label for="fechaFin">Fecha de Final</label>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4 justify-content-center">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <select class="form-select form-control" >
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select form-control">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
                     <div class="input-group ">
                         <input type="date" id="fechaInicio" class="form-control" value="{{ isset($Fecha_Inicio) ? $Fecha_Inicio : '' }}">
                         <div class="input-group-append">
@@ -16,8 +51,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <label for="fechaFin">Fecha de Final</label>
+                <div class="col-md-2">
                     <div class="input-group ">
                         <input type="date" id="fechaFin" class="form-control" value="{{ isset($Fecha_Fin) ? $Fecha_Fin : '' }}">
                         <div class="input-group-append">
@@ -25,13 +59,113 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <button class="btn btn-info btn-block " onClick="Filtrar();">Aplicar</button>
+                </div>
             </div>
         </div>
     </div>
-    <br>
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <button class="btn btn-info btn-block" onClick="Filtrar();">Aplicar</button>
+    <div class="row mb-3 justify-content-center text-center">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Funerarias</h5>
+                    <p class="display-4">1234</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Servicios Atendidos</h5>
+                    <p class="display-4">154</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Edad promedio</h5>
+                    <p class="display-4">11</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Costos</h5>
+                    <p class="display-4">1234</p>
+                    <small>Miles de quetzales</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3 justify-content-center text-center">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Departamentos</h5>
+                    <small>Servicios por departamento</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Causas de muertes</h5>
+                    <canvas id="TiposMuerte"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5>Pendientes por pagar</h5>
+                    <p class="display-4">1234</p>
+                    <small>Miles de quetzales</small>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5>Servicios pagados</h5>
+                    <p class="display-4">1234</p>
+                    <small>Miles de quetzales</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3 justify-content-center text-center">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Valoración promedio</h5>
+                    <p class="display-4">1234</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Funerarias por categoria</h5>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Porcentaje de satisfacción</h5>
+                    <p class="display-4">98%</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Aseguradoras</h5>
+                    <p class="display-4">1234</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -59,19 +193,6 @@
                             Promedio de evaluación del servicio
                         </h4>
                         <canvas id="Evaluacion"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card-deck mt-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            Tipos de muerte</h4>
-                        <canvas id="TiposMuerte"></canvas>
                     </div>
                 </div>
             </div>

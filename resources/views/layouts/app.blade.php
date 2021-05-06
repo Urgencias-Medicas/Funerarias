@@ -76,36 +76,13 @@
                         </li>
                         @endrole
                         @role('Personal')
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Casos/ver">
                                 Casos
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a href="/Casos/ver"
-                                    class="dropdown-item {{ (request()->is('Casos/ver*')) ? 'active' : '' }}">Ver
-                                    Casos</a>
-                                <a href="/Casos/vistaCrear"
-                                    class="dropdown-item {{ (request()->is('Casos/vistaCrear*')) ? 'active' : '' }}">Nuevo
-                                    caso</a>
-                            </div>
                         </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Reportes
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a href="/Personal/Reportes/ver"
-                                class="dropdown-item {{ (request()->is('Personal/Reportes/ver*')) ? 'active' : '' }}">
-                                    Reportes</a>
-                                <a href="/Personal/Reportes/Graficas"
-                                    class="dropdown-item {{ (request()->is('Casos/Reportes/Graficas*')) ? 'active' : '' }}">Gráficas</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
+                        <!--<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Campanias
@@ -119,7 +96,7 @@
                                     class="nav-link {{ (request()->is('Personal/Campanias/crear*')) ? 'active' : '' }}">Crear
                                     Campaña</a>
                             </div>
-                        </li>
+                        </li>-->
                         @endrole
                         @role('Funeraria')
                         <li class="nav-item">
@@ -158,28 +135,38 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Usuarios
+                                Funerarias
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item {{ (request()->is('Personal/verUsuarios')) ? 'active' : '' }}" href="/Personal/verUsuarios">Ver usuarios</a>
-                                <a class="dropdown-item {{ (request()->is('Personal/verUsuariosFunerarias*')) ? 'active' : '' }}" href="/Personal/verUsuariosFunerarias">Ver Usuarios
-                                    Funerarias</a>
+                                
                                 <a href="/Personal/verFunerarias"
                                     class="dropdown-item {{ (request()->is('Personal/verFunerarias')) ? 'active' : '' }}"><span>
-                                        Ver Funerarias </span></a>
+                                        Funerarias</span></a>
                                 <a href="/Personal/verFunerariasPendientes"
                                     class="dropdown-item {{ (request()->is('Personal/verFunerariasPendientes*')) ? 'active' : '' }}"><span>
-                                        Funerarias Pendientes</span></a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Personal/CrearUsuario"
+                                        Aplicaciones</span></a>
+                               <!-- <a class="dropdown-item" href="/Personal/CrearUsuario"
                                     class="nav-link {{ (request()->is('Personal/CrearUsuario*')) ? 'active' : '' }}">Crear
                                     Usuario</a>
                                 <a class="dropdown-item" href="/Personal/CrearUsuarioFuneraria"
                                     class="nav-link {{ (request()->is('Personal/CrearUsuarioFuneraria*')) ? 'active' : '' }}">Crear
                                     Usuario Funeraria</a>
-                                <!--<a class="dropdown-item" href="/Personal/CrearFuneraria"
+                                <a class="dropdown-item" href="/Personal/CrearFuneraria"
                                     class="nav-link {{ (request()->is('Personal/CrearFuneraria*')) ? 'active' : '' }}">Crear
                                     Funeraria</a>-->
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Reportes
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a href="/Personal/Reportes/ver"
+                                class="dropdown-item {{ (request()->is('Personal/Reportes/ver*')) ? 'active' : '' }}">
+                                    Reportes</a>
+                                <a href="/Personal/Reportes/Graficas"
+                                    class="dropdown-item {{ (request()->is('Casos/Reportes/Graficas*')) ? 'active' : '' }}">Gráficas</a>
                             </div>
                         </li>
                         @endrole
@@ -187,7 +174,7 @@
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <span class="oi oi-globe"></span> <span id="contadorNotificaciones"
+                                <span class="oi oi-bell"></span> <span id="contadorNotificaciones"
                                     class="badge badge-pill badge-danger">{{$contador}}</span>
                             </a>
 
@@ -224,6 +211,24 @@
                             </div>
                         </li>
                         @endrole
+                        @role('Personal')
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="oi oi-cog"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item {{ (request()->is('Personal/verUsuarios')) ? 'active' : '' }}" href="/Personal/verUsuarios">Usuarios</a>
+                                <a class="dropdown-item {{ (request()->is('Personal/verUsuariosFunerarias*')) ? 'active' : '' }}" href="/Personal/verUsuariosFunerarias">Usuarios(funerarias)</a>
+                                <a class="dropdown-item" href="/Personal/configuraciones">Tipo de Cambio</a>
+                                <a class="dropdown-item {{ (request()->is('Personal/Campanias/')) ? 'active' : '' }}" href="/Personal/Campanias/" >Campañas</a>
+                                <a class="dropdown-item" href="/Personal/log">Historial por usuario</a>
+                                
+                            </div>
+                        </li>
+                        @endrole
+
+                        
 
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -238,19 +243,10 @@
                                 <a class="dropdown-item" href="/password/cambio">
                                     Cambiar contrase&nacute;a
                                 </a>
-                                @role('Personal')
-                                <a class="dropdown-item" href="/Personal/configuraciones">
-                                <!--<i class="fa fa-cog" aria-hidden="true"></i>-->Configuraciones 
-                                </a>
-                                @endrole
-                                @role('Personal')
-                                <a class="dropdown-item" href="/Personal/log">
-                                <!--<i class="fa fa-cog" aria-hidden="true"></i>-->Logs 
-                                </a>
-                                @endrole
+                                
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('Cerrar Sesión') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

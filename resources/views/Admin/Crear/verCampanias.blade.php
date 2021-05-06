@@ -14,7 +14,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-        <h3 class="mt-4">Campañas</h3>
+            <h3 class="my-3">Campañas</h3>
+            <a class="btn btn-primary float-right mb-3" href="/Personal/Campanias/crear">Crear campaña</a>
+                <div class="table-responsive">
                     <table id="table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -38,6 +40,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
         </div>
     </div>
 </div>
