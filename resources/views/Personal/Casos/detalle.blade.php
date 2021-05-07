@@ -366,7 +366,7 @@
                                             <div class="form-group col-md-6">
                                                 <label for="pohoralhoraiza">Hora</label>
                                                 <input type="time" class="form-control" id="hora" name="hora" placeholder="00:00"
-                                                    value="{{date('G:i', strtotime($Caso->Hora))}}"><span id="errmsg"></span>
+                                                    value="{{date('H:i', strtotime($Caso->Hora))}}"><span id="errmsg"></span>
                                             </div>
                                         </div>
                                     </div>

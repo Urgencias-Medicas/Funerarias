@@ -322,7 +322,13 @@ class CasosController extends Controller
         }
 
         if(isset($data->Comentario)){
-            unset($data->Comentario);
+            if($data->Comentario == ''){
+                unset($data->Comentario);
+            }
+        }
+
+        if(isset($data->TelTutor)){
+            $data->TelTutor = trim($data->TelTutor);
         }
 
         $res = Casos::create( (array) $data);
