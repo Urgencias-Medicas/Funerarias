@@ -38,10 +38,10 @@
 
 <body>
     <div id="app">
-        <nav class="navbar-expand-md navbar navbar-dark bg-dark shadow-sm">
+        <nav class="navbar-expand-md navbar navbar-dark bg-dark shadow-sm" style="background-color: #04589c !important;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
-                    UMFunerarias
+                    <img src="/images/umlogo.png" class="img-responsive">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -156,18 +156,10 @@
                                     Funeraria</a>-->
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Personal/Reportes/ver">
                                 Reportes
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a href="/Personal/Reportes/ver"
-                                class="dropdown-item {{ (request()->is('Personal/Reportes/ver*')) ? 'active' : '' }}">
-                                    Reportes</a>
-                                <a href="/Personal/Reportes/Graficas"
-                                    class="dropdown-item {{ (request()->is('Casos/Reportes/Graficas*')) ? 'active' : '' }}">Gráficas</a>
-                            </div>
                         </li>
                         @endrole
                         @role('Funeraria|Personal')

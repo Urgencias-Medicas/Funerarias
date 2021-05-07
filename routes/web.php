@@ -128,6 +128,7 @@ Route::post('Funeraria/info/guardarMedia/{media}', 'HomeController@guardarMedia'
 Route::post('Funeraria/info/actualizarInfo', 'HomeController@guardarInfo');
 
 Route::get('/convenio', 'HomeController@generarConvenio');
+Route::get('/convenio/{id}', 'HomeController@generarConvenioFuneraria');
 
 Route::group(['prefix' => 'Funerarias'], function () {
     Route::get('Casos/ver', 'FunerariasController@verCasos');

@@ -174,4 +174,13 @@ class HomeController extends Controller
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Personal.Reportes.Plantillas.Convenio', ['direccion' => $direccion, 'nombre' => $user->name, 'departamento' => $departamento, 'nit' => $nit])->setPaper('a4', 'portrait');
         return $pdf->download('Convenio.pdf');
     }
+    public function generarConvenioFuneraria($id){
+        $user = User::where('id', $id)->get()->first();
+
+        $direccion = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'Direccion')->value('Valor');
+        $departamento = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'Departamento')->value('Valor');
+        $nit = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'NIT')->value('Valor');
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Personal.Reportes.Plantillas.Convenio', ['direccion' => $direccion, 'nombre' => $user->name, 'departamento' => $departamento, 'nit' => $nit])->setPaper('a4', 'portrait');
+        return $pdf->download('Convenio.pdf');
+    }
 }

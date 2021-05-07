@@ -36,69 +36,84 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="form-row">
-                            <div class="form-check">
-                                <h3>Información general</h3>
-                                <button class="btn btn-info" type="button" data-toggle="modal" data-target="#info">Ver información</button>
+
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Info. General</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Documentacion</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contrato</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <button class="btn btn-info" type="button" data-toggle="modal" data-target="#info">Ver información</button>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="/pasos/{{$Funeraria->id}}/Aprobado/2" type="button" class="btn btn-success btn-block">Aprobar</a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="/pasos/{{$Funeraria->id}}/Denegado/2" type="button" class="btn btn-danger btn-block">Denegar</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <br>
+                                <table class="table table-bordered text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Documento</th>
+                                            <th>Estatus</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($DoctosFuneraria as $docto)
+                                            <tr>
+                                                <td>{{$docto->Documento}}</td>
+                                                <td>{{$docto->Estatus}}</td>
+                                                <td><a href="{{$docto->Ruta}}" class="btn btn-info">Ver</a><a onclick="denegarDocto({{$docto->Id}});" class="btn btn-danger">Denegar</a><a href="/Personal/Funeraria/{{$Funeraria->id}}/{{$docto->Id}}/Aprobado/-" class="btn btn-success">Aprobar</a></td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="/pasos/{{$Funeraria->id}}/Aprobado/3" class="btn btn-success btn-block">Aprobar</a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="/pasos/{{$Funeraria->id}}/Denegado/3" class="btn btn-danger btn-block">Denegar</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <a href="/convenio/{{$Funeraria->id}}"><h1>Descargar convenio</h1></a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="/pasos/{{$Funeraria->id}}/Aprobado/4" class="btn btn-success btn-block">Aprobar</a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="/pasos/{{$Funeraria->id}}/Denegado/4" class="btn btn-danger btn-block">Denegar</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <br>
-                        <div class="row">
-                            <div class="col">
-                            <a href="/pasos/{{$Funeraria->id}}/Aprobado/2" type="button" class="btn btn-success">Aprobar</a>
-                            <a href="/pasos/{{$Funeraria->id}}/Denegado/2" type="button" class="btn btn-danger">Denegar</a>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-row">
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <h3>Documentación</h3>
-                                </label>
-                            </div>
-                        </div>
-                        <hr>
-                        <table class="table table-bordered text-center">
-                            <thead>
-                                <tr>
-                                    <th>Documento</th>
-                                    <th>Estatus</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($DoctosFuneraria as $docto)
-                                    <tr>
-                                        <td>{{$docto->Documento}}</td>
-                                        <td>{{$docto->Estatus}}</td>
-                                        <td><a href="{{$docto->Ruta}}" class="btn btn-info">Ver</a><a onclick="denegarDocto({{$docto->Id}});" class="btn btn-danger">Denegar</a><a href="/Personal/Funeraria/{{$Funeraria->id}}/{{$docto->Id}}/Aprobado/-" class="btn btn-success">Aprobar</a></td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <br>
-                        <div class="row">
-                            <div class="col">
-                            <a href="/pasos/{{$Funeraria->id}}/Aprobado/3" class="btn btn-success">Aprobar</a>
-                            <a href="/pasos/{{$Funeraria->id}}/Denegado/3" class="btn btn-danger">Denegar</a>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-row">
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <h3>Contrato</h3>
-                                </label>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col">
-                            <a href="/pasos/{{$Funeraria->id}}/Aprobado/4" class="btn btn-success">Aprobar</a>
-                            <a href="/pasos/{{$Funeraria->id}}/Denegado/4" class="btn btn-danger">Denegar</a>
-                            </div>
-                        </div>
-                        <hr>
                         <div class="row">
                             <div class="col">
                                 <button type="submit" class="btn btn-primary float-right">Guardar</button>
