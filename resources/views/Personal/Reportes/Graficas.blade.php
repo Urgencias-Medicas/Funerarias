@@ -1,11 +1,35 @@
 @extends('layouts.app')
-
+@push('css')
+    <style>
+        .card-text {
+            /* font-family: Montserrat; */
+            font-size: 64px;
+            font-style: normal;
+            font-weight: 300;
+            line-height: 78px;
+            letter-spacing: 0em;
+            text-align: center;
+            color: #457FEE;
+        }
+        .card-heading {
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 17px;
+            letter-spacing: 0em;
+            text-align: center;
+        }
+        .card-shadow {
+            box-shadow: 0px 4px 4px 0px #00000040;
+        }
+    </style>
+@endpush
 @section('content')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <div class="container">
     <div class="row mb-1 justify-content-center">
         <div class="col-md-12">
-            <h3>Tablero</h3>
+            {{-- <h3>Tablero</h3> --}}
             <div class="row mt-3">
                 <div class="col-md-3">
                     <label>Funeraria</label>
@@ -60,41 +84,41 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-info btn-block " onClick="Filtrar();">Aplicar</button>
+                    <button class="btn btn-info btn-block" style="background: #193364;color:white" onClick="Filtrar();">Aplicar</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="row mb-3 justify-content-center text-center">
         <div class="col-md-3">
-            <div class="card">
+            <div class="card card-shadow">
                 <div class="card-body">
-                    <h5>Funerarias</h5>
-                    <p class="display-4">{{$Conteos['Conteo_Funerarias']}}</p>
+                    <h5 class="card-heading">Funerarias</h5>
+                    <p class="display-4 card-text">{{$Conteos['Conteo_Funerarias']}}</p>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card">
+            <div class="card card-shadow">
                 <div class="card-body">
-                    <h5>Servicios Atendidos</h5>
-                    <p class="display-4">{{$Conteos['Conteo_Casos']}}</p>
+                    <h5 class="card-heading">Servicios Atendidos</h5>
+                    <p class="display-4 card-text">{{$Conteos['Conteo_Casos']}}</p>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card">
+            <div class="card card-shadow">
                 <div class="card-body">
-                    <h5>Edad promedio</h5>
-                    <p class="display-4">{{$Conteos['Promedio_Edad']}}</p>
+                    <h5 class="card-heading">Edad promedio</h5>
+                    <p class="display-4 card-text">{{$Conteos['Promedio_Edad']}}</p>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card">
+            <div class="card card-shadow">
                 <div class="card-body">
-                    <h5>Costos</h5>
-                    <p class="display-4">{{$Conteos['Costos']}}</p>
+                    <h5 class="card-heading">Costos</h5>
+                    <p class="display-4 card-text">{{$Conteos['Costos']}}</p>
                     <small>Miles de quetzales</small>
                 </div>
             </div>
@@ -102,33 +126,33 @@
     </div>
     <div class="row mb-3 justify-content-center text-center">
         <div class="col-md-5">
-            <div class="card">
+            <div class="card card-shadow">
                 <div class="card-body">
-                    <h5>Departamentos</h5>
+                    <h5 class="card-heading">Departamentos</h5>
                     <small>Servicios por departamento</small>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
+            <div class="card card-shadow">
                 <div class="card-body">
-                    <h5>Causas de muertes</h5>
+                    <h5 class="card-heading">Causas de muertes</h5>
                     <canvas id="TiposMuerte"></canvas>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card mb-2">
+            <div class="card mb-2 card-shadow">
                 <div class="card-body">
-                    <h5>Pendientes por pagar</h5>
-                    <p class="display-4">{{$Conteos['Pendiente']}}</p>
+                    <h5 class="card-heading">Pendientes por pagar</h5>
+                    <p class="display-4 card-text">{{$Conteos['Pendiente']}}</p>
                     <small>Miles de quetzales</small>
                 </div>
             </div>
-            <div class="card">
+            <div class="card card-shadow">
                 <div class="card-body">
-                    <h5>Servicios pagados</h5>
-                    <p class="display-4">{{$Conteos['Pagado']}}</p>
+                    <h5 class="card-heading">Servicios pagados</h5>
+                    <p class="display-4 card-text">{{$Conteos['Pagado']}}</p>
                     <small>Miles de quetzales</small>
                 </div>
             </div>
@@ -136,34 +160,33 @@
     </div>
     <div class="row mb-3 justify-content-center text-center">
         <div class="col-md-3">
-            <div class="card">
+            <div class="card card-shadow">
                 <div class="card-body">
-                    <h5>Valoración promedio</h5>
-                    <p class="display-4">{{$Conteos['Evaluacion']}}</p>
+                    <h5 class="card-heading">Valoración promedio</h5>
+                    <p class="display-4 card-text">{{$Conteos['Evaluacion']}}</p>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card">
+            <div class="card card-shadow">
                 <div class="card-body">
-                    <h5>Funerarias por categoria</h5>
-                    
+                    <h5 class="card-heading">Funerarias por categoria</h5>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card">
+            <div class="card card-shadow">
                 <div class="card-body">
-                    <h5>Porcentaje de satisfacción</h5>
-                    <p class="display-4">{{$Conteos['Satisfaccion']}}%</p>
+                    <h5 class="card-heading">Porcentaje de satisfacción</h5>
+                    <p class="display-4 card-text">{{$Conteos['Satisfaccion']}}%</p>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card">
+            <div class="card card-shadow">
                 <div class="card-body">
-                    <h5>Aseguradoras</h5>
-                    <p class="display-4">{{$Conteos['Aseguradoras']}}</p>
+                    <h5 class="card-heading">Aseguradoras</h5>
+                    <p class="display-4 card-text">{{$Conteos['Aseguradoras']}}</p>
                 </div>
             </div>
         </div>
@@ -175,7 +198,7 @@
             <div class="card-deck mt-4">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">
+                        <h4 class="card-title card-heading">
                             Servicios atendidos
                         </h4>
                         <canvas id="Servicios"></canvas>
@@ -187,7 +210,7 @@
             <div class="card-deck mt-4">
                 <div class="card">
                     <div class="card-body">
-                    <h4 class="card-title">
+                    <h4 class="card-title card-heading">
                             Promedio de evaluación del servicio
                         </h4>
                         <canvas id="Evaluacion"></canvas>

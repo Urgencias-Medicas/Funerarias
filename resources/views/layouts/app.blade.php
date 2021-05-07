@@ -15,7 +15,8 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -34,11 +35,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tail.select@0.5.15/css/bootstrap4/tail.select-default.min.css">
     <script src="https://cdn.jsdelivr.net/npm/tail.select@0.5.15/js/tail.select.min.js"></script>
 
+    <style>
+        .navbar-dark .navbar-nav .nav-link {
+            color:white;
+            /* font-size:18px; */
+        }
+        body {
+            font-family: 'Montserrat';
+        }
+    </style>
+
+
+    @stack('css')
 </head>
 
-<body>
+<body style="background: linear-gradient(90deg, rgba(172, 182, 229, 0.25) 0%, rgba(134, 253, 232, 0.25) 100%);">
     <div id="app">
-        <nav class="navbar-expand-md navbar navbar-dark bg-dark shadow-sm" style="background-color: #04589c !important;">
+        <nav class="navbar-expand-md navbar navbar-dark bg-dark shadow-sm" style="background: #45B5A1!important;color:white!important;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     <img src="/images/umlogo.png" class="img-responsive">

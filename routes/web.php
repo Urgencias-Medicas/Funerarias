@@ -132,7 +132,7 @@ Route::get('/convenio/{id}', 'HomeController@generarConvenioFuneraria');
 
 Route::group(['prefix' => 'Funerarias'], function () {
     Route::get('Casos/ver', 'FunerariasController@verCasos');
-    Route::get('Casos/{id}/ver', 'FunerariasController@detallesCaso');
+    // Route::get('Casos/{id}/ver', 'FunerariasController@detallesCaso');
     Route::get('Inactiva', 'HomeController@funerariaInactiva');
     Route::get('Descargas', 'FunerariasController@descargas');
     Route::post('Casos/{caso}/actualizarCosto', 'FunerariasController@actualizarCosto');
