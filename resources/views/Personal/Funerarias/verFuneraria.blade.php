@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
         <button type="button" class="btn btn-link"><a href="">< Atrás</a></button>
             <div class="card">
                 <div class="card-header">Información</div>
@@ -52,8 +52,21 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <br>
                                 <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <button class="btn btn-info" type="button" data-toggle="modal" data-target="#info">Ver información</button>
+                                    <div class="col-md-12 text-left">
+                                        @foreach($Detalles_Funeraria as $detalle)
+                                            @if($detalle->Campo == 'LicenciaAmbiental')
+
+                                            @elseif($detalle->Campo == 'InfoGeneral')
+
+                                            @elseif($detalle->Campo == 'Documentacion')
+
+                                            @elseif($detalle->Campo == 'Convenio')
+                                            
+                                            @else
+                                            <b>{{$detalle->Campo}}</b> - {{$detalle->Valor}}
+                                            <br>
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </div>
                                 <br>
@@ -79,9 +92,9 @@
                                     <tbody>
                                         @foreach($DoctosFuneraria as $docto)
                                             <tr>
-                                                <td>{{$docto->Documento}}</td>
+                                                <td><a href="{{$docto->Ruta}}" class="">{{$docto->Documento}}</a> </td>
                                                 <td>{{$docto->Estatus}}</td>
-                                                <td><a href="{{$docto->Ruta}}" class="btn btn-info">Ver</a><a onclick="denegarDocto({{$docto->Id}});" class="btn btn-danger">Denegar</a><a href="/Personal/Funeraria/{{$Funeraria->id}}/{{$docto->Id}}/Aprobado/-" class="btn btn-success">Aprobar</a></td>
+                                                <td><a href="/Personal/Funeraria/{{$Funeraria->id}}/{{$docto->Id}}/Aprobado/-" class="btn btn-success mx-3">Aprobar</a><a onclick="denegarDocto({{$docto->Id}});" class="btn btn-danger">Denegar</a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -103,14 +116,6 @@
                                         <a href="/convenio/{{$Funeraria->id}}"><h1>Descargar convenio</h1></a>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <a href="/pasos/{{$Funeraria->id}}/Aprobado/4" class="btn btn-success btn-block">Aprobar</a>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a href="/pasos/{{$Funeraria->id}}/Denegado/4" class="btn btn-danger btn-block">Denegar</a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <br>
@@ -124,38 +129,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="infoLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="infoLabel">Información de funeraria</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-            @foreach($Detalles_Funeraria as $detalle)
-                @if($detalle->Campo == 'LicenciaAmbiental')
-
-                @elseif($detalle->Campo == 'InfoGeneral')
-
-                @elseif($detalle->Campo == 'Documentacion')
-
-                @elseif($detalle->Campo == 'Convenio')
-                
-                @else
-                {{$detalle->Campo}} - {{$detalle->Valor}}
-                <br>
-                @endif
-            @endforeach
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div class="modal" id="myModal" tabindex="-1" role="dialog">

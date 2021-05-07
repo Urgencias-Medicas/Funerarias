@@ -13,6 +13,7 @@
                         <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Correo</th>
+                            <th scope="col">Categor&iacute;a</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Acciones</th>
                         </tr>
@@ -22,6 +23,7 @@
                         <tr>
                             <td>{{$funeraria->name}}</td>
                             <td>{{$funeraria->email}}</td>
+                            <td>{{$funeraria->tipo_funeraria}}</td>
                             <td>
                             @if($funeraria->activo == 'No')
                             <span style="color:orange;">No Activa</span>

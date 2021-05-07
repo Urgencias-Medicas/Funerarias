@@ -11,31 +11,34 @@
     </div>
 </div>
 @endif
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-        <h3 class="mt-4">Funerarias</h3>
-                    <table id="table" class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>Nombre</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($Funerarias as $funeraria)
-                            <tr id="funeraria-{{$funeraria->id}}">
-                                <td>{{$funeraria->id}}</td>
-                                <td>{{$funeraria->funeraria}}</td>
-                                <td>
-                                <a href="/Personal/editarFuneraria/{{$funeraria->id}}/{{$funeraria->funeraria}}"><button class="btn btn-link">Editar</button></a>
-                                <!--<button class="btn btn-link" onclick="eliminar({{$funeraria->id}})">Eliminar</button>-->
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+        <h3 class="my-3">Funerarias</h3>
+            <div class="table-responsive">
+                <table id="table" class="table table-light table-striped border rounded mb-5">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($Funerarias as $funeraria)
+                        <tr id="funeraria-{{$funeraria->id}}">
+                            <td>{{$funeraria->id}}</td>
+                            <td>{{$funeraria->funeraria}}</td>
+                            <td>
+                            <a href="/Personal/editarFuneraria/{{$funeraria->id}}/{{$funeraria->funeraria}}"><button class="btn btn-link">Editar</button></a>
+                            <!--<button class="btn btn-link" onclick="eliminar({{$funeraria->id}})">Eliminar</button>-->
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

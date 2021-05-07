@@ -54,7 +54,7 @@
         <nav class="navbar-expand-md navbar navbar-dark bg-dark shadow-sm" style="background: #45B5A1!important;color:white!important;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
-                    <img src="/images/umlogo.png" class="img-responsive">
+                    <img src="/images/umlogo.jpeg" class="img-responsive w-50">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -88,7 +88,7 @@
                                 caso</a>
                         </li>
                         @endrole
-                        @role('Personal')
+                        @role('Personal|Contabilidad')
                         <li class="nav-item">
                             <a class="nav-link" href="/Casos/ver">
                                 Casos

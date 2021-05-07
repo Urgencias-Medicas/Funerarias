@@ -42,6 +42,8 @@ class HomeController extends Controller
             return redirect('/Funerarias/Casos/ver');
         }elseif($user->hasRole('Super Admin')){
             return view('Admin.home');
+        }elseif($user->hasRole('Contabilidad')){
+            return redirect('/Casos/ver');
         }
     }
     public function funerariaInactiva(){

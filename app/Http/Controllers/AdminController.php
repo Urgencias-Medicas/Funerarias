@@ -49,6 +49,8 @@ class AdminController extends Controller
             $user->assignRole('Agente');
         }elseif($request->tipo_usuario == 'Personal'){
             $user->assignRole('Personal');
+        }elseif($request->tipo_usuario == 'Contabilidad'){
+            $user->assignRole('Contabilidad');
         }
 
         $data = ['password' => $random_password];

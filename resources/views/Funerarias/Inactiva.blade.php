@@ -201,15 +201,22 @@
         <div class="card">
             <div class="card-body align-items-center">
                 
+                @php
+                    $existe_patenteComercio = 0;
+                @endphp
                 @foreach($AllDocuments as $documents)
-                    @if($documents->Documento == 'patenteComercio')
+                    @if($documents->Documento == 'licenciaSanitaria')
+                    
                         @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
-                            <div class="form-group" style="display: none;">
+                        @php
+                            $existe_patenteComercio = 1;
+                        @endphp
                         @else
-                            <div class="form-group"> 
+                            $existe_patenteComercio = 0;
                         @endif
                     @endif
                 @endforeach
+                <div class="form-group" style="{{$existe_patenteComercio == 1 ? '' : 'display: none;'}}">
                     <h3>Patente de comercio</h3>
                     @foreach($AllDocuments as $documents)
                         @if($documents->Documento == 'patenteComercio')
@@ -229,15 +236,22 @@
                     </form>
                 </div>
 
+                @php
+                    $existe_rtu = 0;
+                @endphp
                 @foreach($AllDocuments as $documents)
-                    @if($documents->Documento == 'rtu')
+                    @if($documents->Documento == 'licenciaSanitaria')
+                    
                         @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
-                            <div class="form-group" style="display: none;">
+                        @php
+                            $existe_rtu = 1;
+                        @endphp
                         @else
-                            <div class="form-group"> 
+                            $existe_rtu = 0;
                         @endif
                     @endif
                 @endforeach
+                <div class="form-group" style="{{$existe_rtu == 1 ? '' : 'display: none;'}}">
                     <h3>RTU Actualizado</h3>
                     @foreach($AllDocuments as $documents)
                         @if($documents->Documento == 'rtu')
@@ -257,15 +271,23 @@
                     </form>
                 </div>
 
+
+                @php
+                    $existe_dpi = 0;
+                @endphp
                 @foreach($AllDocuments as $documents)
-                    @if($documents->Documento == 'dpi')
+                    @if($documents->Documento == 'licenciaSanitaria')
+                    
                         @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
-                            <div class="form-group" style="display: none;">
+                        @php
+                            $existe_dpi = 1;
+                        @endphp
                         @else
-                            < class="form-group"> 
+                            $existe_dpi = 0;
                         @endif
                     @endif
                 @endforeach
+                <div class="form-group" style="{{$existe_dpi == 1 ? '' : 'display: none;'}}">
                     <h3>Copia de DPI</h3>
                     @foreach($AllDocuments as $documents)
                         @if($documents->Documento == 'dpi')
@@ -283,16 +305,24 @@
                                 accept="image/jpeg, image/png, image/jpg" />
                         </div>
                     </form>
+                </div>
                 
+                @php
+                    $existe_sanitaria = 0;
+                @endphp
                 @foreach($AllDocuments as $documents)
                     @if($documents->Documento == 'licenciaSanitaria')
+                    
                         @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
-                            <div class="form-group" style="display: none;">
+                        @php
+                            $existe_sanitaria = 1;
+                        @endphp
                         @else
-                            <div class="form-group"> 
+                            $existe_sanitaria = 0;
                         @endif
                     @endif
                 @endforeach
+                <div class="form-group" style="{{$existe_sanitaria == 1 ? '' : 'display: none;'}}">
                     <h3>Licencia Sanitaria</h3>
                     @foreach($AllDocuments as $documents)
                         @if($documents->Documento == 'licenciaSanitaria')
@@ -311,19 +341,25 @@
                         </div>
                     </form>
                 </div>
-                
-                </div>
+
                 @if($Tipo_Funeraria == 'B' || $Tipo_Funeraria == 'A')
                 
+                @php
+                    $existe_certManipulacionCuerpos = 0;
+                @endphp
                 @foreach($AllDocuments as $documents)
-                    @if($documents->Documento == 'certManipulacionCuerpos')
+                    @if($documents->Documento == 'licenciaSanitaria')
+                    
                         @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
-                            <div class="form-group" style="display: none;">
+                        @php
+                            $existe_certManipulacionCuerpos = 1;
+                        @endphp
                         @else
-                            <div class="form-group"> 
+                            $existe_certManipulacionCuerpos = 0;
                         @endif
                     @endif
                 @endforeach
+                <div class="form-group" style="{{$existe_certManipulacionCuerpos == 1 ? '' : 'display: none;'}}">
                     <h3>Certificado de manipulación de cuerpos</h3>
                     @foreach($AllDocuments as $documents)
                         @if($documents->Documento == 'certManipulacionCuerpos')
@@ -342,18 +378,27 @@
                         </div>
                     </form>
                 </div>
+                
                 @endif
+
                 @if($Tipo_Funeraria == 'A')
                 
+                @php
+                    $existe_licManipulacionCuerpos = 0;
+                @endphp
                 @foreach($AllDocuments as $documents)
-                    @if($documents->Documento == 'licManipulacionCuerpos')
+                    @if($documents->Documento == 'licenciaSanitaria')
+                    
                         @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
-                            <div class="form-group" style="display: none;">
+                        @php
+                            $existe_licManipulacionCuerpos = 1;
+                        @endphp
                         @else
-                            <div class="form-group"> 
+                            $existe_licManipulacionCuerpos = 0;
                         @endif
                     @endif
                 @endforeach
+                <div class="form-group" style="{{$existe_licManipulacionCuerpos == 1 ? '' : 'display: none;'}}">
                     <h3>Licencia de manipulación de cuerpos</h3>
                     @foreach($AllDocuments as $documents)
                         @if($documents->Documento == 'licManipulacionCuerpos')
@@ -373,17 +418,25 @@
                     </form>
                 </div>
                 @endif
+
                 @if($Tipo_Funeraria == 'B' || $Tipo_Funeraria == 'A')
                 
+                @php
+                    $existe_manipulacionAlimentos = 0;
+                @endphp
                 @foreach($AllDocuments as $documents)
-                    @if($documents->Documento == 'manipulacionAlimentos')
+                    @if($documents->Documento == 'licenciaSanitaria')
+                    
                         @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
-                            <div class="form-group" style="display: none;">
+                        @php
+                            $existe_manipulacionAlimentos = 1;
+                        @endphp
                         @else
-                            <div class="form-group"> 
+                            $existe_manipulacionAlimentos = 0;
                         @endif
                     @endif
                 @endforeach
+                <div class="form-group" style="{{$existe_manipulacionAlimentos == 1 ? '' : 'display: none;'}}">
                     <h3>Licencia de manipulación de alimentos o carta de restaurante que apoye</h3>
                     @foreach($AllDocuments as $documents)
                         @if($documents->Documento == 'manipulacionAlimentos')
@@ -403,17 +456,25 @@
                     </form>
                 </div>
                 @endif
+                
                 @if($Tipo_Funeraria == 'A')
                 
+                @php
+                    $existe_bioInfecciosos = 0;
+                @endphp
                 @foreach($AllDocuments as $documents)
-                    @if($documents->Documento == 'bioinfecciosos')
+                    @if($documents->Documento == 'licenciaSanitaria')
+                    
                         @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
-                            <div class="form-group" style="display: none;">
+                        @php
+                            $existe_bioInfecciosos = 1;
+                        @endphp
                         @else
-                            <div class="form-group"> 
+                            $existe_bioInfecciosos = 0;
                         @endif
                     @endif
                 @endforeach
+                <div class="form-group" style="{{$existe_bioInfecciosos == 1 ? '' : 'display: none;'}}">
                     <h3>Certificado de desechos bioinfecciosos</h3>
                     @foreach($AllDocuments as $documents)
                         @if($documents->Documento == 'bioinfecciosos')
@@ -433,6 +494,7 @@
                     </form>
                 </div>
                 @endif
+
             </div>
         </div>
   </div>

@@ -50,7 +50,7 @@ class FunerariasController extends Controller
             }
         }
         $url = "https://gist.githubusercontent.com/tian2992/7439705/raw/1e5d0a766775a662039f3a838f422a1fc1600f74/guatemala.json";
-
+        
         $json = file_get_contents($url);
         $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'desc')->get();
         $causas = Causas::get();

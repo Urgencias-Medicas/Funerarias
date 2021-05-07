@@ -46,6 +46,7 @@
                                     <option>-- Seleccione --</option>
                                     <option value="Agente">Agente de Call Center</option>
                                     <option value="Personal">Personal interno</option>
+                                    <option value="Contabilidad">Contabilidad</option>
                                 </select>
                             </div>
                         </div>

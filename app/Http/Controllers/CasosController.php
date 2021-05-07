@@ -241,8 +241,32 @@ class CasosController extends Controller
         $caso->save();
         //return back()->with('msg', 'Pagos añadidos exitosamente.');
         //return $this->detallesCaso($caso->id, 1);}
+
+        $funeraria = Funerarias::where('Id_Funeraria', $caso->Funeraria)->get()->first();
+
+        $correo_funeraria = $funeraria->Email;
+        $nombre_funeraria = $funeraria->Nombre;
+        $caso = $caso->id;
+        $mensaje = 'Se ha registrado un nuevo pago en el caso #'.$caso;
+
+        $correo_admin = 'samedgar15@gmail.com';
+
+        $casos_array = ['id' => $caso];  
+
+        if(isset($funeraria->Email)){
+            Mail::send('mailslayouts.pagoregistrado', $casos_array, function($message) use($caso, $correo_funeraria, $nombre_funeraria, $mensaje)
+            {
+                $message->to($correo_funeraria, $nombre_funeraria)->subject($mensaje)->from('no-reply@excess.software', 'Urgencias Médicas');
+            });
+
+            Mail::send('mailslayouts.pagoregistrado', $casos_array, function($message) use($caso, $correo_admin, $nombre_funeraria, $mensaje)
+            {
+                $message->to($correo_admin, $nombre_funeraria)->subject($mensaje)->from('no-reply@excess.software', 'Urgencias Médicas');
+            });
+        }
+
         activity()->log('Se ha ingresado un nuevo pago en el caso No. '.$caso);
-        return redirect('/Casos/'.$caso->id.'/ver')->with('alerta', 'Pago ingresado exitosamente.');
+        return redirect('/Casos/'.$caso.'/ver')->with('alerta', 'Pago ingresado exitosamente.');
     }
 
     public function cerrarCaso($caso){

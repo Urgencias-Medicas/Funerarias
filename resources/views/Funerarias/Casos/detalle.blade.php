@@ -28,7 +28,6 @@
     }
 
 </style>
-{{ dd('foobar') }}
 @if(session('alerta'))
 <div class="container">
     <div class="alert alert-success alert-dismissible fade show" role="alert">

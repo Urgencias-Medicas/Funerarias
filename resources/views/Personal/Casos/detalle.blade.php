@@ -79,7 +79,7 @@
             <button type="button" class="btn btn-link"><a href="/Casos/ver">
                 < Atrás</a> </button>
             <h2>Caso #{{$Caso->id}}</h2>
-            
+                @role('Personal')
                     <button type="button" onClick="descargarAdjuntos();" class="btn btn-info float-right mr-2">Generar pdf</button>
                 <div class="float-right mx-2">
                     @if($Caso->Reportar == 'Si')
@@ -94,20 +94,26 @@
                     data-target="#funerariaModal">Asignar Funeraria</button>
                 <button type="submit" class="btn btn-success float-right mr-2" form="modificarForm">Guardar
                     cambios</button>
+                @endrole
+                
         </div>
     </div>
     <div class="row my-3">
             <div class="col-lg-12 mx-auto ">
                 <ul class="nav nav-tabs">
+                    @role('Personal')
                     <li class="nav-item">
-                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Caso</a>
+                        <a class="nav-link @role('Personal') active @endrole" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Caso</a>
                     </li>
+                    @endrole
                     <li class="nav-item">
-                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Pagos</a>
+                        <a class="nav-link @role('Contabilidad') active @endrole" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Pagos</a>
                     </li>
+                    @role('Personal')
                     <li class="nav-item">
                         <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Archivos</a>
                     </li>
+                    @endrole
                 </ul>
                 {{-- <ul class="nav nav-tabs nav-justified mb-5" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -121,7 +127,7 @@
                     </li>
                 </ul> --}}
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active pt-3" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="tab-pane fade @role('Personal') show active @endrole pt-3" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="card">
@@ -401,7 +407,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade pt-3" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <div class="tab-pane fade @role('Contabilidad') show active @endrole pt-3" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card">
@@ -475,6 +481,7 @@
                             </div>
 
                             <div class="col-md-6">
+                                    @role('Personal')
                                     <div class="card mb-3">
                                         <div class="card-body ">
                                         @if($Caso->Solicitud != 'Pendiente')
@@ -486,6 +493,7 @@
                                             @endif
                                         </div>
                                     </div>
+                                    @endrole
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="mt-3">Historial de Pagos</h4>
@@ -605,6 +613,7 @@
                 </div>
             </div>
     </div>
+    @role('Personal')
     <div class="row">
         <div class="col-md-6">
             
@@ -623,6 +632,7 @@
             </div>
         </div>
     </div>
+    @endrole
 </div>
 <!-- Modal -->
 <div class="modal fade" id="funerariaModal" tabindex="-1" role="dialog" aria-labelledby="funerariaModalLabel"

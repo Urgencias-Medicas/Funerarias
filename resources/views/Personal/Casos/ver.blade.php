@@ -6,7 +6,7 @@
         <div class="col-md-12">
 
             <h3 class="my-3">Casos</h3>
-            <a class="btn btn-primary float-right mb-3" href="/Casos/vistaCrear">Crear Caso</a>
+            @role('Personal')<a class="btn btn-primary float-right mb-3" href="/Casos/vistaCrear">Crear Caso</a>@endrole
             <div class="table-responsive">
                 <table id="table" class="table table-light table-striped border rounded mb-5">
                     <thead>
