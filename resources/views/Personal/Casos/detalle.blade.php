@@ -26,6 +26,37 @@
         cursor: pointer;
     }
 
+    .nav-tabs > li{
+        background-color:#45B5A1;
+        border-radius: 8px 8px 0px 0px;
+        width: 182px;
+        height: 42px;
+    }
+    .nav-tabs > li > a{
+        border: medium none;
+        color : white;
+        text-align: center;
+    }
+    .nav-tabs > li > a:hover{
+        background-color: #45B5A1 !important;
+        border: medium none;
+        border-radius: 8px 8px 0px 0px;
+        color:#fff;
+    }
+    .nav-tabs .nav-item .nav-link.active {
+        color: #1e1e1e;
+        background-color: #FFFFFF !important;
+        border: medium none;
+        width: 182px;
+        height: 42px;
+        border-radius: 8px 8px 0px 0px;
+    }
+    .tab-pane {
+        background-color : #FFFFFF;
+    }
+    .toggle {
+        height: 38px!important;
+    }
 </style>
 @if(session('alerta'))
 <div class="container">
@@ -53,7 +84,7 @@
                 <div class="float-right mx-2">
                     @if($Caso->Reportar == 'Si')
                     <input type="checkbox" checked data-toggle="toggle" data-on="Reportar" data-off="No Reportar"
-                        data-onstyle="success" data-offstyle="secondary" onchange="reportar('No')">
+                        data-onstyle="success" data-offstyle="secondary" onchange="reportar('No')" style="height: 30px!important;">
                     @else
                     <input type="checkbox" data-toggle="toggle" data-on="Reportar" data-off="No Reportar"
                         data-onstyle="success" data-offstyle="secondary" onchange="reportar('Si')">
@@ -67,9 +98,20 @@
     </div>
     <div class="row my-3">
             <div class="col-lg-12 mx-auto ">
-                <ul class="nav nav-tabs nav-justified mb-5" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
                         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Caso</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Pagos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Archivos</a>
+                    </li>
+                </ul>
+                {{-- <ul class="nav nav-tabs nav-justified mb-5" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Pagos</a>
@@ -77,9 +119,9 @@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Archivos</a>
                     </li>
-                </ul>
+                </ul> --}}
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="tab-pane fade show active pt-3" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="card">
@@ -221,108 +263,116 @@
                                                 <input type="text" name="NombreReporta" id="NombreReporta" class="form-control"
                                                     value="{{$Caso->NombreReporta}}">
                                             </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="RelacionReporta">Relaci&oacute;n</label>
-                                                    <input type="text" name="RelacionReporta" id="RelacionReporta" class="form-control"
-                                                        value="{{$Caso->RelacionReporta}}">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="TelReporta">Tel&eacute;fono</label>
-                                                    <input type="text" name="TelReporta" id="TelReporta" class="form-control"
-                                                        value="{{$Caso->TelReporta}}">
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="padre">Padre</label>
-                                                    <input type="text" name="padre" id="padre" class="form-control"
-                                                        value="{{$Caso->Padre}}">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="TelPadre">Tel. Padre</label>
-                                                    <input type="text" name="TelPadre" id="TelPadre" class="form-control"
-                                                        value="{{$Caso->TelPadre}}">
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="madre">Madre</label>
-                                                    <input type="text" name="madre" id="madre" class="form-control"
-                                                        value="{{$Caso->Madre}}">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="TelMadre">Tel. Madre</label>
-                                                    <input type="text" name="TelMadre" id="TelMadre" class="form-control"
-                                                        value="{{$Caso->TelMadre}}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Tutor">Tutor</label>
-                                                <input type="text" name="Tutor" id="Tutor" class="form-control" value="{{$Caso->Tutor}}">
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="TelTutor">Tel&eacute;fono Tutor</label>
-                                                    <input type="text" name="TelTutor" id="TelTutor" class="form-control"
-                                                        value="{{$Caso->TelTutor}}">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="DPITutor">DPI Tutor</label>
-                                                    <input type="text" name="DPITutor" id="DPITutor" class="form-control"
-                                                        value="{{$Caso->DPITutor}}">
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="ParentescoTutor">Parentesco Tutor</label>
-                                                    <input type="text" name="ParentescoTutor" id="ParentescoTutor" class="form-control"
-                                                        value="{{$Caso->ParentescoTutor}}">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="EmailTutor">Email Tutor</label>
-                                                    <input type="text" name="EmailTutor" id="EmailTutor" class="form-control"
-                                                        value="{{$Caso->EmailTutor}}">
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="form-row">
-                                                <div class="form-group">
-                                                    <label for="ComentarioTutor">Comentarios</label>
-                                                    <textarea id="ComentarioTutor" name="ComentarioTutor" class="form-control"
-                                                        cols="80">{{$Caso->Comentario}}</textarea>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="Medico">Agente que atendi&oacute;</label>
-                                                    <input type="text" name="Medico" id="Medico" class="form-control"
-                                                        value="{{$Caso->Medico}}">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="idioma">Idioma</label>
-                                                    <input type="text" name="Idioma" id="Idioma" class="form-control"
-                                                        value="{{$Caso->Idioma}}">
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="fechaNacimiento">Fecha</label>
-                                                    <input type="date" class="form-control" id="fechaNacimiento" name="fecha"
-                                                        placeholder="00/00/0000" value="{{$Caso->Fecha}}">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="pohoralhoraiza">Hora</label>
-                                                    <input type="time" class="form-control" id="hora" name="hora" placeholder="00:00"
-                                                        value="{{date('G:i', strtotime($Caso->Hora))}}"><span id="errmsg"></span>
-                                                </div>
-                                            </div>
+                                            
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="RelacionReporta">Relaci&oacute;n</label>
+                                                <input type="text" name="RelacionReporta" id="RelacionReporta" class="form-control"
+                                                    value="{{$Caso->RelacionReporta}}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="TelReporta">Tel&eacute;fono</label>
+                                                <input type="text" name="TelReporta" id="TelReporta" class="form-control"
+                                                    value="{{$Caso->TelReporta}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="padre">Padre</label>
+                                                <input type="text" name="padre" id="padre" class="form-control"
+                                                    value="{{$Caso->Padre}}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="TelPadre">Tel. Padre</label>
+                                                <input type="text" name="TelPadre" id="TelPadre" class="form-control"
+                                                    value="{{$Caso->TelPadre}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="madre">Madre</label>
+                                                <input type="text" name="madre" id="madre" class="form-control"
+                                                    value="{{$Caso->Madre}}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="TelMadre">Tel. Madre</label>
+                                                <input type="text" name="TelMadre" id="TelMadre" class="form-control"
+                                                    value="{{$Caso->TelMadre}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Tutor">Tutor</label>
+                                            <input type="text" name="Tutor" id="Tutor" class="form-control" value="{{$Caso->Tutor}}">
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="TelTutor">Tel&eacute;fono Tutor</label>
+                                                <input type="text" name="TelTutor" id="TelTutor" class="form-control"
+                                                    value="{{$Caso->TelTutor}}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="DPITutor">DPI Tutor</label>
+                                                <input type="text" name="DPITutor" id="DPITutor" class="form-control"
+                                                    value="{{$Caso->DPITutor}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="ParentescoTutor">Parentesco Tutor</label>
+                                                <input type="text" name="ParentescoTutor" id="ParentescoTutor" class="form-control"
+                                                    value="{{$Caso->ParentescoTutor}}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="EmailTutor">Email Tutor</label>
+                                                <input type="text" name="EmailTutor" id="EmailTutor" class="form-control"
+                                                    value="{{$Caso->EmailTutor}}">
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="ComentarioTutor">Comentarios</label>
+                                                <textarea id="ComentarioTutor" name="ComentarioTutor" class="form-control"
+                                                    cols="80">{{$Caso->Comentario}}</textarea>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="Medico">Agente que atendi&oacute;</label>
+                                                <input type="text" name="Medico" id="Medico" class="form-control"
+                                                    value="{{$Caso->Medico}}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="idioma">Idioma</label>
+                                                <input type="text" name="Idioma" id="Idioma" class="form-control"
+                                                    value="{{$Caso->Idioma}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="fechaNacimiento">Fecha</label>
+                                                <input type="date" class="form-control" id="fechaNacimiento" name="fecha"
+                                                    placeholder="00/00/0000" value="{{$Caso->Fecha}}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="pohoralhoraiza">Hora</label>
+                                                <input type="time" class="form-control" id="hora" name="hora" placeholder="00:00"
+                                                    value="{{date('G:i', strtotime($Caso->Hora))}}"><span id="errmsg"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 pt-3">
                                 <div class="card ">
                                     <div class="card-body align-items-center justify-content-center">
                                         <h4 class="">Evaluaci&oacute;n del servicio funerario</h4>
@@ -351,7 +401,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <div class="tab-pane fade pt-3" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card">
@@ -515,7 +565,8 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                            
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="card mt-4">
                                     <div class="card-header">Archivos</div>
                                     <div class="card-body align-items-center justify-content-center">
@@ -547,7 +598,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             
+                        </div>
                     </div>
                 </div>
             </div>

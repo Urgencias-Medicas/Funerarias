@@ -109,7 +109,6 @@ class CasosController extends Controller
         return view('Personal.Casos.ver', ['Casos' => $casos]);
     }
     public function detallesCaso($id, $msg = 0){
-
         $caso = Casos::find($id);
         $files = File::files(public_path('images'));
         $allowed='png,jpg,jpeg,gif,tiff';  //which file types are allowed seperated by comma
