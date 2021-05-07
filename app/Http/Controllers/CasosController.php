@@ -310,7 +310,7 @@ class CasosController extends Controller
         $data->Estatus = 'Abierto';
 
         if(isset($data->Motivo)){
-            $data->Causa = $data->Motivo; 
+            $data->Causa_Especifica = $data->Motivo; 
         }
 
         if(isset($data->Funeraria)){
