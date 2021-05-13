@@ -9,7 +9,7 @@
                         <div class="card-header">Información</div>
 
                         <div class="card-body align-items-center justify-content-center">
-                            <form action="/Personal/Funeraria/{{$Funeraria->id}}/{{$Detalle->id}}/guardar"
+                            <form action="/Personal/Funeraria/{{$Funeraria->Id_Funeraria}}/{{$Detalle->id}}/guardar"
                                 method="post">
                                 @csrf
                                 <div class="form-group">
@@ -100,62 +100,8 @@
                                     </select>
                                 </div>
                                 <hr>
-<!--
-                                @php
-                                $cantJson = count(json_decode($Checks))
-                                @endphp
-
-                                @php
-                                $check_rellenos = json_decode($Detalle->Campos)
-                                @endphp
-
-                                @foreach(json_decode($Checks) as $check)
-                                {{array_search('Si', $check_rellenos)}}
-                                <div class="form-row">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="Hecho"
-                                                name="campo_{{$check->campo}}" id="campo_{{$check->campo}}">{{$check->nombre}}
-                                        </label>
-                                    </div>
-                                </div>
-                                @endforeach-->
 
                                 
-                                @php
-                                $contadorJson = 0
-                                @endphp
-                                @foreach(json_decode($Checks) as $check)
-                                    @foreach(json_decode($Detalle->Campos) as $rellenos)
-                                        @if($check->campo == $rellenos->campo)
-                                            @if($rellenos->result == 'Si')
-                                            <div class="form-row">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input type="checkbox" class="form-check-input" value="Hecho"
-                                                            name="campo_{{$check->campo}}" id="campo_{{$check->campo}}" checked>{{$check->nombre}}
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            @else
-                                            <div class="form-row">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input type="checkbox" class="form-check-input" value="Hecho"
-                                                            name="campo_{{$check->campo}}" id="campo_{{$check->campo}}">{{$check->nombre}}
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            @endif
-                                        @else
-                                        @endif
-                                    @endforeach                                    
-                                    <hr>
-                                @php
-                                $contadorJson = $contadorJson + 1
-                                @endphp
-                                @endforeach
-                                <input type="hidden" name="cantidadJson" value="{{$contadorJson}}">
                                 <div class="row">
                                     <div class="col">
                                         <button type="submit" class="btn btn-primary float-right">Guardar</button>

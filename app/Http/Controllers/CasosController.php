@@ -233,7 +233,12 @@ class CasosController extends Controller
             $total = $total + $monto;
             $date = Carbon::parse($request->input("fecha".$i));
             $fecha = $date->format('Y-m-d');
-            HistorialPagos::create(['caso' => $caso, 'monto' => $monto, 'fecha' => $fecha, 'factura' => $request->input("factura".$i), 'serie' => $request->input("serie".$i)]);
+
+            $image = $request->file("comprobante".$i);
+            $imageName = 'Caso'.$caso.'-'.$image->getClientOriginalName();
+            $upload_success = $image->move(public_path('images'),$imageName);
+
+            HistorialPagos::create(['caso' => $caso, 'monto' => $monto, 'fecha' => $fecha, 'factura' => $request->input("factura".$i), 'serie' => $request->input("serie".$i), 'comprobante' => '/images/'.$imageName]);
         }
         $caso = Casos::find($caso);
         $caso->Pagado = $caso->Pagado + $total;

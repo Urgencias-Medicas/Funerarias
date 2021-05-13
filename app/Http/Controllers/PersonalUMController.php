@@ -48,6 +48,10 @@ class PersonalUMController extends Controller
     public function accionDocto($id, $docto, $accion, $comentario){
         DocumentosFuneraria::where('Id', $docto)->update(['Estatus' => $accion, 'Comentarios' => $comentario]);
         $documento = DocumentosFuneraria::where('Id', $docto)->value('Documento');
+
+        if($documento == 'licenciaAmbiental'){
+            DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'LicenciaAmbiental', 'Estado' => 'Aprobado']);
+        }
         
         DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'Documentacion', 'Estado' => 'Denegado']);
 

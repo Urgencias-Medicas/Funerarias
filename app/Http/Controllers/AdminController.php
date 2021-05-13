@@ -253,7 +253,7 @@ class AdminController extends Controller
             }
         }
         $json_campanias = json_encode($array_campanias);
-        $user = Funerarias::where('id', $id)->updateOrCreate(['Id_Funeraria' => $id, 'Nombre' => $request->nombre, 'Email' => $request->email, 'Telefono' => $request->telefono, 'Activa' => $request->activo, 'Campanias' => $json_campanias]);
+        $user = Funerarias::where('Id_Funeraria', $id)->update(['Nombre' => $request->nombre, 'Email' => $request->email, 'Telefono' => $request->telefono, 'Activa' => $request->activo, 'Campanias' => $json_campanias]);
 
         $funeraria_id = Funerarias::where('Id_Funeraria', $id)->value('id');
 
@@ -273,7 +273,8 @@ class AdminController extends Controller
 
         $detalle = DetallesFuneraria::find($detalle)->updateOrCreate(['Campos' => $json_pasos]);
         activity()->log('Se ha modificado la funeraria No. '.$id);
-        return redirect('/Personal/verFunerarias');
+        //return redirect('/Personal/verFunerarias');
+        return back();
     }
 
     public function verCampanias(){

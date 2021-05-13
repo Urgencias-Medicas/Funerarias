@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <select class="form-select form-control" >
-                        <option selected>Open this select menu</option>
+                        <option selected>-- Seleccione funeraria --</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-md-3">
                     <select class="form-select form-control">
-                        <option selected>Open this select menu</option>
+                        <option selected>-- Seleccione departamento --</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
@@ -196,7 +196,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card-deck mt-4">
-                <div class="card">
+                <div class="card card-shadow">
                     <div class="card-body">
                         <h4 class="card-title card-heading">
                             Servicios atendidos
@@ -208,7 +208,7 @@
         </div>
         <div class="col-md-6">
             <div class="card-deck mt-4">
-                <div class="card">
+                <div class="card card-shadow">
                     <div class="card-body">
                     <h4 class="card-title card-heading">
                             Promedio de evaluación del servicio

@@ -112,6 +112,7 @@ class HomeController extends Controller
         DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'TelContacto', 'Valor' => $request->numero_contacto]);
 
         DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'InfoGeneral', 'Estado' => 'Pendiente']);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'Documentacion', 'Estado' => 'Denegado']);
 
         return back();
 

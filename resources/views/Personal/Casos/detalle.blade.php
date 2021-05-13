@@ -506,6 +506,7 @@
                                                                 <th scope="col">Serie</th>
                                                                 <th scope="col">Factura</th>
                                                                 <th scope="col">Monto</th>
+                                                                <th scope="col">Comprobante</th>
                                                                 <th scope="col">Fecha</th>
                                                             </tr>
                                                         </thead>
@@ -516,6 +517,7 @@
                                                                 <td>{{$Pago->serie}}</td>
                                                                 <td>{{$Pago->factura}}</td>
                                                                 <td>{{$Pago->monto}}</td>
+                                                                <td><a href="{{$Pago->comprobante}}">Ver</a></td>
                                                                 <td>{{date("d-m-Y", strtotime("$Pago->fecha"))}}</td>
                                                             </tr>
                                                             @endforeach
@@ -535,10 +537,11 @@
                                                         disabled><i class="fa fa-minus" aria-hidden="true"></i></button>
                                                 </div>
                                             </div>
-                                            <form action="/Casos/{{$Caso->id}}/actualizarPago" method="post">
+                                            <form action="/Casos/{{$Caso->id}}/actualizarPago" enctype="multipart/form-data" method="post">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-md-12">
+                                                        <div class="table-responsive">
                                                         <table class="table text-center">
                                                             <thead>
                                                                 <tr>
@@ -546,6 +549,7 @@
                                                                     <th scope="col">Factura</th>
                                                                     <th scope="col">Monto</th>
                                                                     <th scope="col">Fecha</th>
+                                                                    <th scope="col">Comprobante</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody id="tablaPagos">
@@ -555,9 +559,11 @@
                                                                     <td><input name="monto1" type="text" class="form-control"
                                                                             onkeypress="return validateFloatKeyPress(this,event);"></td>
                                                                     <td><input name="fecha1" type="date" class="form-control"></td>
+                                                                    <td><input type="file" name="comprobante1" class="form-control"></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -648,8 +654,8 @@
             <div class="modal-body" id="modal-funerarias">
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <div class="modal-footer" id="footer-modal-funerarias">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cargarFunerarias();">Cerrar</button>
             </div>
         </div>
     </div>
@@ -935,6 +941,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('.alert').alert();
+        cargarFunerarias();
+    });
+
+    function cargarFunerarias(){
         $.ajax({
             url: "https://umbd.excess.software/api/getFunerarias",
             type: 'get',
@@ -1018,7 +1028,7 @@
                 $('#modal-funerarias').html(html);
             }
         });
-    });
+    }
 
     function seleccionarCampania(id){
         $.ajax({
@@ -1029,6 +1039,7 @@
                 var len = response.length;
                 var html = '';
                 var costo_servicio = 0;
+                var btn_asignar = '<button type="button" class="btn btn-info" onclick="cargarFunerarias();">Volver</button><button type="button" class="btn btn-secondary" id="btn-asignar-campania" data-dismiss="modal">Asignar</button><button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>';
                 for (let i = 0; i < len; i++) {
                     if (response[i].id == id) {
 
@@ -1052,9 +1063,10 @@
                                 </div>';
                     }
                 }
+                $('#footer-modal-funerarias').html(btn_asignar);
                 $('#btn-asignar-campania').attr("onclick", 'preAsignarFuneraria({{$Caso->id}},'+id + ')');
-                $('#modal-campania').html(html);
-                $('#campaniaModal').modal('show');
+                $('#modal-funerarias').html(html);
+                //$('#campaniaModal').modal('show');
                 console.log('done');
             },
             error: function (response) {
@@ -1190,6 +1202,7 @@
             <td><input name="factura' + nuevafila + '" type="text" class="form-control"></td>\
             <td><input name="monto' + nuevafila + '" type="text" class="form-control" onkeypress="return validateFloatKeyPress(this,event);"></td>\
             <td><input name="fecha' + nuevafila + '" type="date" class="form-control"></td>\
+            <td><input type="file" name="comprobante' + nuevafila + '" class="form-control"></td>\
         </tr>';
         $('#tablaPagos').append(html);
 
