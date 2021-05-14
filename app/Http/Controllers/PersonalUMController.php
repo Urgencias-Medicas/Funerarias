@@ -132,7 +132,7 @@ class PersonalUMController extends Controller
         }
 
         $pdf = PDF::loadView('Personal.Reportes.Plantillas.Edades', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
-        return $pdf->download('Reporte-Edades.pdf');
+        return $pdf->download('Reporte__SFUM_Reporte-Edades.pdf');
         
     }
     public function reporteEdadesCSV($fechaInicio, $fechaFin){
@@ -148,7 +148,7 @@ class PersonalUMController extends Controller
             $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
         }
 
-        $fileName = 'Edades-'.$fechaInicio.'-'.$fechaFin.'.csv';
+        $fileName = 'Reporte__SFUM_Edades-'.$fechaInicio.'-'.$fechaFin.'.csv';
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -190,7 +190,7 @@ class PersonalUMController extends Controller
             $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
         }
 
-        $fileName = 'Edades-'.$fechaInicio.'-'.$fechaFin.'.xls';
+        $fileName = 'Reporte__SFUM_Edades-'.$fechaInicio.'-'.$fechaFin.'.xls';
 
         $headers = array(
             "Content-type"        => "application/vnd.ms-excel",
@@ -231,7 +231,7 @@ class PersonalUMController extends Controller
         }
 
         $pdf = PDF::loadView('Personal.Reportes.Plantillas.Causas', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
-        return $pdf->download('Reporte-Causas.pdf');
+        return $pdf->download('Reporte__SFUM_Reporte-Causas.pdf');
     }
     public function reporteCausasCSV($fechaInicio, $fechaFin){
 
@@ -245,7 +245,7 @@ class PersonalUMController extends Controller
 
         //$pdf = PDF::loadView('Personal.Reportes.Plantillas.Causas', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
 
-        $fileName = 'Causas-'.$fechaInicio.'-'.$fechaFin.'.csv';
+        $fileName = 'Reporte__SFUM_Causas-'.$fechaInicio.'-'.$fechaFin.'.csv';
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -283,7 +283,7 @@ class PersonalUMController extends Controller
             $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
         }
 
-        $fileName = 'Causas-'.$fechaInicio.'-'.$fechaFin.'.xls';
+        $fileName = 'Reporte__SFUM_Causas-'.$fechaInicio.'-'.$fechaFin.'.xls';
 
         $headers = array(
             "Content-type"        => "application/vnd.ms-excel",
@@ -324,7 +324,7 @@ class PersonalUMController extends Controller
         }
 
         $pdf = PDF::loadView('Personal.Reportes.Plantillas.Lugares', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
-        return $pdf->download('Reporte-Lugares.pdf');
+        return $pdf->download('Reporte__SFUM_Reporte-Lugares.pdf');
     }
     public function reporteLugaresCSV($fechaInicio, $fechaFin){
 
@@ -336,7 +336,7 @@ class PersonalUMController extends Controller
             $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
         }
 
-        $fileName = 'Lugares-'.$fechaInicio.'-'.$fechaFin.'.csv';
+        $fileName = 'Reporte__SFUM_Lugares-'.$fechaInicio.'-'.$fechaFin.'.csv';
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -376,7 +376,7 @@ class PersonalUMController extends Controller
             $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
         }
 
-        $fileName = 'Lugares-'.$fechaInicio.'-'.$fechaFin.'.xls';
+        $fileName = 'Reporte__SFUM_Lugares-'.$fechaInicio.'-'.$fechaFin.'.xls';
 
         $headers = array(
             "Content-type"        => "application/vnd.ms-excel",
@@ -441,9 +441,10 @@ class PersonalUMController extends Controller
         }
 
         $pdf = PDF::loadView('Personal.Reportes.Plantillas.General', ['Casos' => $casos, 'Conteo' => $conteo, 'Conteo_funerarias' => $conteo_funerarias, 'Departamentos' => $departamentos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin])->setPaper('a2', 'landscape');
-        return $pdf->download('Reporte-General.pdf');
+        return $pdf->download('Reporte__SFUM_Reporte-General.pdf');
     }
     public function reporteGeneralCSV($fechaInicio, $fechaFin){
+        ;
         setlocale(LC_TIME, "spanish");
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
@@ -453,7 +454,7 @@ class PersonalUMController extends Controller
             $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
         }
 
-        $fileName = 'General-'.$fechaInicio.'-'.$fechaFin.'.csv';
+        $fileName = 'Reporte__SFUM_General-'.$fechaInicio.'-'.$fechaFin.'.csv';
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -517,7 +518,7 @@ class PersonalUMController extends Controller
             $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
         }
 
-        $fileName = 'General-'.$fechaInicio.'-'.$fechaFin.'.xls';
+        $fileName = 'Reporte__SFUM_General-'.$fechaInicio.'-'.$fechaFin.'.xls';
 
         $headers = array(
             "Content-type"        => "application/vnd.ms-excel",
@@ -560,6 +561,7 @@ class PersonalUMController extends Controller
     }
 
     public function CSVConteoCausas($fechaInicio, $fechaFin){
+
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
             $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
@@ -568,7 +570,7 @@ class PersonalUMController extends Controller
             $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
         }
 
-        $fileName = 'Conteo-Causas-'.$fechaInicio.'-'.$fechaFin.'.csv';
+        $fileName = 'Reporte__SFUM_Conteo-Causas-'.$fechaInicio.'-'.$fechaFin.'.csv';
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -606,7 +608,7 @@ class PersonalUMController extends Controller
             $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
         }
 
-        $fileName = 'Conteo-Causas-'.$fechaInicio.'-'.$fechaFin.'.xls';
+        $fileName = 'Reporte__SFUM_Conteo-Causas-'.$fechaInicio.'-'.$fechaFin.'.xls';
 
         $headers = array(
             "Content-type"        => "application/vnd.ms-excel",
@@ -637,6 +639,7 @@ class PersonalUMController extends Controller
     }
 
     public function CSVConteoFunerarias($fechaInicio, $fechaFin){
+
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
             $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
@@ -645,7 +648,7 @@ class PersonalUMController extends Controller
             $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
         }
 
-        $fileName = 'Conteo-Funerarias-'.$fechaInicio.'-'.$fechaFin.'.csv';
+        $fileName = 'Reporte__SFUM_Conteo-Funerarias-'.$fechaInicio.'-'.$fechaFin.'.csv';
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -683,7 +686,7 @@ class PersonalUMController extends Controller
             $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
         }
 
-        $fileName = 'Conteo-Funerarias-'.$fechaInicio.'-'.$fechaFin.'.xls';
+        $fileName = 'Reporte__SFUM_Conteo-Funerarias-'.$fechaInicio.'-'.$fechaFin.'.xls';
 
         $headers = array(
             "Content-type"        => "application/vnd.ms-excel",
@@ -729,7 +732,7 @@ class PersonalUMController extends Controller
             }
         }
         
-        $fileName = 'Causas-Deptos-'.$fechaInicio.'-'.$fechaFin.'.csv';
+        $fileName = 'Reporte__SFUM_Causas-Deptos-'.$fechaInicio.'-'.$fechaFin.'.csv';
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -778,7 +781,7 @@ class PersonalUMController extends Controller
             }
         }
 
-        $fileName = 'Causas-Deptos-'.$fechaInicio.'-'.$fechaFin.'.xls';
+        $fileName = 'Reporte__SFUM_Causas-Deptos-'.$fechaInicio.'-'.$fechaFin.'.xls';
 
         $headers = array(
             "Content-type"        => "application/vnd.ms-excel",
@@ -834,11 +837,12 @@ class PersonalUMController extends Controller
         //}
         $pagos = HistorialPagos::where('caso', $id)->get();
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Personal.Reportes.Plantillas.Caso', ['Caso' => $caso, 'Archivos' => $imagenes, 'Pagos' => $pagos])->setPaper('a4', 'portrait');
-        return $pdf->download('Caso-'.$id.'.pdf');
+        return $pdf->download('Reporte__SFUM_Caso-'.$id.'.pdf');
         //return view('Personal.Reportes.Plantillas.Caso', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos]);
     }
 
     public function Graficas(){
+
 
         $keys_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->orderBy('Funeraria_Nombre', 'asc')->pluck('Funeraria_Nombre');
 
@@ -890,6 +894,11 @@ class PersonalUMController extends Controller
 
         $evaluacion = Casos::avg('Evaluacion');
 
+        $departamentoObject = Casos::select('Departamento', DB::raw('count(id) as total'))
+                 ->groupBy('Departamento')
+                 ->get();
+
+
         $conteos = [
             'Conteo_Funerarias' => $conteo_funerarias,
             'Conteo_Casos' => $conteo_casos,
@@ -904,7 +913,7 @@ class PersonalUMController extends Controller
 
         //return $muertes_conteo;
 
-        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Conteos' => $conteos]);
+        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Conteos' => $conteos ,'departamento' =>$departamentoObject]);
     }
 
     public function GraficasPorFecha($fechaInicio, $fechaFin){
@@ -961,6 +970,8 @@ class PersonalUMController extends Controller
             $pagado = Casos::whereDate('Fecha', '=', $fechaInicio)->sum('Pagado');
 
             $evaluacion = Casos::whereDate('Fecha', '=', $fechaInicio)->avg('Evaluacion');
+            $departamentoObject = Casos::select('Departamento', DB::raw('count(id) as total'))->whereDate('Fecha', '=', $fechaInicio)->groupBy('Departamento')->get();
+
         }else{
             $keys_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Funeraria_Nombre', 'asc')->pluck('Funeraria_Nombre');
 
@@ -1011,6 +1022,8 @@ class PersonalUMController extends Controller
             $pagado = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->sum('Pagado');
 
             $evaluacion = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->avg('Evaluacion');
+            $departamentoObject = Casos::select('Departamento', DB::raw('count(id) as total'))->whereBetween('Fecha', [$fechaInicio, $fechaFin])->groupBy('Departamento')->get();
+
             
         }
 
@@ -1022,13 +1035,15 @@ class PersonalUMController extends Controller
             'Pendiente' => $pendiente,
             'Pagado' => $pagado,
             'Evaluacion' => round($evaluacion),
-            'Satisfaccion' => round(round($evaluacion) * 100 / $conteo_casos),
+            'Satisfaccion' => ($conteo_casos > 0)?round(round($evaluacion) * 100 / $conteo_casos):0,
             'Aseguradoras' => '2',
         ];
 
         //return $muertes_conteo;
 
-        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Fecha_Inicio' => $fechaInicio, 'Fecha_Fin' => $fechaFin, 'Conteos' => $conteos]);
+        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Fecha_Inicio' => $fechaInicio, 'Fecha_Fin' => $fechaFin, 'Conteos' => $conteos,
+                'departamento' => $departamentoObject
+            ]);
     }
 
     public function configuraciones(){

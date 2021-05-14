@@ -130,6 +130,22 @@
                 <div class="card-body">
                     <h5 class="card-heading">Departamentos</h5>
                     <small>Servicios por departamento</small>
+                    @if($departamento && isset($departamento))
+                        <div class="table-responsive">
+                            <table class="table table-bordered  table-striped">
+                                <tr>
+                                    <th>Departamento</th>
+                                    <th>Count</th>
+                                </tr>
+                                @foreach($departamento as $departament)
+                                    <tr>
+                                        <td>{{$departament['Departamento']}}</td>
+                                        <td>{{$departament['total']}}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
