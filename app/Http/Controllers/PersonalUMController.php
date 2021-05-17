@@ -118,34 +118,34 @@ class PersonalUMController extends Controller
     public function verReportes(){
         return view('Personal.Reportes.Principal');
     }
-    public function reporteEdades($fechaInicio, $fechaFin){
+    public function reporteEdades($fechaInicio, $fechaFin, $aseguradora){
         
         $fechaInicio = date($fechaInicio);
         $fechaFin = date($fechaFin);
 
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
         }
 
         $pdf = PDF::loadView('Personal.Reportes.Plantillas.Edades', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
         return $pdf->download('Reporte__SFUM_Reporte-Edades.pdf');
         
     }
-    public function reporteEdadesCSV($fechaInicio, $fechaFin){
+    public function reporteEdadesCSV($fechaInicio, $fechaFin, $aseguradora){
         
         $fechaInicio = date($fechaInicio);
         $fechaFin = date($fechaFin);
 
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
         }
 
         $fileName = 'Reporte__SFUM_Edades-'.$fechaInicio.'-'.$fechaFin.'.csv';
@@ -178,16 +178,16 @@ class PersonalUMController extends Controller
         
     }
 
-    public function reporteEdadesExcel($fechaInicio, $fechaFin){
+    public function reporteEdadesExcel($fechaInicio, $fechaFin, $aseguradora){
         $fechaInicio = date($fechaInicio);
         $fechaFin = date($fechaFin);
 
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
         }
 
         $fileName = 'Reporte__SFUM_Edades-'.$fechaInicio.'-'.$fechaFin.'.xls';
@@ -220,27 +220,27 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    public function reporteCausas($fechaInicio, $fechaFin){
+    public function reporteCausas($fechaInicio, $fechaFin, $aseguradora){
 
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
         }
 
         $pdf = PDF::loadView('Personal.Reportes.Plantillas.Causas', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
         return $pdf->download('Reporte__SFUM_Reporte-Causas.pdf');
     }
-    public function reporteCausasCSV($fechaInicio, $fechaFin){
+    public function reporteCausasCSV($fechaInicio, $fechaFin, $aseguradora){
 
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
         }
 
         //$pdf = PDF::loadView('Personal.Reportes.Plantillas.Causas', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
@@ -274,13 +274,13 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    public function reporteCausasExcel($fechaInicio, $fechaFin){
+    public function reporteCausasExcel($fechaInicio, $fechaFin, $aseguradora){
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
         }
 
         $fileName = 'Reporte__SFUM_Causas-'.$fechaInicio.'-'.$fechaFin.'.xls';
@@ -313,27 +313,27 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    public function reporteLugares($fechaInicio, $fechaFin){
+    public function reporteLugares($fechaInicio, $fechaFin, $aseguradora){
 
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
         }
 
         $pdf = PDF::loadView('Personal.Reportes.Plantillas.Lugares', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
         return $pdf->download('Reporte__SFUM_Reporte-Lugares.pdf');
     }
-    public function reporteLugaresCSV($fechaInicio, $fechaFin){
+    public function reporteLugaresCSV($fechaInicio, $fechaFin, $aseguradora){
 
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
         }
 
         $fileName = 'Reporte__SFUM_Lugares-'.$fechaInicio.'-'.$fechaFin.'.csv';
@@ -367,13 +367,13 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    public function reporteLugaresExcel($fechaInicio, $fechaFin){
+    public function reporteLugaresExcel($fechaInicio, $fechaFin, $aseguradora){
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
         }
 
         $fileName = 'Reporte__SFUM_Lugares-'.$fechaInicio.'-'.$fechaFin.'.xls';
@@ -408,50 +408,54 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    public function reporteGeneral($fechaInicio, $fechaFin){
+    public function reporteGeneral($fechaInicio, $fechaFin, $aseguradora){
 
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
 
-            $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
 
-            $conteo_funerarias = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+            $conteo_funerarias = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
 
-            $departamentos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
+            $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
 
             foreach($departamentos as $departamento){
-                $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
                 $departamento->Causas_arreglo = $causas_deptos;
             }
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
 
-            $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
 
-            $conteo_funerarias = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+            $conteo_funerarias = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
 
-            $departamentos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
+            $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
 
             foreach($departamentos as $departamento){
-                $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
                 $departamento->Causas_arreglo = $causas_deptos;
             }
         }
 
-        $pdf = PDF::loadView('Personal.Reportes.Plantillas.General', ['Casos' => $casos, 'Conteo' => $conteo, 'Conteo_funerarias' => $conteo_funerarias, 'Departamentos' => $departamentos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin])->setPaper('a2', 'landscape');
+        if($aseguradora == '7'){
+            $pdf = PDF::loadView('Personal.Reportes.Plantillas.General_SeguRed', ['Casos' => $casos, 'Conteo' => $conteo, 'Conteo_funerarias' => $conteo_funerarias, 'Departamentos' => $departamentos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin])->setPaper('a2', 'landscape');    
+        }else{
+            $pdf = PDF::loadView('Personal.Reportes.Plantillas.General', ['Casos' => $casos, 'Conteo' => $conteo, 'Conteo_funerarias' => $conteo_funerarias, 'Departamentos' => $departamentos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin])->setPaper('a2', 'landscape');
+        }
         return $pdf->download('Reporte__SFUM_Reporte-General.pdf');
     }
-    public function reporteGeneralCSV($fechaInicio, $fechaFin){
+    public function reporteGeneralCSV($fechaInicio, $fechaFin, $aseguradora){
         ;
         setlocale(LC_TIME, "spanish");
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
         }
 
         $fileName = 'Reporte__SFUM_General-'.$fechaInicio.'-'.$fechaFin.'.csv';
@@ -464,42 +468,86 @@ class PersonalUMController extends Controller
             "Expires"             => "0"
         );
 
-        $columns = array('Caso', 'Mes', 'Estudiante', 'Nombre Estudiante', 'Tutor', 'Municipio', 'Departamento', 'Causa de muerte', 'Causa', 'Descripcion Causa', 'Funeraria', 'Fecha', 'Evaluacion', 'Precio');
+        if($aseguradora == '7'){
+            $columns = array('Caso', 'Mes', 'Estudiante', 'Nombre Estudiante', 'Tutor', 'Municipio', 'Departamento', 'Causa de muerte', 'Causa', 'Descripcion Causa', 'Funeraria', 'Fecha', 'Evaluacion', 'Precio', 'Certificado', 'Poliza', 'Tipo Asegurado');
+        }else{
+            $columns = array('Caso', 'Mes', 'Estudiante', 'Nombre Estudiante', 'Tutor', 'Municipio', 'Departamento', 'Causa de muerte', 'Causa', 'Descripcion Causa', 'Funeraria', 'Fecha', 'Evaluacion', 'Precio');
+        }
 
-        $callback = function() use($casos, $columns) {
+        $callback = function() use($casos, $columns, $aseguradora) {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
 
-            foreach ($casos as $caso) {
-                $row['Caso']  = $caso->id;
-                $row['Mes']  = date('F', strtotime($caso->Fecha));
-                $row['Estudiante']  = $caso->Codigo;
-                $row['Nombre Estudiante']  = $caso->Nombre;
-                $row['Tutor']  = $caso->Tutor;
-                $row['Municipio']  = strtoupper($caso->Municipio);
-                $row['Departamento']  = strtoupper($caso->Departamento);
-                $row['Causa de muerte']  = $caso->Causa;
-                $row['Causa']  = $caso->Causa_Desc;
-                $row['Descripcion Causa']  = $caso->Causa_Especifica;
-                $row['Funeraria']  = $caso->Funeraria_Nombre;
-                $row['Fecha']  = $caso->Fecha;
-                $row['Evaluacion']  = $caso->Evaluacion;
-                $row['Precio']  = $caso->Costo;
-
-                fputcsv($file, array($row['Caso'],
-                $row['Mes'],
-                $row['Estudiante'],
-                $row['Nombre Estudiante'],
-                $row['Tutor'],
-                $row['Municipio'],
-                $row['Departamento'],
-                $row['Causa de muerte'],
-                $row['Causa'],
-                $row['Descripcion Causa'],
-                $row['Funeraria'],
-                $row['Fecha'],
-                $row['Evaluacion'],
-                $row['Precio']));
+            if($aseguradora == '7'){
+                foreach ($casos as $caso) {
+                    $row['Caso']  = $caso->id;
+                    $row['Mes']  = date('F', strtotime($caso->Fecha));
+                    $row['Estudiante']  = $caso->Codigo;
+                    $row['Nombre Estudiante']  = $caso->Nombre;
+                    $row['Tutor']  = $caso->Tutor;
+                    $row['Municipio']  = strtoupper($caso->Municipio);
+                    $row['Departamento']  = strtoupper($caso->Departamento);
+                    $row['Causa de muerte']  = $caso->Causa;
+                    $row['Causa']  = $caso->Causa_Desc;
+                    $row['Descripcion Causa']  = $caso->Causa_Especifica;
+                    $row['Funeraria']  = $caso->Funeraria_Nombre;
+                    $row['Fecha']  = $caso->Fecha;
+                    $row['Evaluacion']  = $caso->Evaluacion;
+                    $row['Precio']  = $caso->Costo;
+                    $row['Certificado']  = $caso->Certificado;
+                    $row['Poliza']  = $caso->Poliza;
+                    $row['TipoAsegurado']  = $caso->TipoAsegurado;
+    
+                    fputcsv($file, array($row['Caso'],
+                    $row['Mes'],
+                    $row['Estudiante'],
+                    $row['Nombre Estudiante'],
+                    $row['Tutor'],
+                    $row['Municipio'],
+                    $row['Departamento'],
+                    $row['Causa de muerte'],
+                    $row['Causa'],
+                    $row['Descripcion Causa'],
+                    $row['Funeraria'],
+                    $row['Fecha'],
+                    $row['Evaluacion'],
+                    $row['Precio'],
+                    $row['Certificado'],
+                    $row['Poliza'],
+                    $row['TipoAsegurado']));
+                }
+            }else{
+                foreach ($casos as $caso) {
+                    $row['Caso']  = $caso->id;
+                    $row['Mes']  = date('F', strtotime($caso->Fecha));
+                    $row['Estudiante']  = $caso->Codigo;
+                    $row['Nombre Estudiante']  = $caso->Nombre;
+                    $row['Tutor']  = $caso->Tutor;
+                    $row['Municipio']  = strtoupper($caso->Municipio);
+                    $row['Departamento']  = strtoupper($caso->Departamento);
+                    $row['Causa de muerte']  = $caso->Causa;
+                    $row['Causa']  = $caso->Causa_Desc;
+                    $row['Descripcion Causa']  = $caso->Causa_Especifica;
+                    $row['Funeraria']  = $caso->Funeraria_Nombre;
+                    $row['Fecha']  = $caso->Fecha;
+                    $row['Evaluacion']  = $caso->Evaluacion;
+                    $row['Precio']  = $caso->Costo;
+    
+                    fputcsv($file, array($row['Caso'],
+                    $row['Mes'],
+                    $row['Estudiante'],
+                    $row['Nombre Estudiante'],
+                    $row['Tutor'],
+                    $row['Municipio'],
+                    $row['Departamento'],
+                    $row['Causa de muerte'],
+                    $row['Causa'],
+                    $row['Descripcion Causa'],
+                    $row['Funeraria'],
+                    $row['Fecha'],
+                    $row['Evaluacion'],
+                    $row['Precio']));
+                }
             }
 
             fclose($file);
@@ -508,14 +556,14 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    public function ExcelReporteGeneral($fechaInicio, $fechaFin){
+    public function ExcelReporteGeneral($fechaInicio, $fechaFin, $aseguradora){
         setlocale(LC_TIME, "spanish");
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
         }else{
             //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
+            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
         }
 
         $fileName = 'Reporte__SFUM_General-'.$fechaInicio.'-'.$fechaFin.'.xls';
@@ -528,46 +576,74 @@ class PersonalUMController extends Controller
             "Expires"             => "0"
         );
 
-        $callback = function() use($casos) {
+        $callback = function() use($casos, $aseguradora) {
 
             $flag = false;
 
-            foreach($casos as $caso){
-                $row['Caso']  = $caso->id;
-                $row['Mes']  = date('F', strtotime($caso->Fecha));
-                $row['Estudiante']  = $caso->Codigo;
-                $row['Nombre Estudiante']  = utf8_decode($caso->Nombre);
-                $row['Tutor']  = utf8_decode($caso->Tutor);
-                $row['Municipio']  = strtoupper($caso->Municipio);
-                $row['Departamento']  = strtoupper($caso->Departamento);
-                $row['Causa de muerte']  = utf8_decode($caso->Causa);
-                $row['Causa']  = utf8_decode($caso->Causa_Desc);
-                $row['Descripcion Causa']  = utf8_decode($caso->Causa_Especifica);
-                $row['Funeraria']  = utf8_decode($caso->Funeraria_Nombre);
-                $row['Fecha']  = $caso->Fecha;
-                $row['Evaluacion']  = $caso->Evaluacion;
-                $row['Precio']  = $caso->Costo;
-
-                if(!$flag){
-                    echo implode("\t", array_keys($row)) . "\r\n";
-                    $flag = true;
+            if($aseguradora == '7'){
+                foreach($casos as $caso){
+                    $row['Caso']  = $caso->id;
+                    $row['Mes']  = date('F', strtotime($caso->Fecha));
+                    $row['Estudiante']  = $caso->Codigo;
+                    $row['Nombre Estudiante']  = utf8_decode($caso->Nombre);
+                    $row['Tutor']  = utf8_decode($caso->Tutor);
+                    $row['Municipio']  = strtoupper($caso->Municipio);
+                    $row['Departamento']  = strtoupper($caso->Departamento);
+                    $row['Causa de muerte']  = utf8_decode($caso->Causa);
+                    $row['Causa']  = utf8_decode($caso->Causa_Desc);
+                    $row['Descripcion Causa']  = utf8_decode($caso->Causa_Especifica);
+                    $row['Funeraria']  = utf8_decode($caso->Funeraria_Nombre);
+                    $row['Fecha']  = $caso->Fecha;
+                    $row['Evaluacion']  = $caso->Evaluacion;
+                    $row['Precio']  = $caso->Costo;
+                    $row['Certificado']  = $caso->Certificado;
+                    $row['Poliza']  = $caso->Poliza;
+                    $row['Tipo Asegurado']  = $caso->TipoAsegurado;
+    
+                    if(!$flag){
+                        echo implode("\t", array_keys($row)) . "\r\n";
+                        $flag = true;
+                    }
+                    echo implode("\t", array_values($row)) . "\r\n";
                 }
-                echo implode("\t", array_values($row)) . "\r\n";
-            }
+            }else{
+                foreach($casos as $caso){
+                    $row['Caso']  = $caso->id;
+                    $row['Mes']  = date('F', strtotime($caso->Fecha));
+                    $row['Estudiante']  = $caso->Codigo;
+                    $row['Nombre Estudiante']  = utf8_decode($caso->Nombre);
+                    $row['Tutor']  = utf8_decode($caso->Tutor);
+                    $row['Municipio']  = strtoupper($caso->Municipio);
+                    $row['Departamento']  = strtoupper($caso->Departamento);
+                    $row['Causa de muerte']  = utf8_decode($caso->Causa);
+                    $row['Causa']  = utf8_decode($caso->Causa_Desc);
+                    $row['Descripcion Causa']  = utf8_decode($caso->Causa_Especifica);
+                    $row['Funeraria']  = utf8_decode($caso->Funeraria_Nombre);
+                    $row['Fecha']  = $caso->Fecha;
+                    $row['Evaluacion']  = $caso->Evaluacion;
+                    $row['Precio']  = $caso->Costo;
+    
+                    if(!$flag){
+                        echo implode("\t", array_keys($row)) . "\r\n";
+                        $flag = true;
+                    }
+                    echo implode("\t", array_values($row)) . "\r\n";
+                }
+            }           
 
         };
 
         return response()->stream($callback, 200, $headers);
     }
 
-    public function CSVConteoCausas($fechaInicio, $fechaFin){
+    public function CSVConteoCausas($fechaInicio, $fechaFin, $aseguradora){
 
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
 
         }else{
-            $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
         }
 
         $fileName = 'Reporte__SFUM_Conteo-Causas-'.$fechaInicio.'-'.$fechaFin.'.csv';
@@ -599,13 +675,13 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    public function ExcelConteoCausas($fechaInicio, $fechaFin){
+    public function ExcelConteoCausas($fechaInicio, $fechaFin, $aseguradora){
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
 
         }else{
-            $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
         }
 
         $fileName = 'Reporte__SFUM_Conteo-Causas-'.$fechaInicio.'-'.$fechaFin.'.xls';
@@ -638,14 +714,14 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    public function CSVConteoFunerarias($fechaInicio, $fechaFin){
+    public function CSVConteoFunerarias($fechaInicio, $fechaFin, $aseguradora){
 
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
 
         }else{
-            $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
         }
 
         $fileName = 'Reporte__SFUM_Conteo-Funerarias-'.$fechaInicio.'-'.$fechaFin.'.csv';
@@ -677,13 +753,13 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    public function ExcelConteoFunerarias($fechaInicio, $fechaFin){
+    public function ExcelConteoFunerarias($fechaInicio, $fechaFin, $aseguradora){
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
 
         }else{
-            $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
         }
 
         $fileName = 'Reporte__SFUM_Conteo-Funerarias-'.$fechaInicio.'-'.$fechaFin.'.xls';
@@ -716,18 +792,18 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    public function CSVCausasDeptos($fechaInicio, $fechaFin){
+    public function CSVCausasDeptos($fechaInicio, $fechaFin, $aseguradora){
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $departamentos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
+            $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
             foreach($departamentos as $departamento){
-                $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
                 $departamento->Causas_arreglo = $causas_deptos;
             }
         }else{
-            $departamentos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
+            $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
             foreach($departamentos as $departamento){
-                $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
                 $departamento->Causas_arreglo = $causas_deptos;
             }
         }
@@ -765,18 +841,18 @@ class PersonalUMController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    public function ExcelCausasDeptos($fechaInicio, $fechaFin){
+    public function ExcelCausasDeptos($fechaInicio, $fechaFin, $aseguradora){
         if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
-            $departamentos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
+            $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
             foreach($departamentos as $departamento){
-                $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
                 $departamento->Causas_arreglo = $causas_deptos;
             }
         }else{
-            $departamentos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
+            $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
             foreach($departamentos as $departamento){
-                $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
                 $departamento->Causas_arreglo = $causas_deptos;
             }
         }
@@ -898,6 +974,9 @@ class PersonalUMController extends Controller
                  ->groupBy('Departamento')
                  ->get();
 
+        $funerariasCasos = Casos::whereNotNull('Funeraria')->select('Funeraria_Nombre')->groupBy('Funeraria_Nombre')->get();
+
+        $deptosCasos = Casos::select('Departamento')->groupBy('Departamento')->get();
 
         $conteos = [
             'Conteo_Funerarias' => $conteo_funerarias,
@@ -913,12 +992,238 @@ class PersonalUMController extends Controller
 
         //return $muertes_conteo;
 
-        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Conteos' => $conteos ,'departamento' =>$departamentoObject]);
+        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Conteos' => $conteos ,'departamento' =>$departamentoObject, 'select_funerarias' => $funerariasCasos, 'select_deptos' => $deptosCasos]);
     }
 
-    public function GraficasPorFecha($fechaInicio, $fechaFin){
+    public function GraficasPorFecha($fechaInicio, $fechaFin, $funeraria, $departamento){
 
-        if($fechaInicio != '' && $fechaFin == '0'){
+        $funerariasCasos = Casos::whereNotNull('Funeraria')->select('Funeraria_Nombre')->groupBy('Funeraria_Nombre')->get();
+
+        $deptosCasos = Casos::select('Departamento')->groupBy('Departamento')->get();
+
+        $todas = false;
+
+        if($funeraria == 'Todas' && $departamento == 'Todos'){
+            $todas = true;
+        }else{
+            $todas = false;
+        }
+
+        /*if(isset($departamento) && $funeraria == 0 && $fechaInicio != '' && $fechaFin == '0'){
+            $keys_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->pluck('Funeraria_Nombre');
+
+            $servicios_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('count(*) as total'))->get();
+            $array_servicios = array();
+            foreach($servicios_funerarias as $servicios){
+                array_push($array_servicios, $servicios->total);
+            }
+
+            $servicios_conteo = collect($array_servicios);
+
+            $array_promedio = array();
+            $promedio_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('avg(Evaluacion) as total'))->get();
+            foreach($promedio_funerarias as $promedio){
+                array_push($array_promedio, $promedio->total);
+            }
+
+            $promedio_conteo = collect($array_promedio);
+
+            //$promedio_funerarias = Casos::selectRaw('AVG(Eval)')
+
+            $keys_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'asc')->pluck('Causa');
+
+            $conteo_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'asc')->select('Causa', DB::raw('count(*) as total'))->get();
+            $array_conteo_muerte = array();
+            foreach($conteo_tipos_muerte as $conteo){
+                array_push($array_conteo_muerte, $conteo->total);
+            }
+
+            $muertes_conteo = collect($array_conteo_muerte);
+
+            $conteo_funerarias = User::with('roles')->get();
+
+            $conteo_funerarias = $conteo_funerarias->reject(function ($user, $key) {
+                return $user->hasRole(['Super Admin', 'Personal', 'Agente']);
+            });
+
+            $conteo_funerarias = $conteo_funerarias->count();
+
+            $conteo_casos = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Departamento', $departamento)->count();
+
+            $promedio_edades = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Departamento', $departamento)->avg('Edad');
+
+            $costos = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Departamento', $departamento)->sum('Costo');
+
+            $pendiente = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Departamento', $departamento)->sum('Pendiente');
+
+            $pagado = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Departamento', $departamento)->sum('Pagado');
+
+            $evaluacion = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Departamento', $departamento)->avg('Evaluacion');
+            $departamentoObject = Casos::select('Departamento', DB::raw('count(id) as total'))->where('Departamento', $departamento)->whereDate('Fecha', '=', $fechaInicio)->groupBy('Departamento')->get();
+            
+            return 'variante 1';
+        }elseif(isset($departamento) && isset($funeraria)  && $fechaInicio != '' && $fechaFin == '0'){
+            $keys_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->pluck('Funeraria_Nombre');
+
+            $servicios_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('count(*) as total'))->get();
+            $array_servicios = array();
+            foreach($servicios_funerarias as $servicios){
+                array_push($array_servicios, $servicios->total);
+            }
+
+            $servicios_conteo = collect($array_servicios);
+
+            $array_promedio = array();
+            $promedio_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('avg(Evaluacion) as total'))->get();
+            foreach($promedio_funerarias as $promedio){
+                array_push($array_promedio, $promedio->total);
+            }
+
+            $promedio_conteo = collect($array_promedio);
+
+            //$promedio_funerarias = Casos::selectRaw('AVG(Eval)')
+
+            $keys_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'asc')->pluck('Causa');
+
+            $conteo_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'asc')->select('Causa', DB::raw('count(*) as total'))->get();
+            $array_conteo_muerte = array();
+            foreach($conteo_tipos_muerte as $conteo){
+                array_push($array_conteo_muerte, $conteo->total);
+            }
+
+            $muertes_conteo = collect($array_conteo_muerte);
+
+            $conteo_funerarias = User::with('roles')->get();
+
+            $conteo_funerarias = $conteo_funerarias->reject(function ($user, $key) {
+                return $user->hasRole(['Super Admin', 'Personal', 'Agente']);
+            });
+
+            $conteo_funerarias = $conteo_funerarias->count();
+
+            $conteo_casos = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->count();
+
+            $promedio_edades = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->avg('Edad');
+
+            $costos = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->sum('Costo');
+
+            $pendiente = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->sum('Pendiente');
+
+            $pagado = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->sum('Pagado');
+
+            $evaluacion = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->avg('Evaluacion');
+            $departamentoObject = Casos::select('Departamento', DB::raw('count(id) as total'))->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->whereDate('Fecha', '=', $fechaInicio)->groupBy('Departamento')->get();
+
+            return 'variante 2';
+        }elseif($departamento == 0 && isset($funeraria) && $fechaInicio != '' && $fechaFin == '0'){
+            $keys_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->pluck('Funeraria_Nombre');
+
+            $servicios_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('count(*) as total'))->get();
+            $array_servicios = array();
+            foreach($servicios_funerarias as $servicios){
+                array_push($array_servicios, $servicios->total);
+            }
+
+            $servicios_conteo = collect($array_servicios);
+
+            $array_promedio = array();
+            $promedio_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('avg(Evaluacion) as total'))->get();
+            foreach($promedio_funerarias as $promedio){
+                array_push($array_promedio, $promedio->total);
+            }
+
+            $promedio_conteo = collect($array_promedio);
+
+            //$promedio_funerarias = Casos::selectRaw('AVG(Eval)')
+
+            $keys_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'asc')->pluck('Causa');
+
+            $conteo_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'asc')->select('Causa', DB::raw('count(*) as total'))->get();
+            $array_conteo_muerte = array();
+            foreach($conteo_tipos_muerte as $conteo){
+                array_push($array_conteo_muerte, $conteo->total);
+            }
+
+            $muertes_conteo = collect($array_conteo_muerte);
+
+            $conteo_funerarias = User::with('roles')->get();
+
+            $conteo_funerarias = $conteo_funerarias->reject(function ($user, $key) {
+                return $user->hasRole(['Super Admin', 'Personal', 'Agente']);
+            });
+
+            $conteo_funerarias = $conteo_funerarias->count();
+
+            $conteo_casos = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Funeraria_Nombre', $funeraria)->count();
+
+            $promedio_edades = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Funeraria_Nombre', $funeraria)->avg('Edad');
+
+            $costos = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Funeraria_Nombre', $funeraria)->sum('Costo');
+
+            $pendiente = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Funeraria_Nombre', $funeraria)->sum('Pendiente');
+
+            $pagado = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Funeraria_Nombre', $funeraria)->sum('Pagado');
+
+            $evaluacion = Casos::whereDate('Fecha', '=', $fechaInicio)->where('Funeraria_Nombre', $funeraria)->avg('Evaluacion');
+            $departamentoObject = Casos::select('Departamento', DB::raw('count(id) as total'))->where('Funeraria_Nombre', $funeraria)->whereDate('Fecha', '=', $fechaInicio)->groupBy('Departamento')->get();
+
+            return 'variante 3';
+        }elseif($departamento == 0 && $funeraria == 0 && $fechaInicio != '' && $fechaFin == '0'){
+            $keys_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->pluck('Funeraria_Nombre');
+
+            $servicios_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('count(*) as total'))->get();
+            $array_servicios = array();
+            foreach($servicios_funerarias as $servicios){
+                array_push($array_servicios, $servicios->total);
+            }
+
+            $servicios_conteo = collect($array_servicios);
+
+            $array_promedio = array();
+            $promedio_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('avg(Evaluacion) as total'))->get();
+            foreach($promedio_funerarias as $promedio){
+                array_push($array_promedio, $promedio->total);
+            }
+
+            $promedio_conteo = collect($array_promedio);
+
+            //$promedio_funerarias = Casos::selectRaw('AVG(Eval)')
+
+            $keys_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'asc')->pluck('Causa');
+
+            $conteo_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'asc')->select('Causa', DB::raw('count(*) as total'))->get();
+            $array_conteo_muerte = array();
+            foreach($conteo_tipos_muerte as $conteo){
+                array_push($array_conteo_muerte, $conteo->total);
+            }
+
+            $muertes_conteo = collect($array_conteo_muerte);
+
+            $conteo_funerarias = User::with('roles')->get();
+
+            $conteo_funerarias = $conteo_funerarias->reject(function ($user, $key) {
+                return $user->hasRole(['Super Admin', 'Personal', 'Agente']);
+            });
+
+            $conteo_funerarias = $conteo_funerarias->count();
+
+            $conteo_casos = Casos::whereDate('Fecha', '=', $fechaInicio)->count();
+
+            $promedio_edades = Casos::whereDate('Fecha', '=', $fechaInicio)->avg('Edad');
+
+            $costos = Casos::whereDate('Fecha', '=', $fechaInicio)->sum('Costo');
+
+            $pendiente = Casos::whereDate('Fecha', '=', $fechaInicio)->sum('Pendiente');
+
+            $pagado = Casos::whereDate('Fecha', '=', $fechaInicio)->sum('Pagado');
+
+            $evaluacion = Casos::whereDate('Fecha', '=', $fechaInicio)->avg('Evaluacion');
+            $departamentoObject = Casos::select('Departamento', DB::raw('count(id) as total'))->whereDate('Fecha', '=', $fechaInicio)->groupBy('Departamento')->get();
+            
+            return 'variante 4';
+        }*/
+
+        /*if($fechaInicio != '' && $fechaFin == '0'){
             //Seleccionar de un sólo día
 
             $keys_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Funeraria_Nombre', 'asc')->pluck('Funeraria_Nombre');
@@ -1024,7 +1329,115 @@ class PersonalUMController extends Controller
             $evaluacion = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->avg('Evaluacion');
             $departamentoObject = Casos::select('Departamento', DB::raw('count(id) as total'))->whereBetween('Fecha', [$fechaInicio, $fechaFin])->groupBy('Departamento')->get();
 
+            $funerariasCasos = Casos::whereNotNull('Funeraria')->select('Funeraria_Nombre')->groupBy('Funeraria_Nombre')->get();
+
+            $deptosCasos = Casos::select('Departamento')->groupBy('Departamento')->get();
+
             
+        }*/
+
+        if($todas){
+            $keys_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Funeraria_Nombre', 'asc')->pluck('Funeraria_Nombre');
+
+            $servicios_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('count(*) as total'))->get();
+            $array_servicios = array();
+            foreach($servicios_funerarias as $servicios){
+                array_push($array_servicios, $servicios->total);
+            }
+
+            $servicios_conteo = collect($array_servicios);
+
+            $array_promedio = array();
+            $promedio_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('avg(Evaluacion) as total'))->get();
+            foreach($promedio_funerarias as $promedio){
+                array_push($array_promedio, $promedio->total);
+            }
+
+            $promedio_conteo = collect($array_promedio);
+
+            //$promedio_funerarias = Casos::selectRaw('AVG(Eval)')
+
+            $keys_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'asc')->pluck('Causa');
+
+            $conteo_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'asc')->select('Causa', DB::raw('count(*) as total'))->get();
+            $array_conteo_muerte = array();
+            foreach($conteo_tipos_muerte as $conteo){
+                array_push($array_conteo_muerte, $conteo->total);
+            }
+
+            $muertes_conteo = collect($array_conteo_muerte);
+
+            $conteo_funerarias = User::with('roles')->get();
+
+            $conteo_funerarias = $conteo_funerarias->reject(function ($user, $key) {
+                return $user->hasRole(['Super Admin', 'Personal', 'Agente']);
+            });
+
+            $conteo_funerarias = $conteo_funerarias->count();
+
+            $conteo_casos = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->count();
+
+            $promedio_edades = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->avg('Edad');
+
+            $costos = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->sum('Costo');
+
+            $pendiente = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->sum('Pendiente');
+
+            $pagado = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->sum('Pagado');
+
+            $evaluacion = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->avg('Evaluacion');
+            $departamentoObject = Casos::select('Departamento', DB::raw('count(id) as total'))->whereBetween('Fecha', [$fechaInicio, $fechaFin])->groupBy('Departamento')->get();
+        }else{
+            $keys_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Funeraria_Nombre', 'asc')->pluck('Funeraria_Nombre');
+
+            $servicios_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('count(*) as total'))->get();
+            $array_servicios = array();
+            foreach($servicios_funerarias as $servicios){
+                array_push($array_servicios, $servicios->total);
+            }
+
+            $servicios_conteo = collect($array_servicios);
+
+            $array_promedio = array();
+            $promedio_funerarias = Casos::groupBy('Funeraria_Nombre')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Funeraria_Nombre', 'asc')->select('Funeraria_Nombre', DB::raw('avg(Evaluacion) as total'))->get();
+            foreach($promedio_funerarias as $promedio){
+                array_push($array_promedio, $promedio->total);
+            }
+
+            $promedio_conteo = collect($array_promedio);
+
+            //$promedio_funerarias = Casos::selectRaw('AVG(Eval)')
+
+            $keys_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'asc')->pluck('Causa');
+
+            $conteo_tipos_muerte = Casos::groupBy('Causa')->whereNotNull('Funeraria')->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->where('Estatus', 'Cerrado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'asc')->select('Causa', DB::raw('count(*) as total'))->get();
+            $array_conteo_muerte = array();
+            foreach($conteo_tipos_muerte as $conteo){
+                array_push($array_conteo_muerte, $conteo->total);
+            }
+
+            $muertes_conteo = collect($array_conteo_muerte);
+
+            $conteo_funerarias = User::with('roles')->get();
+
+            $conteo_funerarias = $conteo_funerarias->reject(function ($user, $key) {
+                return $user->hasRole(['Super Admin', 'Personal', 'Agente']);
+            });
+
+            $conteo_funerarias = $conteo_funerarias->count();
+
+            $conteo_casos = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->count();
+
+            $promedio_edades = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->avg('Edad');
+
+            $costos = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->sum('Costo');
+
+            $pendiente = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->sum('Pendiente');
+
+            $pagado = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->sum('Pagado');
+
+            $evaluacion = Casos::whereBetween('Fecha', [$fechaInicio, $fechaFin])->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->avg('Evaluacion');
+            $departamentoObject = Casos::select('Departamento', DB::raw('count(id) as total'))->where('Departamento', $departamento)->where('Funeraria_Nombre', $funeraria)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->groupBy('Departamento')->get();
         }
 
         $conteos = [
@@ -1042,7 +1455,7 @@ class PersonalUMController extends Controller
         //return $muertes_conteo;
 
         return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Fecha_Inicio' => $fechaInicio, 'Fecha_Fin' => $fechaFin, 'Conteos' => $conteos,
-                'departamento' => $departamentoObject
+                'departamento' => $departamentoObject, 'select_funerarias' => $funerariasCasos, 'select_deptos' => $deptosCasos
             ]);
     }
 

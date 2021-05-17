@@ -9,7 +9,7 @@
                 <div class="card-header">Información</div>
 
                 <div class="card-body align-items-center justify-content-center">
-                    <form action="/Personal/Funeraria/{{$Funeraria->id}}/{{$Detalle->id}}/guardar" method="post">
+                    <form action="/Personal/Funeraria/{{$Funeraria->id}}/{{$Detalle->id}}/guardarNueva" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="nombre">Nombre</label>

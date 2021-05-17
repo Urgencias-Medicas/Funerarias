@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Funerarias extends Model
 {
     protected $table = 'funerarias';
-    public $fillable = ['Id_Funeraria', 'Nombre', 'Email', 'Telefono', 'Monto_Base', 'Activa', 'Id_Detalle', 'Campanias'];
+    public $fillable = ['Id_Funeraria', 'Funeraria_Registrada', 'Nombre', 'Email', 'Telefono', 'Monto_Base', 'Activa', 'Id_Detalle', 'Campanias'];
     public $timestamps = false;
 }

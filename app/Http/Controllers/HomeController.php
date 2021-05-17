@@ -11,6 +11,7 @@ use App\Funerarias;
 use App\DetallesFuneraria;
 use App\DocumentosFuneraria;
 use App\DetallesDeFuneraria;
+use App\InfoFunerariasRegistradas;
 use PDF;
 use DB;
 
@@ -49,7 +50,7 @@ class HomeController extends Controller
     public function funerariaInactiva(){
         $user = auth()->user();
         $funeraria = $user->funeraria;
-        $estado_funeraria = Funerarias::where('Id_Funeraria', $funeraria)->value('Activa');
+        $estado_funeraria = Funerarias::where('id', $funeraria)->value('Activa');
         $detalle = DetallesFuneraria::find($user->detalle);
         $url = "https://gist.githubusercontent.com/tian2992/7439705/raw/1e5d0a766775a662039f3a838f422a1fc1600f74/guatemala.json";
 
@@ -185,5 +186,10 @@ class HomeController extends Controller
         $nit = DetallesDeFuneraria::where('Funeraria', $user->id)->where('Campo', 'NIT')->value('Valor');
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Personal.Reportes.Plantillas.Convenio', ['direccion' => $direccion, 'nombre' => $user->name, 'departamento' => $departamento, 'nit' => $nit])->setPaper('a4', 'portrait');
         return $pdf->download('Convenio.pdf');
+    }
+    public function devolverFunerarias(){
+        $funerarias = InfoFunerariasRegistradas::get();
+
+        return $funerarias;
     }
 }

@@ -157,7 +157,7 @@
                                                     <input type="text" name="edad" id="edad" class="form-control" value="{{$Caso->Edad}}">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="Aseguradora">Cod. Aseguradora</label>
+                                                    <label for="Aseguradora">Aseguradora</label>
                                                     <input type="text" name="aseguradora" id="Aseguradora" class="form-control"
                                                         value="{{$Caso->Aseguradora}}">
                                                 </div>
@@ -264,12 +264,27 @@
                                                 <label for="lugar">Lugar de los hechos</label>
                                                 <input type="text" name="lugar" id="lugar" class="form-control" value="{{$Caso->Lugar}}">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="NombreReporta">Nombre de quien reporta</label>
-                                                <input type="text" name="NombreReporta" id="NombreReporta" class="form-control"
-                                                    value="{{$Caso->NombreReporta}}">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="certificado">Certificado</label>
+                                                    <input type="text" name="certificado" id="certificado" class="form-control"
+                                                        value="{{$Caso->Certificado}}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="poliza">Poliza</label>
+                                                    <input type="text" name="poliza" id="poliza" class="form-control"
+                                                        value="{{$Caso->Poliza}}">
+                                                </div>
                                             </div>
-                                            
+                                            <div class="form-group">
+                                                <label for="NombreReporta">Tipo de asegurado</label>
+                                                <select name="tipoAsegurado" id="tipoAsegurado" class="form-control">
+                                                    <option value=""> -- Seleccione -- </option>
+                                                    <option value="No Aplica" {{$Caso->TipoAsegurado == 'No Aplica' ? 'selected' : ''}}>No aplica</option>
+                                                    <option value="Titular" {{$Caso->TipoAsegurado == 'Titular' ? 'selected' : ''}}>Titular</option>
+                                                    <option value="Dependiente" {{$Caso->TipoAsegurado == 'Dependiente' ? 'selected' : ''}}>Dependiente</option>
+                                                </select>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -277,7 +292,11 @@
                             <div class="col-lg-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        
+                                        <div class="form-group">
+                                                <label for="NombreReporta">Nombre de quien reporta</label>
+                                                <input type="text" name="NombreReporta" id="NombreReporta" class="form-control"
+                                                    value="{{$Caso->NombreReporta}}">
+                                        </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="RelacionReporta">Relaci&oacute;n</label>
@@ -946,7 +965,7 @@
 
     function cargarFunerarias(){
         $.ajax({
-            url: "https://umbd.excess.software/api/getFunerarias",
+            url: "{{URL::to('/verFunerarias')}}",
             type: 'get',
             dataType: 'JSON',
             success: function (response) {
@@ -1032,7 +1051,7 @@
 
     function seleccionarCampania(id){
         $.ajax({
-            url: "https://umbd.excess.software/api/getFunerarias",
+            url: "{{URL::to('/verFunerarias')}}",
             type: 'get',
             dataType: 'JSON',
             success: function (response) {
@@ -1077,7 +1096,7 @@
 
     function detalleFuneraria(id) {
         $.ajax({
-            url: "https://umbd.excess.software/api/getFunerarias",
+            url: "{{URL::to('/verFunerarias')}}",
             type: 'get',
             dataType: 'JSON',
             success: function (response) {

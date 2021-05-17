@@ -27,6 +27,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/dashboard', 'PersonalUMController@dashboard');
 
+Route::get('/verFunerarias', 'HomeController@devolverFunerarias');
+
 Route::group(['prefix' => 'password'], function () {
     Route::get('cambio', 'HomeController@cambioPassword');
     Route::get('verificar/{password}', 'HomeController@verificarPassword');
@@ -63,33 +65,34 @@ Route::group(['prefix' => 'Personal'], function (){
     Route::get('Funeraria/{id}/{docto}/{accion}/{comentario}', 'PersonalUMController@accionDocto');
     //Route::get('Funeraria/pasos/{funeraria}/{accion}', 'PersonalUMController@accionPaso');
     Route::post('Funeraria/{id}/{detalle}/guardar', 'AdminController@guardarCambiosFuneraria');
+    Route::post('Funeraria/{id}/{detalle}/guardarNueva', 'AdminController@guardarCambiosFunerariaNueva');
     Route::get('configuraciones', 'PersonalUMController@configuraciones');
     Route::post('configuraciones/guardar', 'PersonalUMController@configuracionesGuardar');
     Route::get('log', 'PersonalUMController@verlogs');
 
     Route::group(['prefix' => 'Reportes'], function () {
         Route::get('ver', 'PersonalUMController@verReportes');
-        Route::get('Edades/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteEdades');
-        Route::get('EdadesCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteEdadesCSV');
-        Route::get('EdadesExcel/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteEdadesExcel');
-        Route::get('Causas/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteCausas');
-        Route::get('CausasCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteCausasCSV');
-        Route::get('CausasExcel/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteCausasExcel');
-        Route::get('Lugares/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteLugares');
-        Route::get('LugaresCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteLugaresCSV');
-        Route::get('LugaresExcel/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteLugaresExcel');
-        Route::get('General/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteGeneral');
-        Route::get('GeneralCSV/{fechaInicio}/{fechaFin}', 'PersonalUMController@reporteGeneralCSV');
-        Route::get('CSVConteoCausas/{fechaInicio}/{fechaFin}', 'PersonalUMController@CSVConteoCausas');
-        Route::get('CSVConteoFunerarias/{fechaInicio}/{fechaFin}', 'PersonalUMController@CSVConteoFunerarias');
-        Route::get('CSVCausasDeptos/{fechaInicio}/{fechaFin}', 'PersonalUMController@CSVCausasDeptos');
-        Route::get('ExcelGeneral/{fechaInicio}/{fechaFin}', 'PersonalUMController@ExcelReporteGeneral');
-        Route::get('ExcelConteoCausas/{fechaInicio}/{fechaFin}', 'PersonalUMController@ExcelConteoCausas');
-        Route::get('ExcelConteoFunerarias/{fechaInicio}/{fechaFin}', 'PersonalUMController@ExcelConteoFunerarias');
-        Route::get('ExcelCausasDeptos/{fechaInicio}/{fechaFin}', 'PersonalUMController@ExcelCausasDeptos');
+        Route::get('Edades/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@reporteEdades');
+        Route::get('EdadesCSV/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@reporteEdadesCSV');
+        Route::get('EdadesExcel/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@reporteEdadesExcel');
+        Route::get('Causas/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@reporteCausas');
+        Route::get('CausasCSV/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@reporteCausasCSV');
+        Route::get('CausasExcel/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@reporteCausasExcel');
+        Route::get('Lugares/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@reporteLugares');
+        Route::get('LugaresCSV/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@reporteLugaresCSV');
+        Route::get('LugaresExcel/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@reporteLugaresExcel');
+        Route::get('General/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@reporteGeneral');
+        Route::get('GeneralCSV/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@reporteGeneralCSV');
+        Route::get('CSVConteoCausas/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@CSVConteoCausas');
+        Route::get('CSVConteoFunerarias/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@CSVConteoFunerarias');
+        Route::get('CSVCausasDeptos/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@CSVCausasDeptos');
+        Route::get('ExcelGeneral/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@ExcelReporteGeneral');
+        Route::get('ExcelConteoCausas/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@ExcelConteoCausas');
+        Route::get('ExcelConteoFunerarias/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@ExcelConteoFunerarias');
+        Route::get('ExcelCausasDeptos/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@ExcelCausasDeptos');
         Route::get('Caso/{id}', 'PersonalUMController@reporteCaso');
         Route::get('Graficas', 'PersonalUMController@Graficas');
-        Route::get('Graficas/{fechaInicio}/{fechaFin}', 'PersonalUMController@GraficasPorFecha');
+        Route::get('Graficas/{fechaInicio}/{fechaFin}/{funeraria}/{departamento}', 'PersonalUMController@GraficasPorFecha');
     });
     
     Route::get('CrearUsuario', 'AdminController@nuevoUsuario');

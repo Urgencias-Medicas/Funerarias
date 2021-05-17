@@ -15,6 +15,17 @@
             </div>-->
             <div class="row mt-4">
                 <div class="col">
+                    <label for="aseguradora">Aseguradora</label>
+                    <div class="input-group ">
+                        <select name="aseguradora" id="aseguradora" class="form-control">
+                            <option value="0"> -- Seleccione aseguradora -- </option>
+                            <option value="1">Seguro Escolar</option>
+                            <option value="2">CHN</option>
+                            <option value="7">SeguRed</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
                     <label for="fechaInicio">Fecha de Inicio</label>
                     <div class="input-group ">
                         <input type="date" id="fechaInicio" class="form-control">
@@ -118,55 +129,74 @@
         var fechafin = $('#fechaFin').val();
         var fechainicio_validar = new Date($('#fechaInicio').val());
         var fechafin_validar = new Date($('#fechaFin').val());
+        var aseguradora = $('#aseguradora').val();
 
         if (reportar == 'GeneralCSV') {
-            if (fechainicio == '' && fechafin == '') {
+
+            if(aseguradora == 0){
+                alert('Por favor seleccione aseguradora');
+            }else{
+                if (fechainicio == '' && fechafin == '') {
                 alert('Por favor seleccione una fecha.');
-            } else if (fechainicio == '') {
-                alert('Por favor seleccione una fecha válida.');
-            } else if (fechafin_validar <= fechainicio_validar) {
-                alert('Por favor seleccione una fecha válida.');
-            } else if (fechafin == '' && fechainicio != '') {
-                window.open('/Personal/Reportes/GeneralCSV/' + fechainicio + '/0');
-                window.open('/Personal/Reportes/CSVConteoCausas/' + fechainicio + '/0');
-                window.open('/Personal/Reportes/CSVConteoFunerarias/' + fechainicio + '/0');
-                window.open('/Personal/Reportes/CSVCausasDeptos/' + fechainicio + '/0');
-            } else if (fechainicio != '' && fechafin != '') {
-                window.open('/Personal/Reportes/GeneralCSV/' + fechainicio + '/' + fechafin);
-                window.open('/Personal/Reportes/CSVConteoCausas/' + fechainicio + '/' + fechafin);
-                window.open('/Personal/Reportes/CSVConteoFunerarias/' + fechainicio + '/' + fechafin);
-                window.open('/Personal/Reportes/CSVCausasDeptos/' + fechainicio + '/' + fechafin);
+                } else if (fechainicio == '') {
+                    alert('Por favor seleccione una fecha válida.');
+                } else if (fechafin_validar <= fechainicio_validar) {
+                    alert('Por favor seleccione una fecha válida.');
+                } else if (fechafin == '' && fechainicio != '') {
+                    window.open('/Personal/Reportes/GeneralCSV/' + fechainicio + '/0' + '/' + aseguradora);
+                    window.open('/Personal/Reportes/CSVConteoCausas/' + fechainicio + '/0' + '/' + aseguradora);
+                    window.open('/Personal/Reportes/CSVConteoFunerarias/' + fechainicio + '/0' + '/' + aseguradora);
+                    window.open('/Personal/Reportes/CSVCausasDeptos/' + fechainicio + '/0' + '/' + aseguradora);
+                } else if (fechainicio != '' && fechafin != '') {
+                    window.open('/Personal/Reportes/GeneralCSV/' + fechainicio + '/' + fechafin + '/' + aseguradora);
+                    window.open('/Personal/Reportes/CSVConteoCausas/' + fechainicio + '/' + fechafin + '/' + aseguradora);
+                    window.open('/Personal/Reportes/CSVConteoFunerarias/' + fechainicio + '/' + fechafin + '/' + aseguradora);
+                    window.open('/Personal/Reportes/CSVCausasDeptos/' + fechainicio + '/' + fechafin + '/' + aseguradora);
+                }
             }
+
         } else if(reportar == 'ExcelGeneral'){
-            if (fechainicio == '' && fechafin == '') {
+
+            if(aseguradora == 0){
+                alert('Por favor seleccione aseguradora');
+            }else{
+                if (fechainicio == '' && fechafin == '') {
                 alert('Por favor seleccione una fecha.');
-            } else if (fechainicio == '') {
-                alert('Por favor seleccione una fecha válida.');
-            } else if (fechafin_validar <= fechainicio_validar) {
-                alert('Por favor seleccione una fecha válida.');
-            } else if (fechafin == '' && fechainicio != '') {
-                window.open('/Personal/Reportes/ExcelGeneral/' + fechainicio + '/0');
-                window.open('/Personal/Reportes/ExcelConteoCausas/' + fechainicio + '/0');
-                window.open('/Personal/Reportes/ExcelConteoFunerarias/' + fechainicio + '/0');
-                window.open('/Personal/Reportes/ExcelCausasDeptos/' + fechainicio + '/0');
-            } else if (fechainicio != '' && fechafin != '') {
-                window.open('/Personal/Reportes/ExcelGeneral/' + fechainicio + '/' + fechafin);
-                window.open('/Personal/Reportes/ExcelConteoCausas/' + fechainicio + '/' + fechafin);
-                window.open('/Personal/Reportes/ExcelConteoFunerarias/' + fechainicio + '/' + fechafin);
-                window.open('/Personal/Reportes/ExcelCausasDeptos/' + fechainicio + '/' + fechafin);
+                } else if (fechainicio == '') {
+                    alert('Por favor seleccione una fecha válida.');
+                } else if (fechafin_validar <= fechainicio_validar) {
+                    alert('Por favor seleccione una fecha válida.');
+                } else if (fechafin == '' && fechainicio != '') {
+                    window.open('/Personal/Reportes/ExcelGeneral/' + fechainicio + '/0' + '/' + aseguradora);
+                    window.open('/Personal/Reportes/ExcelConteoCausas/' + fechainicio + '/0' + '/' + aseguradora);
+                    window.open('/Personal/Reportes/ExcelConteoFunerarias/' + fechainicio + '/0' + '/' + aseguradora);
+                    window.open('/Personal/Reportes/ExcelCausasDeptos/' + fechainicio + '/0' + '/' + aseguradora);
+                } else if (fechainicio != '' && fechafin != '') {
+                    window.open('/Personal/Reportes/ExcelGeneral/' + fechainicio + '/' + fechafin + '/' + aseguradora);
+                    window.open('/Personal/Reportes/ExcelConteoCausas/' + fechainicio + '/' + fechafin + '/' + aseguradora);
+                    window.open('/Personal/Reportes/ExcelConteoFunerarias/' + fechainicio + '/' + fechafin + '/' + aseguradora);
+                    window.open('/Personal/Reportes/ExcelCausasDeptos/' + fechainicio + '/' + fechafin + '/' + aseguradora);
+                }
             }
+            
         } else {
-            if (fechainicio == '' && fechafin == '') {
+
+            if(aseguradora == 0){
+                alert('Por favor seleccione aseguradora');
+            }else{
+                if (fechainicio == '' && fechafin == '') {
                 alert('Por favor seleccione una fecha.');
-            } else if (fechainicio == '') {
-                alert('Por favor seleccione una fecha válida.');
-            } else if (fechafin_validar <= fechainicio_validar) {
-                alert('Por favor seleccione una fecha válida.');
-            } else if (fechafin == '' && fechainicio != '') {
-                window.open('/Personal/Reportes/' + reportar + '/' + fechainicio + '/0');
-            } else if (fechainicio != '' && fechafin != '') {
-                window.open('/Personal/Reportes/' + reportar + '/' + fechainicio + '/' + fechafin);
+                } else if (fechainicio == '') {
+                    alert('Por favor seleccione una fecha válida.');
+                } else if (fechafin_validar <= fechainicio_validar) {
+                    alert('Por favor seleccione una fecha válida.');
+                } else if (fechafin == '' && fechainicio != '') {
+                    window.open('/Personal/Reportes/' + reportar + '/' + fechainicio + '/0' + '/' + aseguradora);
+                } else if (fechainicio != '' && fechafin != '') {
+                    window.open('/Personal/Reportes/' + reportar + '/' + fechainicio + '/' + fechafin + '/' + aseguradora);
+                }
             }
+            
         }
     }
 

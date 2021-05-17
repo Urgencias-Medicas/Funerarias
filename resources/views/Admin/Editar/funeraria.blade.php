@@ -90,7 +90,7 @@
                                 <div class="form-group">
                                     <label for="activa">Activa</label>
                                     <select name="activo" id="activo" class="form-control">
-                                        @if($Funeraria->activo == 'No')
+                                        @if($Funeraria->Activa == 'No')
                                         <option value="No" selected>No</option>
                                         <option value="Si">Si</option>
                                         @else

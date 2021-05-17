@@ -74,11 +74,16 @@ class CasosController extends Controller
 
     }
     public function guardarMedia($caso, Request $request){
+        $date = Carbon::now()->format('Ymd');
+        $user = auth()->user();
         $image = $request->file('file');
-        $imageName = 'Caso'.$caso.'-'.$image->getClientOriginalName();
+        $originalName = $image->getClientOriginalName();
+        $fileName = pathinfo($originalName,PATHINFO_FILENAME);
+        $imageName = 'Caso'.$caso.'-'.$fileName.'-'.$user->name.'-'.$date.'.'.$image->getClientOriginalExtension();
         $upload_success = $image->move(public_path('images'),$imageName);
         
         if ($upload_success) {
+            activity()->log('Se subió el archivo '.$imageName.' al caso #'.$caso);
             return response()->json($upload_success, 200);
         }
         // Else, return error 400
@@ -139,6 +144,16 @@ class CasosController extends Controller
         $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'desc')->get();
         $causas = Causas::get();
         $tasa_cambio = Configuracion::where('opcion', 'Tasa_Cambio')->value('valor');
+
+        //Aseguradoras
+        if($caso->Aseguradora == '1'){
+            $caso->Aseguradora = 'Seguro Escolar';
+        }elseif($caso->Aseguradora == '2'){
+            $caso->Aseguradora = 'CHN';
+        }elseif($caso->Aseguradora == '7'){
+            $caso->Aseguradora = 'SeguRed';
+        }
+
         if($msg == 0){
             return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio]);
         }else if($msg == 2){
@@ -404,7 +419,8 @@ class CasosController extends Controller
         'Municipio' => strtoupper(Helper::eliminar_acentos($request->municipio)), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
         'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 'RelacionReporta' => $request->RelacionReporta, 
         'TelReporta' => $request->TelReporta, 'Lugar' => $request->lugar, 'Tutor' => $request->Tutor, 'TelTutor' => $request->TelTutor, 'DPITutor' => $request->DPITutor,
-        'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, 'Comentario' => $request->ComentarioTutor, 'Medico' => $request->Medico, 'Idioma' => $request->Idioma];
+        'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, 'Comentario' => $request->ComentarioTutor, 'Medico' => $request->Medico, 'Idioma' => $request->Idioma,
+        'Certificado' => $request->certificado, 'Poliza' => $request->poliza, 'TipoAsegurado' => $request->tipoAsegurado];
         $caso_update = Casos::find($caso)->update($data);
 
         if($request->descripcion_causa != ''){

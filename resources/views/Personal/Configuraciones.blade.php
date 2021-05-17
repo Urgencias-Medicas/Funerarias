@@ -8,12 +8,17 @@
                 <div class="card-header">Tipo de cambio</div>
 
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <a href="https://www.banguat.gob.gt/cambio/" target="_blank" class="btn btn-info">Verificar en BANGUAT</a>
+                        </div>
+                    </div>
+                    <br>
                     <form method="POST" action="/Personal/configuraciones/guardar">
                         @csrf
-
                         <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <input id="tasa_cambio" type="text" class="form-control" style="height: 150px; width: 150px; font-size: 50px;" name="tasa_cambio" value="{{$Tasa_Cambio}}" required>
+                            <div class="col-md-12 offset-md-4">
+                                <input id="tasa_cambio" type="text" class="form-control" style="height: 150px; width: 210px; font-size: 50px; text-align: center;" name="tasa_cambio" value="{{$Tasa_Cambio}}" required>
                             </div>
                         </div>
                         <div class="form-group row mb-0">

@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Aseguradoras;
 use App\Campanias;
 use App\Configuracion;
+use App\InfoFunerariasRegistradas;
+use App\DetallesDeFuneraria;
 
 class AdminController extends Controller
 {
@@ -155,8 +157,10 @@ class AdminController extends Controller
 
     public function verFunerarias($msg = 0){
         //$funerarias = Funerarias::get();
+        
+        $data = InfoFunerariasRegistradas::get();
 
-        $api_uri = "https://umbd.excess.software/api/getFuneraria";
+        /*$api_uri = url('/getFuneraria');
         $client = new \GuzzleHttp\Client([
             'headers' => [ 'Content-Type' => 'application/json' ]
         ]);
@@ -164,6 +168,8 @@ class AdminController extends Controller
             
         ]);
         $data = json_decode($res->getBody());
+
+        return $data;*/
 
         if($msg == 0){
             return view('Admin.Crear.verFunerarias', ['Funerarias' => $data]);
@@ -191,10 +197,10 @@ class AdminController extends Controller
     }
 
     public function editarFuneraria($id, $nombre){
-        $funeraria = Funerarias::where('Id_Funeraria', $id)->first();
+        $funeraria = Funerarias::where('Funeraria_Registrada', $id)->first();
 
         if($funeraria){
-            $api_uri = "https://umbd.excess.software/api/getFuneraria";
+            /*$api_uri = "https://umbd.excess.software/api/getFuneraria";
             $client = new \GuzzleHttp\Client([
                 'headers' => [ 'Content-Type' => 'application/json' ]
             ]);
@@ -206,7 +212,9 @@ class AdminController extends Controller
                     ]
                 ),
             ]);
-            $data = json_decode($res->getBody());
+            $data = json_decode($res->getBody());*/
+
+            $data = InfoFunerariasRegistradas::get();
 
             $funeraria->Departamento = $data[0]->departamento;
             $detalle = DetallesFuneraria::find($funeraria->Id_Detalle);
@@ -255,9 +263,20 @@ class AdminController extends Controller
         $json_campanias = json_encode($array_campanias);
         $user = Funerarias::where('Id_Funeraria', $id)->update(['Nombre' => $request->nombre, 'Email' => $request->email, 'Telefono' => $request->telefono, 'Activa' => $request->activo, 'Campanias' => $json_campanias]);
 
+        $activa = '';
+        if($request->activo == 'Si'){
+            $activa = 'Activo';
+        }else{
+            $activa = 'Inactivo';
+        }
+
+        $id_fun_registrada = Funerarias::where('Id_Funeraria', $id)->value('Funeraria_Registrada');
+
+        $update_fun_registrada = InfoFunerariasRegistradas::where('id', $id_fun_registrada)->update(['tel_contacto' => $request->telefono, 'tel_coordinador' => $request->telefono, 'estado' => $activa]);
+
         $funeraria_id = Funerarias::where('Id_Funeraria', $id)->value('id');
 
-        $user_funeraria = User::where('id', $id)->update(['activo' => 'Si', 'funeraria' => $funeraria_id]);
+        $user_funeraria = User::where('id', $id)->update(['activo' => $request->activo, 'funeraria' => $funeraria_id]);
 
         $pasos = array();
 
@@ -275,6 +294,71 @@ class AdminController extends Controller
         activity()->log('Se ha modificado la funeraria No. '.$id);
         //return redirect('/Personal/verFunerarias');
         return back();
+    }
+
+    public function guardarCambiosFunerariaNueva($id, $detalle, Request $request){
+
+        $array_campanias = array();
+        if(isset($request->campania)){
+            foreach($request->campania as $campania){
+                array_push($array_campanias, array("id" => $campania['id'], "nombre" => $campania['campania'], "monto" => $campania['monto_base'], "edad_inicial" => $campania['edad_inicial'], "edad_final" => $campania['edad_final']));
+            }
+        }
+
+        $nueva_funeraria_insertada = InfoFunerariasRegistradas::create(['funeraria' => $request->nombre]);
+
+        $funeraria = Funerarias::create([
+            'Id_Funeraria' => $id,
+            'Funeraria_Registrada' => $nueva_funeraria_insertada->id,
+            'Nombre' => $request->nombre,
+            'Email' => $request->email,
+            'Telefono' => $request->telefono,
+            'Monto_Base' => 0,
+            'Activa' => $request->activo,
+            'Id_Detalle' => $detalle
+        ]);
+
+        $json_campanias = json_encode($array_campanias);
+
+        $user_funeraria = User::where('id', $id)->update(['activo' => $request->activo, 'funeraria' => $funeraria->id]);
+
+        $detalles_funeraria = DetallesDeFuneraria::where('Funeraria', $id)->get();
+
+        foreach($detalles_funeraria as $detalles){
+            if($detalles->Campo == 'Direccion'){
+                $test = InfoFunerariasRegistradas::where('id', $nueva_funeraria_insertada->id)->update(['direccion' => $detalles->Valor]);
+            }elseif($detalles->Campo == 'Departamento'){
+                InfoFunerariasRegistradas::where('id', $nueva_funeraria_insertada->id)->update(['departamento' => $detalles->Valor]);
+            }elseif($detalles->Campo == 'TelContacto'){
+                InfoFunerariasRegistradas::where('id', $nueva_funeraria_insertada->id)->update(['tel_contacto' => $detalles->Valor, 'tel_coordinador' => $detalles->Valor]);
+                Funerarias::where('id', $funeraria->id)->update(['Telefono' => $detalles->Valor]);
+            }
+        }
+
+        if($request->activo == 'Si'){
+            $request->activo = 'Activo';
+        }else{
+            $request->activo = 'Inactivo';
+        }
+
+        InfoFunerariasRegistradas::where('id', $nueva_funeraria_insertada->id)->update(['estado' => $request->activo]);
+
+        $pasos = array();
+
+        for($i = 1; $i <= $request->cantidadJson; $i++){
+            if($request->input('campo_'.$i) == ''){
+                array_push($pasos, array('campo' => $i, 'result' => 'No'));
+            }else{
+                array_push($pasos, array('campo' => $i, 'result' => 'Si'));
+            }
+        }
+
+        $json_pasos = json_encode($pasos);
+
+        $detalle = DetallesFuneraria::find($detalle)->updateOrCreate(['Campos' => $json_pasos]);
+        activity()->log('Se ha modificado la funeraria No. '.$id);
+        return redirect('/Personal/editarFuneraria/'.$nueva_funeraria_insertada->id.'/'.$request->nombre);
+        //return back();
     }
 
     public function verCampanias(){

@@ -52,19 +52,22 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-3">
-                    <select class="form-select form-control" >
-                        <option selected>-- Seleccione funeraria --</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select class="form-select form-control" id="funeraria">
+                        <option selected value="0">-- Seleccione funeraria --</option>
+                        <option value="Todas">Todas</option>
+
+                        @foreach($select_funerarias as $funeraria)
+                            <option value="{{$funeraria->Funeraria_Nombre}}">{{$funeraria->Funeraria_Nombre}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <select class="form-select form-control">
-                        <option selected>-- Seleccione departamento --</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select class="form-select form-control" id="departamento">
+                        <option selected value="0">-- Seleccione departamento --</option>
+                        <option value="Todos">Todos</option>
+                        @foreach($select_deptos as $deptos)
+                            <option value="{{$deptos->Departamento}}">{{$deptos->Departamento}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-2">
@@ -242,21 +245,29 @@
     function Filtrar() {
         var fechainicio = $('#fechaInicio').val();
         var fechafin = $('#fechaFin').val();
+        var funeraria = $('#funeraria').val();
+        var departamento = $('#departamento').val();
+
         var fechainicio_validar = new Date($('#fechaInicio').val());
         var fechafin_validar = new Date($('#fechaFin').val());
 
+        if(fechainicio != '' && fechafin != '' && funeraria != 0 && departamento != 0){
+            window.location.href = '/Personal/Reportes/Graficas/' + fechainicio + '/' + fechafin + '/' + funeraria + '/' + departamento;
+        }else{
+            alert('Por favor seleccione todos los parámetros');
+        }
 
-        if (fechainicio == '' && fechafin == '') {
+        /*if (fechainicio == '' && fechafin == '') {
             alert('Por favor seleccione una fecha.');
         } else if (fechainicio == '') {
             alert('Por favor seleccione una fecha válida.');
         } else if (fechafin_validar <= fechainicio_validar) {
             alert('Por favor seleccione una fecha válida.');
         } else if (fechafin == '' && fechainicio != '') {
-            window.location.href = '/Personal/Reportes/Graficas/' + fechainicio + '/0';
+            window.location.href = '/Personal/Reportes/Graficas/' + fechainicio + '/0' + '/' + funeraria + '/' + departamento;
         } else if (fechainicio != '' && fechafin != '') {
-            window.location.href = '/Personal/Reportes/Graficas/' + fechainicio + '/' + fechafin;
-        }
+            window.location.href = '/Personal/Reportes/Graficas/' + fechainicio + '/' + fechafin + '/' + funeraria + '/' + departamento;
+        }*/
     }
 
 </script>
