@@ -70,7 +70,7 @@ class HomeController extends Controller
         $image = $request->file('file');
         if($media == 'licenciaAmbiental'){
             $imageName = 'Funeraria-'.$user->id.'-licenciaAmbiental.'.$image->getClientOriginalExtension();
-            DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'LicenciaAmbiental', 'Estado' => 'Pendiente']);
+            DetallesDeFuneraria::create(['Funeraria' => $user->id, 'Campo' => 'LicenciaAmbiental', 'Estado' => 'Pendiente']);
         }elseif($media == 'patenteComercio'){
             $imageName = 'Funeraria-'.$user->id.'-patenteComercio.'.$image->getClientOriginalExtension();
         }elseif($media == 'rtu'){

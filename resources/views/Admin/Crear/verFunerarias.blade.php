@@ -22,6 +22,8 @@
                         <tr>
                             <th>id</th>
                             <th>Nombre</th>
+                            <th>Clasificaci&oacute;n</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -30,6 +32,8 @@
                         <tr id="funeraria-{{$funeraria->id}}">
                             <td>{{$funeraria->id}}</td>
                             <td>{{$funeraria->funeraria}}</td>
+                            <td>{{$funeraria->tipo}}</td>
+                            <td>{{$funeraria->estado}}</td>
                             <td>
                             <a href="/Personal/editarFuneraria/{{$funeraria->id}}/{{$funeraria->funeraria}}"><button class="btn btn-link">Editar</button></a>
                             <!--<button class="btn btn-link" onclick="eliminar({{$funeraria->id}})">Eliminar</button>-->

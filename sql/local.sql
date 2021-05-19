@@ -37,7 +37,7 @@ CREATE TABLE `activity_log` (
   KEY `subject` (`subject_type`,`subject_id`),
   KEY `causer` (`causer_type`,`causer_id`),
   KEY `activity_log_log_name_index` (`log_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,6 +156,53 @@ INSERT INTO `activity_log` VALUES (107,'default','Se ha modificado la funeraria 
 INSERT INTO `activity_log` VALUES (108,'default','Se ha modificado la funeraria No. 1',NULL,NULL,'App\\User',2,'[]','2021-05-11 16:01:58','2021-05-11 16:01:58');
 INSERT INTO `activity_log` VALUES (109,'default','Se ha modificado la funeraria No. 1',NULL,NULL,'App\\User',2,'[]','2021-05-11 21:18:12','2021-05-11 21:18:12');
 INSERT INTO `activity_log` VALUES (110,'default','Se ha modificado la funeraria No. 1',NULL,NULL,'App\\User',2,'[]','2021-05-11 21:18:25','2021-05-11 21:18:25');
+INSERT INTO `activity_log` VALUES (111,'default','Caso #27 modificado.',NULL,NULL,'App\\User',2,'[]','2021-05-14 23:35:17','2021-05-14 23:35:17');
+INSERT INTO `activity_log` VALUES (112,'default','Caso #27 modificado.',NULL,NULL,'App\\User',2,'[]','2021-05-14 23:35:45','2021-05-14 23:35:45');
+INSERT INTO `activity_log` VALUES (113,'default','Caso #27 modificado.',NULL,NULL,'App\\User',2,'[]','2021-05-14 23:38:18','2021-05-14 23:38:18');
+INSERT INTO `activity_log` VALUES (114,'default','Caso #27 modificado.',NULL,NULL,'App\\User',2,'[]','2021-05-14 23:38:23','2021-05-14 23:38:23');
+INSERT INTO `activity_log` VALUES (115,'default','Se subió el archivo Caso27-nuevotest-Personal UM-20210514.txt por el usuario Personal UM al caso #27',NULL,NULL,'App\\User',2,'[]','2021-05-15 01:41:12','2021-05-15 01:41:12');
+INSERT INTO `activity_log` VALUES (116,'default','Se creo el nuevo caso No. 28',NULL,NULL,'App\\User',2,'[]','2021-05-15 02:36:32','2021-05-15 02:36:32');
+INSERT INTO `activity_log` VALUES (117,'default','Se subió el archivo Caso28-nuevotest-Personal UM-20210514.txt al caso #28',NULL,NULL,'App\\User',2,'[]','2021-05-15 02:37:18','2021-05-15 02:37:18');
+INSERT INTO `activity_log` VALUES (118,'default','Se subió el archivo Caso28-test-de-estrés-Personal UM-20210514.png al caso #28',NULL,NULL,'App\\User',2,'[]','2021-05-15 02:37:20','2021-05-15 02:37:20');
+INSERT INTO `activity_log` VALUES (119,'default','Caso #28 asignado a la funeraria No. 1',NULL,NULL,'App\\User',2,'[]','2021-05-15 02:38:21','2021-05-15 02:38:21');
+INSERT INTO `activity_log` VALUES (120,'default','Se ha modificado la funeraria No. 1',NULL,NULL,'App\\User',2,'[]','2021-05-15 02:39:40','2021-05-15 02:39:40');
+INSERT INTO `activity_log` VALUES (121,'default','Se ha ingresado un nuevo pago en el caso No. 28',NULL,NULL,'App\\User',2,'[]','2021-05-15 02:39:57','2021-05-15 02:39:57');
+INSERT INTO `activity_log` VALUES (122,'default','Se ha creado la campañia SeguRed',NULL,NULL,'App\\User',2,'[]','2021-05-15 02:47:23','2021-05-15 02:47:23');
+INSERT INTO `activity_log` VALUES (123,'default','Se ha eliminado la campañia No. 8',NULL,NULL,'App\\User',2,'[]','2021-05-15 02:47:30','2021-05-15 02:47:30');
+INSERT INTO `activity_log` VALUES (124,'default','Se ha modificado la funeraria No. 1',NULL,NULL,'App\\User',2,'[]','2021-05-15 02:47:55','2021-05-15 02:47:55');
+INSERT INTO `activity_log` VALUES (125,'default','Se ha ingresado un nuevo pago en el caso No. 28',NULL,NULL,'App\\User',2,'[]','2021-05-15 03:16:40','2021-05-15 03:16:40');
+INSERT INTO `activity_log` VALUES (126,'default','Se ha modificado la funeraria No. 33',NULL,NULL,'App\\User',2,'[]','2021-05-16 05:40:57','2021-05-16 05:40:57');
+INSERT INTO `activity_log` VALUES (127,'default','Se ha modificado la funeraria No. 19',NULL,NULL,'App\\User',2,'[]','2021-05-16 05:43:34','2021-05-16 05:43:34');
+INSERT INTO `activity_log` VALUES (128,'default','Se ha modificado la funeraria No. 19',NULL,NULL,'App\\User',2,'[]','2021-05-16 05:43:37','2021-05-16 05:43:37');
+INSERT INTO `activity_log` VALUES (129,'default','Se ha modificado la funeraria No. 34',NULL,NULL,'App\\User',2,'[]','2021-05-16 08:01:28','2021-05-16 08:01:28');
+INSERT INTO `activity_log` VALUES (130,'default','Se ha modificado la funeraria No. 34',NULL,NULL,'App\\User',2,'[]','2021-05-16 08:12:53','2021-05-16 08:12:53');
+INSERT INTO `activity_log` VALUES (131,'default','Se ha modificado la funeraria No. 32',NULL,NULL,'App\\User',2,'[]','2021-05-17 00:19:36','2021-05-17 00:19:36');
+INSERT INTO `activity_log` VALUES (132,'default','Se ha modificado la funeraria No. 40',NULL,NULL,'App\\User',2,'[]','2021-05-17 00:20:17','2021-05-17 00:20:17');
+INSERT INTO `activity_log` VALUES (133,'default','Se ha modificado la funeraria No. 41',NULL,NULL,'App\\User',2,'[]','2021-05-17 06:45:13','2021-05-17 06:45:13');
+INSERT INTO `activity_log` VALUES (134,'default','Se ha modificado la funeraria No. 36',NULL,NULL,'App\\User',2,'[]','2021-05-17 06:49:44','2021-05-17 06:49:44');
+INSERT INTO `activity_log` VALUES (135,'default','Se ha modificado la funeraria No. 43',NULL,NULL,'App\\User',2,'[]','2021-05-17 06:57:10','2021-05-17 06:57:10');
+INSERT INTO `activity_log` VALUES (136,'default','Se ha modificado la funeraria No. 44',NULL,NULL,'App\\User',2,'[]','2021-05-17 06:59:09','2021-05-17 06:59:09');
+INSERT INTO `activity_log` VALUES (137,'default','Se ha modificado la funeraria No. 44',NULL,NULL,'App\\User',2,'[]','2021-05-17 06:59:32','2021-05-17 06:59:32');
+INSERT INTO `activity_log` VALUES (138,'default','Se ha modificado la funeraria No. 35',NULL,NULL,'App\\User',2,'[]','2021-05-17 07:10:30','2021-05-17 07:10:30');
+INSERT INTO `activity_log` VALUES (139,'default','Se ha modificado la funeraria No. 7',NULL,NULL,'App\\User',2,'[]','2021-05-17 20:18:05','2021-05-17 20:18:05');
+INSERT INTO `activity_log` VALUES (140,'default','Se ha modificado la funeraria No. 40',NULL,NULL,'App\\User',2,'[]','2021-05-17 20:24:14','2021-05-17 20:24:14');
+INSERT INTO `activity_log` VALUES (141,'default','Se ha modificado la funeraria No. 36',NULL,NULL,'App\\User',2,'[]','2021-05-17 20:28:21','2021-05-17 20:28:21');
+INSERT INTO `activity_log` VALUES (142,'default','Se ha modificado la funeraria No. 36',NULL,NULL,'App\\User',2,'[]','2021-05-17 20:29:57','2021-05-17 20:29:57');
+INSERT INTO `activity_log` VALUES (143,'default','Se ha modificado la funeraria No. 36',NULL,NULL,'App\\User',2,'[]','2021-05-17 20:34:41','2021-05-17 20:34:41');
+INSERT INTO `activity_log` VALUES (144,'default','Se ha modificado la funeraria No. 36',NULL,NULL,'App\\User',2,'[]','2021-05-17 20:35:30','2021-05-17 20:35:30');
+INSERT INTO `activity_log` VALUES (145,'default','Se ha modificado la funeraria No. 36',NULL,NULL,'App\\User',2,'[]','2021-05-17 20:42:37','2021-05-17 20:42:37');
+INSERT INTO `activity_log` VALUES (146,'default','Se ha modificado la funeraria No. 36',NULL,NULL,'App\\User',2,'[]','2021-05-17 20:43:08','2021-05-17 20:43:08');
+INSERT INTO `activity_log` VALUES (147,'default','Se ha modificado la funeraria No. 36',NULL,NULL,'App\\User',2,'[]','2021-05-17 20:47:08','2021-05-17 20:47:08');
+INSERT INTO `activity_log` VALUES (148,'default','Se ha modificado la funeraria No. 36',NULL,NULL,'App\\User',2,'[]','2021-05-17 20:47:11','2021-05-17 20:47:11');
+INSERT INTO `activity_log` VALUES (149,'default','Se ha modificado la funeraria No. 36',NULL,NULL,'App\\User',2,'[]','2021-05-17 20:50:09','2021-05-17 20:50:09');
+INSERT INTO `activity_log` VALUES (150,'default','Se ha modificado la funeraria No. 36',NULL,NULL,'App\\User',2,'[]','2021-05-17 20:50:18','2021-05-17 20:50:18');
+INSERT INTO `activity_log` VALUES (151,'default','Se ha ingresado un nuevo pago en el caso No. {\"id\":28,\"Agente\":2,\"Codigo\":15,\"Nombre\":\"Ana Luc\\u00eda Lopez\",\"Edad\":15,\"Aseguradora\":\"7\",\"Fecha\":\"2021-05-14\",\"Hora\":\"15:15:00\",\"Causa\":\"Suicidio\",\"Causa_Desc\":\"Test de causa\",\"Causa_Especifica\":\"Paro cardiorespiratorio por suspensi\\u00f3n\",\"Direccion\":\"12av el bosque 2-56 zona 11 de Mixco\",\"Departamento\":\"GUATEMALA\",\"Municipio\":\"GUATEMALA CITY\",\"Padre\":\"Juan Robles\",\"TelPadre\":\"81848484\",\"Madre\":\"Luc\\u00eda Medina\",\"TelMadre\":\"15151515\",\"NombreReporta\":\"Doctor Juan Alberto Garc\\u00eda\",\"RelacionReporta\":\"Doctor\",\"TelReporta\":\"49750995\",\"Lugar\":\"En su hogar\",\"Funeraria\":1,\"Funeraria_Nombre\":\"Funeraria La Piedad\",\"Estatus\":\"Asignado\",\"Reportar\":\"No\",\"Costo\":1000,\"Moneda\":\"USD\",\"Pagado\":800,\"Pendiente\":200,\"Solicitud\":null,\"Idioma\":\"Espa\\u00f1ol\",\"Medico\":\"Edgar\",\"Tutor\":\"Hilario Menendez\",\"ParentescoTutor\":\"Maestro\",\"EmailTutor\":\"samuelambrosio99@gmail.com\",\"Comentario\":\"test\",\"TelTutor\":\"49750995\",\"DPITutor\":\"3029999810108\",\"Evaluacion\":null,\"Certificado\":null,\"Poliza\":null,\"TipoAsegurado\":null}',NULL,NULL,'App\\User',2,'[]','2021-05-18 01:34:01','2021-05-18 01:34:01');
+INSERT INTO `activity_log` VALUES (152,'default','Se ha ingresado un nuevo pago en el caso No. 28',NULL,NULL,'App\\User',2,'[]','2021-05-18 01:35:48','2021-05-18 01:35:48');
+INSERT INTO `activity_log` VALUES (153,'default','Se ha ingresado un nuevo pago en el caso No. 28',NULL,NULL,'App\\User',2,'[]','2021-05-18 01:39:46','2021-05-18 01:39:46');
+INSERT INTO `activity_log` VALUES (154,'default','Se ha ingresado un nuevo pago en el caso No. 28',NULL,NULL,'App\\User',2,'[]','2021-05-18 01:41:47','2021-05-18 01:41:47');
+INSERT INTO `activity_log` VALUES (155,'default','El documento licenciaAmbiental fue Aprobado para la funeraria No. 41',NULL,NULL,'App\\User',2,'[]','2021-05-18 02:22:05','2021-05-18 02:22:05');
+INSERT INTO `activity_log` VALUES (156,'default','El documento licenciaAmbiental fue Aprobado para la funeraria No. 41',NULL,NULL,'App\\User',2,'[]','2021-05-18 02:29:51','2021-05-18 02:29:51');
+INSERT INTO `activity_log` VALUES (157,'default','El documento licenciaAmbiental fue Aprobado para la funeraria No. 43',NULL,NULL,'App\\User',2,'[]','2021-05-18 02:31:28','2021-05-18 02:31:28');
 /*!40000 ALTER TABLE `activity_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,7 +243,7 @@ CREATE TABLE `campanias` (
   `Nombre_Aseguradora` text,
   `Moneda` text CHARACTER SET utf8 COLLATE utf8_general_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,8 +309,11 @@ CREATE TABLE `casos` (
   `TelTutor` text CHARACTER SET utf8 COLLATE utf8_persian_ci,
   `DPITutor` text CHARACTER SET utf8 COLLATE utf8_persian_ci,
   `Evaluacion` double DEFAULT NULL,
+  `Certificado` text COLLATE utf8_persian_ci,
+  `Poliza` text COLLATE utf8_persian_ci,
+  `TipoAsegurado` text COLLATE utf8_persian_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -272,31 +322,32 @@ CREATE TABLE `casos` (
 
 LOCK TABLES `casos` WRITE;
 /*!40000 ALTER TABLE `casos` DISABLE KEYS */;
-INSERT INTO `casos` VALUES (3,NULL,1,'Estudiante de prueba',NULL,NULL,'2020-09-09','13:50:00','Test',NULL,NULL,'Esto es una prueba','GUATEMALA','MIXCO','Test',NULL,'Test',NULL,NULL,NULL,NULL,'6',6,'Funerales  El Roble','Asignado','No',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (4,NULL,2,'Prueba Estudiante',NULL,NULL,'2020-09-09','18:01:00','Esto es una prueba',NULL,NULL,'Test','GUATEMALA','MIXCO','Test',NULL,'Test2',NULL,NULL,NULL,NULL,NULL,6,'Funerales  El Roble','Cerrado','No',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (5,NULL,5,'Ana Lucía Robles',15,NULL,'2020-09-11','20:59:00','Accidente','Test de causa',NULL,'Prueba de dirección','PETEN','DESCONOCIDO','Juan Robles',NULL,'Lucía Medina',NULL,NULL,NULL,NULL,NULL,1,'Funeraria La Piedad','Asignado','No',1000,'USD',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (6,NULL,4,'Patricia Morales',NULL,NULL,'2020-09-11','19:04:00','Muerte natural',NULL,NULL,'Test','IZABAL','TEST','Prueba',NULL,'Prueba',NULL,NULL,NULL,NULL,NULL,9,'Funeraria dos','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (7,NULL,1,'Jefferson Morataya',NULL,NULL,'2020-09-11','15:15:00','Accidente',NULL,NULL,'Dirección de prueba Guatemala','GUATEMALA','Mixco','Test Padre',NULL,'Test Madre',NULL,NULL,NULL,NULL,'Edificio Tikal Futura',6,'Funerales  El Roble','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (8,NULL,2,'Luis Medina',NULL,NULL,'2020-09-11','16:44:00','Accidente',NULL,NULL,'Dirección de prueba capital','GUATEMALA','GUATEMALA','Test Padre',NULL,'Test Madre',NULL,NULL,NULL,NULL,'Edificio Miraflores',6,'Funerales  El Roble','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (9,NULL,5,'Ana Lucía Robles',NULL,NULL,'2020-09-19','10:55:00','Asesinato',NULL,NULL,'Ciudad de Guatemala','GUATEMALA','GUATEMALA','Test padre',NULL,'Test madre',NULL,NULL,NULL,NULL,'Boulevard Liberación',6,'Funerales  El Roble','Asignado','No',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,9);
-INSERT INTO `casos` VALUES (10,NULL,2,'Luis Medina',NULL,NULL,'2020-09-19','10:10:00','Suicidio',NULL,NULL,'Guatemala','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Test Reporta','Tutor legal','12345678',NULL,6,'Funerales  El Roble','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (11,NULL,3,'Carlos Sagastume',NULL,NULL,'2020-09-19','14:55:00','Enfermedad Comun',NULL,NULL,'GUATEMALA','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Edgar Prueba','Tío del estudiante','12345678',NULL,6,'Funerales  El Roble','Asignado','Si',1500,NULL,900,1600,'Pendiente',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,8);
-INSERT INTO `casos` VALUES (12,NULL,5,'Ana Lucía Robles',NULL,NULL,'2020-10-08','12:19:00','Accidente',NULL,NULL,'CC Miraflores','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Edwin Test','Tutor','12345678','CC Miraflores',6,'Funerales  El Roble','Cerrado','No',1900,NULL,500,1400,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,8);
-INSERT INTO `casos` VALUES (13,NULL,6,'Juan Antonio Palma',NULL,NULL,'2020-10-08','12:39:00','Suicidio','Test de causa',NULL,'Roosevelt','GUATEMALA','GUATEMALA','Padre Test','12345678','Madre Test','87654321','Reporta test2','Tutor','54687213','Edificio Tikal Futura',6,'Funerales  El Roble','Asignado','Si',2500,NULL,1864,636,'Pendiente',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,9.5);
-INSERT INTO `casos` VALUES (14,NULL,9,'Rosa Mendoza',NULL,NULL,'2020-10-26','19:19:00','Accidente',NULL,NULL,'Test','GUATEMALA','GUATEMALA','Test','12345678','Test','12345678','Edgar Ambrosio','Tester','12345678',NULL,6,'Funerales  El Roble','Cerrado','Si',2000,NULL,1200,800,'Aprobar','Español','Test',NULL,NULL,NULL,'Sin comentarios',NULL,NULL,8);
-INSERT INTO `casos` VALUES (15,NULL,8,'Silvia Arévalo',NULL,NULL,'2020-10-27','15:15:00','Accidente',NULL,NULL,'Test','GUATEMALA','GUATEMALA','Test Padre','12345678','Madre Test','12345678','Edgar Test','Doctor','85481813',NULL,6,'Funerales  El Roble','Cerrado','Si',1500,NULL,600,900,'Declinar','Español','Edgar Test',NULL,NULL,NULL,NULL,NULL,NULL,8);
-INSERT INTO `casos` VALUES (16,NULL,5,'Ana Lucía Robles',NULL,NULL,'2020-10-27','16:10:00','Accidente',NULL,NULL,'Test','GUATEMALA','GUATEMALA','test','12138485','test','41414548','Edgar test','Test','15848415',NULL,NULL,NULL,'Cerrado','No',NULL,NULL,NULL,NULL,NULL,'Español','Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (17,2,5,'Ana Lucía Robles',NULL,NULL,'2020-11-14','15:00:00','Accidente','nueva causa 2',NULL,'test','GUATEMALA','GUATEMALA','test','18515815','test','18718185','test','test','15151818',NULL,6,'Funerales  El Roble','Asignado','No',5184,NULL,NULL,NULL,NULL,'Español','test',NULL,NULL,NULL,NULL,NULL,NULL,8);
-INSERT INTO `casos` VALUES (18,2,5,'Ana Lucía Robles',15,NULL,'2020-11-14','15:00:00','Accidente','test nuevo',NULL,'test','GUATEMALA','GUATEMALA','test','54141515','test','15151515','test','test','51515151',NULL,6,'Funerales  El Roble','Asignado','No',1500,NULL,NULL,NULL,'Declinar','Español','Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (19,2,5,'Ana Lucía Robles',12,'7','2020-11-14','15:00:00','Accidente','test nuevo 4','test','test234','PETEN','SAN JOSE','test','11111111','test','15185185','test3','test2','12345678','testtest',26,'\"Funeraria \"\"El Buen Pastor\"\"\"','Cerrado','Si',0,NULL,1415,-1415,NULL,'Española','Tests','testt','15151','155151','test','15151','1515',NULL);
-INSERT INTO `casos` VALUES (20,2,15051,'Test Estudiante',15,'7','2020-11-23','15:03:00','Accidente','Se ahorcó test','Se colgó','test','GUATEMALA','GUATEMALA','test','15181818','test','18181818','test','test','15151515',NULL,6,'Funerales  El Roble','Cerrado','No',5184,NULL,NULL,NULL,NULL,'Español','Test',NULL,NULL,NULL,'Ninguno',NULL,NULL,8);
-INSERT INTO `casos` VALUES (21,2,15154,'Test',15,'7','2020-11-24','15:15:00','Accidente','Test de causa','test','test','GUATEMALA','MIXCO','test','51515151','test','15151515','test','test','15151515',NULL,6,'Funerales  El Roble','Asignado','No',1500,NULL,3600,-2100,NULL,'Español','test',NULL,NULL,NULL,NULL,NULL,NULL,8);
-INSERT INTO `casos` VALUES (22,2,1515,'test',18,'7','2020-11-05','15:15:00','Accidente','Test de causa','test','test','JUTIAPA','SAN JOSE ACATEMPA','test','15151515','test','15151515','test','test','15151515',NULL,1,'Funeraria La Piedad','Asignado','No',5000,'GTQ',NULL,NULL,NULL,'test','test',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (23,2,6,'Juan Antonio Palma',25,'7','2021-04-16','15:01:00','Accidente','asdasdad','Test','12av el bosque 2-56 zona 11 de Mixco','GUATEMALA','GUATEMALA CITY','Juan Robles','12341854','Susana Robles','12515151','Doctor Juan Alberto García','Doctor','15158484','En su hogar',1,'Funeraria La Piedad','Asignado','No',5000,'GTQ',NULL,NULL,NULL,'Español','Edgar','Hilario Menendez','Maestro','samuelambrosio99@gmail.com','Test','49750995','3029999810108',NULL);
-INSERT INTO `casos` VALUES (24,2,1516,'Estudiante Fallecido',6,'7','2021-04-16','15:01:00','Accidente','Test de causa','falleció','12av el bosque 2-56 zona 11 de Mixco','GUATEMALA','GUATEMALA CITY','Test Padre','15684818','Test Madre','18185151','Doctor Juan Alberto García','Doctor','15251545','En su hogar',1,'Funeraria La Piedad','Asignado','No',500,'USD',NULL,NULL,NULL,'Español','Edgar','Hilario Menendez','Maestro','samuelambrosio99@gmail.com','Test','49750995','3029999810108',NULL);
-INSERT INTO `casos` VALUES (25,2,5,'Ana Lucía Robles',18,'7','2021-04-30','15:15:00','Accidente','Test de causa','Paro cardiorespiratorio por suspensión','12av el bosque 2-56 zona 11 de Mixco','GUATEMALA','GUATEMALA CITY','test','15181818','test','18181818','Doctor Juan Alberto García','Doctor','41465939','En su hogar',1,'Funeraria La Piedad','Asignado','No',5000,'GTQ',NULL,NULL,NULL,'Español','Edgar','Hilario Menendez','Maestro','samuelambrosio99@gmail.com','Test','49750995','3029999810108',NULL);
-INSERT INTO `casos` VALUES (26,NULL,50125912,'Estudiante API',15,NULL,'2021-05-07',NULL,'Accidente','Test de causa',NULL,'Km 34 Carretera al Pacifico','ESCUINTLA','PALIN',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'Funeraria La Piedad','Asignado',NULL,1000,'USD',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `casos` VALUES (27,2,5,'Ana Lucía Robles',18,'7','2021-05-04','09:54:00','Suicidio','Test de causa','Paro cardiorespiratorio por suspensión','12av el bosque 2-56 zona 11 de Mixco','GUATEMALA','GUATEMALA CITY','Juan Robles','15181818','Lucía Medina','15151515','Doctor Juan Alberto García','Doctor','41465939','En su hogar',1,'Funeraria La Piedad','Asignado','Si',5000,'GTQ',3000,2000,'Aprobar','Español','Edgar','Hilario Menendez','Maestro','samuelambrosio99@gmail.com','Test','49750995','3029999810108',NULL);
+INSERT INTO `casos` VALUES (3,NULL,1,'Estudiante de prueba',NULL,NULL,'2020-09-09','13:50:00','Test',NULL,NULL,'Esto es una prueba','GUATEMALA','MIXCO','Test',NULL,'Test',NULL,NULL,NULL,NULL,'6',6,'Funerales  El Roble','Asignado','No',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (4,NULL,2,'Prueba Estudiante',NULL,NULL,'2020-09-09','18:01:00','Esto es una prueba',NULL,NULL,'Test','GUATEMALA','MIXCO','Test',NULL,'Test2',NULL,NULL,NULL,NULL,NULL,6,'Funerales  El Roble','Cerrado','No',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (5,NULL,5,'Ana Lucía Robles',15,NULL,'2020-09-11','20:59:00','Accidente','Test de causa',NULL,'Prueba de dirección','PETEN','DESCONOCIDO','Juan Robles',NULL,'Lucía Medina',NULL,NULL,NULL,NULL,NULL,1,'Funeraria La Piedad','Asignado','No',1000,'USD',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (6,NULL,4,'Patricia Morales',NULL,NULL,'2020-09-11','19:04:00','Muerte natural',NULL,NULL,'Test','IZABAL','TEST','Prueba',NULL,'Prueba',NULL,NULL,NULL,NULL,NULL,9,'Funeraria dos','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (7,NULL,1,'Jefferson Morataya',NULL,NULL,'2020-09-11','15:15:00','Accidente',NULL,NULL,'Dirección de prueba Guatemala','GUATEMALA','Mixco','Test Padre',NULL,'Test Madre',NULL,NULL,NULL,NULL,'Edificio Tikal Futura',6,'Funerales  El Roble','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (8,NULL,2,'Luis Medina',NULL,NULL,'2020-09-11','16:44:00','Accidente',NULL,NULL,'Dirección de prueba capital','GUATEMALA','GUATEMALA','Test Padre',NULL,'Test Madre',NULL,NULL,NULL,NULL,'Edificio Miraflores',6,'Funerales  El Roble','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (9,NULL,5,'Ana Lucía Robles',NULL,NULL,'2020-09-19','10:55:00','Asesinato',NULL,NULL,'Ciudad de Guatemala','GUATEMALA','GUATEMALA','Test padre',NULL,'Test madre',NULL,NULL,NULL,NULL,'Boulevard Liberación',6,'Funerales  El Roble','Asignado','No',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,9,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (10,NULL,2,'Luis Medina',NULL,NULL,'2020-09-19','10:10:00','Suicidio',NULL,NULL,'Guatemala','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Test Reporta','Tutor legal','12345678',NULL,6,'Funerales  El Roble','Asignado','Si',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (11,NULL,3,'Carlos Sagastume',NULL,NULL,'2020-09-19','14:55:00','Enfermedad Comun',NULL,NULL,'GUATEMALA','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Edgar Prueba','Tío del estudiante','12345678',NULL,6,'Funerales  El Roble','Asignado','Si',1500,NULL,900,1600,'Pendiente',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,8,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (12,NULL,5,'Ana Lucía Robles',NULL,NULL,'2020-10-08','12:19:00','Accidente',NULL,NULL,'CC Miraflores','GUATEMALA','GUATEMALA',NULL,NULL,NULL,NULL,'Edwin Test','Tutor','12345678','CC Miraflores',6,'Funerales  El Roble','Cerrado','No',1900,NULL,500,1400,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,8,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (13,NULL,6,'Juan Antonio Palma',NULL,NULL,'2020-10-08','12:39:00','Suicidio','Test de causa',NULL,'Roosevelt','GUATEMALA','GUATEMALA','Padre Test','12345678','Madre Test','87654321','Reporta test2','Tutor','54687213','Edificio Tikal Futura',6,'Funerales  El Roble','Asignado','Si',2500,NULL,1864,636,'Pendiente',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,9.5,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (14,NULL,9,'Rosa Mendoza',NULL,NULL,'2020-10-26','19:19:00','Accidente',NULL,NULL,'Test','GUATEMALA','GUATEMALA','Test','12345678','Test','12345678','Edgar Ambrosio','Tester','12345678',NULL,6,'Funerales  El Roble','Cerrado','Si',2000,NULL,1200,800,'Aprobar','Español','Test',NULL,NULL,NULL,'Sin comentarios',NULL,NULL,8,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (15,NULL,8,'Silvia Arévalo',NULL,NULL,'2020-10-27','15:15:00','Accidente',NULL,NULL,'Test','GUATEMALA','GUATEMALA','Test Padre','12345678','Madre Test','12345678','Edgar Test','Doctor','85481813',NULL,6,'Funerales  El Roble','Cerrado','Si',1500,NULL,600,900,'Declinar','Español','Edgar Test',NULL,NULL,NULL,NULL,NULL,NULL,8,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (16,NULL,5,'Ana Lucía Robles',NULL,NULL,'2020-10-27','16:10:00','Accidente',NULL,NULL,'Test','GUATEMALA','GUATEMALA','test','12138485','test','41414548','Edgar test','Test','15848415',NULL,NULL,NULL,'Cerrado','No',NULL,NULL,NULL,NULL,NULL,'Español','Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (17,2,5,'Ana Lucía Robles',NULL,NULL,'2020-11-14','15:00:00','Accidente','nueva causa 2',NULL,'test','GUATEMALA','GUATEMALA','test','18515815','test','18718185','test','test','15151818',NULL,6,'Funerales  El Roble','Asignado','No',5184,NULL,NULL,NULL,NULL,'Español','test',NULL,NULL,NULL,NULL,NULL,NULL,8,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (18,2,5,'Ana Lucía Robles',15,NULL,'2020-11-14','15:00:00','Accidente','test nuevo',NULL,'test','GUATEMALA','GUATEMALA','test','54141515','test','15151515','test','test','51515151',NULL,6,'Funerales  El Roble','Asignado','No',1500,NULL,NULL,NULL,'Declinar','Español','Test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (19,2,5,'Ana Lucía Robles',12,'7','2020-11-14','15:00:00','Accidente','test nuevo 4','test','test234','PETEN','SAN JOSE','test','11111111','test','15185185','test3','test2','12345678','testtest',26,'\"Funeraria \"\"El Buen Pastor\"\"\"','Cerrado','Si',0,NULL,1415,-1415,NULL,'Española','Tests','testt','15151','155151','test','15151','1515',NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (20,2,15051,'Test Estudiante',15,'7','2020-11-23','15:03:00','Accidente','Se ahorcó test','Se colgó','test','GUATEMALA','GUATEMALA','test','15181818','test','18181818','test','test','15151515',NULL,6,'Funerales  El Roble','Cerrado','No',5184,NULL,NULL,NULL,NULL,'Español','Test',NULL,NULL,NULL,'Ninguno',NULL,NULL,8,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (21,2,15154,'Test',15,'7','2020-11-24','15:15:00','Accidente','Test de causa','test','test','GUATEMALA','MIXCO','test','51515151','test','15151515','test','test','15151515',NULL,6,'Funerales  El Roble','Asignado','No',1500,NULL,3600,-2100,NULL,'Español','test',NULL,NULL,NULL,NULL,NULL,NULL,8,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (22,2,1515,'test',18,'7','2020-11-05','15:15:00','Accidente','Test de causa','test','test','JUTIAPA','SAN JOSE ACATEMPA','test','15151515','test','15151515','test','test','15151515',NULL,1,'Funeraria La Piedad','Asignado','No',5000,'GTQ',NULL,NULL,NULL,'test','test',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (23,2,6,'Juan Antonio Palma',25,'7','2021-04-16','15:01:00','Accidente','asdasdad','Test','12av el bosque 2-56 zona 11 de Mixco','GUATEMALA','GUATEMALA CITY','Juan Robles','12341854','Susana Robles','12515151','Doctor Juan Alberto García','Doctor','15158484','En su hogar',1,'Funeraria La Piedad','Asignado','No',5000,'GTQ',NULL,NULL,NULL,'Español','Edgar','Hilario Menendez','Maestro','samuelambrosio99@gmail.com','Test','49750995','3029999810108',NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (24,2,1516,'Estudiante Fallecido',6,'7','2021-04-16','15:01:00','Accidente','Test de causa','falleció','12av el bosque 2-56 zona 11 de Mixco','GUATEMALA','GUATEMALA CITY','Test Padre','15684818','Test Madre','18185151','Doctor Juan Alberto García','Doctor','15251545','En su hogar',1,'Funeraria La Piedad','Asignado','No',500,'USD',NULL,NULL,NULL,'Español','Edgar','Hilario Menendez','Maestro','samuelambrosio99@gmail.com','Test','49750995','3029999810108',NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (25,2,5,'Ana Lucía Robles',18,'7','2021-04-30','15:15:00','Accidente','Test de causa','Paro cardiorespiratorio por suspensión','12av el bosque 2-56 zona 11 de Mixco','GUATEMALA','GUATEMALA CITY','test','15181818','test','18181818','Doctor Juan Alberto García','Doctor','41465939','En su hogar',1,'Funeraria La Piedad','Asignado','No',5000,'GTQ',NULL,NULL,NULL,'Español','Edgar','Hilario Menendez','Maestro','samuelambrosio99@gmail.com','Test','49750995','3029999810108',NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (26,NULL,50125912,'Estudiante API',15,NULL,'2021-05-07',NULL,'Accidente','Test de causa',NULL,'Km 34 Carretera al Pacifico','ESCUINTLA','PALIN',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'Funeraria La Piedad','Asignado',NULL,1000,'USD',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `casos` VALUES (27,2,5,'Ana Lucía Robles',18,'7','2021-05-14',NULL,'Suicidio','Test de causa','Paro cardiorespiratorio por suspensión','12av el bosque 2-56 zona 11 de Mixco','GUATEMALA','GUATEMALA CITY',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'En su hogar',1,'Funeraria La Piedad','Asignado','Si',5000,'GTQ',5000,0,'Aprobar',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'1515','123','Dependiente');
+INSERT INTO `casos` VALUES (28,2,15,'Ana Lucía Lopez',15,'7','2021-05-14','15:15:00','Suicidio','Test de causa','Paro cardiorespiratorio por suspensión','12av el bosque 2-56 zona 11 de Mixco','GUATEMALA','GUATEMALA CITY','Juan Robles','81848484','Lucía Medina','15151515','Doctor Juan Alberto García','Doctor','49750995','En su hogar',1,'Funeraria La Piedad','Asignado','No',1000,'USD',925,75,NULL,'Español','Edgar','Hilario Menendez','Maestro','samuelambrosio99@gmail.com','test','49750995','3029999810108',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `casos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -386,7 +437,7 @@ CREATE TABLE `detalle_de_funerarias` (
   `Estado` text,
   `Comentarios` text CHARACTER SET utf8 COLLATE utf8_general_ci,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=156 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -483,18 +534,18 @@ INSERT INTO `detalle_de_funerarias` VALUES (117,40,'NombreContacto','Samuel Ambr
 INSERT INTO `detalle_de_funerarias` VALUES (118,40,'TelContacto','53165894',NULL,NULL);
 INSERT INTO `detalle_de_funerarias` VALUES (119,40,'InfoGeneral',NULL,'Aprobado',NULL);
 INSERT INTO `detalle_de_funerarias` VALUES (120,40,'Documentacion',NULL,'Denegado',NULL);
-INSERT INTO `detalle_de_funerarias` VALUES (121,41,'LicenciaAmbiental',NULL,'Pendiente',NULL);
-INSERT INTO `detalle_de_funerarias` VALUES (122,41,'TipoFuneraria','C',NULL,NULL);
-INSERT INTO `detalle_de_funerarias` VALUES (123,41,'NIT','1515',NULL,NULL);
-INSERT INTO `detalle_de_funerarias` VALUES (124,41,'Telefono','12345678',NULL,NULL);
-INSERT INTO `detalle_de_funerarias` VALUES (125,41,'Direccion','12av el bosque 2-56 zona 11 de Mixco, lo de fuentes',NULL,NULL);
-INSERT INTO `detalle_de_funerarias` VALUES (126,41,'Departamento','Guatemala',NULL,NULL);
-INSERT INTO `detalle_de_funerarias` VALUES (127,41,'NombreContacto','Samuel Ambrosio',NULL,NULL);
-INSERT INTO `detalle_de_funerarias` VALUES (128,41,'TelContacto','53165894',NULL,NULL);
-INSERT INTO `detalle_de_funerarias` VALUES (129,41,'InfoGeneral',NULL,'Aprobado',NULL);
-INSERT INTO `detalle_de_funerarias` VALUES (130,41,'Documentacion',NULL,'Aprobado',NULL);
-INSERT INTO `detalle_de_funerarias` VALUES (131,41,'Convenio',NULL,'Denegado',NULL);
-INSERT INTO `detalle_de_funerarias` VALUES (132,43,'LicenciaAmbiental',NULL,'Pendiente',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (121,41,'LicenciaAmbiental',NULL,'Aprobado',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (122,41,'LicenciaAmbiental','C','Aprobado',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (123,41,'LicenciaAmbiental','1515','Aprobado',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (124,41,'LicenciaAmbiental','12345678','Aprobado',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (125,41,'LicenciaAmbiental','12av el bosque 2-56 zona 11 de Mixco, lo de fuentes','Aprobado',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (126,41,'LicenciaAmbiental','Guatemala','Aprobado',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (127,41,'LicenciaAmbiental','Samuel Ambrosio','Aprobado',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (128,41,'LicenciaAmbiental','53165894','Aprobado',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (129,41,'LicenciaAmbiental',NULL,'Aprobado',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (130,41,'LicenciaAmbiental',NULL,'Aprobado',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (131,41,'LicenciaAmbiental',NULL,'Aprobado',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (132,43,'LicenciaAmbiental',NULL,'Aprobado',NULL);
 INSERT INTO `detalle_de_funerarias` VALUES (133,43,'TipoFuneraria','C',NULL,NULL);
 INSERT INTO `detalle_de_funerarias` VALUES (134,43,'NIT','1515',NULL,NULL);
 INSERT INTO `detalle_de_funerarias` VALUES (135,43,'Telefono','12345678',NULL,NULL);
@@ -503,7 +554,7 @@ INSERT INTO `detalle_de_funerarias` VALUES (137,43,'Departamento','Guatemala',NU
 INSERT INTO `detalle_de_funerarias` VALUES (138,43,'NombreContacto','Samuel Ambrosio',NULL,NULL);
 INSERT INTO `detalle_de_funerarias` VALUES (139,43,'TelContacto','53165894',NULL,NULL);
 INSERT INTO `detalle_de_funerarias` VALUES (140,43,'InfoGeneral',NULL,'Pendiente',NULL);
-INSERT INTO `detalle_de_funerarias` VALUES (141,43,'Documentacion',NULL,'Aprobado',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (141,43,'Documentacion',NULL,'Denegado',NULL);
 INSERT INTO `detalle_de_funerarias` VALUES (142,43,'LicenciaAmbiental',NULL,'Aprobado',NULL);
 INSERT INTO `detalle_de_funerarias` VALUES (143,43,'Convenio',NULL,'Denegado',NULL);
 INSERT INTO `detalle_de_funerarias` VALUES (144,44,'LicenciaAmbiental',NULL,'Pendiente',NULL);
@@ -518,6 +569,7 @@ INSERT INTO `detalle_de_funerarias` VALUES (152,44,'InfoGeneral',NULL,'Pendiente
 INSERT INTO `detalle_de_funerarias` VALUES (153,44,'Documentacion',NULL,'Aprobado',NULL);
 INSERT INTO `detalle_de_funerarias` VALUES (154,44,'LicenciaAmbiental',NULL,'Aprobado',NULL);
 INSERT INTO `detalle_de_funerarias` VALUES (155,44,'Convenio',NULL,'Denegado',NULL);
+INSERT INTO `detalle_de_funerarias` VALUES (158,41,'Documentacion',NULL,'Denegado',NULL);
 /*!40000 ALTER TABLE `detalle_de_funerarias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -532,7 +584,7 @@ CREATE TABLE `detalles_funeraria` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Campos` text CHARACTER SET utf8 COLLATE utf8_persian_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=191 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -580,6 +632,157 @@ INSERT INTO `detalles_funeraria` VALUES (36,'[{\"campo\":1,\"result\":\"No\"}');
 INSERT INTO `detalles_funeraria` VALUES (37,'[{\"campo\":1,\"result\":\"No\"}');
 INSERT INTO `detalles_funeraria` VALUES (38,'[{\"campo\":1,\"result\":\"No\"}');
 INSERT INTO `detalles_funeraria` VALUES (39,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (40,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (41,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (42,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (43,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (44,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (45,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (46,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (47,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (48,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (49,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (50,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (51,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (52,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (53,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (54,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (55,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (56,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (57,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (58,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (59,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (60,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (61,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (62,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (63,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (64,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (65,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (66,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (67,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (68,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (69,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (70,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (71,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (72,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (73,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (74,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (75,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (76,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (77,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (78,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (79,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (80,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (81,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (82,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (83,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (84,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (85,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (86,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (87,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (88,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (89,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (90,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (91,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (92,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (93,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (94,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (95,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (96,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (97,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (98,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (99,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (100,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (101,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (102,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (103,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (104,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (105,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (106,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (107,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (108,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (109,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (110,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (111,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (112,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (113,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (114,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (115,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (116,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (117,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (118,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (119,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (120,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (121,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (122,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (123,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (124,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (125,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (126,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (127,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (128,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (129,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (130,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (131,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (132,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (133,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (134,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (135,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (136,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (137,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (138,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (139,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (140,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (141,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (142,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (143,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (144,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (145,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (146,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (147,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (148,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (149,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (150,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (151,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (152,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (153,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (154,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (155,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (156,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (157,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (158,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (159,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (160,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (161,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (162,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (163,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (164,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (165,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (166,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (167,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (168,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (169,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (170,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (171,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (172,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (173,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (174,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (175,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (176,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (177,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (178,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (179,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (180,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (181,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (182,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (183,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (184,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (185,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (186,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (187,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (188,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (189,'[{\"campo\":1,\"result\":\"No\"}');
+INSERT INTO `detalles_funeraria` VALUES (190,'[{\"campo\":1,\"result\":\"No\"}');
 /*!40000 ALTER TABLE `detalles_funeraria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -721,6 +924,7 @@ DROP TABLE IF EXISTS `funerarias`;
 CREATE TABLE `funerarias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Id_Funeraria` int(11) DEFAULT NULL,
+  `Funeraria_Registrada` int(11) DEFAULT NULL,
   `Nombre` text,
   `Email` text,
   `Telefono` text,
@@ -729,7 +933,7 @@ CREATE TABLE `funerarias` (
   `Id_Detalle` int(11) DEFAULT NULL,
   `Campanias` json DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -738,17 +942,20 @@ CREATE TABLE `funerarias` (
 
 LOCK TABLES `funerarias` WRITE;
 /*!40000 ALTER TABLE `funerarias` DISABLE KEYS */;
-INSERT INTO `funerarias` VALUES (1,6,'Funerales  El Roble','samedgar15@gmail.com','12345678',5184,'Si',9,'[{\"id\": \"2\", \"monto\": \"1100\", \"nombre\": \"Test campaña, Aseguradora Prueba\"}, {\"id\": \"3\", \"monto\": \"1500\", \"nombre\": \"Test campaña 2, Test 2\"}]');
-INSERT INTO `funerarias` VALUES (2,13,'Funeraria Quetzaltenango','quetzaltenango@funeraria.com','12345678',10000,'Si',10,NULL);
-INSERT INTO `funerarias` VALUES (3,1,'Funeraria La Piedad','samuelambrosio99@gmail.coms','49750995',0,'Si',11,'[{\"id\": \"4\", \"monto\": \"1000\", \"nombre\": \"Test usd, TEst (USD)\", \"edad_final\": \"15\", \"edad_inicial\": \"10\"}, {\"id\": \"5\", \"monto\": \"500\", \"nombre\": \"Campaña nueva, Aseguradora Prueba (USD)\", \"edad_final\": \"9\", \"edad_inicial\": \"5\"}, {\"id\": \"7\", \"monto\": \"3000\", \"nombre\": \"SeguRed, Segured (GTQ)\", \"edad_final\": \"18\", \"edad_inicial\": \"2\"}]');
-INSERT INTO `funerarias` VALUES (4,2,'Funeraria San Miguel','test@test.com','15151545',0,'Si',12,NULL);
-INSERT INTO `funerarias` VALUES (5,3,'Funeraria La Piedad','samuelambrosio99@gmail.com','49750995',0,'Si',13,'[{\"id\": \"4\", \"monto\": \"1000\", \"nombre\": \"Test usd, TEst (USD)\", \"edad_final\": \"15\", \"edad_inicial\": \"10\"}, {\"id\": \"3\", \"monto\": \"5000\", \"nombre\": \"Test campaña 2, Test 2 (GTQ)\", \"edad_final\": \"30\", \"edad_inicial\": \"16\"}, {\"id\": \"5\", \"monto\": \"500\", \"nombre\": \"Campaña nueva, Aseguradora Prueba (USD)\", \"edad_final\": \"9\", \"edad_inicial\": \"5\"}, {\"id\": \"7\", \"monto\": \"3000\", \"nombre\": \"SeguRed, Segured (GTQ)\", \"edad_final\": \"12\", \"edad_inicial\": \"5\"}]');
-INSERT INTO `funerarias` VALUES (6,5,'Funerales y Capillas San José','','',0,'Si',14,NULL);
-INSERT INTO `funerarias` VALUES (7,10,'Funerales Carranza','','',0,'Si',15,NULL);
-INSERT INTO `funerarias` VALUES (8,26,'\"Funeraria \"\"El Buen Pastor\"\"\"','samedgar15@gmail.com','15234584',0,'Si',16,NULL);
-INSERT INTO `funerarias` VALUES (9,4,'Funeraria Hardelh','','',0,'Si',17,NULL);
-INSERT INTO `funerarias` VALUES (14,38,'Funeraria registro','registro@funeraria.com',NULL,NULL,'Si',NULL,'[]');
-INSERT INTO `funerarias` VALUES (18,8,'Funeraria El quetzalteco','','',0,'Si',39,NULL);
+INSERT INTO `funerarias` VALUES (1,6,NULL,'Funeraria de prueba','test@funeraria.com',NULL,5184,'No',9,'[]');
+INSERT INTO `funerarias` VALUES (2,13,NULL,'Funeraria Quetzaltenango','quetzaltenango@funeraria.com','12345678',10000,'Si',10,NULL);
+INSERT INTO `funerarias` VALUES (3,1,1,'Funeraria La Piedad','samuelambrosio99@gmail.com','49750995',0,'Si',11,'[{\"id\": \"4\", \"monto\": \"1000\", \"nombre\": \"Test usd, TEst (USD)\", \"edad_final\": \"15\", \"edad_inicial\": \"10\"}, {\"id\": \"5\", \"monto\": \"500\", \"nombre\": \"Campaña nueva, Aseguradora Prueba (USD)\", \"edad_final\": \"9\", \"edad_inicial\": \"5\"}, {\"id\": \"7\", \"monto\": \"5000\", \"nombre\": \"SeguRed, Segured (GTQ)\", \"edad_final\": \"4\", \"edad_inicial\": \"1\"}]');
+INSERT INTO `funerarias` VALUES (4,2,NULL,'Funeraria San Miguel','test@test.com','15151545',0,'Si',12,NULL);
+INSERT INTO `funerarias` VALUES (5,3,NULL,'Funeraria La Piedad','samuelambrosio99@gmail.com','49750995',0,'Si',13,'[{\"id\": \"4\", \"monto\": \"1000\", \"nombre\": \"Test usd, TEst (USD)\", \"edad_final\": \"15\", \"edad_inicial\": \"10\"}, {\"id\": \"3\", \"monto\": \"5000\", \"nombre\": \"Test campaña 2, Test 2 (GTQ)\", \"edad_final\": \"30\", \"edad_inicial\": \"16\"}, {\"id\": \"5\", \"monto\": \"500\", \"nombre\": \"Campaña nueva, Aseguradora Prueba (USD)\", \"edad_final\": \"9\", \"edad_inicial\": \"5\"}, {\"id\": \"7\", \"monto\": \"3000\", \"nombre\": \"SeguRed, Segured (GTQ)\", \"edad_final\": \"12\", \"edad_inicial\": \"5\"}]');
+INSERT INTO `funerarias` VALUES (6,5,NULL,'Funerales y Capillas San José','','',0,'Si',14,NULL);
+INSERT INTO `funerarias` VALUES (7,10,NULL,'Funerales Carranza','','',0,'Si',15,NULL);
+INSERT INTO `funerarias` VALUES (8,26,NULL,'\"Funeraria \"\"El Buen Pastor\"\"\"','samedgar15@gmail.com','15234584',0,'Si',16,NULL);
+INSERT INTO `funerarias` VALUES (9,4,NULL,'Funeraria Hardelh','','',0,'Si',17,NULL);
+INSERT INTO `funerarias` VALUES (14,38,NULL,'Funeraria registro','registro@funeraria.com',NULL,NULL,'Si',NULL,'[]');
+INSERT INTO `funerarias` VALUES (18,8,NULL,'Funeraria El quetzalteco','','',0,'Si',39,NULL);
+INSERT INTO `funerarias` VALUES (19,7,NULL,'Funeraria Zaculeu','','',0,'Si',40,NULL);
+INSERT INTO `funerarias` VALUES (33,40,49,'test nuevo fun','fun@nueva.com','53165894',0,'Si',32,NULL);
+INSERT INTO `funerarias` VALUES (34,36,50,'Nuevo test funeraria','nuevotest@funeraria.com','53165894',0,'Si',27,'[]');
 /*!40000 ALTER TABLE `funerarias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -766,10 +973,11 @@ CREATE TABLE `historial_pagos` (
   `fecha` date DEFAULT NULL,
   `factura` text CHARACTER SET utf8 COLLATE utf8_romanian_ci,
   `serie` text CHARACTER SET utf8 COLLATE utf8_romanian_ci,
+  `comprobante` text CHARACTER SET utf8 COLLATE utf8_romanian_ci,
   PRIMARY KEY (`id`),
   KEY `caso` (`caso`),
   CONSTRAINT `historial_pagos_ibfk_1` FOREIGN KEY (`caso`) REFERENCES `casos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_romanian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_romanian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -778,46 +986,117 @@ CREATE TABLE `historial_pagos` (
 
 LOCK TABLES `historial_pagos` WRITE;
 /*!40000 ALTER TABLE `historial_pagos` DISABLE KEYS */;
-INSERT INTO `historial_pagos` VALUES (1,11,100,'2020-10-08',NULL,NULL);
-INSERT INTO `historial_pagos` VALUES (2,11,50,'2020-10-07',NULL,NULL);
-INSERT INTO `historial_pagos` VALUES (3,11,50,'2020-10-08',NULL,NULL);
-INSERT INTO `historial_pagos` VALUES (4,11,50,'2020-10-01',NULL,NULL);
-INSERT INTO `historial_pagos` VALUES (5,11,150,'2020-10-02',NULL,NULL);
-INSERT INTO `historial_pagos` VALUES (6,11,200,'2020-10-05',NULL,NULL);
-INSERT INTO `historial_pagos` VALUES (7,11,150,'2020-09-01',NULL,NULL);
-INSERT INTO `historial_pagos` VALUES (8,11,100,'2020-08-05',NULL,NULL);
-INSERT INTO `historial_pagos` VALUES (9,11,50,'2020-10-07',NULL,NULL);
-INSERT INTO `historial_pagos` VALUES (10,12,500,'2020-10-08',NULL,NULL);
-INSERT INTO `historial_pagos` VALUES (11,13,500,'2020-10-08',NULL,NULL);
-INSERT INTO `historial_pagos` VALUES (12,13,50,'2020-10-08',NULL,NULL);
-INSERT INTO `historial_pagos` VALUES (13,13,100,'2020-10-13','15216',NULL);
-INSERT INTO `historial_pagos` VALUES (14,13,100,'2020-10-13','123',NULL);
-INSERT INTO `historial_pagos` VALUES (15,14,500,'2020-10-26','12',NULL);
-INSERT INTO `historial_pagos` VALUES (16,14,700,'2020-10-26','13',NULL);
-INSERT INTO `historial_pagos` VALUES (17,15,150,'2020-10-27','123',NULL);
-INSERT INTO `historial_pagos` VALUES (18,15,350,'2020-10-27','122',NULL);
-INSERT INTO `historial_pagos` VALUES (19,13,124,'2020-10-28','121a',NULL);
-INSERT INTO `historial_pagos` VALUES (20,13,150,'2020-10-28','12154',NULL);
-INSERT INTO `historial_pagos` VALUES (21,13,110,'2020-10-28','1111',NULL);
-INSERT INTO `historial_pagos` VALUES (22,13,110,'2020-10-28','1111',NULL);
-INSERT INTO `historial_pagos` VALUES (23,13,100,'2020-10-28','54818',NULL);
-INSERT INTO `historial_pagos` VALUES (24,15,100,'2020-10-28','8481',NULL);
-INSERT INTO `historial_pagos` VALUES (25,13,100,'2020-10-28','123223',NULL);
-INSERT INTO `historial_pagos` VALUES (26,13,100,'2020-10-28','123223',NULL);
-INSERT INTO `historial_pagos` VALUES (27,13,100,'2020-10-28','123223',NULL);
-INSERT INTO `historial_pagos` VALUES (28,13,100,'2020-10-28','123223',NULL);
-INSERT INTO `historial_pagos` VALUES (29,13,120,'2020-10-28','1502',NULL);
-INSERT INTO `historial_pagos` VALUES (30,19,150,'2020-11-18','1',NULL);
-INSERT INTO `historial_pagos` VALUES (31,19,150,'2020-11-20','15','E');
-INSERT INTO `historial_pagos` VALUES (32,19,1000,'2020-11-21','12345','A');
-INSERT INTO `historial_pagos` VALUES (33,19,15,'2020-12-07','5','A');
-INSERT INTO `historial_pagos` VALUES (34,19,100,'2020-12-07','121','A');
-INSERT INTO `historial_pagos` VALUES (35,21,1200,'2021-04-30','123','E');
-INSERT INTO `historial_pagos` VALUES (36,21,2400,'2021-04-30','1234','A');
-INSERT INTO `historial_pagos` VALUES (37,27,1000,'2021-05-04','12345','E');
-INSERT INTO `historial_pagos` VALUES (38,27,1000,'2021-05-07','12345','A');
-INSERT INTO `historial_pagos` VALUES (39,27,1000,'2021-05-07','84818','E');
+INSERT INTO `historial_pagos` VALUES (1,11,100,'2020-10-08',NULL,NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (2,11,50,'2020-10-07',NULL,NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (3,11,50,'2020-10-08',NULL,NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (4,11,50,'2020-10-01',NULL,NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (5,11,150,'2020-10-02',NULL,NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (6,11,200,'2020-10-05',NULL,NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (7,11,150,'2020-09-01',NULL,NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (8,11,100,'2020-08-05',NULL,NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (9,11,50,'2020-10-07',NULL,NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (10,12,500,'2020-10-08',NULL,NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (11,13,500,'2020-10-08',NULL,NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (12,13,50,'2020-10-08',NULL,NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (13,13,100,'2020-10-13','15216',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (14,13,100,'2020-10-13','123',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (15,14,500,'2020-10-26','12',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (16,14,700,'2020-10-26','13',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (17,15,150,'2020-10-27','123',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (18,15,350,'2020-10-27','122',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (19,13,124,'2020-10-28','121a',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (20,13,150,'2020-10-28','12154',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (21,13,110,'2020-10-28','1111',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (22,13,110,'2020-10-28','1111',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (23,13,100,'2020-10-28','54818',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (24,15,100,'2020-10-28','8481',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (25,13,100,'2020-10-28','123223',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (26,13,100,'2020-10-28','123223',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (27,13,100,'2020-10-28','123223',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (28,13,100,'2020-10-28','123223',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (29,13,120,'2020-10-28','1502',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (30,19,150,'2020-11-18','1',NULL,NULL);
+INSERT INTO `historial_pagos` VALUES (31,19,150,'2020-11-20','15','E',NULL);
+INSERT INTO `historial_pagos` VALUES (32,19,1000,'2020-11-21','12345','A',NULL);
+INSERT INTO `historial_pagos` VALUES (33,19,15,'2020-12-07','5','A',NULL);
+INSERT INTO `historial_pagos` VALUES (34,19,100,'2020-12-07','121','A',NULL);
+INSERT INTO `historial_pagos` VALUES (35,21,1200,'2021-04-30','123','E',NULL);
+INSERT INTO `historial_pagos` VALUES (36,21,2400,'2021-04-30','1234','A',NULL);
+INSERT INTO `historial_pagos` VALUES (37,27,1000,'2021-05-04','12345','E',NULL);
+INSERT INTO `historial_pagos` VALUES (38,27,1000,'2021-05-07','12345','A',NULL);
+INSERT INTO `historial_pagos` VALUES (39,27,1000,'2021-05-07','84818','E','/images/test.jpg');
+INSERT INTO `historial_pagos` VALUES (40,27,1000,'2021-05-13','4344534','E','/images/Caso27-Reporte-Causas (1).pdf');
+INSERT INTO `historial_pagos` VALUES (41,27,1000,'2021-05-13','634534','A','/images/Caso27-Reporte-Causas (1).pdf');
+INSERT INTO `historial_pagos` VALUES (42,27,0,'2021-05-13','1515','E','/images/Caso27-Reporte-Causas (1).pdf');
+INSERT INTO `historial_pagos` VALUES (43,27,0,'2021-05-13','1616','E','/images/Caso27-Reporte-Edades (1).pdf');
+INSERT INTO `historial_pagos` VALUES (44,28,500,'2021-05-14','8595','A','/images/Caso28-nuevotest.txt');
+INSERT INTO `historial_pagos` VALUES (45,28,100,'2021-05-14','12345','F','/images/Caso28-test-de-estrés.png');
+INSERT INTO `historial_pagos` VALUES (46,28,100,'2021-05-14','1515','X','/images/Caso28-test-de-estrés.png');
+INSERT INTO `historial_pagos` VALUES (47,28,1000,'2021-05-17','12345','C','/images/Caso28-test-de-estrés.png');
+INSERT INTO `historial_pagos` VALUES (48,28,100,'2021-05-17','123','V','/images/Caso28-test-de-estrés.png');
+INSERT INTO `historial_pagos` VALUES (49,28,100,'2021-05-17','131','V','/images/Caso28-test-de-estrés.png');
+INSERT INTO `historial_pagos` VALUES (50,28,10,'2021-05-18','1515','G','/images/Caso28-test-de-estrés.png');
+INSERT INTO `historial_pagos` VALUES (51,28,15,'2021-05-17','1515','J','/images/Caso28-nuevotest.txt');
 /*!40000 ALTER TABLE `historial_pagos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `info_funerarias_registradas`
+--
+
+DROP TABLE IF EXISTS `info_funerarias_registradas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `info_funerarias_registradas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `funeraria` text NOT NULL,
+  `direccion` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `departamento` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `municipio` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `tel_contacto` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `tel_coordinador` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `convenio` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `tipo` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `estado` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `info_funerarias_registradas`
+--
+
+LOCK TABLES `info_funerarias_registradas` WRITE;
+/*!40000 ALTER TABLE `info_funerarias_registradas` DISABLE KEYS */;
+INSERT INTO `info_funerarias_registradas` VALUES (1,'Funeraria La Piedad','2da av. 6-92 Zona 1 Cobán, Alta Verapaz','ALTA VERAPAZ','COBAN','5202 4024','52024024','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (2,'Funeraria San Miguel ','Cantón Sandoval, San Miguel Chicaj ','BAJA VERAPAZ','SALAMA','46692308','46692308','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (3,'Funeraria Morazán','Calle Principal como a 100 metros de la entrada all campo de fútbol,  Barrio el Calvario,  Morazán, El Progreso.','EL PROGRESO','MORAZAN','5019-7670','5019-7670','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (4,'Funeraria Hardelh','2da. Calle 15-70 Zona 3 Santa Cruz del Quiché,  Quiché','QUICHE','SANTA CRUZ DEL QUICHE','573-31148','573-31148','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (5,'Funerales y Capillas San José','4av. Norte 3-40 Zona 2 Escuintla, Escuintla','ESCUINTLA','ESCUINTLA','5693-6646','4103-2103','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (6,'Funerales  El Roble','6ta Av.5-38 Colonia Landivar Zona 7, Guatemala, Guatemala','GUATEMALA','GUATEMALA','3199-0959','3199-0959','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (7,'Funeraria Zaculeu','Las Lagunas Z-10 Huehuetenango, Huehuetenango','HUEHUETENANGO','HUEHUETENANGO','57881600','57881600','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (8,'Funeraria El quetzalteco','Las Lagunas Z-10 Huehuetenango, Huehuetenango','HUEHUETENANGO','HUEHUETENANGO','4600-8222','5441-1193','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (9,'Funerales San José','3ra. Calle  1ra. Avenida Colonia San Agustín Santo Tomás de Castilla , Puerto Barrios, Izabal','IZABAL','PUERTO BARRIOS','5843-6536','5843-6536','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (10,'Funerales Carranza','Av. Chipilapa 2-89 Zona 2 Barrio la esperanza Jalapa, Jalapa','JALAPA','JALAPA','5470-9427','5692-5263 / 5692-5315 /46013843','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (11,'Funeraria Jutiapa','Calle 15 de Septiembre final a un costado de la emergencia del Hospital de Jutiapa Barrio Latino zona 1,  Jutiapa, Jutiapa','JUTIAPA','JUTIAPA','5046-9496','5046-9496','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (12,'\"Funerarias y Multiservicios  \"\"NAVARRO\"\"\"','Final Calle 15 de Septiembre, a un costado del Hospital Nacional, Jutiapa, Jutiapa','JUTIAPA','JUTIAPA','5161-2870','4569-0963','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (13,'Funeraria Quetzaltenango','10 Calle 12-38 Zona 1 Quetzlatenango, Quetzlatenango','QUETZALTENANGO','QUETZALTENANGO','4254-8836','4254-8836','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (14,'Funerales del Ángel','Dirección: 0 Calle, 4-69 zona 9 Quetzaltenango, Quetzaltenango. frente al Hospital Regional San Juan de Dios.','QUETZALTENANGO','QUETZALTENANGO','4003-6696','4003-6696','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (15,'Funerales Retalhuleu','7ma. Calle 1-32 Zona 1 Retalhuleu, Retalhule','RETALHULEU','RETALHULEU','4732-0522','4732-0522','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (16,'Funerales San Serbastían','Bulevar Centenario salida a Coatepeque a un costado del IGSS / Calle al cementerio, Retalhuleu , Retalhuleu ','RETALHULEU','RETALHULEU',' 5904-0933 ',' 5904-0933','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (17,'Funeraria La Eternidad','5ta. Calle 14-339 Z-5, San Marcos, San Marcos','SAN MARCOS','SAN MARCOS','5788-1600','5788-1600 / 5909-0790','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (18,'Funeraria Emmanuel','Calzada Principal Barrio San Pedro, Guazacapán, Santa Rosa','SANTA ROSA','GUAZACAPAN','54370818','54370818','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (19,'Funeraria El Último Recuerdo','Calzada Venancio Barrios 0-570 Zona 2 Sololá, Sololá ','SOLOLA','SOLOLA','57111085','57111085','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (20,'Fueraria Los Ángeles','1ra Avenida 2-+41 Zona 1 Mazatenango, Suchitepéquez','SUCHITEPEQUEZ','MAZATENANGO','3363-9952','3363-9952','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (21,'Funeraria La Providencia','Cantón El Pinal Totonicapán, Totonicapán','TOTONICAPAN','TOTONICAPAN','3075-0669','3075-0669','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (22,'Funeraria San Agustín','3ra. Calle 7-50 Zona 1 Teculután, Zacapa','ZACAPA','TECULUTAN','5815-4652','5815-4652','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (23,'Funerales Framach','5ta. Avenida 3-68 Zona1, Chimaltenango, Chimaltenango','CHIMALTENANGO','CHIMALTENANGO','5715-5206','5715-5206','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (24,'Funerales  El Roble','6ta Av.5-38 Colonia Landivar Zona 7, Guatemala, Guatemala','SACATEPEQUEZ','ANTIGUA GUATEMALA','3199-0959','3199-0959','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (25,'Funerales  El Roble','6ta Av.5-38 Colonia Landivar Zona 7, Guatemala, Guatemala','CHIQUIMULA','CHIQUIMULA','3199-0959','3199-0959','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (26,'\"Funeraria \"\"El Buen Pastor\"\"\"','30 Calle Barrio el Redentor  Zona 1 a un costado del Hospital Nacional, San Benito, Petén','PETEN','SAN BENITO','4598-3870','4598-3870','CONVENIO INDIVIVUAL',NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (49,'test nuevo fun','12av el bosque 2-56 zona 11 de Mixco, lo de fuentes','Guatemala',NULL,'53165894','53165894',NULL,NULL,'Activo');
+INSERT INTO `info_funerarias_registradas` VALUES (50,'Nuevo test funeraria','12av el bosque 2-56 zona 11 de Mixco, lo de fuentes','Guatemala',NULL,'53165894','53165894',NULL,NULL,'Activo');
+/*!40000 ALTER TABLE `info_funerarias_registradas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -966,7 +1245,7 @@ CREATE TABLE `notificaciones` (
   `estatus` text CHARACTER SET utf8 COLLATE utf8_persian_ci NOT NULL,
   `caso` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=249 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1223,6 +1502,12 @@ INSERT INTO `notificaciones` VALUES (245,1,'Caso #26 asignado.','Activa',26);
 INSERT INTO `notificaciones` VALUES (246,43,'','Activa',NULL);
 INSERT INTO `notificaciones` VALUES (247,1,'Caso #27 asignado.','Activa',27);
 INSERT INTO `notificaciones` VALUES (248,44,'','Activa',NULL);
+INSERT INTO `notificaciones` VALUES (249,NULL,'Caso #27 actualizado.','Activa',27);
+INSERT INTO `notificaciones` VALUES (250,NULL,'Caso #27 actualizado.','Activa',27);
+INSERT INTO `notificaciones` VALUES (251,NULL,'Caso #27 actualizado.','Activa',27);
+INSERT INTO `notificaciones` VALUES (252,NULL,'Caso #27 actualizado.','Activa',27);
+INSERT INTO `notificaciones` VALUES (253,NULL,'Caso #28 creado.','Activa',28);
+INSERT INTO `notificaciones` VALUES (254,1,'Caso #28 asignado.','Activa',28);
 /*!40000 ALTER TABLE `notificaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1414,16 +1699,16 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Agente Call Center','agent@callcenter.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','1nPyn4QDB5bUqzPA7LEcoszkFoAwVZlPDCyINUh1Qt5uRMDoBdkzF61nuLSx','2020-09-09 01:57:39','2021-05-11 21:18:25',3,NULL,'Si',NULL);
-INSERT INTO `users` VALUES (2,'Personal UM','personal@um.com','2020-09-09 01:57:39','$2y$10$mpS45hcRmh8IXwz4QQoKxe2vqqqqw3qKBVNyoxyK9pzSJJkLNF97i','AGOFaksa3oSCBHy2Q7Hyvp94IbmXs3QfeZTFKDRLp7cZG1wHF7gAJRN9vynY','2020-09-09 01:57:39','2020-10-28 09:50:20',NULL,NULL,NULL,NULL);
+INSERT INTO `users` VALUES (1,'Agente Call Center','agent@callcenter.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','1nPyn4QDB5bUqzPA7LEcoszkFoAwVZlPDCyINUh1Qt5uRMDoBdkzF61nuLSx','2020-09-09 01:57:39','2021-05-15 02:47:55',3,NULL,'Si',NULL);
+INSERT INTO `users` VALUES (2,'Personal UM','personal@um.com','2020-09-09 01:57:39','$2y$10$mpS45hcRmh8IXwz4QQoKxe2vqqqqw3qKBVNyoxyK9pzSJJkLNF97i','eQ83Gejawnn65ZcEkKdDTyd24VRWgNUbPJHa2w3sXw3C0OKRtIfXFG4IeAdx','2020-09-09 01:57:39','2020-10-28 09:50:20',NULL,NULL,NULL,NULL);
 INSERT INTO `users` VALUES (3,'Funeraria','funeraria@um.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','Hc9YFXEi9Wbv16uTdDvIuYxqyrMD2qhkSJ4b4ldSy007qCi1IwKAfTt7KqKY','2020-09-09 01:57:39','2021-05-11 15:59:38',5,NULL,'Si',NULL);
 INSERT INTO `users` VALUES (4,'test','admin@test.com','2020-09-09 01:57:39','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi','rjcMnEygeBpcwY5w1388BPILGeNXWbb41DCqxozh62PS05U5NooHJOcjGgpd','2020-09-09 01:57:39','2020-09-09 01:57:39',NULL,NULL,NULL,NULL);
 INSERT INTO `users` VALUES (5,'Test Funeraria','funeraria@test.com',NULL,'$2y$10$VUmvDlbOYqPL0qMltjm15OQl1x8G9OpqFCjsGzevKg4ItfXdD1lMK',NULL,'2020-09-17 03:52:58','2020-09-17 06:50:01',1,NULL,'Si',1);
-INSERT INTO `users` VALUES (6,'Funeraria de prueba','test@funeraria.com',NULL,'$2y$10$UT1HBPPcvbVWlIJ87EzOp.CAcuHdNg/oKp6IPQCpUph4XazgF5PsG',NULL,'2020-09-17 06:48:48','2020-09-17 06:48:48',NULL,NULL,'No',2);
-INSERT INTO `users` VALUES (7,'Funeraria de prueba edit','funeraria@guatemala.com',NULL,'$2y$10$XN83vjdtpiVc.CeQB6M14.J4LzGNc0UcyKneOoeCbwIK6pPIdhLaa',NULL,'2020-09-19 23:07:04','2020-10-27 06:55:23',NULL,NULL,'No',3);
+INSERT INTO `users` VALUES (6,'Funeraria de prueba','test@funeraria.com',NULL,'$2y$10$UT1HBPPcvbVWlIJ87EzOp.CAcuHdNg/oKp6IPQCpUph4XazgF5PsG',NULL,'2020-09-17 06:48:48','2021-05-16 05:43:17',1,NULL,'No',2);
+INSERT INTO `users` VALUES (7,'Funeraria de prueba edit','funeraria@guatemala.com',NULL,'$2y$10$XN83vjdtpiVc.CeQB6M14.J4LzGNc0UcyKneOoeCbwIK6pPIdhLaa',NULL,'2020-09-19 23:07:04','2021-05-17 20:18:05',30,NULL,'No',3);
 INSERT INTO `users` VALUES (9,'testRegistro','test@registro.com',NULL,'$2y$10$FCJU42hwHs1gGjJoNXDgNOapPl7E3o4iMU2zEF4megU1aHoIxFI6G',NULL,'2020-10-26 07:11:17','2020-10-26 07:11:17',NULL,NULL,NULL,NULL);
 INSERT INTO `users` VALUES (18,'HilarioTest','Hilario@test.com',NULL,'$2y$10$KOlRQ/vWgBXeIFEj/Rms1OHKtomJaUo1iwcB9VSWYQ.Vxv4E9cQ2G',NULL,'2020-10-27 07:05:52','2020-10-27 07:05:52',NULL,NULL,NULL,NULL);
-INSERT INTO `users` VALUES (19,'Funeraria de prueba','funeraria@fun.com',NULL,'$2y$10$kOECV64wzKzTD5ORJHCksOCsFFQKU3sMvYq2MZa0M5Wz35024pifO',NULL,'2020-10-27 07:07:29','2020-10-28 02:31:03',NULL,NULL,'No',7);
+INSERT INTO `users` VALUES (19,'Funeraria de prueba','funeraria@fun.com',NULL,'$2y$10$kOECV64wzKzTD5ORJHCksOCsFFQKU3sMvYq2MZa0M5Wz35024pifO',NULL,'2020-10-27 07:07:29','2021-05-16 05:43:37',NULL,NULL,'No',7);
 INSERT INTO `users` VALUES (20,'TestFunerariaTest','test@fun.com',NULL,'$2y$10$VT9UCeiiBhKYqXJGp668zuitPLv5Jrc6803YoVcto0GXgdjs2i4Hm',NULL,'2020-10-28 03:43:54','2020-10-28 03:44:17',NULL,NULL,'Si',8);
 INSERT INTO `users` VALUES (21,'Test Edgar','Edgartest@mail.com',NULL,'$2y$10$udccaEOzu8m5Or7bMZgrKu1hqifxAcHbTd22Sa0bBt1UBn4qfFy4q',NULL,'2020-10-29 06:21:11','2020-10-29 06:21:11',NULL,NULL,NULL,NULL);
 INSERT INTO `users` VALUES (23,'Test Edgar','Edgartest@mails.com',NULL,'$2y$10$VdMJb12O5k5uSdnj4qHDGO/P83ZOFpOFHVE8xs.LIINxPfOR9zkQq',NULL,'2020-10-29 06:29:12','2020-10-29 06:29:12',NULL,NULL,NULL,NULL);
@@ -1431,21 +1716,21 @@ INSERT INTO `users` VALUES (24,'test registro','registro@test.com',NULL,'$2y$10$
 INSERT INTO `users` VALUES (27,'test registro','samedgar151@gmail.com',NULL,'$2y$10$tOOckRqu8tSnTuNDgIKxO.eRN.D4pkNa02ZYVS8X47H/gLcgo2Cny',NULL,'2020-11-23 12:02:00','2020-11-23 12:02:00',NULL,NULL,NULL,NULL);
 INSERT INTO `users` VALUES (28,'Edgar Ambrosio','samedgar15@gmail.com',NULL,'$2y$10$6jJO3h4un1p0pIBlnJq5I./81BAp.iMZwNxKW7Gt.6go/H7XpFPwG',NULL,'2020-11-24 05:17:20','2020-11-24 05:17:20',6,NULL,NULL,NULL);
 INSERT INTO `users` VALUES (29,'Funeraria de test','funerariade@test.com',NULL,'$2y$10$6sB5l7eyVuZpcDDcyJ.ScOpcMeXhElGB8.oJ86OHDbJDcDQy0XVdq',NULL,'2021-04-22 14:16:38','2021-04-22 14:16:38',NULL,NULL,'No',20);
-INSERT INTO `users` VALUES (30,'Funeraria de prueba 2','prueba@funeraria.com',NULL,'$2y$10$pGSkxLTEtMkeGi.rCzavReEkOSHzJ/43MzeR..jUcfvTB.bWYbR1K',NULL,'2021-04-24 02:12:18','2021-04-24 02:12:18',NULL,NULL,'No',21);
+INSERT INTO `users` VALUES (30,'Funeraria de prueba 2','prueba@funeraria.com',NULL,'$2y$10$pGSkxLTEtMkeGi.rCzavReEkOSHzJ/43MzeR..jUcfvTB.bWYbR1K',NULL,'2021-04-24 02:12:18','2021-05-16 07:59:05',NULL,NULL,'No',21);
 INSERT INTO `users` VALUES (31,'Nueva funeraria','funeraria@nueva.com',NULL,'$2y$10$0AwM7fgsJq6zjLAFcvKaMuERIJ9YcY8VDypZb8C3D/Debe5x44Cry',NULL,'2021-04-24 03:41:11','2021-04-24 03:41:11',NULL,NULL,'No',22);
-INSERT INTO `users` VALUES (32,'funeraria presentacion','presentacion@funeraria.com',NULL,'$2y$10$HedbA57XQvSoAWzbtbDv3uoGcaeZvtg6lh2dfzHZlZ95UVFok0asS',NULL,'2021-04-24 04:04:32','2021-04-24 04:04:32',NULL,NULL,'No',23);
-INSERT INTO `users` VALUES (33,'Funeraria teest','teeest@funeraria.com',NULL,'$2y$10$UpBqrBY8NZDWtpKFPT9/pOAc3MfG2Kp086CB7ABRibDz0KDsqp8Eq',NULL,'2021-04-29 20:37:04','2021-04-29 20:37:04',NULL,NULL,'No',24);
-INSERT INTO `users` VALUES (34,'Funeraria Live','live@funeraria.com',NULL,'$2y$10$/vdFDaUfEPWWkRidyLfxke9nIQYiOjliJvlb.SSu/FYR9YVl4A1.u',NULL,'2021-05-01 02:19:59','2021-05-01 02:19:59',NULL,NULL,'No',25);
-INSERT INTO `users` VALUES (35,'Funeraria live test','Test@live.com',NULL,'$2y$10$eJeqC6qPhaksEdaSMYryb.I30dqOPZaUdweR.YljBrCG1A5/E4kKG',NULL,'2021-05-01 03:40:19','2021-05-01 03:40:19',NULL,'A','No',26);
-INSERT INTO `users` VALUES (36,'Nuevo test funeraria','nuevotest@funeraria.com',NULL,'$2y$10$Pxb2Z4JRUq6FPWdtSjikcO2CLn4n0.g4VnD.ZlhsRfMcsmdmCqxEi',NULL,'2021-05-01 03:45:59','2021-05-01 03:47:15',NULL,'B','No',27);
+INSERT INTO `users` VALUES (32,'funeraria presentacion','presentacion@funeraria.com',NULL,'$2y$10$HedbA57XQvSoAWzbtbDv3uoGcaeZvtg6lh2dfzHZlZ95UVFok0asS',NULL,'2021-04-24 04:04:32','2021-05-17 00:19:36',NULL,NULL,'No',23);
+INSERT INTO `users` VALUES (33,'Funeraria teest','teeest@funeraria.com',NULL,'$2y$10$UpBqrBY8NZDWtpKFPT9/pOAc3MfG2Kp086CB7ABRibDz0KDsqp8Eq',NULL,'2021-04-29 20:37:04','2021-05-16 05:40:57',NULL,NULL,'No',24);
+INSERT INTO `users` VALUES (34,'Funeraria Live','live@funeraria.com',NULL,'$2y$10$/vdFDaUfEPWWkRidyLfxke9nIQYiOjliJvlb.SSu/FYR9YVl4A1.u',NULL,'2021-05-01 02:19:59','2021-05-16 08:12:53',NULL,NULL,'No',25);
+INSERT INTO `users` VALUES (35,'Funeraria live test','Test@live.com',NULL,'$2y$10$eJeqC6qPhaksEdaSMYryb.I30dqOPZaUdweR.YljBrCG1A5/E4kKG',NULL,'2021-05-01 03:40:19','2021-05-17 07:10:30',NULL,'A','No',26);
+INSERT INTO `users` VALUES (36,'Nuevo test funeraria','nuevotest@funeraria.com',NULL,'$2y$10$Pxb2Z4JRUq6FPWdtSjikcO2CLn4n0.g4VnD.ZlhsRfMcsmdmCqxEi',NULL,'2021-05-01 03:45:59','2021-05-17 20:50:18',34,'B','Si',27);
 INSERT INTO `users` VALUES (37,'funeraria nueva','nueva@funeraria.com',NULL,'$2y$10$Q/Q7I1zN8laoueF0oaU1Dugmk7mGGPfJBGEx8mOnK2/JvC8FL2mmS',NULL,'2021-05-01 03:52:53','2021-05-01 03:53:21',NULL,'A','No',28);
-INSERT INTO `users` VALUES (38,'Funeraria registro','registro@funeraria.com',NULL,'$2y$10$zmmLWxWbKNj/Y0SKoQK7OeV0qilWlHsBCkZZ4iu6rigGpKMQwpQ82',NULL,'2021-05-01 04:08:52','2021-05-04 21:14:31',14,'A','Si',29);
-INSERT INTO `users` VALUES (39,'Funeraria de prueba test','test@pruebafuneraria.com',NULL,'$2y$10$m4R4lWcL/DtWiMWeLgwVP.KwQYS7migm65UhCGFUyQBSd.hyJHm5C',NULL,'2021-05-04 21:19:39','2021-05-06 02:40:56',NULL,'A','No',31);
-INSERT INTO `users` VALUES (40,'test nuevo fun','fun@nueva.com',NULL,'$2y$10$OLQ7PBxRzzGjJNiuMAlBEONI/IrYBwD1sDgqQJ9uP1vVlPGdEgNai',NULL,'2021-05-06 02:42:11','2021-05-06 02:43:46',NULL,'C','No',32);
-INSERT INTO `users` VALUES (41,'Test nueva fun','nueva@fun.com',NULL,'$2y$10$jIIdWS2e2D79Kw12kV9Qa.C5s4xk0TJ8vl9TpNAud19635ww1gMGu',NULL,'2021-05-06 02:48:45','2021-05-06 02:49:04',NULL,'C','No',33);
-INSERT INTO `users` VALUES (42,'Edgar Ambrosio','esamuelambrosio99@gmail.com',NULL,'$2y$10$3djr/auy3IAptfUNU/wLPeqNXVUIiEJkj4qryJQ1IS4UYYeEsUZZ2',NULL,'2021-05-08 03:54:29','2021-05-08 03:54:29',NULL,NULL,NULL,NULL);
-INSERT INTO `users` VALUES (43,'Nueva funeraria de prueba','prueba@test.com',NULL,'$2y$10$7gTqtSj6v/20B02wThrhhe.BRbAomnqG5Stl9FufXYDd0LAgB4ZXS',NULL,'2021-05-08 03:56:51','2021-05-08 03:57:21',NULL,'C','No',34);
-INSERT INTO `users` VALUES (44,'Funeraria UM','um@funeraria.com',NULL,'$2y$10$67IeVOKEz7AAtejYqn8J3OdadqBLgnnXjw77pm2Uob549A4BgGw0y',NULL,'2021-05-08 04:20:05','2021-05-08 04:20:43',NULL,'C','No',35);
+INSERT INTO `users` VALUES (38,'Funeraria registro','registro@funeraria.com',NULL,'$2y$10$zmmLWxWbKNj/Y0SKoQK7OeV0qilWlHsBCkZZ4iu6rigGpKMQwpQ82',NULL,'2021-05-01 04:08:52','2021-05-04 21:14:31',NULL,'A','No',29);
+INSERT INTO `users` VALUES (39,'Funeraria de prueba test','test@pruebafuneraria.com',NULL,'$2y$10$m4R4lWcL/DtWiMWeLgwVP.KwQYS7migm65UhCGFUyQBSd.hyJHm5C',NULL,'2021-05-04 21:19:39','2021-05-16 07:59:39',NULL,'A','No',NULL);
+INSERT INTO `users` VALUES (40,'test nuevo fun','fun@nueva.com',NULL,'$2y$10$OLQ7PBxRzzGjJNiuMAlBEONI/IrYBwD1sDgqQJ9uP1vVlPGdEgNai',NULL,'2021-05-06 02:42:11','2021-05-17 20:24:14',33,'C','Si',32);
+INSERT INTO `users` VALUES (41,'Test nueva fun','nueva@fun.com',NULL,'$2y$10$jIIdWS2e2D79Kw12kV9Qa.C5s4xk0TJ8vl9TpNAud19635ww1gMGu',NULL,'2021-05-06 02:48:45','2021-05-17 06:45:13',NULL,'C','No',33);
+INSERT INTO `users` VALUES (42,'Edgar Ambrosio','esamuelambrosio99@gmail.com',NULL,'$2y$10$3djr/auy3IAptfUNU/wLPeqNXVUIiEJkj4qryJQ1IS4UYYeEsUZZ2','ssM8HtUESrDWmZOKxMYQXUCnyaKiMelhlCBzFolXF8ui8ZFddo6jEw4noy5c','2021-05-08 03:54:29','2021-05-08 03:54:29',NULL,NULL,NULL,31);
+INSERT INTO `users` VALUES (43,'Nueva funeraria de prueba','prueba@test.com',NULL,'$2y$10$7gTqtSj6v/20B02wThrhhe.BRbAomnqG5Stl9FufXYDd0LAgB4ZXS',NULL,'2021-05-08 03:56:51','2021-05-17 06:57:10',NULL,'C','No',34);
+INSERT INTO `users` VALUES (44,'Funeraria UM','um@funeraria.com',NULL,'$2y$10$67IeVOKEz7AAtejYqn8J3OdadqBLgnnXjw77pm2Uob549A4BgGw0y',NULL,'2021-05-08 04:20:05','2021-05-17 06:59:32',NULL,'C','No',35);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1458,4 +1743,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-12 12:48:50
+-- Dump completed on 2021-05-17 14:58:53

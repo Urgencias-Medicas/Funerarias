@@ -30,7 +30,7 @@ class PersonalUMController extends Controller
         return view('Personal.Funerarias.ver', ['Funerarias' => $users]);
     }
     public function verFunerariasPendientes(){
-        $users = User::where('activo', 'No')->get();
+        $users = User::where('activo', 'No')->orderByDesc('id')->get();
 
         return view('Personal.Funerarias.ver', ['Funerarias' => $users]);
     }
@@ -50,10 +50,16 @@ class PersonalUMController extends Controller
         $documento = DocumentosFuneraria::where('Id', $docto)->value('Documento');
 
         if($documento == 'licenciaAmbiental'){
-            DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'LicenciaAmbiental', 'Estado' => 'Aprobado']);
+            DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'LicenciaAmbiental')->update(['Estado' => 'Aprobado']);
         }
         
-        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'Documentacion', 'Estado' => 'Denegado']);
+        $documentacion = DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'Documentacion')->first();
+
+        if($documentacion){
+            DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'Documentacion')->update(['Estado' => 'Denegado']);
+        }else{
+            DetallesDeFuneraria::create(['Funeraria' => $id, 'Campo' => 'Documentacion', 'Estado' => 'Denegado']);
+        }
 
         activity()->log('El documento '.$documento.' fue '.$accion. ' para la funeraria No. '.$id);
         return back();

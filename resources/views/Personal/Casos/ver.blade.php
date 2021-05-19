@@ -12,7 +12,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Caso #</th>
-                            <th scope="col">Código</th>
+                            <th scope="col">Correlativo</th>
                             <th scope="col">Estudiante</th>
                             <th scope="col">Fecha y Hora</th>
                             <th scope="col">Departamento</th>
@@ -25,7 +25,7 @@
                         @foreach($Casos as $caso)
                         <tr>
                             <td>{{$caso->id}}</td>
-                            <td>{{$caso->Codigo}}</td>
+                            <td>{{$caso->Correlativo_Completo}}</td>
                             <td>{{$caso->Nombre}}</td>
                             <td>{{date('d/m/Y', strtotime($caso->Fecha))}} - {{date('h:i a', strtotime($caso->Hora))}}</td>
                             <td>{{$caso->Departamento}}</td>

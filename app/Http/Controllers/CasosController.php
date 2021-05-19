@@ -18,6 +18,8 @@ use App\Helpers\Helper;
 use App\Causas;
 use App\Funerarias;
 use App\Configuracion;
+use App\Campanias;
+use App\InfoFunerariasRegistradas;
 
 class CasosController extends Controller
 {
@@ -196,10 +198,12 @@ class CasosController extends Controller
         echo 'Hecho';
     }
 
-    public function asignarFuneraria($caso, $funeraria, $monto, $moneda, $correo, $wp){
+    public function asignarFuneraria($caso, $funeraria, $campania, $moneda, $correo, $wp){
         $costo_servicio = 0;
 
-        $api_uri = "https://umbd.excess.software/api/getFuneraria";
+        $campania_seleccionada = Campanias::find($campania);
+
+        /*$api_uri = "https://umbd.excess.software/api/getFuneraria";
         $client = new \GuzzleHttp\Client([
             'headers' => [ 'Content-Type' => 'application/json' ]
         ]);
@@ -211,9 +215,53 @@ class CasosController extends Controller
                 ]
             ),
         ]);
-        $data = json_decode($res->getBody());
+        $data = json_decode($res->getBody());*/
 
-        $nombre_funeraria = $data[0]->funeraria;
+        $data = InfoFunerariasRegistradas::find($funeraria);
+
+        $nombre_funeraria = $data->funeraria;
+
+        $diminutivo_funeraria = Funerarias::where('Funeraria_Registrada', $funeraria)->value('Diminutivo');
+
+        $monto_campania = Funerarias::where('Funeraria_Registrada', $funeraria)->value('Campanias');
+        
+        $monto_campania = json_decode($monto_campania);
+
+        $monto = 0;
+        $aseguradora = $campania_seleccionada->Nombre_Aseguradora;
+
+        foreach($monto_campania as $montos){
+            if($campania == $montos->id){
+                $monto = $montos->monto;
+            }
+        }
+
+        //$correlativo = Casos::max('Correlativo');
+
+        //Asignación de correlativo
+
+        $correlativo = 0;
+        $correlativo_completo = '';
+
+        $mes_actual = Carbon::now()->format('m');
+        $anio_actual = Carbon::now()->format('Y');
+
+        if(strcasecmp($aseguradora, 'Seguro Escolar') == 0){
+            $correlativo = Casos::where('Campania', $campania_seleccionada->Diminutivo)->where('Mes', $mes_actual)->where('Anio', $anio_actual)->max('Correlativo');
+            $correlativo = $correlativo+1;
+            $correlativo = sprintf("%03d", $correlativo);
+            $correlativo_completo = $campania_seleccionada->Diminutivo.'-'.$diminutivo_funeraria.'-'.$correlativo.$mes_actual.$anio_actual;
+        }elseif(strcasecmp($aseguradora, 'CHN') == 0){
+            $correlativo = Casos::where('Campania', $campania_seleccionada->Diminutivo)->where('Mes', $mes_actual)->where('Anio', $anio_actual)->max('Correlativo');
+            $correlativo = $correlativo+1;
+            $correlativo = sprintf("%03d", $correlativo);
+            $correlativo_completo = $aseguradora.'-'.$campania_seleccionada->Diminutivo.'-'.$correlativo.$mes_actual.$anio_actual;
+        }elseif(strcasecmp($aseguradora, 'SeguRed') == 0){
+            $correlativo = Casos::where('Campania', $campania_seleccionada->Diminutivo)->where('Mes', $mes_actual)->where('Anio', $anio_actual)->max('Correlativo');
+            $correlativo = $correlativo+1;
+            $correlativo = sprintf("%03d", $correlativo);
+            $correlativo_completo = $campania_seleccionada->Diminutivo.'-'.$correlativo.$mes_actual.$anio_actual;
+        }
 
         $casos = Casos::find($caso);
         $casos->Funeraria = $funeraria;
@@ -221,6 +269,12 @@ class CasosController extends Controller
         $casos->Estatus = 'Asignado';
         $casos->Costo = $monto;
         $casos->Moneda = $moneda;
+        $casos->Correlativo = $correlativo;
+        $casos->Correlativo_Completo = $correlativo_completo;
+        $casos->Mes = $mes_actual;
+        $casos->Anio = $anio_actual;
+        $casos->Aseguradora_Nombre = $aseguradora;
+        $casos->Campania = $campania_seleccionada->Diminutivo;
         $casos->save();
 
         $correo_funeraria = Funerarias::where('Id_Funeraria', $funeraria)->value('Email');
@@ -243,6 +297,19 @@ class CasosController extends Controller
 
     public function actualizarPago($caso, Request $request){
         $total = 0;
+
+        $caso = Casos::find($caso);
+
+        $funeraria = Funerarias::where('Id_Funeraria', $caso->Funeraria)->get()->first();
+
+        $correo_funeraria = $funeraria->Email;
+        $nombre_funeraria = $funeraria->Nombre;
+        $caso = $caso->id;
+        $mensaje = 'Se ha registrado un nuevo pago en el caso #'.$caso;
+
+        $correo_admin = 'samedgar15@gmail.com'; 
+
+
         for ($i=1; $i <= $request->filas ; $i++) { 
             $monto = $request->input("monto".$i);
             $total = $total + $monto;
@@ -253,6 +320,21 @@ class CasosController extends Controller
             $imageName = 'Caso'.$caso.'-'.$image->getClientOriginalName();
             $upload_success = $image->move(public_path('images'),$imageName);
 
+            $url_comprobante = $imageName;
+            $casos_array = ['id' => $caso, 'comprobante' => $url_comprobante];
+
+            if(isset($funeraria->Email)){
+                Mail::send('mailslayouts.pagoregistrado', $casos_array, function($message) use($caso, $correo_funeraria, $nombre_funeraria, $mensaje)
+                {
+                    $message->to($correo_funeraria, $nombre_funeraria)->subject($mensaje)->from('no-reply@excess.software', 'Urgencias Médicas');
+                });
+    
+                Mail::send('mailslayouts.pagoregistrado', $casos_array, function($message) use($caso, $correo_admin, $nombre_funeraria, $mensaje)
+                {
+                    $message->to($correo_admin, $nombre_funeraria)->subject($mensaje)->from('no-reply@excess.software', 'Urgencias Médicas');
+                });
+            }
+
             HistorialPagos::create(['caso' => $caso, 'monto' => $monto, 'fecha' => $fecha, 'factura' => $request->input("factura".$i), 'serie' => $request->input("serie".$i), 'comprobante' => '/images/'.$imageName]);
         }
         $caso = Casos::find($caso);
@@ -260,33 +342,10 @@ class CasosController extends Controller
         $caso->Pendiente = $caso->Costo - $caso->Pagado;
         $caso->save();
         //return back()->with('msg', 'Pagos añadidos exitosamente.');
-        //return $this->detallesCaso($caso->id, 1);}
+        //return $this->detallesCaso($caso->id, 1);} 
 
-        $funeraria = Funerarias::where('Id_Funeraria', $caso->Funeraria)->get()->first();
-
-        $correo_funeraria = $funeraria->Email;
-        $nombre_funeraria = $funeraria->Nombre;
-        $caso = $caso->id;
-        $mensaje = 'Se ha registrado un nuevo pago en el caso #'.$caso;
-
-        $correo_admin = 'samedgar15@gmail.com';
-
-        $casos_array = ['id' => $caso];  
-
-        if(isset($funeraria->Email)){
-            Mail::send('mailslayouts.pagoregistrado', $casos_array, function($message) use($caso, $correo_funeraria, $nombre_funeraria, $mensaje)
-            {
-                $message->to($correo_funeraria, $nombre_funeraria)->subject($mensaje)->from('no-reply@excess.software', 'Urgencias Médicas');
-            });
-
-            Mail::send('mailslayouts.pagoregistrado', $casos_array, function($message) use($caso, $correo_admin, $nombre_funeraria, $mensaje)
-            {
-                $message->to($correo_admin, $nombre_funeraria)->subject($mensaje)->from('no-reply@excess.software', 'Urgencias Médicas');
-            });
-        }
-
-        activity()->log('Se ha ingresado un nuevo pago en el caso No. '.$caso);
-        return redirect('/Casos/'.$caso.'/ver')->with('alerta', 'Pago ingresado exitosamente.');
+        activity()->log('Se ha ingresado un nuevo pago en el caso No. '.$caso->id);
+        return redirect('/Casos/'.$caso->id.'/ver')->with('alerta', 'Pago ingresado exitosamente.');
     }
 
     public function cerrarCaso($caso){

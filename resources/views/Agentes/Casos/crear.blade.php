@@ -281,6 +281,9 @@
         setInputFilter(document.getElementById("TelTutor"), function (value) {
             return /^\d*\.?\d*$/.test(value);
         });
+        setInputFilter(document.getElementById("DPITutor"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
         setInputFilter(document.getElementById("TelReporta"), function (value) {
             return /^\d*\.?\d*$/.test(value);
         });

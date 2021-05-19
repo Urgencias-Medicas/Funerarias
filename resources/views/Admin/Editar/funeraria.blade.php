@@ -18,6 +18,10 @@
                                         placeholder="Nombre Funeraria" value="{{$Funeraria->Nombre}}" readonly>
                                 </div>
                                 <div class="form-group">
+                                    <label for="diminutivo">Diminutivo</label>
+                                    <input type="text" class="form-control" id="diminutivo" name="diminutivo" value="{{$Funeraria->Diminutivo}}" required>
+                                </div>
+                                <div class="form-group">
                                     <label for="departamento">Departamento</label>
                                     <input type="text" class="form-control" id="departamento" name="departamento"
                                         placeholder="Nombre Funeraria" value="{{$Funeraria->Departamento}}" readonly>

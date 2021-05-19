@@ -17,10 +17,7 @@
                         <div class="form-group row">
                             <label for="tipo" class="col-md-4 col-form-label text-md-right">Funeraria</label>
                             <div class="col-md-6">
-                                <select id="select-funerarias" name="funeraria" class="form-control"
-                                    onChange="nombreFuneraria();" required>
-                                    <option>-- Seleccione --</option>
-                                </select>
+                                <input type="text" class="form-control" name="nombre" required>
                             </div>
                         </div>
 

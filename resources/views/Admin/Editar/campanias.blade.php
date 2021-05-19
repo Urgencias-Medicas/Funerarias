@@ -8,35 +8,35 @@
                 <div class="card-header">Registrar funeraria</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/Personal/Campanias/guardar">
+                    <form method="POST" action="/Personal/Campanias/{{$Campania->id}}/actualizar">
                         @csrf
 
                         <div class="form-group row">
                             <label for="telefono" class="col-md-4 col-form-label text-md-right">Campaña</label>
 
                             <div class="col-md-6">
-                                <input id="telefono" type="text" class="form-control" name="Nombre" required>
+                                <input id="Nombre" type="text" class="form-control" name="Nombre" value="{{$Campania->Nombre}}" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="Diminutivo" class="col-md-4 col-form-label text-md-right">Diminutivo</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="Diminutivo" name="Diminutivo" required>
+                                <input type="text" class="form-control" id="Diminutivo" name="Diminutivo" value="{{$Campania->Diminutivo}}" required>
                             </div>
                         </div>
-                        
+
                         <div class="form-group row">
                             <label for="tipo" class="col-md-4 col-form-label text-md-right">Código. Aseguradora</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="CodigoAseguradora" name="CodigoAseguradora" required>
+                                <input type="text" class="form-control" id="CodigoAseguradora" name="CodigoAseguradora" value="{{$Campania->Aseguradora}}" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="tipo" class="col-md-4 col-form-label text-md-right">Nombre Aseguradora</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="NombreAseguradora" required>
+                                <input type="text" class="form-control" name="NombreAseguradora" value="{{$Campania->Nombre_Aseguradora}}" required>
                             </div>
                         </div>
 
@@ -44,8 +44,8 @@
                             <label for="tipo" class="col-md-4 col-form-label text-md-right">Moneda</label>
                             <div class="col-md-6">
                                 <select name="Moneda" class="form-control">
-                                    <option value="GTQ">GTQ</option>
-                                    <option value="USD">USD</option>
+                                    <option {{$Campania->Moneda == 'GTQ' ? 'selected' : ''}} value="GTQ">GTQ</option>
+                                    <option {{$Campania->Moneda == 'USD' ? 'selected' : ''}} value="USD">USD</option>
                                 </select>
                             </div>
                         </div>

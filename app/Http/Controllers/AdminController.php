@@ -67,33 +67,32 @@ class AdminController extends Controller
     }
     public function guardarFuneraria(Request $request){
 
-        //Almacenar data detalles
-        $data = ['paso_uno' => 'No', 'paso_dos' => 'No', 'paso_tres' => 'No'];
+        $mail = $request->mail;
+        $random_password = Str::random(8);
+
+        $data = ['Campos' => json_encode(array(array('campo' => 'InfoGeneral',  'result' => 'No'), array('campo' => 'Documentos' , 'result' => 'No'), array('campo' => 'Contrato', 'result' => 'No')))];
         $id_detalle = DetallesFuneraria::insertGetId($data);
-
-        Funerarias::create([
-            'Id_Funeraria' => $request->funeraria,
-            'Nombre' => $request->nombre,
-            'Email' => $request->mail,
-            'Telefono' => $request->telefono,
-            'Monto_Base' => $request->MontoBase,
-            'Activa' => 'Si',
-            'Id_Detalle' => $id_detalle
+        
+        $user = User::create([
+            'name' => $request->nombre,
+            'email' => $request->mail,
+            'password' => Hash::make($random_password),
+            'created_at' => time(),
+            'funeraria' => $request->funeraria,
+            'activo' => 'No',
+            'detalle' => $id_detalle,
         ]);
-        //$user = User::create([
-        //    'name' => $request->nombre,
-        //    'email' => $request->mail,
-        //    'password' => Hash::make('password'),
-        //    'created_at' => time(),
-        //    'funeraria' => $request->funeraria,
-        //    'activo' => 'No',
-        //    'detalle' => $id_detalle
-        //]);
 
-        //$user->assignRole('Funeraria');
+        $user->assignRole('Funeraria');
 
-        //return $this->verFunerarias(1);
-        return redirect('/Personal/verFunerarias')->with('alerta', 'Se ha creado la funeraria exitosamente.');
+        $data = ['password' => $random_password];
+
+        Mail::send('mailslayouts.nuevaFuneraria', $data, function($message) use($mail)
+            {
+                $message->to($mail, 'Nueva funeraria')->subject('Usuario creado')->from('no-reply@excess.software', 'Urgencias Médicas');
+            });
+
+        return redirect('Personal/Funeraria/'.$user->id.'/ver')->with('alerta', 'Se ha creado la funeraria exitosamente.');
     }
     public function guardarUsuarioFuneraria(Request $request){
         $mail = $request->mail;
@@ -222,23 +221,33 @@ class AdminController extends Controller
             $checks = Configuracion::where('opcion', 'Campos_Check')->value('valor');
             return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Campanias' => $campanias, 'Checks' => $checks]);
         }else{
-            //Almacenar data detalles
-            $data = ['Campos' => '[{"campo":1,"result":"No"}'];
-            $id_detalle = DetallesFuneraria::insertGetId($data);
 
-            $funeraria = Funerarias::create([
-                'Id_Funeraria' => $id,
-                'Nombre' => $nombre,
-                'Email' => '',
-                'Telefono' => '',
-                'Monto_Base' => 0,
-                'Activa' => 'Si',
-                'Id_Detalle' => $id_detalle
-            ]);
+            $funeraria_registrada = InfoFunerariasRegistradas::where('id', $id)->where('funeraria', $nombre)->first();
 
-            //return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $id_detalle]);
+            if(!$funeraria_registrada){
+                $data = ['Campos' => '[{"campo":1,"result":"No"}'];
+                $id_detalle = DetallesFuneraria::insertGetId($data);
 
-            return redirect('/Personal/editarFuneraria/'.$id.'/'.$nombre);
+                $funeraria = Funerarias::updateOrcreate([
+                    'Id_Funeraria' => $id,
+                    'Funeraria_Registrada' => $id,
+                    'Nombre' => $nombre,
+                    'Email' => '',
+                    'Telefono' => '',
+                    'Monto_Base' => 0,
+                    'Activa' => 'Si',
+                    'Id_Detalle' => $id_detalle
+                ]);
+
+                //return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $id_detalle]);
+
+                return redirect('/Personal/editarFuneraria/'.$id.'/'.$nombre);
+            }else{
+                 
+                $update_existente = Funerarias::where('Id_Funeraria', $id)->where('Nombre', $nombre)->update(['Funeraria_Registrada' => $id]);
+
+                return redirect('/Personal/editarFuneraria/'.$id.'/'.$nombre);
+            }
         }
     }
 
@@ -254,6 +263,7 @@ class AdminController extends Controller
     }
 
     public function guardarCambiosFuneraria($id, $detalle, Request $request){
+        $old_Activa = Funerarias::where('Id_Funeraria', $id)->value('Activa');
         $array_campanias = array();
         if(isset($request->campania)){
             foreach($request->campania as $campania){
@@ -261,7 +271,7 @@ class AdminController extends Controller
             }
         }
         $json_campanias = json_encode($array_campanias);
-        $user = Funerarias::where('Id_Funeraria', $id)->update(['Nombre' => $request->nombre, 'Email' => $request->email, 'Telefono' => $request->telefono, 'Activa' => $request->activo, 'Campanias' => $json_campanias]);
+        $user = Funerarias::where('Id_Funeraria', $id)->update(['Nombre' => $request->nombre, 'Diminutivo' => $request->diminutivo, 'Email' => $request->email, 'Telefono' => $request->telefono, 'Activa' => $request->activo, 'Campanias' => $json_campanias]);
 
         $activa = '';
         if($request->activo == 'Si'){
@@ -291,6 +301,33 @@ class AdminController extends Controller
         $json_pasos = json_encode($pasos);
 
         $detalle = DetallesFuneraria::find($detalle)->updateOrCreate(['Campos' => $json_pasos]);
+
+        $data = [];
+
+        if($old_Activa != $request->activo){
+            if($activa == 'Activo'){
+
+                $mail = $request->email;
+    
+                Mail::send('mailslayouts.funeraria_activa', $data, function($message) use($mail)
+                {
+                    $message->to($mail, 'Funeraria')->subject('Su usuario ha sido activado')->from('no-reply@excess.software', 'Urgencias Médicas');
+                });
+    
+                activity()->log('Se ha activado la funeraria No. '.$id.' con el nombre '.$request->nombre);
+            }else{
+    
+                $mail = $request->email;
+    
+                Mail::send('mailslayouts.funeraria_inactiva', $data, function($message) use($mail)
+                {
+                    $message->to($mail, 'Funeraria')->subject('Su usuario ha sido desactivado')->from('no-reply@excess.software', 'Urgencias Médicas');
+                });
+    
+                activity()->log('Se ha desactivado la funeraria No. '.$id.' con el nombre '.$request->nombre);
+            }
+        }
+
         activity()->log('Se ha modificado la funeraria No. '.$id);
         //return redirect('/Personal/verFunerarias');
         return back();
@@ -332,13 +369,33 @@ class AdminController extends Controller
             }elseif($detalles->Campo == 'TelContacto'){
                 InfoFunerariasRegistradas::where('id', $nueva_funeraria_insertada->id)->update(['tel_contacto' => $detalles->Valor, 'tel_coordinador' => $detalles->Valor]);
                 Funerarias::where('id', $funeraria->id)->update(['Telefono' => $detalles->Valor]);
+            }elseif($detalles->Campo == 'TipoFuneraria'){
+                InfoFunerariasRegistradas::where('id', $nueva_funeraria_insertada->id)->update(['tipo' => $detalles->Valor]);
             }
         }
 
+        $data = [];
+
         if($request->activo == 'Si'){
             $request->activo = 'Activo';
+            $mail = $request->email;
+
+            Mail::send('mailslayouts.funeraria_activa', $data, function($message) use($mail)
+            {
+                $message->to($mail, 'Funeraria')->subject('Su usuario ha sido activado')->from('no-reply@excess.software', 'Urgencias Médicas');
+            });
+
+            activity()->log('Se ha activado la funeraria No. '.$id.' con el nombre '.$request->nombre);
         }else{
             $request->activo = 'Inactivo';
+            $mail = $request->email;
+
+            Mail::send('mailslayouts.funeraria_inactiva', $data, function($message) use($mail)
+            {
+                $message->to($mail, 'Funeraria')->subject('Su usuario ha sido desactivado')->from('no-reply@excess.software', 'Urgencias Médicas');
+            });
+
+            activity()->log('Se ha desactivado la funeraria No. '.$id.' con el nombre '.$request->nombre);
         }
 
         InfoFunerariasRegistradas::where('id', $nueva_funeraria_insertada->id)->update(['estado' => $request->activo]);
@@ -371,15 +428,34 @@ class AdminController extends Controller
         return view('Admin.Crear.campanias');
     }
 
+    public function detallesCampanias($id){
+        $campania = Campanias::find($id);
+
+        return view('Admin.Editar.campanias', ['Campania' => $campania]);
+    }
+
     public function guardarCampania(Request $request){
         $campania = Campanias::create([
             'Nombre' => $request->Nombre,
+            'Diminutivo' => $request->Diminutivo,
             'Nombre_Aseguradora' => $request->NombreAseguradora,
             'Aseguradora' => $request->CodigoAseguradora,
             'Moneda' => $request->Moneda,
         ]);
         activity()->log('Se ha creado la campañia '.$request->Nombre);
         return redirect('Personal/Campanias/')->with('alerta', 'Campaña creada exitosamente.');
+    }
+
+    public function actualizarCampania($id, Request $request){
+        $campania = Campanias::find($id);
+        $campania->Nombre = $request->Nombre;
+        $campania->Diminutivo = $request->Diminutivo;
+        $campania->Aseguradora = $request->CodigoAseguradora;
+        $campania->Nombre_Aseguradora = $request->NombreAseguradora;
+        $campania->Moneda = $request->Moneda;
+        $campania->save();
+
+        return back();
     }
 
     public function eliminarCampania($id){

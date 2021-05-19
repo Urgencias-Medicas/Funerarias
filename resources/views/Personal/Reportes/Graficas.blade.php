@@ -121,7 +121,7 @@
             <div class="card card-shadow">
                 <div class="card-body">
                     <h5 class="card-heading">Costos</h5>
-                    <p class="display-4 card-text">{{$Conteos['Costos']}}</p>
+                    <p class="display-4 card-text">{{number_format($Conteos['Costos'])}}</p>
                     <small>Miles de quetzales</small>
                 </div>
             </div>
@@ -164,14 +164,14 @@
             <div class="card mb-2 card-shadow">
                 <div class="card-body">
                     <h5 class="card-heading">Pendientes por pagar</h5>
-                    <p class="display-4 card-text">{{$Conteos['Pendiente']}}</p>
+                    <p class="display-4 card-text">{{number_format($Conteos['Pendiente'])}}</p>
                     <small>Miles de quetzales</small>
                 </div>
             </div>
             <div class="card card-shadow">
                 <div class="card-body">
                     <h5 class="card-heading">Servicios pagados</h5>
-                    <p class="display-4 card-text">{{$Conteos['Pagado']}}</p>
+                    <p class="display-4 card-text">{{number_format($Conteos['Pagado'])}}</p>
                     <small>Miles de quetzales</small>
                 </div>
             </div>

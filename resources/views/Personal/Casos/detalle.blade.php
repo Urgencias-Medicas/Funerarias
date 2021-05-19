@@ -129,274 +129,278 @@
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade @role('Personal') show active @endrole pt-3" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="row">
-                            <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-body align-items-center justify-content-center">
-                                        <form action="/Casos/{{$Caso->id}}/modificar" id="modificarForm" method="post">
-                                            @csrf
-                                            <div class="form-row">
-                                                <div class="form-group col-md-3">
-                                                    <label for="Agente">Agente</label>
-                                                    <input type="text" class="form-control" id="Agente" name="Agente" placeholder=""
-                                                        value="{{$Caso->Agente}}" readonly>
+                            <form action="/Casos/{{$Caso->id}}/modificar" id="modificarForm" method="post">
+                                <div class="form-row">
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body align-items-center justify-content-center">
+                                            
+                                                @csrf
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="Agente">Agente</label>
+                                                        <input type="text" class="form-control" id="Agente" name="Agente" placeholder=""
+                                                            value="{{$Caso->Agente}}" readonly>
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="codEstudiante">Codigo</label>
+                                                        <input type="text" class="form-control" id="codEstudiante" name="codEstudiante"
+                                                            placeholder="" value="{{$Caso->Codigo}}" readonly><span id="errmsg"></span>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="nombre">Nombre</label>
+                                                        <input type="text" class="form-control" id="nombre" name="nombre"
+                                                            placeholder="Ingrese el nombre" value="{{$Caso->Nombre}}" readonly>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group col-md-3">
-                                                    <label for="codEstudiante">Codigo</label>
-                                                    <input type="text" class="form-control" id="codEstudiante" name="codEstudiante"
-                                                        placeholder="" value="{{$Caso->Codigo}}" readonly><span id="errmsg"></span>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="edad">Edad</label>
+                                                        <input type="text" name="edad" id="edad" class="form-control" value="{{$Caso->Edad}}">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="Aseguradora">Aseguradora</label>
+                                                        <input type="text" name="aseguradora" id="Aseguradora" class="form-control"
+                                                            value="{{$Caso->Aseguradora}}">
+                                                    </div>
                                                 </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="nombre">Nombre</label>
-                                                    <input type="text" class="form-control" id="nombre" name="nombre"
-                                                        placeholder="Ingrese el nombre" value="{{$Caso->Nombre}}" readonly>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="causa">Causa</label>
+                                                        <select name="causa" id="causa" class="form-control">
+                                                            <option {{$Caso->Causa == 'Accidente' ? 'selected' : ''}} value="Accidente">
+                                                                Accidente</option>
+                                                            <option {{$Caso->Causa == 'Suicidio' ? 'selected' : ''}} value="Suicidio">Suicidio
+                                                            </option>
+                                                            <option {{$Caso->Causa == 'Asesinato' ? 'selected' : ''}} value="Asesinato">
+                                                                Asesinato</option>
+                                                            <option {{$Caso->Causa == 'Causas Naturales' ? 'selected' : ''}}
+                                                                value="Causas Naturales">Causas Naturales</option>
+                                                            <option {{$Caso->Causa == 'Enfermedad Comun' ? 'selected' : ''}}
+                                                                value="Enfermedad Comun">Enfermedad Com&uacute;n</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="edad">Edad</label>
-                                                    <input type="text" name="edad" id="edad" class="form-control" value="{{$Caso->Edad}}">
+                        
+                        
+                                                <input type="hidden" name="causa_id" id="causa_id">
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12" id="descripcion_causa" style="display: none;">
+                                                        <label for="descripcion_causa">Causa de muerte</label>
+                                                        <input type="text" class="form-control" id="descripcion_causa_input"
+                                                            name="descripcion_causa_input">
+                                                    </div>
+                                                    <div class="form-group col-md-8" id="selectcol">
+                        
+                                                        <label for="descripcion_causa">Causa de muerte</label>
+                                                        <select name="descripcion_causa_select" id="descripcion_causa_select"
+                                                            class="form-control">
+                                                            @foreach($Causas as $causa)
+                                                            @if($causa->Causa == $Caso->Causa_Desc)
+                                                            <option value="{{$causa->Causa}}" selected>{{$causa->Causa}}</option>
+                                                            @endif
+                                                            <option value="{{$causa->Causa}}">{{$causa->Causa}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4" id="btncol">
+                                                        <label for="btn-nueva">Nueva causa</label>
+                                                        <button type="button" class="btn btn-primary btn-block"
+                                                            onclick="agregarCausa();">+</button>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="Aseguradora">Aseguradora</label>
-                                                    <input type="text" name="aseguradora" id="Aseguradora" class="form-control"
-                                                        value="{{$Caso->Aseguradora}}">
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="causa_especifica">Descripcion de causa</label>
+                                                        <input type="text" name="causa_especifica" id="causa_especifica" class="form-control"
+                                                            value="{{$Caso->Causa_Especifica}}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-12">
-                                                    <label for="causa">Causa</label>
-                                                    <select name="causa" id="causa" class="form-control">
-                                                        <option {{$Caso->Causa == 'Accidente' ? 'selected' : ''}} value="Accidente">
-                                                            Accidente</option>
-                                                        <option {{$Caso->Causa == 'Suicidio' ? 'selected' : ''}} value="Suicidio">Suicidio
-                                                        </option>
-                                                        <option {{$Caso->Causa == 'Asesinato' ? 'selected' : ''}} value="Asesinato">
-                                                            Asesinato</option>
-                                                        <option {{$Caso->Causa == 'Causas Naturales' ? 'selected' : ''}}
-                                                            value="Causas Naturales">Causas Naturales</option>
-                                                        <option {{$Caso->Causa == 'Enfermedad Comun' ? 'selected' : ''}}
-                                                            value="Enfermedad Comun">Enfermedad Com&uacute;n</option>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="departamento">Departamento</label>
+                                                        <select name="departamento" id="departamento" class="form-control" required
+                                                            onclick="makeSubmenu(this.value)">
+                                                            <option>{{$Caso->Departamento}}</option>
+                                                            <option disabled>- Seleccione una opción -</option>
+                                                            <option value="Alta Verapaz">Alta Verapaz</option>
+                                                            <option value="Baja Verapaz">Baja Verapaz</option>
+                                                            <option value="Chimaltenango">Chimaltenango</option>
+                                                            <option value="Chiquimula">Chiquimula</option>
+                                                            <option value="Petén">Petén</option>
+                                                            <option value="El Progreso">El Progreso</option>
+                                                            <option value="Quiché">Quiché</option>
+                                                            <option value="Escuintla">Escuintla</option>
+                                                            <option value="Guatemala">Guatemala</option>
+                                                            <option value="Huehuetenango">Huehuetenango</option>
+                                                            <option value="Izabal">Izabal</option>
+                                                            <option value="Jalapa">Jalapa</option>
+                                                            <option value="Jutiapa">Jutiapa</option>
+                                                            <option value="Quetzaltenango">Quetzaltenango</option>
+                                                            <option value="Retalhuleu">Retalhuleu</option>
+                                                            <option value="Sacatepéquez">Sacatepéquez</option>
+                                                            <option value="San Marcos">San Marcos</option>
+                                                            <option value="Santa Rosa">Santa Rosa</option>
+                                                            <option value="Sololá">Sololá</option>
+                                                            <option value="Suchitepéquez">Suchitepéquez</option>
+                                                            <option value="Totonicapán">Totonicapán</option>
+                                                            <option value="Zacapa">Zacapa</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="municipio">Municipio</label>
+                        
+                                                        <select name="municipio" id="municipio" class="form-control" required>
+                                                            <option>{{$Caso->Municipio}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="direccion">Direccion</label>
+                                                        <input type="text" name="direccion" id="direccion" class="form-control"
+                                                            value="{{$Caso->Direccion}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="lugar">Lugar de los hechos</label>
+                                                    <input type="text" name="lugar" id="lugar" class="form-control" value="{{$Caso->Lugar}}">
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="certificado">Certificado</label>
+                                                        <input type="text" name="certificado" id="certificado" class="form-control"
+                                                            value="{{$Caso->Certificado}}">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="poliza">Poliza</label>
+                                                        <input type="text" name="poliza" id="poliza" class="form-control"
+                                                            value="{{$Caso->Poliza}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="NombreReporta">Tipo de asegurado</label>
+                                                    <select name="tipoAsegurado" id="tipoAsegurado" class="form-control">
+                                                        <option value=""> -- Seleccione -- </option>
+                                                        <option value="No Aplica" {{$Caso->TipoAsegurado == 'No Aplica' ? 'selected' : ''}}>No aplica</option>
+                                                        <option value="Titular" {{$Caso->TipoAsegurado == 'Titular' ? 'selected' : ''}}>Titular</option>
+                                                        <option value="Dependiente" {{$Caso->TipoAsegurado == 'Dependiente' ? 'selected' : ''}}>Dependiente</option>
                                                     </select>
                                                 </div>
-                                            </div>
-                    
-                    
-                                            <input type="hidden" name="causa_id" id="causa_id">
-                                            <div class="form-row">
-                                                <div class="form-group col-md-12" id="descripcion_causa" style="display: none;">
-                                                    <label for="descripcion_causa">Causa de muerte</label>
-                                                    <input type="text" class="form-control" id="descripcion_causa_input"
-                                                        name="descripcion_causa_input">
-                                                </div>
-                                                <div class="form-group col-md-8" id="selectcol">
-                    
-                                                    <label for="descripcion_causa">Causa de muerte</label>
-                                                    <select name="descripcion_causa_select" id="descripcion_causa_select"
-                                                        class="form-control">
-                                                        @foreach($Causas as $causa)
-                                                        @if($causa->Causa == $Caso->Causa_Desc)
-                                                        <option value="{{$causa->Causa}}" selected>{{$causa->Causa}}</option>
-                                                        @endif
-                                                        <option value="{{$causa->Causa}}">{{$causa->Causa}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4" id="btncol">
-                                                    <label for="btn-nueva">Nueva causa</label>
-                                                    <button type="button" class="btn btn-primary btn-block"
-                                                        onclick="agregarCausa();">+</button>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-12">
-                                                    <label for="causa_especifica">Descripcion de causa</label>
-                                                    <input type="text" name="causa_especifica" id="causa_especifica" class="form-control"
-                                                        value="{{$Caso->Causa_Especifica}}">
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="departamento">Departamento</label>
-                                                    <select name="departamento" id="departamento" class="form-control" required
-                                                        onclick="makeSubmenu(this.value)">
-                                                        <option>{{$Caso->Departamento}}</option>
-                                                        <option disabled>- Seleccione una opción -</option>
-                                                        <option value="Alta Verapaz">Alta Verapaz</option>
-                                                        <option value="Baja Verapaz">Baja Verapaz</option>
-                                                        <option value="Chimaltenango">Chimaltenango</option>
-                                                        <option value="Chiquimula">Chiquimula</option>
-                                                        <option value="Petén">Petén</option>
-                                                        <option value="El Progreso">El Progreso</option>
-                                                        <option value="Quiché">Quiché</option>
-                                                        <option value="Escuintla">Escuintla</option>
-                                                        <option value="Guatemala">Guatemala</option>
-                                                        <option value="Huehuetenango">Huehuetenango</option>
-                                                        <option value="Izabal">Izabal</option>
-                                                        <option value="Jalapa">Jalapa</option>
-                                                        <option value="Jutiapa">Jutiapa</option>
-                                                        <option value="Quetzaltenango">Quetzaltenango</option>
-                                                        <option value="Retalhuleu">Retalhuleu</option>
-                                                        <option value="Sacatepéquez">Sacatepéquez</option>
-                                                        <option value="San Marcos">San Marcos</option>
-                                                        <option value="Santa Rosa">Santa Rosa</option>
-                                                        <option value="Sololá">Sololá</option>
-                                                        <option value="Suchitepéquez">Suchitepéquez</option>
-                                                        <option value="Totonicapán">Totonicapán</option>
-                                                        <option value="Zacapa">Zacapa</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="municipio">Municipio</label>
-                    
-                                                    <select name="municipio" id="municipio" class="form-control" required>
-                                                        <option>{{$Caso->Municipio}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-12">
-                                                    <label for="direccion">Direccion</label>
-                                                    <input type="text" name="direccion" id="direccion" class="form-control"
-                                                        value="{{$Caso->Direccion}}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="lugar">Lugar de los hechos</label>
-                                                <input type="text" name="lugar" id="lugar" class="form-control" value="{{$Caso->Lugar}}">
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="certificado">Certificado</label>
-                                                    <input type="text" name="certificado" id="certificado" class="form-control"
-                                                        value="{{$Caso->Certificado}}">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="poliza">Poliza</label>
-                                                    <input type="text" name="poliza" id="poliza" class="form-control"
-                                                        value="{{$Caso->Poliza}}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="NombreReporta">Tipo de asegurado</label>
-                                                <select name="tipoAsegurado" id="tipoAsegurado" class="form-control">
-                                                    <option value=""> -- Seleccione -- </option>
-                                                    <option value="No Aplica" {{$Caso->TipoAsegurado == 'No Aplica' ? 'selected' : ''}}>No aplica</option>
-                                                    <option value="Titular" {{$Caso->TipoAsegurado == 'Titular' ? 'selected' : ''}}>Titular</option>
-                                                    <option value="Dependiente" {{$Caso->TipoAsegurado == 'Dependiente' ? 'selected' : ''}}>Dependiente</option>
-                                                </select>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                                <label for="NombreReporta">Nombre de quien reporta</label>
-                                                <input type="text" name="NombreReporta" id="NombreReporta" class="form-control"
-                                                    value="{{$Caso->NombreReporta}}">
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="RelacionReporta">Relaci&oacute;n</label>
-                                                <input type="text" name="RelacionReporta" id="RelacionReporta" class="form-control"
-                                                    value="{{$Caso->RelacionReporta}}">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="TelReporta">Tel&eacute;fono</label>
-                                                <input type="text" name="TelReporta" id="TelReporta" class="form-control"
-                                                    value="{{$Caso->TelReporta}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="padre">Padre</label>
-                                                <input type="text" name="padre" id="padre" class="form-control"
-                                                    value="{{$Caso->Padre}}">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="TelPadre">Tel. Padre</label>
-                                                <input type="text" name="TelPadre" id="TelPadre" class="form-control"
-                                                    value="{{$Caso->TelPadre}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="madre">Madre</label>
-                                                <input type="text" name="madre" id="madre" class="form-control"
-                                                    value="{{$Caso->Madre}}">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="TelMadre">Tel. Madre</label>
-                                                <input type="text" name="TelMadre" id="TelMadre" class="form-control"
-                                                    value="{{$Caso->TelMadre}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="Tutor">Tutor</label>
-                                            <input type="text" name="Tutor" id="Tutor" class="form-control" value="{{$Caso->Tutor}}">
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="TelTutor">Tel&eacute;fono Tutor</label>
-                                                <input type="text" name="TelTutor" id="TelTutor" class="form-control"
-                                                    value="{{$Caso->TelTutor}}">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="DPITutor">DPI Tutor</label>
-                                                <input type="text" name="DPITutor" id="DPITutor" class="form-control"
-                                                    value="{{$Caso->DPITutor}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="ParentescoTutor">Parentesco Tutor</label>
-                                                <input type="text" name="ParentescoTutor" id="ParentescoTutor" class="form-control"
-                                                    value="{{$Caso->ParentescoTutor}}">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="EmailTutor">Email Tutor</label>
-                                                <input type="text" name="EmailTutor" id="EmailTutor" class="form-control"
-                                                    value="{{$Caso->EmailTutor}}">
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="form-row">
-                                            <div class="form-group">
-                                                <label for="ComentarioTutor">Comentarios</label>
-                                                <textarea id="ComentarioTutor" name="ComentarioTutor" class="form-control"
-                                                    cols="80">{{$Caso->Comentario}}</textarea>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="Medico">Agente que atendi&oacute;</label>
-                                                <input type="text" name="Medico" id="Medico" class="form-control"
-                                                    value="{{$Caso->Medico}}">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="idioma">Idioma</label>
-                                                <input type="text" name="Idioma" id="Idioma" class="form-control"
-                                                    value="{{$Caso->Idioma}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="fechaNacimiento">Fecha</label>
-                                                <input type="date" class="form-control" id="fechaNacimiento" name="fecha"
-                                                    placeholder="00/00/0000" value="{{$Caso->Fecha}}">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="pohoralhoraiza">Hora</label>
-                                                <input type="time" class="form-control" id="hora" name="hora" placeholder="00:00"
-                                                    value="{{date('H:i', strtotime($Caso->Hora))}}"><span id="errmsg"></span>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                    <label for="NombreReporta">Nombre de quien reporta</label>
+                                                    <input type="text" name="NombreReporta" id="NombreReporta" class="form-control"
+                                                        value="{{$Caso->NombreReporta}}">
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="RelacionReporta">Relaci&oacute;n</label>
+                                                    <input type="text" name="RelacionReporta" id="RelacionReporta" class="form-control"
+                                                        value="{{$Caso->RelacionReporta}}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="TelReporta">Tel&eacute;fono</label>
+                                                    <input type="text" name="TelReporta" id="TelReporta" class="form-control"
+                                                        value="{{$Caso->TelReporta}}">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="padre">Padre</label>
+                                                    <input type="text" name="padre" id="padre" class="form-control"
+                                                        value="{{$Caso->Padre}}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="TelPadre">Tel. Padre</label>
+                                                    <input type="text" name="TelPadre" id="TelPadre" class="form-control"
+                                                        value="{{$Caso->TelPadre}}">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="madre">Madre</label>
+                                                    <input type="text" name="madre" id="madre" class="form-control"
+                                                        value="{{$Caso->Madre}}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="TelMadre">Tel. Madre</label>
+                                                    <input type="text" name="TelMadre" id="TelMadre" class="form-control"
+                                                        value="{{$Caso->TelMadre}}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Tutor">Tutor</label>
+                                                <input type="text" name="Tutor" id="Tutor" class="form-control" value="{{$Caso->Tutor}}">
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="TelTutor">Tel&eacute;fono Tutor</label>
+                                                    <input type="text" name="TelTutor" id="TelTutor" class="form-control"
+                                                        value="{{$Caso->TelTutor}}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="DPITutor">DPI Tutor</label>
+                                                    <input type="text" name="DPITutor" id="DPITutor" class="form-control"
+                                                        value="{{$Caso->DPITutor}}">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="ParentescoTutor">Parentesco Tutor</label>
+                                                    <input type="text" name="ParentescoTutor" id="ParentescoTutor" class="form-control"
+                                                        value="{{$Caso->ParentescoTutor}}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="EmailTutor">Email Tutor</label>
+                                                    <input type="text" name="EmailTutor" id="EmailTutor" class="form-control"
+                                                        value="{{$Caso->EmailTutor}}">
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <label for="ComentarioTutor">Comentarios</label>
+                                                    <textarea id="ComentarioTutor" name="ComentarioTutor" class="form-control"
+                                                        cols="80">{{$Caso->Comentario}}</textarea>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="Medico">Agente que atendi&oacute;</label>
+                                                    <input type="text" name="Medico" id="Medico" class="form-control"
+                                                        value="{{$Caso->Medico}}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="idioma">Idioma</label>
+                                                    <input type="text" name="Idioma" id="Idioma" class="form-control"
+                                                        value="{{$Caso->Idioma}}">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="fechaNacimiento">Fecha</label>
+                                                    <input type="date" class="form-control" id="fechaNacimiento" name="fecha"
+                                                        placeholder="00/00/0000" value="{{$Caso->Fecha}}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="pohoralhoraiza">Hora</label>
+                                                    <input type="time" class="form-control" id="hora" name="hora" placeholder="00:00"
+                                                        value="{{date('H:i', strtotime($Caso->Hora))}}"><span id="errmsg"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </form>
                             <div class="col-md-12 pt-3">
                                 <div class="card ">
                                     <div class="card-body align-items-center justify-content-center">
@@ -1067,13 +1071,13 @@
                         html += '<p>Campañas:</p>\
                             <div class="row">\
                                 <div class="col-md-12">\
-                                    <select id="monto_base" class="form-control">\
-                                    <option value="0">-- Seleccione una campaña --</option>';
+                                    <select id="campania_id" class="form-control">\
+                                    <option disabled selected>-- Seleccione una campaña --</option>';
                         $.each(JSON.parse(infoFuneraria.Campanias), function(key, entry){
                             if($('#edad').val() >= entry.edad_inicial && $('#edad').val() <= entry.edad_final){
-                                html += '<option value="'+entry.monto+'">'+entry.nombre+'</option>';
+                                html += '<option value="'+entry.id+'">'+entry.nombre+'</option>';
                             }else{
-                                html += '<option value="'+entry.monto+'" disabled>'+entry.nombre+'</option>';
+                                html += '<option value="'+entry.id+'" disabled>'+entry.nombre+'</option>';
                             }
                                     
                         });
@@ -1166,19 +1170,19 @@
         if ($('#WhatsApp').is(':checked')) {
             whatsapp = 'Si';
         }
-        var monto = $('#monto_base').val();
+        var campania = $('#campania_id').val();
 
         var regExp = /\(([^)]+)\)/;
-        var moneda = regExp.exec($('#monto_base option:selected').text());
+        var moneda = regExp.exec($('#campania_id option:selected').text());
 
         console.log(moneda[1]);
 
-        asignarFuneraria(caso, id, monto, moneda[1], correo, whatsapp);
+        asignarFuneraria(caso, id, campania, moneda[1], correo, whatsapp);
     }
 
-    function asignarFuneraria(caso, id, monto, moneda, correo, wp) {
+    function asignarFuneraria(caso, id, campania, moneda, correo, wp) {
         $.ajax({
-            url: "/Casos/" + caso + "/asignarFuneraria/" + id + "/" + monto + "/" + moneda + "/" + correo + "/" + wp,
+            url: "/Casos/" + caso + "/asignarFuneraria/" + id + "/" + campania + "/" + moneda + "/" + correo + "/" + wp,
             type: 'get',
             success: function (response) {
                 window.location.href = '/Casos/ver';
@@ -1330,6 +1334,9 @@
             return /^\d*\.?\d*$/.test(value);
         });
         setInputFilter(document.getElementById("TelTutor"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+        setInputFilter(document.getElementById("DPITutor"), function (value) {
             return /^\d*\.?\d*$/.test(value);
         });
         setInputFilter(document.getElementById("TelReporta"), function (value) {

@@ -47,7 +47,7 @@ Route::group(['prefix' => 'Casos'], function () {
     Route::post('guardarNuevo', 'CasosController@guardarNuevo');
     Route::get('ver', 'CasosController@verCasos')->middleware('role:Personal||Contabilidad');
     Route::get('{id}/ver', 'CasosController@detallesCaso')->middleware('role:Personal||Contabilidad');
-    Route::get('/{caso}/asignarFuneraria/{id}/{monto}/{moneda}/{correo}/{wp}', 'CasosController@asignarFuneraria');
+    Route::get('/{caso}/asignarFuneraria/{id}/{campania}/{moneda}/{correo}/{wp}', 'CasosController@asignarFuneraria');
     Route::any('/{caso}/actualizarPago', 'CasosController@actualizarPago');
     Route::get('/cerrarCaso/{caso}', 'CasosController@cerrarCaso');
     Route::get('Reportar/{caso}/{instruccion}', 'CasosController@reportarCaso');
@@ -117,6 +117,7 @@ Route::group(['prefix' => 'Personal'], function (){
         Route::get('ver/{id}', 'AdminController@detallesCampanias');
         Route::get('crear', 'AdminController@crearCampania');
         Route::post('guardar', 'AdminController@guardarCampania');
+        Route::post('{id}/actualizar', 'AdminController@actualizarCampania');
         Route::get('eliminar/{id}', 'AdminController@eliminarCampania');
     });
 

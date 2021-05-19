@@ -22,6 +22,7 @@
                             <tr>
                                 <th>id</th>
                                 <th>Nombre</th>
+                                <th>Diminutivo</th>
                                 <th>Aseguradora</th>
                                 <th>Acciones</th>
                             </tr>
@@ -31,6 +32,7 @@
                             <tr id="aseguradora-{{$Campania->id}}">
                                 <td>{{$Campania->id}}</td>
                                 <td>{{$Campania->Nombre}}</td>
+                                <td>{{$Campania->Diminutivo}}</td>
                                 <td>{{$Campania->Aseguradora.' - '.$Campania->Nombre_Aseguradora}}</td>
                                 <td>
                                 <a href="/Personal/Campanias/ver/{{$Campania->id}}"><button class="btn btn-link">Editar</button></a>
