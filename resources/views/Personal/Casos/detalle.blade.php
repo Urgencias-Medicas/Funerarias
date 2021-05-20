@@ -1055,7 +1055,7 @@
 
     function seleccionarCampania(id){
         $.ajax({
-            url: "{{URL::to('/verFunerarias')}}",
+            url: "https://umfunerarias.excess.software/verFunerarias",
             type: 'get',
             dataType: 'JSON',
             success: function (response) {
@@ -1100,7 +1100,7 @@
 
     function detalleFuneraria(id) {
         $.ajax({
-            url: "{{URL::to('/verFunerarias')}}",
+            url: "https://umfunerarias.excess.software/verFunerarias",
             type: 'get',
             dataType: 'JSON',
             success: function (response) {
