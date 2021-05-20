@@ -19,7 +19,7 @@
                     <div class="input-group ">
                         <select name="aseguradora" id="aseguradora" class="form-control">
                             <option value="0"> -- Seleccione aseguradora -- </option>
-                            <option value="1">Seguro Escolar</option>
+                            <option value="30">Seguro Escolar</option>
                             <option value="2">CHN</option>
                             <option value="7">SeguRed</option>
                         </select>
