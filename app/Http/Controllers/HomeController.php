@@ -87,11 +87,13 @@ class HomeController extends Controller
             $imageName = 'Funeraria-'.$user->id.'-manipulacionAlimentos.'.$image->getClientOriginalExtension();
         }elseif($media == 'bioinfecciosos'){
             $imageName = 'Funeraria-'.$user->id.'-bioinfecciosos.'.$image->getClientOriginalExtension();
+        }elseif($media == 'Convenio'){
+            $imageName = 'Funeraria-'.$user->id.'-Convenio.'.$image->getClientOriginalExtension();
         }
 
         $upload_success = $image->move(public_path('images'),$imageName);
         if ($upload_success) {
-            DocumentosFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Documento' => $media, 'Ruta' => '/images/'.$imageName]);
+            DocumentosFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Documento' => $media, 'Ruta' => '/images/'.$imageName, 'Estatus' => null]);
             return response()->json($upload_success, 200);
         }
         // Else, return error 400

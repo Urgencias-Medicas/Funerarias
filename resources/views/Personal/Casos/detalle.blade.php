@@ -161,7 +161,7 @@
                                                     <div class="form-group col-md-6">
                                                         <label for="Aseguradora">Aseguradora</label>
                                                         <input type="text" name="aseguradora" id="Aseguradora" class="form-control"
-                                                            value="{{$Caso->Aseguradora}}">
+                                                            value="{{$Caso->Nombre_Aseguradora}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">

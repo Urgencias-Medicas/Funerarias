@@ -15,6 +15,7 @@ use App\Campanias;
 use App\Configuracion;
 use App\InfoFunerariasRegistradas;
 use App\DetallesDeFuneraria;
+use App\DocumentosFuneraria;
 
 class AdminController extends Controller
 {
@@ -219,7 +220,12 @@ class AdminController extends Controller
             $detalle = DetallesFuneraria::find($funeraria->Id_Detalle);
             $campanias = Campanias::all();
             $checks = Configuracion::where('opcion', 'Campos_Check')->value('valor');
-            return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Campanias' => $campanias, 'Checks' => $checks]);
+
+            $documentos_funeraria = DocumentosFuneraria::where('Funeraria', $funeraria->Id_Funeraria)->get();
+
+            $detalles_funeraria = DetallesDeFuneraria::where('Funeraria', $funeraria->Id_Funeraria)->get();
+
+            return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Campanias' => $campanias, 'Checks' => $checks, 'Detalles_Funeraria' => $detalles_funeraria, 'DoctosFuneraria' => $documentos_funeraria]);
         }else{
 
             $funeraria_registrada = InfoFunerariasRegistradas::where('id', $id)->where('funeraria', $nombre)->first();

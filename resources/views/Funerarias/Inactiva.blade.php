@@ -32,27 +32,27 @@
         <div class="col-md-10">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
     @if($LicenciaAmbiental == 'Pendiente' || $LicenciaAmbiental == 'Aprobado')
-    <li class="nav-item">
+    <!--<li class="nav-item">
         <a class="nav-link disabled" id="licenciaAmbiental-tab" data-toggle="tab" href="#licenciaAmbiental" role="tab" aria-controls="licenciaAmbiental" aria-selected="true">Licencia ambiental</a>
-    </li>
+    </li>-->
     @else
     <li class="nav-item">
         <a class="nav-link active" id="licenciaAmbiental-tab" data-toggle="tab" href="#licenciaAmbiental" role="tab" aria-controls="licenciaAmbiental" aria-selected="true">Licencia ambiental</a>
     </li>
     @endif
   @if($InfoGeneral == 'Pendiente' || $InfoGeneral == 'Aprobado') 
-  <li class="nav-item">
+  <!--<li class="nav-item">
     <a class="nav-link disabled" id="infoGeneral-tab" data-toggle="tab" href="#infoGeneral" role="tab" aria-controls="infoGeneral" aria-selected="false">Información general</a>
-  </li>
+  </li>-->
   @else
   <li class="nav-item">
     <a class="nav-link " id="infoGeneral-tab" data-toggle="tab" href="#infoGeneral" role="tab" aria-controls="infoGeneral" aria-selected="false">Información general</a>
   </li>
   @endif
   @if($Documentacion == 'Pendiente' || $Documentacion == 'Aprobado' || !isset($Documentacion)) 
-  <li class="nav-item">
+  <!--<li class="nav-item">
     <a class="nav-link disabled" id="documentacion-tab" data-toggle="tab" href="#documentacion" role="tab" aria-controls="documentacion" aria-selected="false">Documentacion</a>
-  </li>
+  </li>-->
   @else
   <li class="nav-item">
     <a class="nav-link" id="documentacion-tab" data-toggle="tab" href="#documentacion" role="tab" aria-controls="documentacion" aria-selected="false">Documentacion</a>
@@ -60,18 +60,18 @@
   @endif  
   @if(isset($Convenio))
     @if($Convenio == 'Pendiente' || $Convenio == 'Aprobado')
-    <li class="nav-item">
+    <!--<li class="nav-item">
         <a class="nav-link disabled" id="convenio-tab" data-toggle="tab" href="#convenio" role="tab" aria-controls="convenio" aria-selected="false">Convenio</a>
-    </li>
+    </li>-->
     @else
     <li class="nav-item">
         <a class="nav-link" id="convenio-tab" data-toggle="tab" href="#convenio" role="tab" aria-controls="convenio" aria-selected="false">Convenio</a>
     </li>
     @endif
   @else
-  <li class="nav-item">
+  <!--<li class="nav-item">
     <a class="nav-link disabled" id="convenio-tab" data-toggle="tab" href="#convenio" role="tab" aria-controls="convenio" aria-selected="false">Convenio</a>
-  </li>
+  </li>-->
   @endif
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -80,7 +80,7 @@
         
         @if($LicenciaAmbiental == 'Aprobado')
         <br><br>
-        <h3>Aprobado, proceda al siguiente paso</h3>
+        <h3>Proceda al siguiente paso habilitado</h3>
         <br>
         @elseif($LicenciaAmbiental == 'Pendiente')
         <br>
@@ -497,7 +497,46 @@
   <div class="tab-pane fade" id="convenio" role="tabpanel" aria-labelledby="convenio-tab">
     <div class="card">
         <div class="card-body align-items-center">
-            <a href="/convenio"><h1>Descargar convenio</h1></a>
+                @php
+                    $existe_convenio = 0;
+                @endphp
+                @foreach($AllDocuments as $documents)
+                    @if($documents->Documento == 'Convenio')
+                    
+                        @if($documents->Estatus == 'Aprobado' || is_null($documents->Estatus))
+                        @php
+                            $existe_convenio = 1;
+                        @endphp
+                        @else
+                        @php
+                        @endphp
+                        @endif
+                    @endif
+                @endforeach
+                @if($existe_convenio == 0)
+                <a href="/convenio"><h1>Descargar convenio</h1></a>
+                @else
+                <h3>Convenio pendiente de verificar</h3>
+                @endif
+                <div class="form-group" style="{{$existe_convenio == 0 ? '' : 'display: none;'}}">
+                    <h3>Patente de comercio</h3>
+                    @foreach($AllDocuments as $documents)
+                        @if($documents->Documento == 'Convenio')
+                            @if($documents->Estatus == 'Denegado')
+                                <p class="text-danger">Su documento ha sido rechazado, rectifique a continuación.</p>
+                                <b>Motivo: </b> <p class="text-danger">{{$documents->Comentarios}}</p>
+                            @endif
+                        @endif
+                    @endforeach
+                    <form action="/Funeraria/info/guardarMedia/Convenio" enctype="multipart/form-data"
+                        class="dropzone" id="subirconvenio" method="POST">
+                        @csrf
+                        <div class="fallback">
+                            <input name="file" type="files" multiple
+                                accept="image/jpeg, image/png, image/jpg" />
+                        </div>
+                    </form>
+                </div>
         </div>
     </div>
     </div>
@@ -572,13 +611,41 @@
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
 <script type="text/javascript">
+
+    // Restricts input for the given textbox to the given inputFilter function.
+    function setInputFilter(textbox, inputFilter) {
+        ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (
+            event) {
+            textbox.addEventListener(event, function () {
+                if (inputFilter(this.value)) {
+                    this.oldValue = this.value;
+                    this.oldSelectionStart = this.selectionStart;
+                    this.oldSelectionEnd = this.selectionEnd;
+                } else if (this.hasOwnProperty("oldValue")) {
+                    this.value = this.oldValue;
+                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                } else {
+                    this.value = "";
+                }
+            });
+        });
+    }
+
+    $(document).ready(function () {
+        setInputFilter(document.getElementById("telefono"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+        setInputFilter(document.getElementById("NIT"), function (value) {
+            return /^\d*\.?\d*$/.test(value);
+        });
+        
+    });
+
     Dropzone.options.fileupload = {
 
     }
 
-    if (typeof Dropzone != 'undefined') {
-        Dropzone.autoDiscover = false;
-    }
+    
 
     ;
     (function ($, window, undefined) {
@@ -637,12 +704,20 @@
                             uploaded: 0,
                             errors: 0
                         };
+                    var dz = new Dropzone("#subirconvenio"),
+                        dze_info = $("#dze_info"),
+                        status = {
+                            uploaded: 0,
+                            errors: 0
+                        };
+                    
                     var dz = new Dropzone("#bioinfecciosos"),
                         dze_info = $("#dze_info"),
                         status = {
                             uploaded: 0,
                             errors: 0
                         };
+
                     var $f = $(
                         '<tr><td class="name"></td><td class="size"></td><td class="type"></td><td class="status"></td></tr>'
                     );
