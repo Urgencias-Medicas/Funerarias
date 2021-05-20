@@ -543,59 +543,7 @@
 </div>
 
 
-            <!--<div class="card">
-
-                <div class="card-body align-items-center d-flex justify-content-center">
-                    
-                <div class="row">
-                    <div class="col">
-                        <h1><b>Funeraria Inactiva</b></h1>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col">
-                    @if(isset($Detalle->Campos))
-
-                    @if(json_decode($Detalle->Campos)[0]->campo == 'InfoGeneral' && json_decode($Detalle->Campos)[0]->result == 'No')
-                    Subir
-                    <br>
-                    @elseif(json_decode($Detalle->Campos)[0]->campo == 'InfoGeneral' && json_decode($Detalle->Campos)[0]->result == 'Pendiente')
-                    Pendiente de revisión
-                    <br>
-                    @else
-                    Subido
-                    <br>
-                    @endif
-
-                    @if(json_decode($Detalle->Campos)[1]->campo == 'Documentos' && json_decode($Detalle->Campos)[1]->result == 'No')
-                    Subir
-                    <br>
-                    @elseif(json_decode($Detalle->Campos)[1]->campo == 'Documentos' && json_decode($Detalle->Campos)[1]->result == 'Pendiente')
-                    Pendiente de revisión
-                    <br>
-                    @else
-                    Subido
-                    <br>
-                    @endif
-
-                    @if(json_decode($Detalle->Campos)[2]->campo == 'Contrato' && json_decode($Detalle->Campos)[2]->result == 'No')
-                    Subir
-                    <br>
-                    @elseif(json_decode($Detalle->Campos)[2]->campo == 'Contrato' && json_decode($Detalle->Campos)[2]->result == 'Pendiente')
-                    Pendiente de revisión
-                    <br>
-                    @else
-                    Subido
-                    <br>
-                    @endif
-
-                @endif
-                    </div>
-                </div>
-                
-                </div>
-            </div>-->
+            
         </div>
     </div>
 </div>
