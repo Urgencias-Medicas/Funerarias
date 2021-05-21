@@ -52,7 +52,7 @@ class CasosController extends Controller
         $user = auth()->user();
         $suceso = Carbon::parse($request->fecha);
         $fecha = $suceso->format('Y-m-d');
-        $data = ['Agente' => $user->id, 'Codigo' => $request->codEstudiante, 'Edad' => $request->edad, 'Nombre' => $request->nombre, 'Aseguradora' => $request->aseguradora,
+        $data = ['Agente' => $user->id, 'Codigo' => $request->codEstudiante, 'Edad' => $request->edad, 'Nombre' => $request->nombre, 'Aseguradora' => $request->aseguradora, 'Nombre_Aseguradora' => $request->Nombre_Aseguradora,
         'Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 'Causa_Desc' => $request->descripcion_causa != '' ? $request->descripcion_causa : $request->descripcion_causa_select,  
         'Causa_Especifica' => $request->causa_especifica, 'Direccion' => $request->direccion, 'Departamento' => strtoupper(Helper::eliminar_acentos($request->departamento)), 
         'Municipio' => strtoupper(Helper::eliminar_acentos($request->municipio)), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
@@ -113,6 +113,7 @@ class CasosController extends Controller
                 $caso->Funeraria = $data[0]->funeraria;
             }
         }
+
         return view('Personal.Casos.ver', ['Casos' => $casos]);
     }
     public function detallesCaso($id, $msg = 0){
@@ -281,12 +282,12 @@ class CasosController extends Controller
         $mensaje = 'Caso #'.$caso.' asignado. ';
         $mensaje .= 'Más información en '.url('/Funerarias/Casos/'.$caso.'/ver');
         $casos_array = ['id' => $caso];  
-        if($correo == 'Si'){
+        //if($correo == 'Si'){
             Mail::send('mailslayouts.asignado', $casos_array, function($message) use($caso, $correo_funeraria, $nombre_funeraria, $mensaje)
             {
                 $message->to($correo_funeraria, $nombre_funeraria)->subject($mensaje)->from('no-reply@excess.software', 'Urgencias Médicas');
             });
-        }
+        //}
         /*if($wp == 'Si'){
             $this->mensajeWhatsApp($mensaje, 'whatsapp:+50249750995');
         }*/

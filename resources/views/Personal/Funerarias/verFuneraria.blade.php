@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-        <button type="button" class="btn btn-link"><a href="">< Atrás</a></button>
+        
             <div class="card">
                 <div class="card-header">Información</div>
 

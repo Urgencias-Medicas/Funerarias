@@ -42,8 +42,8 @@
                         <div class="form-group row">
                             <label for="tipo" class="col-md-4 col-form-label text-md-right">Rol</label>
                             <div class="col-md-6">
-                                <select name="tipo_usuario" class="form-control">
-                                    <option>-- Seleccione --</option>
+                                <select name="tipo_usuario" class="form-control" onchange=" $('#submit_btn').removeAttr('disabled');">
+                                    <option selected disabled>-- Seleccione --</option>
                                     <option value="Agente">Agente de Call Center</option>
                                     <option value="Personal">Personal interno</option>
                                     <option value="Contabilidad">Contabilidad</option>
@@ -53,7 +53,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="submit_btn" disabled>
                                     Registrar
                                 </button>
                             </div>

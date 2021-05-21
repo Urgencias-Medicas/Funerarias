@@ -37,6 +37,12 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="Nombre_Aseguradora">Nombre Aseguradora</label>
+                                <input type="text" id="Nombre_Aseguradora" name="Nombre_Aseguradora" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="edad">Edad</label>
                                 <input type="text" name="edad" id="edad" class="form-control">

@@ -76,8 +76,7 @@
 <div class="container">
     <div class="row my-3">
         <div class="col-12">
-            <button type="button" class="btn btn-link"><a href="/Casos/ver">
-                < Atrás</a> </button>
+            
             <h2>Caso #{{$Caso->id}}</h2>
                 @role('Personal')
                     <button type="button" onClick="descargarAdjuntos();" class="btn btn-info float-right mr-2">Generar pdf</button>
@@ -167,7 +166,7 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
                                                         <label for="Nombre_Aseguradora">Nombre Aseguradora</label>
-                                                        <input type="text" name="Nombre_Aseguradora" id="Nombre_Aseguradora" class="form-control"
+                                                        <input type="text" id="Nombre_Aseguradora" class="form-control"
                                                             value="{{$Caso->Nombre_Aseguradora}}">
                                                     </div>
                                                 </div>
@@ -638,6 +637,7 @@
                                                 <div class="fallback">
                                                     <input name="file" type="files" multiple accept="image/jpeg, image/png, image/jpg" />
                                                 </div>
+                                                <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
                                             </form>
                                         </div>
                                     </div>
@@ -976,7 +976,7 @@
 
     function cargarFunerarias(){
         $.ajax({
-            url: "https://umfunerarias.excess.software/verFunerarias",
+            url: "{{URL('/verFunerarias')}}",
             type: 'get',
             dataType: 'JSON',
             success: function (response) {
@@ -1062,7 +1062,7 @@
 
     function seleccionarCampania(id){
         $.ajax({
-            url: "https://umfunerarias.excess.software/verFunerarias",
+            url: "{{URL('/verFunerarias')}}",
             type: 'get',
             dataType: 'JSON',
             success: function (response) {
@@ -1081,11 +1081,11 @@
                                     <select id="campania_id" class="form-control">\
                                     <option disabled selected>-- Seleccione una campaña --</option>';
                         $.each(JSON.parse(infoFuneraria.Campanias), function(key, entry){
-                            if($('#edad').val() >= entry.edad_inicial && $('#edad').val() <= entry.edad_final){
-                                html += '<option value="'+entry.id+'">'+entry.nombre+'</option>';
-                            }else{
-                                html += '<option value="'+entry.id+'" disabled>'+entry.nombre+'</option>';
-                            }
+                            //if($('#edad').val() >= entry.edad_inicial && $('#edad').val() <= entry.edad_final){
+                                html += '<option value="'+entry.id+'"> ('+entry.edad_inicial+'-'+entry.edad_final+') - '+entry.nombre+'</option>';
+                            //}else{
+                            //    html += '<option value="'+entry.id+'" disabled>'+entry.nombre+'</option>';
+                            //}
                                     
                         });
 
@@ -1107,7 +1107,7 @@
 
     function detalleFuneraria(id) {
         $.ajax({
-            url: "https://umfunerarias.excess.software/verFunerarias",
+            url: "{{URL('/verFunerarias')}}",
             type: 'get',
             dataType: 'JSON',
             success: function (response) {

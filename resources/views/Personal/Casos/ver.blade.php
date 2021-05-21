@@ -29,7 +29,7 @@
                             <td>{{$caso->Nombre}}</td>
                             <td>{{date('d/m/Y', strtotime($caso->Fecha))}} - {{date('h:i a', strtotime($caso->Hora))}}</td>
                             <td>{{$caso->Departamento}}</td>
-                            <td>{{$caso->Funeraria}}</td>
+                            <td>{{$caso->Funeraria_Nombre}}</td>
                             <td>
                                 @if($caso->Estatus == 'Abierto')
                                 <span style="color:orange;"><b>{{$caso->Estatus}}</b></span>

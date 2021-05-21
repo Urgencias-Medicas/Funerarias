@@ -214,9 +214,9 @@ class AdminController extends Controller
             ]);
             $data = json_decode($res->getBody());*/
 
-            $data = InfoFunerariasRegistradas::get();
+            $data = InfoFunerariasRegistradas::where('id', $id)->first();
 
-            $funeraria->Departamento = $data[0]->departamento;
+            $funeraria->Departamento = $data->departamento;
             $detalle = DetallesFuneraria::find($funeraria->Id_Detalle);
             $campanias = Campanias::all();
             $checks = Configuracion::where('opcion', 'Campos_Check')->value('valor');

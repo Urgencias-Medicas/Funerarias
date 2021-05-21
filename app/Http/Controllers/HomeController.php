@@ -93,7 +93,12 @@ class HomeController extends Controller
 
         $upload_success = $image->move(public_path('images'),$imageName);
         if ($upload_success) {
-            DocumentosFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Documento' => $media, 'Ruta' => '/images/'.$imageName, 'Estatus' => null]);
+            $documento_existe = DocumentosFuneraria::where('Funeraria', $user->id)->where('Documento', $media)->first();
+            if($documento_existe){
+                DocumentosFuneraria::where('Funeraria', $user->id)->where('Documento', $media)->update(['Ruta' => '/images/'.$imageName, 'Estatus' => null]);    
+            }else{
+                DocumentosFuneraria::create(['Funeraria' => $user->id, 'Documento' => $media, 'Ruta' => '/images/'.$imageName, 'Estatus' => null]);
+            }
             return response()->json($upload_success, 200);
         }
         // Else, return error 400
@@ -110,7 +115,7 @@ class HomeController extends Controller
         DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'NIT', 'Valor' => $request->nit]);
         DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'Telefono', 'Valor' => $request->telefono]);
         DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'Direccion', 'Valor' => $request->direccion]);
-        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'Departamento', 'Valor' => $request->departamento]);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'Departamento', 'Valor' => strtoupper($request->departamento)]);
         DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'NombreContacto', 'Valor' => $request->nombre_contacto]);
         DetallesDeFuneraria::updateOrCreate(['Funeraria' => $user->id, 'Campo' => 'TelContacto', 'Valor' => $request->numero_contacto]);
 

@@ -39,8 +39,7 @@
 </div>
 @endif
 <div class="container">
-    <a href="/Funerarias/Casos/ver" class="btn btn-link mb-2">
-        < Atrás</a> <button type="submit" class="btn btn-success float-right mr-2" id="btnGuardar" form="modificarForm">
+     <button type="submit" class="btn btn-success float-right mr-2" id="btnGuardar" form="modificarForm">
             Guardar
             cambios</button>
             <div class="row ">
@@ -377,13 +376,14 @@
                             </ul>
                             <hr>
                             <div class="form-group">
-                                <form action="/Funeraria/Caso/{{$Caso->id}}/guardarMedia" enctype="multipart/form-data"
+                                <form action="/Caso/{{$Caso->id}}/guardarMedia" enctype="multipart/form-data"
                                     class="dropzone" id="fileupload" method="POST">
                                     @csrf
                                     <div class="fallback">
                                         <input name="file" type="files" multiple
                                             accept="image/jpeg, image/png, image/jpg" />
                                     </div>
+                                    <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
                                 </form>
                             </div>
                         </div>

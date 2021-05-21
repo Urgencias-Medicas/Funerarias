@@ -4,8 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <button type="button" class="btn btn-link"><a href="/Personal/verFunerarias">
-                    < Atrás</a> </button> <div class="card">
+            <button type="button" class="btn btn-link"> </button> <div class="card">
 
                         <div class="card-body align-items-center justify-content-center">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -66,8 +65,8 @@
                                 </div>-->
                                         <div class="form-group">
                                             <label for="selectCampaña">Campaña</label>
-                                            <select name="selectCampaña" id="selectCampaña" class="form-control">
-                                                <option>-- Seleccione campaña --</option>
+                                            <select name="selectCampaña" id="selectCampaña" class="form-control" onchange="$('#agregar_campana_btn').removeAttr('disabled');">
+                                                <option selected disabled>-- Seleccione campaña --</option>
                                                 @foreach($Campanias as $campania)
                                                 <option value="{{$campania->id}}">
                                                     {{$campania->Nombre.', '.$campania->Nombre_Aseguradora. ' ('.$campania->Moneda.')'}}
@@ -77,8 +76,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12 text-left">
-                                                <button type="button" class="btn btn-success"
-                                                    onClick="agregarCampania($('#selectCampaña').val(), $('#selectCampaña option:selected').text())"><i
+                                                <button type="button" class="btn btn-success" id="agregar_campana_btn"
+                                                    onClick="agregarCampania($('#selectCampaña').val(), $('#selectCampaña option:selected').text())" disabled><i
                                                         class="fa fa-plus" aria-hidden="true"></i> Agregar
                                                     campaña</button>
                                             </div>
