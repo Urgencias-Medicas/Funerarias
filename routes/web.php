@@ -130,6 +130,7 @@ Route::get('Notificacion/{id}/quitar', 'HomeController@quitarNotificacion');
 
 Route::post('Funeraria/info/guardarMedia/{media}', 'HomeController@guardarMedia');
 Route::post('Funeraria/info/actualizarInfo', 'HomeController@guardarInfo');
+Route::post('Funeraria/info/actualizarInfo/{id}', 'HomeController@guardarInfoFuneraria');
 
 Route::get('/convenio', 'HomeController@generarConvenio');
 Route::get('/convenio/{id}', 'HomeController@generarConvenioFuneraria');

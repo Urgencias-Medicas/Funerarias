@@ -225,7 +225,12 @@ class AdminController extends Controller
 
             $detalles_funeraria = DetallesDeFuneraria::where('Funeraria', $funeraria->Id_Funeraria)->get();
 
-            return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Campanias' => $campanias, 'Checks' => $checks, 'Detalles_Funeraria' => $detalles_funeraria, 'DoctosFuneraria' => $documentos_funeraria]);
+            $array_detalles = array();
+            foreach($detalles_funeraria as $detalle){
+                $array_detalles[$detalle->Campo] = $detalle->Valor;
+            }
+
+            return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Campanias' => $campanias, 'Checks' => $checks, 'Detalles_Funeraria' => $array_detalles, 'DoctosFuneraria' => $documentos_funeraria]);
         }else{
 
             $funeraria_registrada = InfoFunerariasRegistradas::where('id', $id)->where('funeraria', $nombre)->first();

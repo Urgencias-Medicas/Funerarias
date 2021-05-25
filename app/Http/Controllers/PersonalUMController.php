@@ -50,7 +50,7 @@ class PersonalUMController extends Controller
         $documento = DocumentosFuneraria::where('Id', $docto)->value('Documento');
 
         if($documento == 'licenciaAmbiental'){
-            DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'LicenciaAmbiental')->update(['Estado' => 'Aprobado']);
+            $test = DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'LicenciaAmbiental')->update(['Estado' => $accion]);
         }
         
         $documentacion = DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'Documentacion')->first();

@@ -145,7 +145,7 @@
         <textarea name="denegar" id="denegar" class="form-control" onchange="changeBtnDenegar();"></textarea>
       </div>
       <div class="modal-footer">
-        <a class="btn btn-primary" id="btn-denegar" href="">Aceptar</a>
+        <a id="btn-denegar" href=""><button class="btn btn-primary" id="denegar-btn" disabled>Aceptar</button></a>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
@@ -158,11 +158,15 @@
 function denegarDocto(id){
     console.log(id);
     $('#myModal').modal('show')
-    $("#btn-denegar").attr("href", "/Personal/Funeraria/6/"+id+"/Denegado")
+    $("#btn-denegar").attr("href", "/Personal/Funeraria/{{$Funeraria->id}}/"+id+"/Denegado")
 }
 
 function changeBtnDenegar(id){
     var motivo = $('#denegar').val();
+    $('#denegar-btn').prop('disabled', false);
+    if(motivo == null){
+        motivo = '-';
+    }
     console.log('test');
     var link = $('#btn-denegar');
     link.attr('href', link.attr('href') + '/' + motivo);

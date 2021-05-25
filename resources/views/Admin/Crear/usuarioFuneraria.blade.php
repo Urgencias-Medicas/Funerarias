@@ -42,7 +42,7 @@
                         <div class="form-group row">
                             <label for="tipo" class="col-md-4 col-form-label text-md-right">Funeraria</label>
                             <div class="col-md-6">
-                                <select id="select-funerarias" name="funeraria" class="form-control" required>
+                                <select id="select-funerarias" name="funeraria" class="form-control" onchange=" $('#submit_btn').removeAttr('disabled');" required>
                                     <option>-- Seleccione --</option>
                                 </select>
                             </div>
@@ -50,7 +50,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" id="submit_btn" class="btn btn-primary">
                                     Registrar
                                 </button>
                             </div>
@@ -64,7 +64,7 @@
 <script>
 $(document).ready(function () {
         $.ajax({
-            url: "https://umbd.excess.software/api/getFunerarias",
+            url: "{{URL('/verFunerarias')}}",
             type: 'get',
             dataType: 'JSON',
             success: function (response) {

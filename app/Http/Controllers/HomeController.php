@@ -125,6 +125,18 @@ class HomeController extends Controller
         return back();
 
     }
+
+    public function guardarInfoFuneraria($id, Request $request){
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'TipoFuneraria', 'Valor' => $request->tipo_funeraria]);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'NIT', 'Valor' => $request->nit]);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'Telefono', 'Valor' => $request->telefono]);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'Direccion', 'Valor' => $request->direccion]);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'Departamento', 'Valor' => strtoupper($request->departamento)]);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'NombreContacto', 'Valor' => $request->nombre_contacto]);
+        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'TelContacto', 'Valor' => $request->numero_contacto]);
+
+        return back();
+    }
     public function quitarNotificacion($id){
         $notificacion = Notificaciones::find($id);
         $notificacion->estatus = 'Inactiva';

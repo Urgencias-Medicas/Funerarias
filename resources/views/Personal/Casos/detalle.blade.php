@@ -1128,8 +1128,10 @@
                         </div>';
                     }
                 }
-                $('#modal-detalle').html(html);
-                $('#detalleModal').modal('show');
+                var btn_asignar = '<button type="button" class="btn btn-info" onclick="cargarFunerarias();">Volver</button><button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>';
+                $('#footer-modal-funerarias').html(btn_asignar);
+                $('#modal-funerarias').html(html);
+                //$('#detalleModal').modal('show');
             },
             error: function (response) {
                 alert('Por favor rellene la información de la funeraria.');
