@@ -89,8 +89,10 @@
                         data-onstyle="success" data-offstyle="secondary" onchange="reportar('Si')">
                     @endif
                 </div>
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal"
-                    data-target="#funerariaModal">Asignar Funeraria</button>
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" {{!empty($Caso->Funeraria) ? 'disabled' : ''}}
+                    data-target="#funerariaExternaModal" onclick="generarToken({{$Caso->id}});">{{!empty($Caso->token) ? 'Ver' : 'Asignar'}} Funeraria Externa</button>
+                <button type="button" class="btn btn-primary float-right mr-2" data-toggle="modal"
+                    data-target="#funerariaModal" {{!empty($Caso->token) ? 'disabled' : ''}}>Asignar Funeraria</button>
                 <button type="submit" class="btn btn-success float-right mr-2" form="modificarForm">Guardar
                     cambios</button>
                 @endrole
@@ -358,15 +360,31 @@
                                                 </div>
                                             </div>
                                             <div class="form-row">
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-4">
                                                     <label for="ParentescoTutor">Parentesco Tutor</label>
                                                     <input type="text" name="ParentescoTutor" id="ParentescoTutor" class="form-control"
                                                         value="{{$Caso->ParentescoTutor}}">
                                                 </div>
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-4">
                                                     <label for="EmailTutor">Email Tutor</label>
                                                     <input type="text" name="EmailTutor" id="EmailTutor" class="form-control"
                                                         value="{{$Caso->EmailTutor}}">
+                                                </div>
+                                                @php
+                                                    $btn_disabled = 1;
+                                                @endphp
+                                                @if(!isset($Caso->EmailTutor) || $Caso->Mail_Enviado == 1 || !isset($Caso->Aseguradora_Nombre))
+                                                    @php
+                                                        $btn_disabled = 1;
+                                                    @endphp
+                                                @else
+                                                    @php
+                                                        $btn_disabled = 0;
+                                                    @endphp
+                                                @endif
+                                                <div class="form-group col-md-4">
+                                                    <label>&nbsp;</label>
+                                                    <button class="btn btn-warning btn-block" type="button" onclick="EnviarCorreo('{{$Caso->EmailTutor}}', {{$Caso->id}})" {{$btn_disabled == 1 ? 'disabled' : ''}}>Enviar</button>
                                                 </div>
                                             </div>
                                             <hr>
@@ -505,6 +523,35 @@
                                             </div>
                                         </div> 
                                         @endif
+                                        <hr>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="Medico">Nombre Funeraria Externa</label>
+                                                <input type="text" class="form-control" readonly
+                                                    value="{{$Caso->Funeraria_Externa_Nombre}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="Medico">NIT Funeraria Externa</label>
+                                                <input type="text" class="form-control" readonly
+                                                    value="{{$Caso->Funeraria_Externa_NIT}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="Medico">Banco Funeraria Externa</label>
+                                                <input type="text" class="form-control" readonly
+                                                    value="{{$Caso->Funeraria_Externa_Banco}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="Medico">No. Cuenta Funeraria Externa</label>
+                                                <input type="text" class="form-control" readonly
+                                                    value="{{$Caso->Funeraria_Externa_NoCuenta}}">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -686,6 +733,26 @@
             </div>
             <div class="modal-footer" id="footer-modal-funerarias">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cargarFunerarias();">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="funerariaExternaModal" tabindex="-1" role="dialog" aria-labelledby="funerariaExternaModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="funerariaExternaModalLabel">Asignar Funeraria Externa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-funeraria-externa">
+                    <input type="text" name="token_funerariaExterna" id="tokenFunerariaExterna" class="form-control">
+            </div>
+            <div class="modal-footer" id="footer-modal-funeraria-externa">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -973,6 +1040,31 @@
         $('.alert').alert();
         cargarFunerarias();
     });
+
+    function EnviarCorreo(mail, caso){
+        $.ajax({
+            url: '/Personal/sendMail/'+mail+'/'+caso,
+            type: 'get',
+            dataType: 'JSON',
+            success: function (response) {
+                
+            }
+        });
+        location.reload();
+    }
+
+    function generarToken(caso){
+        console.log('test');
+        $.ajax({
+            url: '/Personal/generarToken/'+caso,
+            type: 'get',
+            dataType: 'TEXT',
+            success: function (response) {
+                $('#tokenFunerariaExterna').val(response);     
+                console.log(response);
+            }
+        });
+    }
 
     function cargarFunerarias(){
         $.ajax({

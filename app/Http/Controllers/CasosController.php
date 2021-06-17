@@ -303,8 +303,10 @@ class CasosController extends Controller
 
         $funeraria = Funerarias::where('Id_Funeraria', $caso->Funeraria)->get()->first();
 
-        $correo_funeraria = $funeraria->Email;
-        $nombre_funeraria = $funeraria->Nombre;
+        if(empty($caso->token)){
+            $correo_funeraria = $funeraria->Email;
+            $nombre_funeraria = $funeraria->Nombre;
+        }   
         $caso = $caso->id;
         $mensaje = 'Se ha registrado un nuevo pago en el caso #'.$caso;
 
@@ -324,7 +326,7 @@ class CasosController extends Controller
             $url_comprobante = $imageName;
             $casos_array = ['id' => $caso, 'comprobante' => $url_comprobante];
 
-            if(isset($funeraria->Email)){
+            if(isset($correo_funeraria)){
                 Mail::send('mailslayouts.pagoregistrado', $casos_array, function($message) use($caso, $correo_funeraria, $nombre_funeraria, $mensaje)
                 {
                     $message->to($correo_funeraria, $nombre_funeraria)->subject($mensaje)->from('no-reply@excess.software', 'Urgencias Médicas');
@@ -500,6 +502,120 @@ class CasosController extends Controller
         $costo = Funerarias::where('Id_Funeraria', $id)->select('Email', 'Campanias')->first()->toJson();
 
         return $costo;
+    }
+
+    public function casoExterno($token, $msg = 0){
+        $caso = Casos::where('token', $token)->get()->first();
+        if(!$caso){
+            abort(404);
+        }
+
+        if($caso->Estatus == 'Cerrado'){
+            $pagos = HistorialPagos::where('caso', $caso->id)->get();
+            $tasa_cambio = Configuracion::where('opcion', 'Tasa_Cambio')->value('valor');
+
+            return view('Funerarias.Externa.pagos', ['Caso' => $caso, 'Pagos' => $pagos, 'Tasa_Cambio' => $tasa_cambio]);
+
+        }
+
+        $files = File::files(public_path('images'));
+        $archivos = array();
+        foreach ($files as $file) {
+            $nombre = basename($file);
+            $posicion_indicador = strpos($nombre, '-');
+            $nuevonombre = substr($nombre, $posicion_indicador+1);
+            $nombrecaso = substr($nombre, 0, $posicion_indicador-1);
+            $posicion_caso = strpos($nombrecaso, 'Caso');
+            $no_caso = substr($nombre, $posicion_caso+4, $posicion_indicador-4);
+            if($no_caso == $caso->id){
+                array_push($archivos, $nuevonombre);
+            }
+        }
+        $url = "https://gist.githubusercontent.com/tian2992/7439705/raw/1e5d0a766775a662039f3a838f422a1fc1600f74/guatemala.json";
+        
+        $json = file_get_contents($url);
+        $solicitudes = SolicitudesCobro::where('caso', $caso->id)->orderBy('id', 'desc')->get();
+        $causas = Causas::get();
+        if($msg == 1){
+            return view('Funerarias.Externa.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'Su solicitud ha sido ingresada');
+        }else if($msg == 2){
+            return view('Funerarias.Externa.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes, 'Causas' => $causas])->with('alerta', 'El caso fue actualizado exitosamente.');
+        }else{
+            return view('Funerarias.Externa.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Solicitudes' => $solicitudes, 'Causas' => $causas]);
+        }
+    }
+
+    public function modificarCasoExterno($caso, Request $request){
+        $user = auth()->user();
+        $suceso = Carbon::parse($request->fecha);
+        $fecha = $suceso->format('Y-m-d');
+        $data = ['Edad' => $request->edad, 'Fecha' => $fecha, 'Hora' => $request->hora, 'Causa' => $request->causa, 'Causa_Desc' => $request->descripcion_causa_input != '' ? $request->descripcion_causa_input : $request->descripcion_causa_select,  
+        'Causa_Especifica' => $request->causa_especifica, 'Direccion' => $request->direccion, 'Departamento' => strtoupper(Helper::eliminar_acentos($request->departamento)), 
+        'Municipio' => strtoupper(Helper::eliminar_acentos($request->municipio)), 'Padre' => $request->padre, 'TelPadre' => $request->TelPadre,
+        'Madre' => $request->madre, 'TelMadre' => $request->TelMadre, 'NombreReporta' => $request->NombreReporta, 'RelacionReporta' => $request->RelacionReporta, 
+        'TelReporta' => $request->TelReporta, 'Lugar' => $request->lugar, 'Tutor' => $request->Tutor, 'TelTutor' => $request->TelTutor, 'DPITutor' => $request->DPITutor,
+        'ParentescoTutor' => $request->ParentescoTutor, 'EmailTutor' => $request->EmailTutor, 'Comentario' => $request->ComentarioTutor, 'Medico' => $request->Medico, 'Idioma' => $request->Idioma];
+        $caso_update = Casos::find($caso)->update($data);
+
+        if($request->descripcion_causa != ''){
+            $causa = Causas::find($request->causa_id);
+            $causa->Causa = $request->descripcion_causa_input;
+            $causa->save();
+        }
+
+        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #'.$caso.' actualizado.', 'estatus' => 'Activa', 'caso' => $caso]);
+        
+        //return $this->detallesCaso($caso, 2);
+        //activity()->log('Se actualizó el caso No. '. $caso);
+        return back()->with('alerta', 'El caso fue actualizado exitosamente.');
+    }
+
+    public function actualizarCostoExterno($caso, Request $request){
+        //$caso = Casos::find($caso);
+        //$caso->Costo = $request->Costo;
+        //$caso->save();
+        //return back();
+        $getCaso = Casos::find($caso);
+        $getCaso->Solicitud = 'Pendiente';
+        $getCaso->Moneda = 'GTQ';
+        $getCaso->save();
+
+        SolicitudesCobro::create(['caso' => $caso, 'estatus' => 'Pendiente', 'costo' => $request->Costo, 'descripcion' => $request->Descripcion]);
+        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$caso.' tiene una nueva solicitud.', 'estatus' => 'Activa', 'caso' => $caso]);
+        
+        //return $this->detallesCaso($caso, 1);
+        //activity()->log('El hizo una solicitud para actualizar el costo del caso No. '.$caso);
+        return back()->with('alerta', 'Su solicitud ha sido ingresada.');
+    }
+
+    public function guardarMediaExterno($caso, Request $request){
+        $date = Carbon::now()->format('Ymd');
+        //$user = auth()->user();
+        $image = $request->file('file');
+        $originalName = $image->getClientOriginalName();
+        $fileName = pathinfo($originalName,PATHINFO_FILENAME);
+        $imageName = 'Caso'.$caso.'-'.$fileName.'-'.$date.'.'.$image->getClientOriginalExtension();
+        $upload_success = $image->move(public_path('images'),$imageName);
+        
+        if ($upload_success) {
+            //activity()->log('Se subió el archivo '.$imageName.' al caso #'.$caso);
+            return response()->json($upload_success, 200);
+        }
+        // Else, return error 400
+        else {
+            return response()->json('error', 400);
+        }
+    }
+
+    public function modificarFunerariaCasoExterno($id, Request $request){
+        $caso = Casos::find($id);
+        $caso->Funeraria_Externa_Nombre = $request->Nombre;
+        $caso->Funeraria_Externa_NIT = $request->NIT;
+        $caso->Funeraria_Externa_Banco = $request->Banco;
+        $caso->Funeraria_Externa_NoCuenta = $request->Cuenta;
+        $caso->save();
+
+        return back()->with('alerta', 'Sus datos fueron actualizados correctamente.');
     }
 }
 

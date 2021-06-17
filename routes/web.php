@@ -57,9 +57,13 @@ Route::group(['prefix' => 'Casos'], function () {
     Route::post('{id}/Causas/actualizar', 'CasosController@actualizarCausa');
     Route::post('{id}/modificar', 'CasosController@modificarCaso');
     Route::get('getInfoFuneraria/{id}', 'CasosController@getInfoFuneraria');
+
+    Route::get('Externo/{token}', 'CasosController@casoExterno');
+
 });
 
 Route::group(['prefix' => 'Personal'], function (){
+    Route::get('/sendMail/{mail}/{caso}', 'PersonalUMController@sendMail');
     Route::get('Funerarias/ver', 'PersonalUMController@verFunerarias');
     Route::get('Funeraria/{id}/ver', 'PersonalUMController@verFuneraria');
     Route::get('Funeraria/{id}/{docto}/{accion}/{comentario}', 'PersonalUMController@accionDocto');
@@ -69,6 +73,7 @@ Route::group(['prefix' => 'Personal'], function (){
     Route::get('configuraciones', 'PersonalUMController@configuraciones');
     Route::post('configuraciones/guardar', 'PersonalUMController@configuracionesGuardar');
     Route::get('log', 'PersonalUMController@verlogs');
+    Route::get('generarToken/{caso}', 'PersonalUMController@generarToken');
 
     Route::group(['prefix' => 'Reportes'], function () {
         Route::get('ver', 'PersonalUMController@verReportes');
@@ -104,6 +109,9 @@ Route::group(['prefix' => 'Personal'], function (){
     Route::get('verUsuarios', 'AdminController@verUsuarios');
     Route::get('verUsuariosFunerarias', 'AdminController@verUsuariosFunerarias');
     Route::get('verFunerarias', 'AdminController@verFunerarias');
+    
+    Route::get('estadoCuentaFunerarias', 'PersonalUMController@estadoCuentaFunerarias');
+
     Route::get('verFunerariasPendientes', 'PersonalUMController@verFunerariasPendientes');
     Route::get('eliminarUsuario/{id}', 'AdminController@eliminarUsuario');
     Route::get('eliminarFuneraria/{id}', 'AdminController@eliminarFuneraria');
@@ -142,6 +150,13 @@ Route::group(['prefix' => 'Funerarias'], function () {
     Route::get('Descargas', 'FunerariasController@descargas');
     Route::post('Casos/{caso}/actualizarCosto', 'FunerariasController@actualizarCosto');
     Route::post('Casos/{id}/modificar', 'FunerariasController@modificarCaso');
+});
+
+Route::group(['prefix' => 'Externa'], function () {
+    Route::post('Casos/{caso}/actualizarCosto', 'CasosController@actualizarCostoExterno');
+    Route::post('Casos/{id}/modificar', 'CasosController@modificarCasoExterno');
+    Route::post('Casos/{id}/modificarFuneraria', 'CasosController@modificarFunerariaCasoExterno');
+    Route::post('Casos/{id}/guardarMedia', 'CasosController@guardarMediaExterno');
 });
 
 /*Route::group(['prefix' => 'Admin'], function () {

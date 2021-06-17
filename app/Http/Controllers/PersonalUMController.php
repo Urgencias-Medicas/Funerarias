@@ -12,8 +12,11 @@ use App\Documentos;
 use App\DocumentosFuneraria;
 use App\DetallesDeFuneraria;
 use App\Notificaciones;
+use App\InfoFunerariasRegistradas;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Contracts\Mail\Mailable;
 use PDF;
 use DB;
 
@@ -1496,5 +1499,89 @@ class PersonalUMController extends Controller
             $log_activitie->user_name = $user_name;
         }
         return view('Personal.log', ['Logs' => $log]);
+    }
+
+    public function sendMail($mail, $caso){
+
+        $seguro = Casos::where('id', $caso)->value('Aseguradora_Nombre');
+
+        $update_mail_sent = Casos::where('id', $caso)->update(['Mail_Enviado' => 1]);
+
+        $documento = '';
+
+        if(strcasecmp($seguro, 'Seguro Escolar') == 0){
+            $documento = 'SE.pdf';
+        }elseif(strcasecmp($seguro, 'CHN') == 0){
+            $documento = 'CHN.pdf';
+        }elseif(strcasecmp($seguro, 'Segured') == 0){
+            $documento = 'SEGURED.pdf';
+        }
+
+        $data = ['docto' => $documento];
+
+        Mail::send('mailslayouts.pdfseguro', $data, function($message) use($mail)
+        {
+            $message->to($mail, 'Guía seguro')->subject('Guía seguro')->from('no-reply@excess.software', 'Urgencias Médicas');
+        });
+
+        return 'done';
+    }
+
+    public function generarToken($id_caso){
+        $token = substr(md5(mt_rand()), 0, 25);
+        
+        $caso = Casos::find($id_caso);
+
+        if(empty($caso->token)){
+            $caso->token = $token;
+            $caso->Estatus = 'Asignado';
+            $caso->Funeraria_Nombre = 'Externa';
+            $caso->save();
+            activity()->log('El caso #'.$id_caso.' fue asignado a una funeraria externa.');
+            Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$caso.' fue asignado a una funeraria externa.', 'estatus' => 'Activa', 'caso' => $id_caso]);
+        }else{
+            $token = $caso->token;
+        }
+        
+        return url('Casos/Externo/'.$token);
+    }
+
+    public function estadoCuentaFunerarias(){
+        //$funerarias = Funerarias::get();
+        
+        $data = InfoFunerariasRegistradas::get();
+
+        /*$api_uri = url('/getFuneraria');
+        $client = new \GuzzleHttp\Client([
+            'headers' => [ 'Content-Type' => 'application/json' ]
+        ]);
+        $res = $client->request('GET', $api_uri, [
+            
+        ]);
+        $data = json_decode($res->getBody());
+
+        return $data;*/
+
+        $tasa_cambio = Configuracion::where('opcion', 'Tasa_Cambio')->value('valor');
+
+        foreach($data as $funeraria){
+            $costo_gtq = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'GTQ')->whereNotNull('Costo')->sum('Costo');
+            $pagado_gtq = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'GTQ')->whereNotNull('Pagado')->sum('Pagado');
+            $pendiente_gtq = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'GTQ')->whereNotNull('Pendiente')->sum('Pendiente');
+
+            $costo_usd = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'USD')->whereNotNull('Costo')->sum('Costo');
+            $pagado_usd = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'USD')->whereNotNull('Pagado')->sum('Pagado');
+            $pendiente_usd = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'USD')->whereNotNull('Pendiente')->sum('Pendiente');
+
+            $costo_usd = $costo_usd * $tasa_cambio;
+            $pagado_usd = $pagado_usd * $tasa_cambio;
+            $pendiente_usd = $pendiente_usd * $tasa_cambio;
+
+            $funeraria->costo = $costo_gtq + $costo_usd;
+            $funeraria->pagado = $pagado_gtq + $pagado_usd;
+            $funeraria->pendiente = $funeraria->costo - $funeraria->pagado;
+        }
+            
+        return view('Personal.Funerarias.estadoCuenta', ['Funerarias' => $data]);
     }
 }
