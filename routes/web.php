@@ -111,6 +111,9 @@ Route::group(['prefix' => 'Personal'], function (){
     Route::get('verFunerarias', 'AdminController@verFunerarias');
     
     Route::get('estadoCuentaFunerarias', 'PersonalUMController@estadoCuentaFunerarias');
+    Route::get('estadoCuentaFunerarias/{fechaInicio}/{fechaFin}', 'PersonalUMController@estadoCuentaFunerarias');
+    Route::get('detalleCuentaFuneraria/{id}', 'PersonalUMController@detalleCuentaFuneraria');
+    Route::get('detalleCuentaFuneraria/{id}/{fechaInicio}/{fechaFin}', 'PersonalUMController@detalleCuentaFuneraria');
 
     Route::get('verFunerariasPendientes', 'PersonalUMController@verFunerariasPendientes');
     Route::get('eliminarUsuario/{id}', 'AdminController@eliminarUsuario');

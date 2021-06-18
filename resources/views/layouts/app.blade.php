@@ -90,8 +90,13 @@
                         @endrole
                         @role('Personal|Contabilidad')
                         <li class="nav-item">
-                            <a class="nav-link" href="/Casos/ver">
+                            <a class="nav-link {{ (request()->is('Casos/ver')) ? 'active' : '' }}" href="/Casos/ver">
                                 Casos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('Personal/estadoCuentaFunerarias')) ? 'active' : '' }}" href="/Personal/estadoCuentaFunerarias">
+                                Estados de cuenta
                             </a>
                         </li>
 
@@ -158,6 +163,9 @@
                                 <a href="/Personal/verFunerariasPendientes"
                                     class="dropdown-item {{ (request()->is('Personal/verFunerariasPendientes*')) ? 'active' : '' }}"><span>
                                         Aplicaciones</span></a>
+                                <a href="/Personal/estadoCuentaFunerarias"
+                                    class="dropdown-item {{ (request()->is('Personal/estadoCuentaFunerarias')) ? 'active' : '' }}"><span>
+                                        Estados de Cuenta</span></a>
                                <!-- <a class="dropdown-item" href="/Personal/CrearUsuario"
                                     class="nav-link {{ (request()->is('Personal/CrearUsuario*')) ? 'active' : '' }}">Crear
                                     Usuario</a>

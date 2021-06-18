@@ -25,7 +25,7 @@ class PersonalUMController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:Personal');
+        $this->middleware('role:Personal||Contabilidad');
     }
     public function verFunerarias(){
         $users = User::where('activo', '=', null)->get();
@@ -1546,7 +1546,7 @@ class PersonalUMController extends Controller
         return url('Casos/Externo/'.$token);
     }
 
-    public function estadoCuentaFunerarias(){
+    public function estadoCuentaFunerarias($fechaInicio = null, $fechaFin = null){
         //$funerarias = Funerarias::get();
         
         $data = InfoFunerariasRegistradas::get();
@@ -1564,24 +1564,68 @@ class PersonalUMController extends Controller
 
         $tasa_cambio = Configuracion::where('opcion', 'Tasa_Cambio')->value('valor');
 
-        foreach($data as $funeraria){
-            $costo_gtq = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'GTQ')->whereNotNull('Costo')->sum('Costo');
-            $pagado_gtq = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'GTQ')->whereNotNull('Pagado')->sum('Pagado');
-            $pendiente_gtq = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'GTQ')->whereNotNull('Pendiente')->sum('Pendiente');
+        if($fechaInicio != null && $fechaFin != null){
 
-            $costo_usd = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'USD')->whereNotNull('Costo')->sum('Costo');
-            $pagado_usd = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'USD')->whereNotNull('Pagado')->sum('Pagado');
-            $pendiente_usd = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'USD')->whereNotNull('Pendiente')->sum('Pendiente');
+            $fechaInicio = date($fechaInicio);
+            $fechaFin = date($fechaFin);
 
-            $costo_usd = $costo_usd * $tasa_cambio;
-            $pagado_usd = $pagado_usd * $tasa_cambio;
-            $pendiente_usd = $pendiente_usd * $tasa_cambio;
+            foreach($data as $funeraria){
+                $costo_gtq = Casos::where('Funeraria', $funeraria->id)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->where('Moneda', 'GTQ')->whereNotNull('Costo')->sum('Costo');
+                $pagado_gtq = Casos::where('Funeraria', $funeraria->id)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->where('Moneda', 'GTQ')->whereNotNull('Pagado')->sum('Pagado');
+                $pendiente_gtq = Casos::where('Funeraria', $funeraria->id)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->where('Moneda', 'GTQ')->whereNotNull('Pendiente')->sum('Pendiente');
+    
+                $costo_usd = Casos::where('Funeraria', $funeraria->id)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->where('Moneda', 'USD')->whereNotNull('Costo')->sum('Costo');
+                $pagado_usd = Casos::where('Funeraria', $funeraria->id)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->where('Moneda', 'USD')->whereNotNull('Pagado')->sum('Pagado');
+                $pendiente_usd = Casos::where('Funeraria', $funeraria->id)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->where('Moneda', 'USD')->whereNotNull('Pendiente')->sum('Pendiente');
+    
+                $costo_usd = $costo_usd * $tasa_cambio;
+                $pagado_usd = $pagado_usd * $tasa_cambio;
+                $pendiente_usd = $pendiente_usd * $tasa_cambio;
+    
+                $funeraria->costo = $costo_gtq + $costo_usd;
+                $funeraria->pagado = $pagado_gtq + $pagado_usd;
+                $funeraria->pendiente = $funeraria->costo - $funeraria->pagado;
+            }
+            
+        }else{
 
-            $funeraria->costo = $costo_gtq + $costo_usd;
-            $funeraria->pagado = $pagado_gtq + $pagado_usd;
-            $funeraria->pendiente = $funeraria->costo - $funeraria->pagado;
+            foreach($data as $funeraria){
+                $costo_gtq = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'GTQ')->whereNotNull('Costo')->sum('Costo');
+                $pagado_gtq = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'GTQ')->whereNotNull('Pagado')->sum('Pagado');
+                $pendiente_gtq = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'GTQ')->whereNotNull('Pendiente')->sum('Pendiente');
+    
+                $costo_usd = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'USD')->whereNotNull('Costo')->sum('Costo');
+                $pagado_usd = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'USD')->whereNotNull('Pagado')->sum('Pagado');
+                $pendiente_usd = Casos::where('Funeraria', $funeraria->id)->where('Moneda', 'USD')->whereNotNull('Pendiente')->sum('Pendiente');
+    
+                $costo_usd = $costo_usd * $tasa_cambio;
+                $pagado_usd = $pagado_usd * $tasa_cambio;
+                $pendiente_usd = $pendiente_usd * $tasa_cambio;
+    
+                $funeraria->costo = $costo_gtq + $costo_usd;
+                $funeraria->pagado = $pagado_gtq + $pagado_usd;
+                $funeraria->pendiente = $funeraria->costo - $funeraria->pagado;
+            }
+
         }
             
-        return view('Personal.Funerarias.estadoCuenta', ['Funerarias' => $data]);
+        return view('Personal.Funerarias.estadoCuenta', ['Funerarias' => $data, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
+    }
+
+    public function detalleCuentaFuneraria($id, $fechaInicio = null, $fechaFin = null){
+
+        if($fechaInicio != null && $fechaFin != null){
+            $casos = Casos::where('Funeraria', $id)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->whereNotNull('Costo')->select(['id', 'Costo', 'Pagado', 'Pendiente', 'Moneda'])->get();   
+        }else{
+            $casos = Casos::where('Funeraria', $id)->whereNotNull('Costo')->select(['id', 'Costo', 'Pagado', 'Pendiente', 'Moneda'])->get();
+        }
+
+        foreach($casos as $caso){
+            empty($caso->Costo) ? $caso->Costo = 0 : $caso->Costo;
+            empty($caso->Pagado) ? $caso->Pagado = 0 : $caso->Pagado;
+            empty($caso->Pendiente) ? $caso->Pendiente = 0 : $caso->Pendiente;
+        }
+
+        return $casos;
     }
 }
