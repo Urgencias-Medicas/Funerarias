@@ -297,7 +297,7 @@
                             }
                             @endphp
                             @foreach($Solicitudes As $Solicitud)
-                            @if($Solicitud->estatus == 'Pendiente')
+                            @if($Solicitud->estatus == 'Pendiente' || $Solicitud->estatus == 'Preaprobar')
                             @php
                             $tiene_solicitud = 1
                             @endphp
@@ -415,6 +415,8 @@
                                     <span class="text-success">Aprobada</span>
                                     @elseif($solicitud->estatus == 'Declinar')
                                     <span class="text-danger">Declinada</span>
+                                    @elseif($solicitud->estatus == 'Preaprobar')
+                                    <span class="text-success">Pre-Aprobada</span>
                                     @else
                                     <span class="text-warning">Pendiente</span>
                                     @endif

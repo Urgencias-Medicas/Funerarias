@@ -100,7 +100,8 @@ class CasosController extends Controller
     }
 
     public function verCasosCHN(){
-        $casos = Casos::where('Aseguradora_Nombre', 'CHN')->where('Causa', 'Accidente')->orderBy('id', 'asc')->get();
+        //$casos = Casos::where('Aseguradora_Nombre', 'CHN')->where('Causa', 'Accidente')->orderBy('id', 'asc')->get();
+        $casos = Casos::where('Aseguradora_Nombre', 'CHN')->orderBy('id', 'asc')->get();
 
         return view('Personal.Casos.ver', ['Casos' => $casos]);
     }
@@ -180,6 +181,8 @@ class CasosController extends Controller
         $respuesta = '';
         if($opcion == 'Aprobar'){
             $respuesta = 'La solicitud del caso #'.$caso.' ha sido aprobada.';
+        }else if($opcion == 'Preaprobar'){
+            $respuesta = 'La solicitud del caso #'.$caso.' ha sido pre-aprobada.';
         }else{
             $respuesta = 'La solicitud del caso #'.$caso.' ha sido rechazada.';
         }

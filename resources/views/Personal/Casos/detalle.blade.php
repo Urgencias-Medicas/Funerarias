@@ -564,13 +564,13 @@
                                     @role('Personal||CHN')
                                     <div class="card mb-3">
                                         <div class="card-body ">
-                                        @if($Caso->Solicitud != 'Pendiente')
-                                            <button type="button" class="btn btn-outline-primary btn-block my-2" data-toggle="modal"
-                                                data-target="#solicitudModal">Ver solicitudes</button>
-                                            @else
+                                        @if($Caso->Solicitud == 'Pendiente' || $Caso->Solicitud == 'Preaprobar')
                                             <button type="button" class="btn btn-outline-info btn-block my-2" data-toggle="modal"
                                                 data-target="#solicitudModal">Solicitud Nueva</button>
-                                            @endif
+                                        @else
+                                            <button type="button" class="btn btn-outline-primary btn-block my-2" data-toggle="modal"
+                                                data-target="#solicitudModal">Ver solicitudes</button>
+                                        @endif
                                         </div>
                                     </div>
                                     @endrole
@@ -904,6 +904,8 @@
                                     <span class="text-success">Aprobada</span>
                                     @elseif($solicitud->estatus == 'Declinar')
                                     <span class="text-danger">Declinada</span>
+                                    @elseif($solicitud->estatus == 'Preaprobar')
+                                    <span class="text-success">Pre-Aprobada</span>
                                     @else
                                     <span class="text-warning">Pendiente</span>
                                     @endif
@@ -940,7 +942,7 @@
                                     @endif
                                     @endif
                                     @role('CHN')
-                                    @if($solicitud->estatus == 'Pendiente')
+                                    @if($solicitud->estatus == 'Pendiente' || $solicitud->estatus == 'Preaprobar')
                                     <div class="row">
                                         <div class="col-6">
                                             <button class="btn btn-danger btn-block"
@@ -953,6 +955,35 @@
                                     </div>
                                     @endif
                                     @endrole
+                                    @if($Caso->Causa == 'Accidente' && $Caso->Aseguradora_Nombre == 'CHN')
+                                    @role('Personal')
+                                    @if($solicitud->estatus == 'Pendiente')
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button class="btn btn-danger btn-block"
+                                                onclick="actualizarSolicitud({{$solicitud->id}}, 'Declinar')">Declinar</button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-success btn-block"
+                                                onclick="actualizarSolicitud({{$solicitud->id}}, 'Preaprobar')">Pre Aprobar</button>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @endrole
+                                    @else
+                                    @if($solicitud->estatus == 'Pendiente')
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button class="btn btn-danger btn-block"
+                                                onclick="actualizarSolicitud({{$solicitud->id}}, 'Declinar')">Declinar</button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-success btn-block"
+                                                onclick="actualizarSolicitud({{$solicitud->id}}, 'Aprobar')">Aceptar</button>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>

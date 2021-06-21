@@ -983,6 +983,16 @@ class PersonalUMController extends Controller
                  ->groupBy('Departamento')
                  ->get();
 
+        $deptosJson = array();
+
+        foreach($departamentoObject as $departamento){
+            $indvDeptoJson = array('nombreDepto' => $departamento->Departamento, 'total' => $departamento->total);
+
+            $deptosJson[strtolower($departamento->Departamento)] = [$indvDeptoJson];
+
+            //array_push($deptosJson, array($departamento->Departamento => $indvDeptoJson ));
+        }
+
         $funerariasCasos = Casos::whereNotNull('Funeraria')->select('Funeraria_Nombre')->groupBy('Funeraria_Nombre')->get();
 
         $deptosCasos = Casos::select('Departamento')->groupBy('Departamento')->get();
@@ -1001,7 +1011,9 @@ class PersonalUMController extends Controller
 
         //return $muertes_conteo;
 
-        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Conteos' => $conteos ,'departamento' =>$departamentoObject, 'select_funerarias' => $funerariasCasos, 'select_deptos' => $deptosCasos]);
+        //return $deptosJson;
+
+        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Conteos' => $conteos ,'departamento' =>$deptosJson, 'select_funerarias' => $funerariasCasos, 'select_deptos' => $deptosCasos]);
     }
 
     public function GraficasPorFecha($fechaInicio, $fechaFin, $funeraria, $departamento){
@@ -1538,7 +1550,7 @@ class PersonalUMController extends Controller
             $caso->Funeraria_Nombre = 'Externa';
             $caso->save();
             activity()->log('El caso #'.$id_caso.' fue asignado a una funeraria externa.');
-            Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$caso.' fue asignado a una funeraria externa.', 'estatus' => 'Activa', 'caso' => $id_caso]);
+            Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$id_caso.' fue asignado a una funeraria externa.', 'estatus' => 'Activa', 'caso' => $id_caso]);
         }else{
             $token = $caso->token;
         }
@@ -1623,7 +1635,8 @@ class PersonalUMController extends Controller
         foreach($casos as $caso){
             empty($caso->Costo) ? $caso->Costo = 0 : $caso->Costo;
             empty($caso->Pagado) ? $caso->Pagado = 0 : $caso->Pagado;
-            empty($caso->Pendiente) ? $caso->Pendiente = 0 : $caso->Pendiente;
+            $caso->Pendiente = $caso->Costo - $caso->Pagado;
+            //empty($caso->Pendiente) ? $caso->Pendiente = 0 : $caso->Pendiente;
         }
 
         return $casos;
