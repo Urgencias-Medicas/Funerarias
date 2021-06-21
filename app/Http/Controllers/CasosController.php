@@ -93,15 +93,36 @@ class CasosController extends Controller
             return response()->json('error', 400);
         }
     }
-    public function verCasos(){
-        $casos = Casos::orderBy('id', 'asc')->get();
+    public function verCasos($causa = null){
+
+        $user = auth()->user();
+        if($user->hasRole('CHN')){
+            if($causa == null) {
+                $casos = Casos::where('Aseguradora_Nombre', 'CHN')->orderBy('id', 'asc')->get();
+            }else{
+                $casos = Casos::where('Causa', $causa)->where('Aseguradora_Nombre', 'CHN')->orderBy('id', 'asc')->get();
+            }
+        }else{
+            if($causa == null) {
+                $casos = Casos::orderBy('id', 'asc')->get();
+            }else{
+                $casos = Casos::where('Causa', $causa)->orderBy('id', 'asc')->get();
+            }
+        }
+
+        
+
+        //$casos = Casos::orderBy('id', 'asc')->get();
 
         return view('Personal.Casos.ver', ['Casos' => $casos]);
     }
 
-    public function verCasosCHN(){
+    public function verCasosCHN($causa = null){
+
+        
+
         //$casos = Casos::where('Aseguradora_Nombre', 'CHN')->where('Causa', 'Accidente')->orderBy('id', 'asc')->get();
-        $casos = Casos::where('Aseguradora_Nombre', 'CHN')->orderBy('id', 'asc')->get();
+        //$casos = Casos::where('Aseguradora_Nombre', 'CHN')->orderBy('id', 'asc')->get();
 
         return view('Personal.Casos.ver', ['Casos' => $casos]);
     }
@@ -600,11 +621,42 @@ class CasosController extends Controller
     }
 
     public function modificarFunerariaCasoExterno($id, Request $request){
+
+        $array_nombre_funeraria = explode(" ", $request->Nombre);
+
+        $diminutivo_funeraria = '';
+
+        foreach($array_nombre_funeraria as $nombre_seccionado){
+            $diminutivo_funeraria .= $nombre_seccionado[0];
+        }
+
+        $correlativo = 0;
+        $correlativo_completo = '';
+
+        $mes_actual = Carbon::now()->format('m');
+        $anio_actual = Carbon::now()->format('Y');
+
+        $correlativo = Casos::where('Campania', 'Externa')->where('Mes', $mes_actual)->where('Anio', $anio_actual)->max('Correlativo');
+        $correlativo = $correlativo+1;
+        $correlativo = sprintf("%03d", $correlativo);
+        $correlativo_completo = $diminutivo_funeraria.'-'.$correlativo.$mes_actual.$anio_actual;
+
+        if($request->hasFile('Comprobante')){
+            $image = $request->file('Comprobante');
+            $imageName = 'Caso'.$id.'-'.$image->getClientOriginalName();
+            $upload_success = $image->move(public_path('images'),$imageName);
+        }
+
         $caso = Casos::find($id);
         $caso->Funeraria_Externa_Nombre = $request->Nombre;
         $caso->Funeraria_Externa_NIT = $request->NIT;
         $caso->Funeraria_Externa_Banco = $request->Banco;
         $caso->Funeraria_Externa_NoCuenta = $request->Cuenta;
+        if($request->hasFile('Comprobante')){
+            $caso->Funeraria_Externa_Comprobante = '/images/'.$imageName;
+        }
+        $caso->Correlativo = $correlativo;
+        $caso->Correlativo_Completo = $correlativo_completo;
         $caso->save();
 
         return back()->with('alerta', 'Sus datos fueron actualizados correctamente.');

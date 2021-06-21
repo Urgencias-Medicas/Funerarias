@@ -32,7 +32,16 @@
 <script>
 $(document).ready(function () {
     $.noConflict();
-    var table = $('#table').DataTable();
+    var table = $('#table').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "Sin registros",
+            "info": "Página _PAGE_ de _PAGES_",
+            "infoEmpty": "Sin registros",
+            "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+            "search": "Buscar: "
+        }
+    });
 });
 </script>
 @endsection

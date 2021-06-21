@@ -112,7 +112,16 @@
 <script>
 $(document).ready(function () {
     $.noConflict();
-    var table = $('#table').DataTable();
+    var table = $('#table').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "Sin registros",
+            "info": "Página _PAGE_ de _PAGES_",
+            "infoEmpty": "Sin registros",
+            "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+            "search": "Buscar: "
+        }
+    });
     var table_detalle = $('#table-detalle').DataTable();
 
 });
@@ -145,7 +154,15 @@ function verDetalle(id, fechainicio = null, fechafin = null){
                 }
                 $('#table-detalle').dataTable().fnDestroy();
                 $('#body-detalles').html(html);
-                $('#table-detalle').dataTable();
+                $('#table-detalle').dataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "Sin registros",
+            "info": "Página _PAGE_ de _PAGES_",
+            "infoEmpty": "Sin registros",
+            "infoFiltered": "(Filtrado de _MAX_ registros totales)"
+        }
+    });
             }
     });
 }

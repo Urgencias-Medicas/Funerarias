@@ -529,30 +529,36 @@
                                         @if(isset($Caso->token))
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
-                                                <label for="Medico">Nombre Funeraria Externa</label>
+                                                <label>Nombre Funeraria Externa</label>
                                                 <input type="text" class="form-control" readonly
                                                     value="{{$Caso->Funeraria_Externa_Nombre}}">
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
-                                                <label for="Medico">NIT Funeraria Externa</label>
+                                                <label>NIT Funeraria Externa</label>
                                                 <input type="text" class="form-control" readonly
                                                     value="{{$Caso->Funeraria_Externa_NIT}}">
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
-                                                <label for="Medico">Banco Funeraria Externa</label>
+                                                <label>Banco Funeraria Externa</label>
                                                 <input type="text" class="form-control" readonly
                                                     value="{{$Caso->Funeraria_Externa_Banco}}">
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
-                                                <label for="Medico">No. Cuenta Funeraria Externa</label>
+                                                <label>No. Cuenta Funeraria Externa</label>
                                                 <input type="text" class="form-control" readonly
                                                     value="{{$Caso->Funeraria_Externa_NoCuenta}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="Documento">Documento</label><br>
+                                                <b><a href="{{$Caso->Funeraria_Externa_Comprobante}}" target="_blank">Ver</a></b>
                                             </div>
                                         </div>
                                         @endif

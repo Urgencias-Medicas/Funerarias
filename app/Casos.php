@@ -15,7 +15,7 @@ class Casos extends Model
     'EmailTutor', 'Comentario', 'Evaluacion', 'Certificado', 'Poliza', 'TipoAsegurado',
     'Correlativo', 'Correlativo_Completo', 'Mes', 'Anio', 'Aseguradora_Nombre', 'Campania', 'Mail_Enviado', 
     'Funeraria_Externa_Nombre', 'Funeraria_Externa_NIT', 'Funeraria_Externa_Banco', 
-    'Funeraria_Externa_NoCuenta', 'token'
+    'Funeraria_Externa_NoCuenta', 'Funeraria_Externa_Comprobante', 'token'
 ];
     public $timestamps = false;
 }

@@ -42,12 +42,14 @@ Route::group(['prefix' => 'mail'], function () {
 
 Route::get('/Notificaciones', 'HomeController@notificaciones');
 
-Route::get('CHN/Casos/ver', 'CasosController@verCasosCHN')->middleware('role:CHN');
+//Route::get('CHN/Casos/ver', 'CasosController@verCasosCHN')->middleware('role:CHN');
+//Route::get('CHN/Casos/ver/{causa}', 'CasosController@verCasosCHN')->middleware('role:CHN');
 
 Route::group(['prefix' => 'Casos'], function () {
     Route::get('vistaCrear', 'CasosController@viewCrear');
     Route::post('guardarNuevo', 'CasosController@guardarNuevo');
-    Route::get('ver', 'CasosController@verCasos')->middleware('role:Personal||Contabilidad');
+    Route::get('ver', 'CasosController@verCasos')->middleware('role:Personal||Contabilidad||CHN');
+    Route::get('ver/{causa}', 'CasosController@verCasos')->middleware('role:Personal||Contabilidad||CHN');
     Route::get('{id}/ver', 'CasosController@detallesCaso')->middleware('role:Personal||Contabilidad||CHN');
     Route::get('/{caso}/asignarFuneraria/{id}/{campania}/{moneda}/{correo}/{wp}', 'CasosController@asignarFuneraria');
     Route::any('/{caso}/actualizarPago', 'CasosController@actualizarPago');

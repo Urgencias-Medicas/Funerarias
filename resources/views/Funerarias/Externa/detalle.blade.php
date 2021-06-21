@@ -53,7 +53,7 @@
             <div class="card">
                 <div class="card-header">Datos de la funeraria</div>
                 <div class="card-body align-items-center justify-content-center">
-                    <form action="/Externa/Casos/{{$Caso->id}}/modificarFuneraria" method="post">
+                    <form action="/Externa/Casos/{{$Caso->id}}/modificarFuneraria" enctype="multipart/form-data" method="post">
                     @csrf
                     <div class="form-row">
                             <div class="form-group col-md-2">
@@ -66,13 +66,17 @@
                                 <input type="text" class="form-control" id="NIT" name="NIT"
                                     placeholder="" value="{{$Caso->Funeraria_Externa_NIT}}" ><span id="errmsg"></span>
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <label for="Banco">Banco</label>
                                 <input type="text" class="form-control" id="Banco" name="Banco" value="{{$Caso->Funeraria_Externa_Banco}}">
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <label for="Cuenta">Cuenta</label>
-                                <input type="text" class="form-control" id="Cuenta" name="Cuenta" value="{{$Caso->Funeraria_Externa_Cuenta}}">
+                                <input type="text" class="form-control" id="Cuenta" name="Cuenta" value="{{$Caso->Funeraria_Externa_NoCuenta}}">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="Cuenta">Documento</label>
+                                <input type="file" class="form-control" name="Comprobante">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="">&nbsp;</label>

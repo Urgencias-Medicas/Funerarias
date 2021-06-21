@@ -46,7 +46,7 @@ class HomeController extends Controller
         }elseif($user->hasRole('Contabilidad')){
             return redirect('/Casos/ver');
         }elseif($user->hasRole('CHN')){
-            return redirect('/CHN/Casos/ver');
+            return redirect('/Casos/ver');
         }
     }
     public function funerariaInactiva(){
