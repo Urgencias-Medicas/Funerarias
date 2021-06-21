@@ -102,15 +102,15 @@
     <div class="row my-3">
             <div class="col-lg-12 mx-auto ">
                 <ul class="nav nav-tabs">
-                    @role('Personal')
+                    @role('Personal||CHN')
                     <li class="nav-item">
-                        <a class="nav-link @role('Personal') active @endrole" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Caso</a>
+                        <a class="nav-link @role('Personal||CHN') active @endrole" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Caso</a>
                     </li>
                     @endrole
                     <li class="nav-item">
                         <a class="nav-link @role('Contabilidad') active @endrole" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Pagos</a>
                     </li>
-                    @role('Personal')
+                    @role('Personal||CHN')
                     <li class="nav-item">
                         <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Archivos</a>
                     </li>
@@ -128,7 +128,7 @@
                     </li>
                 </ul> --}}
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade @role('Personal') show active @endrole pt-3" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="tab-pane fade @role('Personal||CHN') show active @endrole pt-3" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="row">
                             <form action="/Casos/{{$Caso->id}}/modificar" id="modificarForm" method="post">
                                 <div class="form-row">
@@ -384,7 +384,7 @@
                                                 @endif
                                                 <div class="form-group col-md-4">
                                                     <label>&nbsp;</label>
-                                                    <button class="btn btn-warning btn-block" type="button" onclick="EnviarCorreo('{{$Caso->EmailTutor}}', {{$Caso->id}})" {{$btn_disabled == 1 ? 'disabled' : ''}}>Enviar</button>
+                                                    <button id="btn-enviarMail" class="btn btn-warning btn-block" type="button" onclick="EnviarCorreo('{{$Caso->EmailTutor}}', {{$Caso->id}})" {{$btn_disabled == 1 ? 'disabled' : ''}}>Enviar</button>
                                                 </div>
                                             </div>
                                             <hr>
@@ -425,6 +425,7 @@
                                 </div>
                                 </div>
                             </form>
+                            @role('Personal')
                             <div class="col-md-12 pt-3">
                                 <div class="card ">
                                     <div class="card-body align-items-center justify-content-center">
@@ -452,6 +453,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endrole
                         </div>
                     </div>
                     <div class="tab-pane fade @role('Contabilidad') show active @endrole pt-3" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -524,6 +526,7 @@
                                         </div> 
                                         @endif
                                         <hr>
+                                        @if(isset($Caso->token))
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
                                                 <label for="Medico">Nombre Funeraria Externa</label>
@@ -552,12 +555,13 @@
                                                     value="{{$Caso->Funeraria_Externa_NoCuenta}}">
                                             </div>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                    @role('Personal')
+                                    @role('Personal||CHN')
                                     <div class="card mb-3">
                                         <div class="card-body ">
                                         @if($Caso->Solicitud != 'Pendiente')
@@ -602,6 +606,7 @@
                                                 </div>
                                             </div>
                                             <br>
+                                            @role('Personal')
                                             <div class="row mt-3">
                                                 <div class="col-md-6">
                                                     <h4>Registrar Pagos</h4>
@@ -649,6 +654,7 @@
                                                     </div>
                                                 </div>
                                             </form>
+                                            @endrole
                                         </div>
                                     </div>
                             </div>
@@ -919,6 +925,7 @@
                                         </div>
                                     </div>
                                     <hr>
+                                    @if($Caso->Causa != 'Accidente' && $Caso->Aseguradora_Nombre != 'CHN')
                                     @if($solicitud->estatus == 'Pendiente')
                                     <div class="row">
                                         <div class="col-6">
@@ -931,6 +938,21 @@
                                         </div>
                                     </div>
                                     @endif
+                                    @endif
+                                    @role('CHN')
+                                    @if($solicitud->estatus == 'Pendiente')
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button class="btn btn-danger btn-block"
+                                                onclick="actualizarSolicitud({{$solicitud->id}}, 'Declinar')">Declinar</button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-success btn-block"
+                                                onclick="actualizarSolicitud({{$solicitud->id}}, 'Aprobar')">Aceptar</button>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @endrole
                                 </div>
                             </div>
                         </div>
@@ -1040,6 +1062,16 @@
         $('.alert').alert();
         cargarFunerarias();
     });
+
+    @role('CHN')
+    $(document).ready(function () {
+        $('#modificarForm :input').prop('disabled', true);
+        $('#btnGuardar').prop('disabled', true);
+        $('#btn-enviarMail').prop('disabled', true);
+        tail.select("#descripcion_causa_select").disable();
+
+    })
+    @endrole
 
     function EnviarCorreo(mail, caso){
         $.ajax({

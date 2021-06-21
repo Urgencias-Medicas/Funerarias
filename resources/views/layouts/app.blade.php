@@ -88,15 +88,10 @@
                                 caso</a>
                         </li>
                         @endrole
-                        @role('Personal|Contabilidad')
+                        @role('Personal|Contabilidad|CHN')
                         <li class="nav-item">
                             <a class="nav-link {{ (request()->is('Casos/ver')) ? 'active' : '' }}" href="/Casos/ver">
                                 Casos
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ (request()->is('Personal/estadoCuentaFunerarias')) ? 'active' : '' }}" href="/Personal/estadoCuentaFunerarias">
-                                Estados de cuenta
                             </a>
                         </li>
 
@@ -115,6 +110,13 @@
                                     Campaña</a>
                             </div>
                         </li>-->
+                        @endrole
+                        @role('Contabilidad')
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('Personal/estadoCuentaFunerarias')) ? 'active' : '' }}" href="/Personal/estadoCuentaFunerarias">
+                                Estados de cuenta
+                            </a>
+                        </li>
                         @endrole
                         @role('Funeraria')
                         <li class="nav-item">

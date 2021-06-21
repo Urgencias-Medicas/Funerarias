@@ -95,27 +95,16 @@ class CasosController extends Controller
     }
     public function verCasos(){
         $casos = Casos::orderBy('id', 'asc')->get();
-        foreach($casos as $caso){
-            $api_uri = "https://umbd.excess.software/api/getFuneraria";
-            $client = new \GuzzleHttp\Client([
-                'headers' => [ 'Content-Type' => 'application/json' ]
-            ]);
-            $res = $client->request('GET', $api_uri, [
-                'body' => json_encode(
-                    [
-                        'cols' => 'funeraria',
-                        'conds' => array('id' => $caso->Funeraria)
-                    ]
-                ),
-            ]);
-            $data = json_decode($res->getBody());
-            if($data){
-                $caso->Funeraria = $data[0]->funeraria;
-            }
-        }
 
         return view('Personal.Casos.ver', ['Casos' => $casos]);
     }
+
+    public function verCasosCHN(){
+        $casos = Casos::where('Aseguradora_Nombre', 'CHN')->where('Causa', 'Accidente')->orderBy('id', 'asc')->get();
+
+        return view('Personal.Casos.ver', ['Casos' => $casos]);
+    }
+
     public function detallesCaso($id, $msg = 0){
         $caso = Casos::find($id);
         $files = File::files(public_path('images'));
