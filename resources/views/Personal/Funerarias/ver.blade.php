@@ -57,7 +57,8 @@ $(document).ready(function () {
             "infoEmpty": "Sin registros",
             "infoFiltered": "(Filtrado de _MAX_ registros totales)",
             "search": "Buscar: "
-        }
+        },
+        "aaSorting:" []
     });
 });
 </script>

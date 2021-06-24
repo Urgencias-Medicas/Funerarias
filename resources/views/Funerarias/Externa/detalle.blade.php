@@ -64,7 +64,7 @@
                             <div class="form-group col-md-2">
                                 <label for="NIT">NIT</label>
                                 <input type="text" class="form-control" id="NIT" name="NIT"
-                                    placeholder="" value="{{$Caso->Funeraria_Externa_NIT}}" ><span id="errmsg"></span>
+                                    placeholder="" value="{{$Caso->Funeraria_Externa_NIT}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"><span id="errmsg"></span>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="Banco">Banco</label>
@@ -72,11 +72,13 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="Cuenta">Cuenta</label>
-                                <input type="text" class="form-control" id="Cuenta" name="Cuenta" value="{{$Caso->Funeraria_Externa_NoCuenta}}">
+                                <input type="text" class="form-control" id="Cuenta" name="Cuenta" value="{{$Caso->Funeraria_Externa_NoCuenta}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                                <small>El nombre de la cuenta debe coincidir con el de la factura</small>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="Cuenta">Documento</label>
                                 <input type="file" class="form-control" name="Comprobante">
+                                <small>Debe subir un docto que verifique su No. de cuenta</small>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="">&nbsp;</label>
@@ -371,7 +373,7 @@
                                             <label for="costoServicio">Costo</label>
                                             <input type="text" class="form-control" value="{{$Caso->Costo}}"
                                                 name="Costo"
-                                                {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "readonly" : ""}}>
+                                                {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "readonly" : ""}} oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                         </div>
 
                                         <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">

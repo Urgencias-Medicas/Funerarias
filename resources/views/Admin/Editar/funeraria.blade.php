@@ -56,6 +56,25 @@
                                     <input type="text" name="telefono" id="telefono" class="form-control"
                                         value="{{$Funeraria->Telefono}}" maxlength="8">
                                 </div>
+                                <div class="form-group ">
+                                    <label for="NIT">NIT</label>
+                                    <input type="text" name="NIT" id="NIT" class="form-control"
+                                        value="{{$Funeraria->NIT}}" maxlength="8">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="Banco">Banco</label>
+                                    <input type="text" name="Banco" id="Banco" class="form-control"
+                                        value="{{$Funeraria->Banco}}" maxlength="8">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="Cuenta">Cuenta</label>
+                                    <input type="text" name="Cuenta" id="Cuenta" class="form-control"
+                                        value="{{$Funeraria->Cuenta}}" maxlength="8">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="Comprobante">Comprobante de cuenta</label><br>
+                                    <b><a href="{{$Funeraria->Comprobante}}" target="_blank">Ver</a></b>
+                                </div>
                                 <!--<div class="form-group ">
                                     <label for="MontoBase">Monto base</label>
                                     <input type="text" name="MontoBase" id="MontoBase" class="form-control"
@@ -151,40 +170,42 @@
                                                 <label for="tipo_funneraria">Tipo de funeraria</label>
                                                 <select name="tipo_funeraria" class="form-control">
                                                     <option disabled>--Seleccione--</option>
+                                                    @if(!empty($Detalles_Funeraria))
                                                     <option {{$Detalles_Funeraria['TipoFuneraria'] == 'A' ? 'selected' : ''}} value="A">A</option>
                                                     <option {{$Detalles_Funeraria['TipoFuneraria'] == 'B' ? 'selected' : ''}} value="B">B</option>
                                                     <option {{$Detalles_Funeraria['TipoFuneraria'] == 'C' ? 'selected' : ''}} value="C">C</option>
+                                                    @endif
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="NIT">NIT</label>
-                                                <input type="text" name="nit" id="NIT" class="form-control" value="{{$Detalles_Funeraria['NIT']}}">
+                                                <input type="text" name="nit" id="NIT" class="form-control" value="{{!empty($Detalles_Funeraria) ? $Detalles_Funeraria['NIT'] : ''}}">
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="telefono">Teléfono</label>
                                                 <input type="text" name="telefono" id="telefono" class="form-control"
-                                                    value="{{$Detalles_Funeraria['Telefono']}}">
+                                                    value="{{!empty($Detalles_Funeraria) ? $Detalles_Funeraria['Telefono'] : ''}}">
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
                                                 <label for="direccion">Dirección</label>
                                                 <input type="text" name="direccion" id="direccion" class="form-control"
-                                                    value="{{$Detalles_Funeraria['Direccion']}}">
+                                                    value="{{!empty($Detalles_Funeraria) ? $Detalles_Funeraria['Direccion'] : ''}}">
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
                                                 <label for="nombre_contacto">Nombre contacto principal</label>
                                                 <input type="text" name="nombre_contacto" id="nombre_contacto"
-                                                    class="form-control" value="{{$Detalles_Funeraria['NombreContacto']}}">
+                                                    class="form-control" value="{{!empty($Detalles_Funeraria) ? $Detalles_Funeraria['NombreContacto'] : ''}}">
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
                                                 <label for="numero_contacto">Número contacto principal</label>
                                                 <input type="text" name="numero_contacto" id="numero_contacto"
-                                                    class="form-control" value="{{$Detalles_Funeraria['TelContacto']}}">
+                                                    class="form-control" value="{{!empty($Detalles_Funeraria) ? $Detalles_Funeraria['TelContacto'] : ''}}">
                                             </div>
                                         </div>
                                         <div class="row">

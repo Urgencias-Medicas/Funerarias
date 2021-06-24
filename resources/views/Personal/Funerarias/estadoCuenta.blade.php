@@ -65,9 +65,9 @@
                             <td>{{$funeraria->id}}</td>
                             <td><a href="#" onclick="{{ isset($FechaInicio) ? 'verDetalle('.$funeraria->id.', \''.$FechaInicio.'\', \''.$FechaFin.'\')' : 'verDetalle('.$funeraria->id.')' }}" data-toggle="modal" data-target="#detalleModal">{{$funeraria->funeraria}}</a></td>
                             <td>{{$funeraria->estado}}</td>
-                            <td>{{$funeraria->costo}}</td>
-                            <td>{{$funeraria->pagado}}</td>
-                            <td>{{$funeraria->pendiente}}</td>
+                            <td>Q{{$funeraria->costo}}</td>
+                            <td>Q{{$funeraria->pagado}}</td>
+                            <td>Q{{$funeraria->pendiente}}</td>
                         </tr>
                         @endforeach
                     </tbody>

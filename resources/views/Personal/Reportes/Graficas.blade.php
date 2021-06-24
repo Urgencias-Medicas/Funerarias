@@ -276,14 +276,12 @@
                 <div class="card-body">
                     <h5 class="card-heading">Pendientes por pagar</h5>
                     <p class="display-4 card-text" style="font-size: 32px;">Q{{number_format($Conteos['Pendiente'], 2, '.', ',')}}</p>
-                    <small>Miles de quetzales</small>
                 </div>
             </div>
             <div class="card card-shadow">
                 <div class="card-body">
                     <h5 class="card-heading">Servicios pagados</h5>
                     <p class="display-4 card-text" style="font-size: 32px;">Q{{number_format($Conteos['Pagado'], 2, '.', ',')}}</p>
-                    <small>Miles de quetzales</small>
                 </div>
             </div>
         </div>

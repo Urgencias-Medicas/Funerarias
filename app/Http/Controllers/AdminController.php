@@ -231,7 +231,7 @@ class AdminController extends Controller
             foreach($detalles_funeraria as $detalle){
                 $array_detalles[$detalle->Campo] = $detalle->Valor;
             }
-
+            //return $funeraria->Id_Funeraria;
             return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Campanias' => $campanias, 'Checks' => $checks, 'Detalles_Funeraria' => $array_detalles, 'DoctosFuneraria' => $documentos_funeraria]);
         }else{
 

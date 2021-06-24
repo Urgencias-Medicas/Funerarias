@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Registrar funeraria</div>
+                <div class="card-header">Registrar campaña</div>
 
                 <div class="card-body">
                     <form method="POST" action="/Personal/Campanias/{{$Campania->id}}/actualizar">

@@ -107,9 +107,17 @@
                         <a class="nav-link @role('Personal||CHN') active @endrole" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Caso</a>
                     </li>
                     @endrole
+                    @if($Caso->Causa != 'Accidente')
+                    @role('Personal||Contabilidad')
                     <li class="nav-item">
                         <a class="nav-link @role('Contabilidad') active @endrole" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Pagos</a>
                     </li>
+                    @endrole
+                    @else
+                    <li class="nav-item">
+                        <a class="nav-link @role('Contabilidad') active @endrole" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Pagos</a>
+                    </li>
+                    @endif
                     @role('Personal||CHN')
                     <li class="nav-item">
                         <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Archivos</a>
@@ -496,33 +504,66 @@
                                         @else
                                         <h6><b>USD</b></h6>
                                         <div class="form-row">
-                                            <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                                            <div class="col">
                                                 <label for="costoServicio">Costo</label>
-                                                <input type="text" class="form-control" value="{{$Caso->Costo}}" readonly>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                                    </div>        
+                                                    <input type="text" class="form-control" value="{{$Caso->Costo}}" readonly>
+                                                </div>
                                             </div>
-                                            <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                                            <div class="col">
                                                 <label for="Pendiente">Pendiente</label>
-                                                <input type="text" class="form-control" value="{{$Caso->Costo - $Caso->Pagado}}" readonly>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                                    </div>     
+                                                    <input type="text" class="form-control" value="{{$Caso->Costo - $Caso->Pagado}}" readonly>
+                                                </div>
                                             </div>
-                                            <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
+                                            <div class="col">
                                                 <label for="pagado">Pagado</label>
-                                                <input type="text" class="form-control" value="{{isset($Caso->Pagado) ? $Caso->Pagado : '0'}}" readonly>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="basic-addon1">$</span>
+                                                    </div>      
+                                                    <input type="text" class="form-control" value="{{isset($Caso->Pagado) ? $Caso->Pagado : '0'}}" readonly>
+                                                </div>
                                             </div>
                                         </div>
                                         <h6><b>GTQ</b></h6>
                                         <div class="form-row">
-                                            <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
-                                                <label for="costoServicio">Costo</label>
+                                        <div class="col">
+                                            <label for="basic-url">Costo</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">Q</span>
+                                                </div>
                                                 <input type="text" class="form-control" value="{{$Caso->Costo*8}}" readonly>
                                             </div>
-                                            <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
-                                                <label for="Pendiente">Pendiente</label>
-                                                <input type="text" class="form-control" value="{{($Caso->Costo - $Caso->Pagado)*8}}" readonly>
+                                        </div>              
+                                            
+                                        <div class="col">
+                                            <label for="basic-url">Pendiente</label>
+                                                <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">Q</span>
+                                                </div>
+                                                <input type="text" class="form-control" value="{{($Caso->Costo - $Caso->Pendiente)*8}}" readonly>
                                             </div>
-                                            <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
-                                                <label for="pagado">Pagado</label>
+                                        </div>              
+                                            
+                                        <div class="col">
+                                            <label for="basic-url">Pagado</label>
+                                                <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">Q</span>
+                                                </div>
                                                 <input type="text" class="form-control" value="{{$Caso->Pagado*8}}" readonly>
                                             </div>
+                                        </div>              
+                                            
                                         </div> 
                                         @endif
                                         <hr>
@@ -612,7 +653,7 @@
                                                 </div>
                                             </div>
                                             <br>
-                                            @role('Personal')
+                                            @role('Personal||Contabilidad')
                                             <div class="row mt-3">
                                                 <div class="col-md-6">
                                                     <h4>Registrar Pagos</h4>
@@ -641,12 +682,12 @@
                                                             </thead>
                                                             <tbody id="tablaPagos">
                                                                 <tr class="fila1">
-                                                                    <td><input name="serie1" type="text" class="form-control"></td>
-                                                                    <td><input name="factura1" type="text" class="form-control"></td>
+                                                                    <td><input name="serie1" type="text" class="form-control" required></td>
+                                                                    <td><input name="factura1" type="text" class="form-control" required></td>
                                                                     <td><input name="monto1" type="text" class="form-control"
-                                                                            onkeypress="return validateFloatKeyPress(this,event);"></td>
-                                                                    <td><input name="fecha1" type="date" class="form-control"></td>
-                                                                    <td><input type="file" name="comprobante1" class="form-control"></td>
+                                                                            onkeypress="return validateFloatKeyPress(this,event);" required></td>
+                                                                    <td><input name="fecha1" type="date" class="form-control" required></td>
+                                                                    <td><input type="file" name="comprobante1" class="form-control" required></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -933,7 +974,7 @@
                                         </div>
                                     </div>
                                     <hr>
-                                    @if($Caso->Causa != 'Accidente' && $Caso->Aseguradora_Nombre != 'CHN')
+                                    <!--@if($Caso->Causa != 'Accidente' && $Caso->Aseguradora_Nombre != 'CHN')
                                     @if($solicitud->estatus == 'Pendiente')
                                     <div class="row">
                                         <div class="col-6">
@@ -946,7 +987,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    @endif
+                                    @endif-->
                                     @role('CHN')
                                     @if($solicitud->estatus == 'Pendiente' || $solicitud->estatus == 'Preaprobar')
                                     <div class="row">
@@ -1391,11 +1432,11 @@
         var nuevafila = parseInt(fila) + 1;
         $('#filas').val(nuevafila);
         var html = '<tr class="fila' + nuevafila + '">\
-            <td><input name="serie' + nuevafila + '" type="text" class="form-control"></td>\
-            <td><input name="factura' + nuevafila + '" type="text" class="form-control"></td>\
-            <td><input name="monto' + nuevafila + '" type="text" class="form-control" onkeypress="return validateFloatKeyPress(this,event);"></td>\
-            <td><input name="fecha' + nuevafila + '" type="date" class="form-control"></td>\
-            <td><input type="file" name="comprobante' + nuevafila + '" class="form-control"></td>\
+            <td><input name="serie' + nuevafila + '" type="text" class="form-control" required></td>\
+            <td><input name="factura' + nuevafila + '" type="text" class="form-control" required></td>\
+            <td><input name="monto' + nuevafila + '" type="text" class="form-control" onkeypress="return validateFloatKeyPress(this,event);" required></td>\
+            <td><input name="fecha' + nuevafila + '" type="date" class="form-control" required></td>\
+            <td><input type="file" name="comprobante' + nuevafila + '" class="form-control" required></td>\
         </tr>';
         $('#tablaPagos').append(html);
 

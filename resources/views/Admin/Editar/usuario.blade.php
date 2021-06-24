@@ -29,8 +29,8 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail</label>
 
                             <div class="col-md-6">
-                                <input id="mail" type="email" class="form-control @error('email') is-invalid @enderror" name="mail" value="{{ $usuario->email }}" required autocomplete="email">
-
+                                <input id="mail" type="email" class="form-control @error('email') is-invalid @enderror" name="mail" value="{{ $usuario->email }}" onchange="verifyMail();" required autocomplete="email">
+                                <small id="MailAbout" class="form-text" style="color: red;"></small>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -52,7 +52,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" id="submit_btn" class="btn btn-primary">
                                     Guardar
                                 </button>
                             </div>
@@ -63,4 +63,22 @@
         </div>
     </div>
 </div>
+<script>
+function verifyMail() {
+        var mail = $('#mail').val();
+        $.ajax({
+            type: "GET",
+            url: "/mail/verificar/" + mail,
+            success: function (response) {
+                if (response != true) {
+                    $('#MailAbout').html('Este Mail ya se encuentra en uso');
+                    $('#submit_btn').attr('disabled', true);
+                } else {
+                    $('#MailAbout').html('');
+                    $('#submit_btn').attr('disabled', false);
+                }
+            }
+        });
+    }
+</script>
 @endsection

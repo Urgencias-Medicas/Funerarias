@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-        <h3 class="mt-3">Log de cambios</h3>
+        <h3 class="mt-3">Historial por usuario</h3>
                     <table id="table" class="table table-light table-striped border rounded mb-5">
                         <thead class="">
                             <tr>
@@ -40,7 +40,8 @@ $(document).ready(function () {
             "infoEmpty": "Sin registros",
             "infoFiltered": "(Filtrado de _MAX_ registros totales)",
             "search": "Buscar: "
-        }
+        },
+        "order": [[ 3, "desc" ]]
     });
 });
 </script>

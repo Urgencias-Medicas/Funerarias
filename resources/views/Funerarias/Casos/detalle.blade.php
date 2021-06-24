@@ -324,7 +324,7 @@
                                             <label for="costoServicio">Costo</label>
                                             <input type="text" class="form-control" value="{{$Caso->Costo}}"
                                                 name="Costo"
-                                                {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "readonly" : ""}}>
+                                                {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "readonly" : ""}} oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                         </div>
 
                                         <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">

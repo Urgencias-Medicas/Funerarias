@@ -252,6 +252,11 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @role('Funeraria')
+                                <a class="dropdown-item" href="/Funerarias/datosBancarios">
+                                    Datos bancarios
+                                </a>
+                                @endrole
                                 <a class="dropdown-item" href="/mail/cambio">
                                     Cambiar correo
                                 </a>

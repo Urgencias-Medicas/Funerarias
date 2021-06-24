@@ -157,6 +157,8 @@ Route::group(['prefix' => 'Funerarias'], function () {
     Route::get('Descargas', 'FunerariasController@descargas');
     Route::post('Casos/{caso}/actualizarCosto', 'FunerariasController@actualizarCosto');
     Route::post('Casos/{id}/modificar', 'FunerariasController@modificarCaso');
+    Route::get('datosBancarios', 'FunerariasController@datosBancarios');
+    Route::post('datosBancarios/guardar', 'FunerariasController@datosBancariosGuardar');
 });
 
 Route::group(['prefix' => 'Externa'], function () {

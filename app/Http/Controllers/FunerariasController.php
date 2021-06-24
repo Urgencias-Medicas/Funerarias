@@ -10,6 +10,7 @@ use App\Casos;
 use App\SolicitudesCobro;
 use App\Notificaciones;
 use App\Causas;
+use App\Funerarias;
 use Carbon\Carbon;
 use App\Helpers\Helper;
 
@@ -123,5 +124,35 @@ class FunerariasController extends Controller
         //return $this->detallesCaso($caso, 2);
         activity()->log('Se actualizó el caso No. '. $caso);
         return redirect('/Funerarias/Casos/'.$caso.'/ver')->with('alerta', 'El caso fue actualizado exitosamente.');
+    }
+    public function datosBancarios(){
+        $user = auth()->user();
+        $funeraria_id = $user->funeraria;
+        $funeraria = Funerarias::find($funeraria_id);
+        return view('Funerarias.datosbancarios', ['Funeraria' => $funeraria]);
+    }
+    public function datosBancariosGuardar(Request $request){
+
+        $user = auth()->user();
+        $funeraria_id = $user->funeraria;
+
+        if($request->hasFile('Comprobante')){
+            $image = $request->file('Comprobante');
+            $imageName = 'Funeraria-'.$funeraria_id.'-'.$image->getClientOriginalName();
+            $upload_success = $image->move(public_path('images'),$imageName);
+        }
+
+        $funeraria = Funerarias::find($funeraria_id);
+
+        $funeraria->NIT = $request->NIT;
+        $funeraria->Banco = $request->Banco;
+        $funeraria->Cuenta = $request->Cuenta;
+
+        if($request->hasFile('Comprobante')){
+            $funeraria->Comprobante = '/images/'.$imageName;
+        }
+        $funeraria->save();
+
+        return back();
     }
 }
