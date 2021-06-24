@@ -2,7 +2,7 @@
 
 body {margin-top: 0px;margin-left: 0px;}
 
-#page_1 {position:relative; overflow: hidden;margin: 12px 0px 12px 36px;padding: 0px;border: none;width: 780px;}
+#page_1 {position:relative; overflow: hidden;margin: 12px 0px 12px;padding: 0px;border: none;width: 780px;}
 
 #page_1 #p1dimg1 {position:absolute;top:0px;left:0px;z-index:-1;width:262px;height:89px;}
 #page_1 #p1dimg1 #p1img1 {width:262px;height:89px;}
@@ -10,7 +10,7 @@ body {margin-top: 0px;margin-left: 0px;}
 
 
 
-#page_2 {position:relative; overflow: hidden;margin: 12px 0px 12px 36px;padding: 0px;border: none;width: 780px;}
+#page_2 {position:relative; overflow: hidden;margin: 12px 0px 12px;padding: 0px;border: none;width: 780px;}
 #page_2 #id2_1 {border:none;margin: 150px 0px 0px 12px;padding: 0px;border:none;width: 768px;overflow: hidden;}
 #page_2 #id2_2 {border:none;margin: 6px 0px 0px 236px;padding: 0px;border:none;width: 544px;overflow: hidden;}
 
@@ -20,7 +20,7 @@ body {margin-top: 0px;margin-left: 0px;}
 
 
 
-#page_3 {position:relative; overflow: hidden;margin: 12px 0px 12px 36px;padding: 0px;border: none;width: 780px;}
+#page_3 {position:relative; overflow: hidden;margin: 12px 0px 12px;padding: 0px;border: none;width: 780px;}
 #page_3 #id3_1 {border:none;margin: 42px 0px 0px 12px;padding: 0px;border:none;width: 768px;overflow: hidden;}
 #page_3 #id3_2 {border:none;margin: 0px 0px 0px 236px;padding: 0px;border:none;width: 544px;overflow: hidden;}
 
