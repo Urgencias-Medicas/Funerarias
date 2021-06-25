@@ -129,18 +129,21 @@ class HomeController extends Controller
     }
 
     public function guardarInfoFuneraria($id, Request $request){
-        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'TipoFuneraria', 'Valor' => $request->tipo_funeraria]);
-        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'NIT', 'Valor' => $request->nit]);
-        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'Telefono', 'Valor' => $request->telefono]);
-        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'Direccion', 'Valor' => $request->direccion]);
-        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'Departamento', 'Valor' => strtoupper($request->departamento)]);
-        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'NombreContacto', 'Valor' => $request->nombre_contacto]);
-        DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'TelContacto', 'Valor' => $request->numero_contacto]);
+        DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'TipoFuneraria')->update(['Funeraria' => $id, 'Campo' => 'TipoFuneraria', 'Valor' => $request->tipo_funeraria]);
+        DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'NIT')->update(['Funeraria' => $id, 'Campo' => 'NIT', 'Valor' => $request->nit]);
+        DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'Telefono')->update(['Funeraria' => $id, 'Campo' => 'Telefono', 'Valor' => $request->telefono]);
+        DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'Direccion')->update(['Funeraria' => $id, 'Campo' => 'Direccion', 'Valor' => $request->direccion]);
+        DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'Departamento')->update(['Funeraria' => $id, 'Campo' => 'Departamento', 'Valor' => strtoupper($request->departamento)]);
+        DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'NombreContacto')->update(['Funeraria' => $id, 'Campo' => 'NombreContacto', 'Valor' => $request->nombre_contacto]);
+        DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'TelContacto')->update(['Funeraria' => $id, 'Campo' => 'TelContacto', 'Valor' => $request->numero_contacto]);
 
-        InfoFunerariasRegistradas::where('id', $id)->update(['direccion' => $request->direccion, 
+        $id_funeraria = Funerarias::where('Id_Funeraria', $id)->value('Funeraria_Registrada');
+
+        InfoFunerariasRegistradas::where('id', $id_funeraria)->update(['direccion' => $request->direccion, 
         'departamento' => strtoupper($request->departamento), 'tel_contacto' => $request->TelContacto, 'tel_coordinador' => $request->telefono, 'tipo' => $request->tipo_funeraria]);
 
         return back();
+        //return DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'TipoFuneraria', 'Valor' => $request->tipo_funeraria]);
     }
     public function quitarNotificacion($id){
         $notificacion = Notificaciones::find($id);
