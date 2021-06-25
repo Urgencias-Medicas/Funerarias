@@ -425,7 +425,7 @@ class AdminController extends Controller
 
         $json_pasos = json_encode($pasos);
 
-        $detalle = DetallesFuneraria::find($detalle)->updateOrCreate(['Campos' => $json_pasos]);
+        //$detalle = DetallesFuneraria::find($detalle)->updateOrCreate(['Campos' => $json_pasos]);
         activity()->log('Se ha modificado la funeraria No. '.$id);
         return redirect('/Personal/editarFuneraria/'.$nueva_funeraria_insertada->id.'/'.$request->nombre);
         //return back();
