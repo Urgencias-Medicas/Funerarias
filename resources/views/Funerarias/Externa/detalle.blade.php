@@ -410,7 +410,16 @@
                                     </div>
                                 </div>
                             </form>
-
+                            <div class="form-group">
+                                <form action="/Caso/{{$Caso->id}}/guardarFactura" enctype="multipart/form-data" class="dropzone"
+                                    id="facturaUpload" method="POST">
+                                    @csrf
+                                    <div class="fallback">
+                                        <input name="file" type="files" multiple accept="image/jpeg, image/png, image/jpg" />
+                                    </div>
+                                    <div class="dz-default dz-message"><span>Suba acá su factura</span></div>
+                                </form>
+                            </div>   
                         </div>
                     </div>
                     <div class="card mt-4">
