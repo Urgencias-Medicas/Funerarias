@@ -1285,7 +1285,7 @@
                                     <option disabled selected>-- Seleccione una campaña --</option>';
                         $.each(JSON.parse(infoFuneraria.Campanias), function(key, entry){
                             //if($('#edad').val() >= entry.edad_inicial && $('#edad').val() <= entry.edad_final){
-                                html += '<option value="'+entry.id+'"> ('+entry.edad_inicial+'-'+entry.edad_final+') - '+entry.nombre+'</option>';
+                                html += '<option value="'+entry.id+'"> ['+entry.edad_inicial+'-'+entry.edad_final+'] - '+entry.nombre+'</option>';
                             //}else{
                             //    html += '<option value="'+entry.id+'" disabled>'+entry.nombre+'</option>';
                             //}
