@@ -137,6 +137,9 @@ class HomeController extends Controller
         DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'NombreContacto', 'Valor' => $request->nombre_contacto]);
         DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'TelContacto', 'Valor' => $request->numero_contacto]);
 
+        InfoFunerariasRegistradas::where('id', $id)->update(['direccion' => $request->direccion, 
+        'departamento' => strtoupper($request->departamento), 'tel_contacto' => $request->TelContacto, 'tel_coordinador' => $request->telefono, 'tipo' => $request->tipo_funeraria]);
+
         return back();
     }
     public function quitarNotificacion($id){
