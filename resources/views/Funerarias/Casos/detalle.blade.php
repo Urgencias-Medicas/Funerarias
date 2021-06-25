@@ -361,6 +361,16 @@
                                     </div>
                                 </div>
                             </form>
+                            <div class="form-group">
+                                <form action="/Caso/{{$Caso->id}}/guardarFactura" enctype="multipart/form-data" class="dropzone"
+                                    id="facturaUpload" method="POST">
+                                    @csrf
+                                    <div class="fallback">
+                                        <input name="file" type="files" multiple accept="image/jpeg, image/png, image/jpg" />
+                                    </div>
+                                    <div class="dz-default dz-message"><span>Suba acá su factura</span></div>
+                                </form>
+                            </div>
 
                         </div>
                     </div>
@@ -472,6 +482,12 @@
             if (typeof Dropzone != 'undefined') {
                 if ($("#fileupload").length) {
                     var dz = new Dropzone("#fileupload"),
+                        dze_info = $("#dze_info"),
+                        status = {
+                            uploaded: 0,
+                            errors: 0
+                        };
+                    var dz = new Dropzone("#facturaUpload"),
                         dze_info = $("#dze_info"),
                         status = {
                             uploaded: 0,

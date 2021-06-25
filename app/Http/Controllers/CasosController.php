@@ -93,6 +93,24 @@ class CasosController extends Controller
             return response()->json('error', 400);
         }
     }
+    public function guardarFactura($caso, Request $request){
+        $user = auth()->user();
+        $image = $request->file('file');
+        $originalName = $image->getClientOriginalName();
+        $fileName = pathinfo($originalName,PATHINFO_FILENAME);
+        $imageName = 'Caso'.$caso.'-Factura.'.$image->getClientOriginalExtension();
+        $upload_success = $image->move(public_path('images'),$imageName);
+        
+        if ($upload_success) {
+            activity()->log('Se subió la factura '.$imageName.' al caso #'.$caso);
+            Casos::where('id', $caso)->update(['Factura' => '/images/'.$imageName]);
+            return response()->json($upload_success, 200);
+        }
+        // Else, return error 400
+        else {
+            return response()->json('error', 400);
+        }
+    }
     public function verCasos($causa = null){
 
         $user = auth()->user();

@@ -618,6 +618,7 @@
                                             <button type="button" class="btn btn-outline-primary btn-block my-2" data-toggle="modal"
                                                 data-target="#solicitudModal">Ver solicitudes</button>
                                         @endif
+                                            <a href="{{$Caso->Factura}}" target="_blank"><button type="button" class="btn btn-outline-primary btn-block my-2" {{isset($Caso->Factura) ? '' : 'disabled'}}>Ver factura</button></a>
                                         </div>
                                     </div>
                                     @endrole
