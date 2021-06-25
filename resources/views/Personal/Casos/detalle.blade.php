@@ -608,9 +608,10 @@
                             </div>
 
                             <div class="col-md-6">
-                                    @role('Personal||CHN')
+                                    @role('Personal||CHN||Contabilidad')
                                     <div class="card mb-3">
                                         <div class="card-body ">
+                                        @role('Personal||CHN')
                                         @if($Caso->Solicitud == 'Pendiente' || $Caso->Solicitud == 'Preaprobar')
                                             <button type="button" class="btn btn-outline-info btn-block my-2" data-toggle="modal"
                                                 data-target="#solicitudModal">Solicitud Nueva</button>
@@ -618,6 +619,7 @@
                                             <button type="button" class="btn btn-outline-primary btn-block my-2" data-toggle="modal"
                                                 data-target="#solicitudModal">Ver solicitudes</button>
                                         @endif
+                                        @endrole
                                             <a href="{{$Caso->Factura}}" target="_blank"><button type="button" class="btn btn-outline-primary btn-block my-2" {{isset($Caso->Factura) ? '' : 'disabled'}}>Ver factura</button></a>
                                         </div>
                                     </div>
