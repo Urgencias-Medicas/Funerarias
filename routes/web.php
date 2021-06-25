@@ -72,8 +72,8 @@ Route::group(['prefix' => 'Personal'], function (){
     Route::get('Funeraria/{id}/ver', 'PersonalUMController@verFuneraria');
     Route::get('Funeraria/{id}/{docto}/{accion}/{comentario}', 'PersonalUMController@accionDocto');
     //Route::get('Funeraria/pasos/{funeraria}/{accion}', 'PersonalUMController@accionPaso');
-    Route::post('Funeraria/{id}/{detalle}/guardar', 'AdminController@guardarCambiosFuneraria');
-    Route::post('Funeraria/{id}/{detalle}/guardarNueva', 'AdminController@guardarCambiosFunerariaNueva');
+    Route::post('Funeraria/{id}/guardar', 'AdminController@guardarCambiosFuneraria');
+    Route::post('Funeraria/{id}/guardarNueva', 'AdminController@guardarCambiosFunerariaNueva');
     Route::get('configuraciones', 'PersonalUMController@configuraciones');
     Route::post('configuraciones/guardar', 'PersonalUMController@configuracionesGuardar');
     Route::get('log', 'PersonalUMController@verlogs');

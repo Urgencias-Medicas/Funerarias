@@ -275,7 +275,7 @@ class AdminController extends Controller
         return redirect('/Personal/verUsuarios');
     }
 
-    public function guardarCambiosFuneraria($id, $detalle, Request $request){
+    public function guardarCambiosFuneraria($id, Request $request){
         $old_Activa = Funerarias::where('Id_Funeraria', $id)->value('Activa');
         $array_campanias = array();
         if(isset($request->campania)){
@@ -284,7 +284,7 @@ class AdminController extends Controller
             }
         }
         $json_campanias = json_encode($array_campanias);
-        $user = Funerarias::where('Id_Funeraria', $id)->update(['Nombre' => $request->nombre, 'Diminutivo' => $request->diminutivo, 'Email' => $request->email, 'Telefono' => $request->telefono, 'Activa' => $request->activo, 'Campanias' => $json_campanias]);
+        $user = Funerarias::where('Id_Funeraria', $id)->update(['Nombre' => $request->nombre, 'Diminutivo' => $request->diminutivo, 'Email' => $request->email, 'Telefono' => $request->telefono, 'NIT' => $request->NIT, 'Banco' => $request->Banco, 'Cuenta' => $request->Cuenta, 'Activa' => $request->activo, 'Campanias' => $json_campanias]);
 
         $activa = '';
         if($request->activo == 'Si'){
@@ -313,7 +313,7 @@ class AdminController extends Controller
 
         $json_pasos = json_encode($pasos);
 
-        $detalle = DetallesFuneraria::find($detalle)->updateOrCreate(['Campos' => $json_pasos]);
+        //$detalle = DetallesFuneraria::find($detalle)->updateOrCreate(['Campos' => $json_pasos]);
 
         $data = [];
 
@@ -346,7 +346,7 @@ class AdminController extends Controller
         return back();
     }
 
-    public function guardarCambiosFunerariaNueva($id, $detalle, Request $request){
+    public function guardarCambiosFunerariaNueva($id, Request $request){
 
         $array_campanias = array();
         if(isset($request->campania)){
@@ -365,7 +365,7 @@ class AdminController extends Controller
             'Telefono' => $request->telefono,
             'Monto_Base' => 0,
             'Activa' => $request->activo,
-            'Id_Detalle' => $detalle
+            //'Id_Detalle' => $detalle
         ]);
 
         $json_campanias = json_encode($array_campanias);

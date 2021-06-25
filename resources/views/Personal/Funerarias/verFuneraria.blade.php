@@ -9,7 +9,7 @@
                 <div class="card-header">Información</div>
 
                 <div class="card-body align-items-center justify-content-center">
-                    <form action="/Personal/Funeraria/{{$Funeraria->id}}/{{$Detalle->id}}/guardarNueva" method="post">
+                    <form action="/Personal/Funeraria/{{$Funeraria->id}}/guardarNueva" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
@@ -142,7 +142,7 @@
       </div>
       <div class="modal-body">
       <h3>Motivos</h3>
-        <textarea name="denegar" id="denegar" class="form-control" onchange="changeBtnDenegar();"></textarea>
+        <textarea name="denegar" id="denegar" class="form-control" onkeypress="changeBtnDenegar();"></textarea>
       </div>
       <div class="modal-footer">
         <a id="btn-denegar" href=""><button class="btn btn-primary" id="denegar-btn" disabled>Aceptar</button></a>

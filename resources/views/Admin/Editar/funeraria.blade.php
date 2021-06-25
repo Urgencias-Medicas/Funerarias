@@ -28,7 +28,7 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                             <br>
-                            <form action="/Personal/Funeraria/{{$Funeraria->Id_Funeraria}}/{{$Detalle->id}}/guardar"
+                            <form action="/Personal/Funeraria/{{$Funeraria->Id_Funeraria}}/guardar"
                                 method="post">
                                 @csrf
                                 <div class="form-group">
@@ -59,17 +59,17 @@
                                 <div class="form-group ">
                                     <label for="NIT">NIT</label>
                                     <input type="text" name="NIT" id="NIT" class="form-control"
-                                        value="{{$Funeraria->NIT}}" maxlength="8">
+                                        value="{{$Funeraria->NIT}}">
                                 </div>
                                 <div class="form-group ">
                                     <label for="Banco">Banco</label>
                                     <input type="text" name="Banco" id="Banco" class="form-control"
-                                        value="{{$Funeraria->Banco}}" maxlength="8">
+                                        value="{{$Funeraria->Banco}}">
                                 </div>
                                 <div class="form-group ">
                                     <label for="Cuenta">Cuenta</label>
                                     <input type="text" name="Cuenta" id="Cuenta" class="form-control"
-                                        value="{{$Funeraria->Cuenta}}" maxlength="8">
+                                        value="{{$Funeraria->Cuenta}}">
                                 </div>
                                 <div class="form-group ">
                                     <label for="Comprobante">Comprobante de cuenta</label><br>
