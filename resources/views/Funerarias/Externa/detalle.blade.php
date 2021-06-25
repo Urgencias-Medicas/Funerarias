@@ -533,6 +533,12 @@
                             uploaded: 0,
                             errors: 0
                         };
+                    var dz = new Dropzone("#facturaUpload"),
+                        dze_info = $("#dze_info"),
+                        status = {
+                            uploaded: 0,
+                            errors: 0
+                        };
                     var $f = $(
                         '<tr><td class="name"></td><td class="size"></td><td class="type"></td><td class="status"></td></tr>'
                     );
