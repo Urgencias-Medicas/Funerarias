@@ -142,7 +142,7 @@
       </div>
       <div class="modal-body">
       <h3>Motivos</h3>
-        <textarea name="denegar" id="denegar" class="form-control" onkeypress="changeBtnDenegar();"></textarea>
+        <textarea name="denegar" id="denegar" class="form-control" onchange="changeBtnDenegar();"></textarea>
       </div>
       <div class="modal-footer">
         <a id="btn-denegar" href=""><button class="btn btn-primary" id="denegar-btn" disabled>Aceptar</button></a>
