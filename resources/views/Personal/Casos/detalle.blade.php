@@ -1179,7 +1179,7 @@
 
     function cargarFunerarias(){
         $.ajax({
-            url: "{{URL('/verFunerarias')}}",
+            url: "/verFunerarias",
             type: 'get',
             dataType: 'JSON',
             success: function (response) {
@@ -1265,7 +1265,7 @@
 
     function seleccionarCampania(id){
         $.ajax({
-            url: "{{URL('/verFunerarias')}}",
+            url: "/verFunerarias",
             type: 'get',
             dataType: 'JSON',
             success: function (response) {
@@ -1310,7 +1310,7 @@
 
     function detalleFuneraria(id) {
         $.ajax({
-            url: "{{URL('/verFunerarias')}}",
+            url: "/verFunerarias",
             type: 'get',
             dataType: 'JSON',
             success: function (response) {
