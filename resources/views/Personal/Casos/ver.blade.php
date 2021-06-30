@@ -13,11 +13,12 @@
                         <label for="fechaInicio">Causa</label>
                         <div class="input-group ">
                             <select name="causa" id="causa" class="form-control" required="">
-                                <option value="Accidente">Accidente</option>
-                                <option value="Suicidio">Suicidio</option>
-                                <option value="Asesinato">Asesinato</option>
-                                <option value="Causas Naturales">Causas Naturales</option>
-                                <option value="Enfermedad Comun">Enfermedad Común</option>
+                                <option {{isset($Filtro) && $Filtro == 'Todas' ? 'selected' : ''}} value="Todas">Todas</option>
+                                <option {{isset($Filtro) && $Filtro == 'Accidente' ? 'selected' : ''}} value="Accidente">Accidente</option>
+                                <option {{isset($Filtro) && $Filtro == 'Suicidio' ? 'selected' : ''}} value="Suicidio">Suicidio</option>
+                                <option {{isset($Filtro) && $Filtro == 'Asesinato' ? 'selected' : ''}} value="Asesinato">Asesinato</option>
+                                <option {{isset($Filtro) && $Filtro == 'Causas Naturales' ? 'selected' : ''}} value="Causas Naturales">Causas Naturales</option>
+                                <option {{isset($Filtro) && $Filtro == 'Enfermedad Comun' ? 'selected' : ''}} value="Enfermedad Comun">Enfermedad Común</option>
                             </select>
                         </div>
 

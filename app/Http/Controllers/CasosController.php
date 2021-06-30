@@ -115,15 +115,16 @@ class CasosController extends Controller
 
         $user = auth()->user();
         if($user->hasRole('CHN')){
-            if($causa == null) {
+            if($causa == null  || $causa == 'Todas') {
                 $casos = Casos::where('Aseguradora_Nombre', 'Seguro Escolar')->orderBy('id', 'asc')->get();
             }else{
                 $casos = Casos::where('Causa', $causa)->where('Aseguradora_Nombre', 'Seguro Escolar')->orderBy('id', 'asc')->get();
             }
         }else{
-            if($causa == null) {
+            if($causa == null || $causa == 'Todas') {
                 $casos = Casos::orderBy('id', 'asc')->get();
             }else{
+                
                 $casos = Casos::where('Causa', $causa)->orderBy('id', 'asc')->get();
             }
         }
@@ -132,7 +133,7 @@ class CasosController extends Controller
 
         //$casos = Casos::orderBy('id', 'asc')->get();
 
-        return view('Personal.Casos.ver', ['Casos' => $casos]);
+        return view('Personal.Casos.ver', ['Casos' => $casos, 'Filtro' => $causa]);
     }
 
     public function verCasosCHN($causa = null){
