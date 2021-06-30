@@ -34,6 +34,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tail.select@0.5.15/css/bootstrap4/tail.select-default.min.css">
     <script src="https://cdn.jsdelivr.net/npm/tail.select@0.5.15/js/tail.select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tail.select@0.5.15/langs/tail.select-all.min.js"></script>
 
     <style>
         .navbar-dark .navbar-nav .nav-link {

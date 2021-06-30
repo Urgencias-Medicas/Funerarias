@@ -320,7 +320,8 @@
     }
 
     tail.select("#descripcion_causa_select", {
-        search: true
+        search: true,
+        locale: "es",
     });
 
     function makeSubmenu(value) {

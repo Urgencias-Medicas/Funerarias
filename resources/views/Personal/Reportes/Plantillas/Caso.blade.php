@@ -10,11 +10,11 @@
 <div class="container">
     <div class="row text-center">
         <div class="">
-            <h3><b>Detalles caso - #{{$Caso->id ??  'SIN DATOS'}}</b></h3>
+            <h5><b>Detalles caso - #{{$Caso->id ??  'SIN DATOS'}}</b></h5>
         </div>
     </div>
     <div class="row">
-        <table class="table table-bordered text-center" style="font-size: 60%;">
+        <table cellpadding = "0" class="table table-bordered" style="font-size: 50%; padding: 0px !important; margin: 0px !important;">
             <tbody>
                 <tr>
                     <th><b>Nombre</b></th>
@@ -52,7 +52,7 @@
     
     <div class="row text-center">
         <div class="col">
-            <h3><b>Fotografías</b></h3>
+            <h5><b>Fotografías</b></h5>
         </div>
         <br>
         <br>

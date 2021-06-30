@@ -116,9 +116,9 @@ class CasosController extends Controller
         $user = auth()->user();
         if($user->hasRole('CHN')){
             if($causa == null) {
-                $casos = Casos::where('Aseguradora_Nombre', 'CHN')->orderBy('id', 'asc')->get();
+                $casos = Casos::where('Aseguradora_Nombre', 'Seguro Escolar')->orderBy('id', 'asc')->get();
             }else{
-                $casos = Casos::where('Causa', $causa)->where('Aseguradora_Nombre', 'CHN')->orderBy('id', 'asc')->get();
+                $casos = Casos::where('Causa', $causa)->where('Aseguradora_Nombre', 'Seguro Escolar')->orderBy('id', 'asc')->get();
             }
         }else{
             if($causa == null) {

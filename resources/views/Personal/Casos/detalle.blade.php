@@ -977,7 +977,7 @@
                                         </div>
                                     </div>
                                     <hr>
-                                    <!--@if($Caso->Causa != 'Accidente' && $Caso->Aseguradora_Nombre != 'CHN')
+                                    <!--@if($Caso->Causa != 'Accidente' && $Caso->Aseguradora_Nombre != 'Seguro Escolar')
                                     @if($solicitud->estatus == 'Pendiente')
                                     <div class="row">
                                         <div class="col-6">
@@ -1005,7 +1005,7 @@
                                     </div>
                                     @endif
                                     @endrole
-                                    @if($Caso->Causa == 'Accidente' && $Caso->Aseguradora_Nombre == 'CHN')
+                                    @if($Caso->Causa == 'Accidente' && $Caso->Aseguradora_Nombre == 'Seguro Escolar')
                                     @role('Personal')
                                     @if($solicitud->estatus == 'Pendiente')
                                     <div class="row">
@@ -1558,7 +1558,8 @@
         });
 
         tail.select("#descripcion_causa_select", {
-            search: true
+            search: true,
+            locale: "es",
         });
 
     });

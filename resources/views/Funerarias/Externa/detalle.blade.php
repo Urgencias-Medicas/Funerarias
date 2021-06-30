@@ -620,7 +620,8 @@
     }
 
     tail.select("#descripcion_causa_select", {
-        search: true
+        search: true,
+        locale: "es",
     });
 
     @if($Caso->Estatus == 'Cerrado')
