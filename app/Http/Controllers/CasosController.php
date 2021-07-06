@@ -20,6 +20,8 @@ use App\Funerarias;
 use App\Configuracion;
 use App\Campanias;
 use App\InfoFunerariasRegistradas;
+use App\FacturasUM;
+use App\DocumentosCHN;
 
 class CasosController extends Controller
 {
@@ -92,6 +94,45 @@ class CasosController extends Controller
         else {
             return response()->json('error', 400);
         }
+    }
+    public function guardarFacturaUM($caso, Request $request){
+        $date = Carbon::now()->format('Ymd');
+        $user = auth()->user();
+        $image = $request->file('file');
+        $imageName = 'Caso'.$caso.'-Factura-'.$user->name.'-'.$date.'.'.$image->getClientOriginalExtension();
+        $upload_success = $image->move(public_path('images'),$imageName);
+        
+        if ($upload_success) {
+            FacturasUM::create([
+                'caso' => $caso,
+                'ruta' => '/images/'.$imageName,
+                'estatus' => 'Pendiente',
+            ]);
+            activity()->log('Se subió una nueva factura de UM al caso #'.$caso);
+            return response()->json($upload_success, 200);
+        }
+        // Else, return error 400
+        else {
+            return response()->json('error', 400);
+        }
+    }
+    public function estatusFacturaUM($id, $accion){
+        FacturasUM::where('id', $id)->update(['estatus' => $accion]);
+        activity()->log('Se actualizó el estatus de la factura #'.$id.' por '.$accion);
+        return back();
+    }
+    public function documentosCHN($caso, $archivo, $estatus){
+        if($estatus == 'No'){
+            DocumentosCHN::where('caso', $caso)->where('ruta', $archivo)->delete();
+        }else{
+            DocumentosCHN::create([
+                'caso' => $caso,
+                'ruta' => $archivo,
+                'estatus' => $estatus,
+            ]);
+        }
+
+        echo 'done';
     }
     public function guardarFactura($caso, Request $request){
         $user = auth()->user();
@@ -177,6 +218,10 @@ class CasosController extends Controller
         $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'desc')->get();
         $causas = Causas::get();
         $tasa_cambio = Configuracion::where('opcion', 'Tasa_Cambio')->value('valor');
+        
+        $facturas_caso = FacturasUM::where('caso', $id)->get();
+
+        $documentos_CHN = DocumentosCHN::where('caso', $id)->get();
 
         //Aseguradoras
         if($caso->Aseguradora == '1'){
@@ -188,13 +233,13 @@ class CasosController extends Controller
         }
 
         if($msg == 0){
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio]);
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio, 'Facturas' => $facturas_caso, 'Documentos_CHN' => $documentos_CHN]);
         }else if($msg == 2){
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio])->with('alerta', 'El caso ha sido modificado exitosamente');
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio, 'Facturas' => $facturas_caso, 'Documentos_CHN' => $documentos_CHN])->with('alerta', 'El caso ha sido modificado exitosamente');
         }else{
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio])->with('alerta', 'Pago ingresado exitosamente.');
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio, 'Facturas' => $facturas_caso, 'Documentos_CHN' => $documentos_CHN])->with('alerta', 'Pago ingresado exitosamente.');
         }
-        return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas]);
+        return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Facturas' => $facturas_caso, 'Documentos_CHN' => $documentos_CHN]);
     }
     
     public function evaluarFuneraria($id, Request $request){

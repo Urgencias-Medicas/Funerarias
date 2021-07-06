@@ -140,6 +140,9 @@ Route::group(['prefix' => 'Personal'], function (){
 
 Route::get('/pasos/{funeraria}/{accion}/{paso}', 'PersonalUMController@accionPaso');
 Route::post('Caso/{id}/guardarMedia', 'CasosController@guardarMedia');
+Route::post('Caso/{id}/guardarFacturaUM', 'CasosController@guardarFacturaUM');
+Route::get('Caso/factura/{id}/{accion}', 'CasosController@estatusFacturaUM');
+Route::get('Caso/{id}/documento/{docto}/{estatus}', 'CasosController@documentosCHN');
 Route::post('Caso/{id}/guardarFactura', 'CasosController@guardarFactura');
 Route::post('Funeraria/Caso/{id}/guardarMedia', 'FunerariasController@guardarMedia');
 Route::get('Notificacion/{id}/quitar', 'HomeController@quitarNotificacion');

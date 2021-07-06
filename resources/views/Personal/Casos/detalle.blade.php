@@ -123,6 +123,11 @@
                         <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Archivos</a>
                     </li>
                     @endrole
+                    @role('Personal||CHN')
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-facturas-tab" data-toggle="pill" href="#pills-facturas" role="tab" aria-controls="pills-facturas" aria-selected="false">Facturas</a>
+                    </li>
+                    @endrole
                 </ul>
                 {{-- <ul class="nav nav-tabs nav-justified mb-5" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -716,6 +721,7 @@
                                 <div class="card mt-4">
                                     <div class="card-header">Archivos</div>
                                     <div class="card-body align-items-center justify-content-center">
+                                        @role('Personal')
                                         <ul class="list-group">
                                             <form action="/Personal/Reportes/Caso/{{$Caso->id}}" id="generarReporte" method="get">
                                                 @foreach($Archivos as $archivo)
@@ -728,14 +734,101 @@
                                                     @endif
                                                     <a target="popup"
                                                             onclick="window.open('/images/Caso{{$Caso->id}}-{{$archivo}}','Archivo-Caso{{$Caso->id}}','width=600,height=400')">{{$archivo}}</a></b>
+
+                                                    @if($Documentos_CHN->isEmpty())
+                                                        <input type="checkbox" data-toggle="toggle" data-on="Si" data-off="No"
+                            data-onstyle="success" data-offstyle="secondary" onchange="documentoCHN('Si', '{{$archivo}}')">
+                                                    @else
+                                                        @if(!in_array($archivo, $Documentos_CHN->pluck('ruta')->toArray()))
+                                                            <input type="checkbox" data-toggle="toggle" data-on="Si" data-off="No"
+                            data-onstyle="success" data-offstyle="secondary" onchange="documentoCHN('Si', '{{$archivo}}')">
+                                                        @else
+                                                            <input type="checkbox" checked data-toggle="toggle" data-on="Si" data-off="No"
+                            data-onstyle="success" data-offstyle="secondary" onchange="documentoCHN('No', '{{$archivo}}')">
+                                                        @endif
+                                                    @endif
                                                 </li>
                                                 @endforeach
                                             </form>
                                         </ul>
+                                        @endrole
+                                        @role('CHN')
+                                        <ul class="list-grouo">
+                                            @foreach($Documentos_CHN as $documento)
+                                            <li class="list-group-item">
+                                                <b>
+                                                    <a target="popup"
+                                                            onclick="window.open('/images/Caso{{$Caso->id}}-{{$documento->ruta}}','Archivo-Caso{{$Caso->id}}','width=600,height=400')">{{$documento->ruta}}</a></b>
+                                                </b>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                        @endrole
                                         <hr>
                                         <div class="form-group">
                                             <form action="/Caso/{{$Caso->id}}/guardarMedia" enctype="multipart/form-data" class="dropzone"
                                                 id="fileupload" method="POST">
+                                                @csrf
+                                                <div class="fallback">
+                                                    <input name="file" type="files" multiple accept="image/jpeg, image/png, image/jpg" />
+                                                </div>
+                                                <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-facturas" role="tabpanel" aria-labelledby="pills-facturas-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mt-4">
+                                    <div class="card-header">Facturas</div>
+                                    <div class="card-body align-items-center justify-content-center">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Factura</th>
+                                                        <th>Estatus</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($Facturas as $factura)
+                                                    <tr>
+                                                        <td>{{$factura->id}}</td>
+                                                        <td>{{$factura->estatus}}</td>
+                                                        <td>
+                                                            <a href="{{$factura->ruta}}" target="_blank" class="btn btn-primary">Ver</a>
+                                                            @role('CHN')
+                                                                @if($factura->estatus == 'Pendiente')
+                                                                <a href="/Caso/factura/{{$factura->id}}/Aprobada" class="btn btn-success">Aprobar</a>
+                                                                <a href="/Caso/factura/{{$factura->id}}/Denegada" class="btn btn-danger">Denegar</a>
+                                                                @endif
+                                                            @endrole
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <hr>
+                                        @php
+                                        $tiene_solicitud = 0;
+                                        @endphp
+                                        @foreach($Facturas as $factura)
+                                            @if($factura->estatus == 'Pendiente')
+                                                @php
+                                                    $tiene_solicitud = 1
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        <div class="form-group" style="display:{{$tiene_solicitud == 1 ? 'none' : ''}}">
+                                            <form action="/Caso/{{$Caso->id}}/guardarFacturaUM" enctype="multipart/form-data" class="dropzone"
+                                                id="facturaupload" method="POST">
                                                 @csrf
                                                 <div class="fallback">
                                                     <input name="file" type="files" multiple accept="image/jpeg, image/png, image/jpg" />
@@ -1068,6 +1161,12 @@
             if (typeof Dropzone != 'undefined') {
                 if ($("#fileupload").length) {
                     var dz = new Dropzone("#fileupload"),
+                        dze_info = $("#dze_info"),
+                        status = {
+                            uploaded: 0,
+                            errors: 0
+                        };
+                    var dz = new Dropzone("#facturaupload"),
                         dze_info = $("#dze_info"),
                         status = {
                             uploaded: 0,
@@ -1469,6 +1568,16 @@
         setTimeout(function () {
             location.reload();
         }, 1000);
+    }
+
+    function documentoCHN(opcion, archivo){
+        $.ajax({
+            url: "/Caso/{{$Caso->id}}/documento/" + archivo + "/" + opcion,
+            type: 'get',
+            sucess: function (response) {
+                console.log('done');
+            }
+        })
     }
 
     function validateFloatKeyPress(el, evt) {
