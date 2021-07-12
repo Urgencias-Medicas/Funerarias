@@ -22,6 +22,8 @@ use App\Campanias;
 use App\InfoFunerariasRegistradas;
 use App\FacturasUM;
 use App\DocumentosCHN;
+use App\ReportesCHN;
+use App\ComprobantesUM;
 
 class CasosController extends Controller
 {
@@ -116,6 +118,26 @@ class CasosController extends Controller
             return response()->json('error', 400);
         }
     }
+    public function guardarComprobanteUM($caso, Request $request){
+        $date = Carbon::now()->format('Ymd');
+        $user = auth()->user();
+        $image = $request->file('file');
+        $imageName = 'Caso'.$caso.'-Comprobante-'.$user->name.'-'.$date.'.'.$image->getClientOriginalExtension();
+        $upload_success = $image->move(public_path('images'),$imageName);
+        
+        if ($upload_success) {
+            ComprobantesUM::create([
+                'caso' => $caso,
+                'ruta' => '/images/'.$imageName,
+            ]);
+            activity()->log('Se subió un nuevo comprobante de UM al caso #'.$caso);
+            return response()->json($upload_success, 200);
+        }
+        // Else, return error 400
+        else {
+            return response()->json('error', 400);
+        }
+    }
     public function estatusFacturaUM($id, $accion){
         FacturasUM::where('id', $id)->update(['estatus' => $accion]);
         activity()->log('Se actualizó el estatus de la factura #'.$id.' por '.$accion);
@@ -156,8 +178,20 @@ class CasosController extends Controller
 
         $user = auth()->user();
         if($user->hasRole('CHN')){
+
+            $campanias_config = Configuracion::where('opcion', 'Tabla_CHN')->value('valor');
+
+            $config_array = explode(',', $campanias_config);
+
+            $i = 0;
+
+            foreach($config_array as $campania){
+                $config_array[$i] = trim($campania);
+                $i++;
+            }
+
             if($causa == null  || $causa == 'Todas') {
-                $casos = Casos::where('Aseguradora_Nombre', 'Seguro Escolar')->orderBy('id', 'asc')->get();
+                $casos = Casos::whereIn('Campania', $config_array)->orderBy('id', 'asc')->get();
             }else{
                 $casos = Casos::where('Causa', $causa)->where('Aseguradora_Nombre', 'Seguro Escolar')->orderBy('id', 'asc')->get();
             }
@@ -175,6 +209,89 @@ class CasosController extends Controller
         //$casos = Casos::orderBy('id', 'asc')->get();
 
         return view('Personal.Casos.ver', ['Casos' => $casos, 'Filtro' => $causa]);
+    }
+
+    public function verReportesCHN(){
+        
+        $campanias_config = Configuracion::where('opcion', 'Tabla_CHN')->value('valor');
+
+        $config_array = explode(',', $campanias_config);
+
+        $i = 0;
+
+        foreach($config_array as $campania){
+            $config_array[$i] = trim($campania);
+            $i++;
+        }
+
+        $casos_chn = Casos::whereIn('Campania', $config_array)->pluck('id')->toArray();
+
+        $reportes_chn = ReportesCHN::whereIn('caso', $casos_chn)->get();
+
+        foreach($reportes_chn as $reporte){
+            $array_descargables = array();
+            $descargables = DocumentosCHN::where('caso', $reporte->caso)->get();
+            foreach($descargables as $descargable){
+                array_push($array_descargables, $descargable->ruta);
+            }
+            
+            $reporte->descargables_id = $array_descargables;
+
+            $reporte->descargables = $descargables;
+
+            $reporte->fecha = Casos::where('id', $reporte->caso)->value('Fecha');
+            $reporte->causa = Casos::where('id', $reporte->caso)->value('Causa');
+        }
+    
+        return view('Personal.Casos.verReportes', ['Reportes' => $reportes_chn]);
+
+        return $reportes_chn;
+    }
+
+    public function verReportesCHNFiltrada($fechaInicio, $fechaFin){
+
+        $fechaInicio = date($fechaInicio);
+        $fechaFin = date($fechaFin);
+        
+        $campanias_config = Configuracion::where('opcion', 'Tabla_CHN')->value('valor');
+
+        $config_array = explode(',', $campanias_config);
+
+        $i = 0;
+
+        foreach($config_array as $campania){
+            $config_array[$i] = trim($campania);
+            $i++;
+        }
+
+        if($fechaInicio != '' && $fechaFin == '0'){
+            //Seleccionar de un sólo día
+            $casos_chn = Casos::whereIn('Campania', $config_array)->whereDate('Fecha', '=', $fechaInicio)->pluck('id')->toArray();
+        }else{
+            //Seleccionar entre días, meses o años
+            $casos_chn = Casos::whereIn('Campania', $config_array)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->pluck('id')->toArray();
+        }
+        
+        $reportes_chn = ReportesCHN::whereIn('caso', $casos_chn)->get();
+
+        foreach($reportes_chn as $reporte){
+            $array_descargables = array();
+            $descargables = DocumentosCHN::where('caso', $reporte->caso)->get();
+            foreach($descargables as $descargable){
+                array_push($array_descargables, $descargable->ruta);
+            }
+            
+            $reporte->descargables_id = $array_descargables;
+
+            $reporte->descargables = $descargables;
+
+            $reporte->fecha = Casos::where('id', $reporte->caso)->value('Fecha');
+            $reporte->causa = Casos::where('id', $reporte->caso)->value('Causa');
+        }
+    
+        return view('Personal.Casos.verReportes', ['Reportes' => $reportes_chn]);
+
+        return $reportes_chn;
     }
 
     public function verCasosCHN($causa = null){
@@ -223,6 +340,8 @@ class CasosController extends Controller
 
         $documentos_CHN = DocumentosCHN::where('caso', $id)->get();
 
+        $comprobantes_UM = ComprobantesUM::where('caso', $id)->get();
+
         //Aseguradoras
         if($caso->Aseguradora == '1'){
             $caso->Aseguradora = 'Seguro Escolar';
@@ -233,13 +352,13 @@ class CasosController extends Controller
         }
 
         if($msg == 0){
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio, 'Facturas' => $facturas_caso, 'Documentos_CHN' => $documentos_CHN]);
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio, 'Facturas' => $facturas_caso, 'Documentos_CHN' => $documentos_CHN, 'Comprobantes' => $comprobantes_UM]);
         }else if($msg == 2){
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio, 'Facturas' => $facturas_caso, 'Documentos_CHN' => $documentos_CHN])->with('alerta', 'El caso ha sido modificado exitosamente');
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio, 'Facturas' => $facturas_caso, 'Documentos_CHN' => $documentos_CHN, 'Comprobantes' => $comprobantes_UM])->with('alerta', 'El caso ha sido modificado exitosamente');
         }else{
-            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio, 'Facturas' => $facturas_caso, 'Documentos_CHN' => $documentos_CHN])->with('alerta', 'Pago ingresado exitosamente.');
+            return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Tasa_Cambio' => $tasa_cambio, 'Facturas' => $facturas_caso, 'Documentos_CHN' => $documentos_CHN, 'Comprobantes' => $comprobantes_UM])->with('alerta', 'Pago ingresado exitosamente.');
         }
-        return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Facturas' => $facturas_caso, 'Documentos_CHN' => $documentos_CHN]);
+        return view('Personal.Casos.detalle', ['Caso' => $caso, 'Json' => $json, 'Archivos' => $archivos, 'Descargables' => $descargables, 'Pagos' => $pagos, 'Solicitudes' => $solicitudes, 'Causas' => $causas, 'Facturas' => $facturas_caso, 'Documentos_CHN' => $documentos_CHN, 'Comprobantes' => $comprobantes_UM]);
     }
     
     public function evaluarFuneraria($id, Request $request){
@@ -724,6 +843,31 @@ class CasosController extends Controller
         $caso->save();
 
         return back()->with('alerta', 'Sus datos fueron actualizados correctamente.');
+    }
+
+    public function chnEstatus($id, Request $request){
+        Casos::where('id', $id)->update(['Estatus_CHN' => $request->estatus, 'Observaciones_CHN' => $request->observaciones]);
+        activity()->log('CHN actualizó el estatus del caso #'.$id);
+        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El estatus del caso #'.$id.' fue actualizado por el CHN.', 'estatus' => 'Activa', 'caso' => $id]);
+        return back();
+    }
+
+    public function isrCaso($id, Request $request){
+        if($request->hasFile('comprobante')){
+            $image = $request->file('comprobante');
+            $imageName = 'Caso'.$id.'-'.$image->getClientOriginalName();
+            $upload_success = $image->move(public_path('images'),$imageName);
+        }
+
+        $caso = Casos::find($id);
+        $caso->Costo_Retencion = $caso->Costo - $request->retencion;
+        $caso->ISR = $request->retencion;
+        if($request->hasFile('comprobante')){
+            $caso->Comprobante_ISR = '/images/'.$imageName;
+        }
+        $caso->save();
+
+        return back();
     }
 }
 

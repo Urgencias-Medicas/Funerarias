@@ -128,6 +128,15 @@
                         <a class="nav-link" id="pills-facturas-tab" data-toggle="pill" href="#pills-facturas" role="tab" aria-controls="pills-facturas" aria-selected="false">Facturas</a>
                     </li>
                     @endrole
+                    @if($Caso->Estatus == 'Cerrado' && $Caso->Causa == 'Accidente')
+
+                        @role('Personal||CHN')
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-chn-tab" data-toggle="pill" href="#pills-chn" role="tab" aria-controls="pills-chn" aria-selected="false">Solicitud CHN</a>
+                        </li>
+                        @endrole
+
+                    @endif
                 </ul>
                 {{-- <ul class="nav nav-tabs nav-justified mb-5" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -480,11 +489,11 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
                                                 <label for="costoServicio">Costo</label>
-                                                <input type="text" class="form-control" value="{{$Caso->Costo}}" readonly>
+                                                <input type="text" class="form-control" value="{{$Caso->Costo_Retencion ? $Caso->Costo_Retencion : $Caso->Costo}}" readonly>
                                             </div>
                                             <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
                                                 <label for="Pendiente">Pendiente</label>
-                                                <input type="text" class="form-control" value="{{$Caso->Costo - $Caso->Pagado}}" readonly>
+                                                <input type="text" class="form-control" value="{{$Caso->Costo_Retencion ? $Caso->Costo_Retencion - $Caso->Pagado : $Caso->Costo - $Caso->Pagado}}" readonly>
                                             </div>
                                             <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
                                                 <label for="pagado">Pagado</label>
@@ -571,6 +580,32 @@
                                             
                                         </div> 
                                         @endif
+                                        <hr>
+
+                                        <form action="/Caso/{{$Caso->id}}/ISR" enctype="multipart/form-data" method="post" >
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label for="retencion">ISR</label>
+                                                    <input type="text" name="retencion" id="retencion" class="form-control"
+                                                            value="{{$Caso->ISR}}" {{$Caso->ISR ? 'disabled' : ''}}>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="Comprobante">Comprobante</label>
+                                                    <input type="file" name="comprobante" id="comprobante" class="form-control" {{$Caso->ISR ? 'disabled' : ''}}>
+                                                </div>
+                                                <div class="col">
+                                                    <label>&nbsp;</label>
+                                                    <button class="btn btn-outline-info btn-block" {{$Caso->ISR ? 'disabled' : ''}}>Guardar</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h4>Retención de ISR: </h4> <h5><a href="{{$Caso->Comprobante_ISR}}" target="_blank">Ver</a></h5>
+                                            </div>
+                                        </div>
                                         <hr>
                                         @if(isset($Caso->token))
                                         <div class="form-row">
@@ -785,7 +820,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card mt-4">
-                                    <div class="card-header">Facturas</div>
+                                    <div class="card-header">Facturas y comprobantes</div>
                                     <div class="card-body align-items-center justify-content-center">
                                         <div class="table-responsive">
                                             <table class="table">
@@ -816,6 +851,27 @@
                                             </table>
                                         </div>
                                         <hr>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Comprobante</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($Comprobantes as $comprobante)
+                                                    <tr>
+                                                        <td>{{$comprobante->id}}</td>
+                                                        <td>
+                                                            <a href="{{$comprobante->ruta}}" target="_blank" class="btn btn-primary">Ver</a>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        @role('Personal')
                                         @php
                                         $tiene_solicitud = 0;
                                         @endphp
@@ -836,6 +892,100 @@
                                                 <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
                                             </form>
                                         </div>
+                                        @endrole
+                                        @role('CHN')
+                                        <div class="form-group">
+                                            <form action="/Caso/{{$Caso->id}}/guardarFacturaUM" enctype="multipart/form-data" class="dropzone"
+                                                id="comprobanteuploadfacturaupload" method="POST">
+                                                @csrf
+                                                <div class="fallback">
+                                                    <input name="file" type="files" multiple accept="image/jpeg, image/png, image/jpg" />
+                                                </div>
+                                                <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                                            </form>
+                                        </div>
+                                        @endrole
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-chn" role="tabpanel" aria-labelledby="pills-chn-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mt-4">
+                                    <div class="card-header">Solicitud CHN</div>
+                                    <div class="card-body align-items-center justify-content-center">
+                                        @role('CHN')
+                                        <div class="row">
+                                            <div class="col">
+                                                @if($Caso->Estatus_CHN != '')
+
+                                                    <b>Estado actual: </b> {{$Caso->Estatus_CHN == 'Denegar' ? 'Denegado' : 'Aprobado'}}
+
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                @if($Caso->Estatus_CHN != '')
+
+                                                    <b>Observaciones: </b> {{$Caso->Observaciones_CHN}}
+
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <form action="/Caso/{{$Caso->id}}/CHNEstatus" method="post">
+                                            @csrf
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    <label for="TelTutor">Observaciones</label>
+                                                    <textarea name="observaciones" id="observaciones" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="estatus" id="chnestatusvalue" value="">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <button class="btn btn-danger btn-block" onmouseover="chnestatus('Denegar');">Denegar</button>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <button class="btn btn-success btn-block" onmouseover="chnestatus('Aprobar');">Aprobar</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        @endrole
+                                        @role('Personal')
+
+                                            @if($Caso->Estatus_CHN == '')
+
+                                            <div class="row">
+                                                <div class="col text-center">
+                                                    <h3><b>Pendiente</b></h3>
+                                                </div>
+                                            </div>
+
+                                            @elseif($Caso->Estatus_CHN == 'Denegar')
+
+                                            <div class="row">
+                                                <div class="col text-center">
+                                                    <h3 style="color: red;"><b>Denegado</b></h3>
+                                                    <h5><b>{{$Caso->Observaciones_CHN}}</b></h5>
+                                                </div>
+                                            </div>
+
+                                            @elseif($Caso->Estatus_CHN == 'Aprobar')
+
+                                            <div class="row">
+                                                <div class="col text-center">
+                                                    <h3 style="color:green;"><b>Aprobado</b></h3>
+                                                </div>
+                                            </div>
+
+                                            @endif
+
+                                        @endrole
                                     </div>
                                 </div>
                             </div>
@@ -1084,21 +1234,6 @@
                                     </div>
                                     @endif
                                     @endif-->
-                                    @role('CHN')
-                                    @if($solicitud->estatus == 'Pendiente' || $solicitud->estatus == 'Preaprobar')
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <button class="btn btn-danger btn-block"
-                                                onclick="actualizarSolicitud({{$solicitud->id}}, 'Declinar')">Declinar</button>
-                                        </div>
-                                        <div class="col-6">
-                                            <button class="btn btn-success btn-block"
-                                                onclick="actualizarSolicitud({{$solicitud->id}}, 'Aprobar')">Aceptar</button>
-                                        </div>
-                                    </div>
-                                    @endif
-                                    @endrole
-                                    @if($Caso->Causa == 'Accidente' && $Caso->Aseguradora_Nombre == 'Seguro Escolar')
                                     @role('Personal')
                                     @if($solicitud->estatus == 'Pendiente')
                                     <div class="row">
@@ -1108,25 +1243,11 @@
                                         </div>
                                         <div class="col-6">
                                             <button class="btn btn-success btn-block"
-                                                onclick="actualizarSolicitud({{$solicitud->id}}, 'Preaprobar')">Pre Aprobar</button>
-                                        </div>
-                                    </div>
-                                    @endif
-                                    @endrole
-                                    @else
-                                    @if($solicitud->estatus == 'Pendiente')
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <button class="btn btn-danger btn-block"
-                                                onclick="actualizarSolicitud({{$solicitud->id}}, 'Declinar')">Declinar</button>
-                                        </div>
-                                        <div class="col-6">
-                                            <button class="btn btn-success btn-block"
                                                 onclick="actualizarSolicitud({{$solicitud->id}}, 'Aprobar')">Aceptar</button>
                                         </div>
                                     </div>
                                     @endif
-                                    @endif
+                                    @endrole
                                 </div>
                             </div>
                         </div>
@@ -1167,6 +1288,12 @@
                             errors: 0
                         };
                     var dz = new Dropzone("#facturaupload"),
+                        dze_info = $("#dze_info"),
+                        status = {
+                            uploaded: 0,
+                            errors: 0
+                        };
+                    var dz = new Dropzone("#comprobanteupload"),
                         dze_info = $("#dze_info"),
                         status = {
                             uploaded: 0,
@@ -1647,6 +1774,10 @@
                 }
             });
         });
+    }
+
+    function chnestatus(estatus){
+        $('#chnestatusvalue').val(estatus)
     }
 
     $(document).ready(function () {

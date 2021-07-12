@@ -112,6 +112,29 @@
                             </div>
                         </li>-->
                         @endrole
+                        @role('CHN')
+                        <li class="nav-item">
+                            <a class="nav-link {{ (request()->is('Casos/reportes')) ? 'active' : '' }}" href="/Casos/reportes">
+                                Reportes
+                            </a>
+                        </li>
+
+                        <!--<li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Campanias
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a href="/Personal/Campanias/"
+                                    class="dropdown-item {{ (request()->is('Personal/Campanias/')) ? 'active' : '' }}"><span>
+                                        Ver Campañas </span></a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Personal/Campanias/crear"
+                                    class="nav-link {{ (request()->is('Personal/Campanias/crear*')) ? 'active' : '' }}">Crear
+                                    Campaña</a>
+                            </div>
+                        </li>-->
+                        @endrole
                         @role('Contabilidad')
                         <li class="nav-item">
                             <a class="nav-link {{ (request()->is('Personal/estadoCuentaFunerarias')) ? 'active' : '' }}" href="/Personal/estadoCuentaFunerarias">
@@ -238,6 +261,7 @@
                                 <a class="dropdown-item {{ (request()->is('Personal/verUsuariosFunerarias*')) ? 'active' : '' }}" href="/Personal/verUsuariosFunerarias">Usuarios(funerarias)</a>
                                 <a class="dropdown-item" href="/Personal/configuraciones">Tipo de Cambio</a>
                                 <a class="dropdown-item {{ (request()->is('Personal/Campanias/')) ? 'active' : '' }}" href="/Personal/Campanias/" >Campañas</a>
+                                <a class="dropdown-item {{ (request()->is('Personal/Tabla_CHN/')) ? 'active' : '' }}" href="/Personal/Tabla_CHN/" >Tabla CHN</a>
                                 <a class="dropdown-item" href="/Personal/log">Historial por usuario</a>
                                 
                             </div>

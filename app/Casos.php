@@ -11,11 +11,12 @@ class Casos extends Model
     'Fecha', 'Hora', 'Causa', 'Causa_Desc', 'Causa_Especifica', 'Direccion', 'Departamento', 
     'Municipio', 'Padre', 'TelPadre', 'Madre', 'TelMadre', 'NombreReporta', 'RelacionReporta', 
     'TelReporta', 'Lugar', 'Funeraria', 'Funeraria_Nombre', 'Estatus', 'Reportar', 'ServicioFunerarioContratado', 
-    'Costo', 'Moneda', 'Pagado', 'Solicitud', 'Idioma', 'Medico', 'Tutor', 'TelTutor', 'DPITutor', 'ParentescoTutor', 
+    'Costo', 'Costo_Retencion', 'Moneda', 'Pagado', 'Solicitud', 'Idioma', 'Medico', 'Tutor', 'TelTutor', 'DPITutor', 'ParentescoTutor', 
     'EmailTutor', 'Comentario', 'Evaluacion', 'Certificado', 'Poliza', 'TipoAsegurado',
     'Correlativo', 'Correlativo_Completo', 'Mes', 'Anio', 'Aseguradora_Nombre', 'Campania', 'Mail_Enviado', 
     'Funeraria_Externa_Nombre', 'Funeraria_Externa_NIT', 'Funeraria_Externa_Banco', 
-    'Funeraria_Externa_NoCuenta', 'Funeraria_Externa_Comprobante', 'token', 'Factura'
+    'Funeraria_Externa_NoCuenta', 'Funeraria_Externa_Comprobante', 'token', 'Factura', 'Estatus_CHN', 'Observaciones_CHN',
+    'ISR', 'Comprobante_ISR'
 ];
     public $timestamps = false;
 }

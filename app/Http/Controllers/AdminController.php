@@ -476,4 +476,26 @@ class AdminController extends Controller
         activity()->log('Se ha eliminado la campañia No. '.$id);
         return back()->with('alerta', 'Se eliminó la campaña.');
     }
+
+    public function tablaCHN(){
+        $campanias = Casos::whereNotNull('Campania')->groupby('Campania')->pluck('Campania');
+        
+        return view('Personal.TablaCHN', ['Campanias' => $campanias]);
+    }
+
+    public function guardarTablaCHN(Request $request){
+        $campanias = $request->campanias;
+
+        $campanias_string = '';
+
+        foreach($campanias as $campania){
+            $campanias_string .= $campania.', ';
+        }   
+
+        $campanias_string = substr($campanias_string, 0, -2);
+
+        Configuracion::where('opcion', 'Tabla_CHN')->update(['valor' => $campanias_string]);
+
+        return back();
+    }
 }

@@ -61,6 +61,8 @@ Route::group(['prefix' => 'Casos'], function () {
     Route::post('{id}/Causas/actualizar', 'CasosController@actualizarCausa');
     Route::post('{id}/modificar', 'CasosController@modificarCaso');
     Route::get('getInfoFuneraria/{id}', 'CasosController@getInfoFuneraria');
+    Route::get('reportes', 'CasosController@verReportesCHN');
+    Route::get('reportes/{fechaInicio}/{fechaFin}', 'CasosController@verReportesCHNFiltrada');
 
     Route::get('Externo/{token}', 'CasosController@casoExterno');
 
@@ -136,16 +138,22 @@ Route::group(['prefix' => 'Personal'], function (){
         Route::get('eliminar/{id}', 'AdminController@eliminarCampania');
     });
 
+    Route::get('Tabla_CHN', 'AdminController@tablaCHN');
+    Route::post('Tabla_CHN', 'AdminController@guardarTablaCHN');
+
 });
 
 Route::get('/pasos/{funeraria}/{accion}/{paso}', 'PersonalUMController@accionPaso');
 Route::post('Caso/{id}/guardarMedia', 'CasosController@guardarMedia');
 Route::post('Caso/{id}/guardarFacturaUM', 'CasosController@guardarFacturaUM');
+Route::post('Caso/{id}/guardarComprobanteUM', 'CasosController@guardarComprobanteUM');
 Route::get('Caso/factura/{id}/{accion}', 'CasosController@estatusFacturaUM');
 Route::get('Caso/{id}/documento/{docto}/{estatus}', 'CasosController@documentosCHN');
 Route::post('Caso/{id}/guardarFactura', 'CasosController@guardarFactura');
 Route::post('Funeraria/Caso/{id}/guardarMedia', 'FunerariasController@guardarMedia');
 Route::get('Notificacion/{id}/quitar', 'HomeController@quitarNotificacion');
+Route::post('Caso/{id}/CHNEstatus', 'CasosController@chnEstatus');
+Route::post('Caso/{id}/ISR', 'CasosController@isrCaso');
 
 Route::post('Funeraria/info/guardarMedia/{media}', 'HomeController@guardarMedia');
 Route::post('Funeraria/info/actualizarInfo', 'HomeController@guardarInfo');

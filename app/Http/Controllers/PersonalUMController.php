@@ -13,10 +13,12 @@ use App\DocumentosFuneraria;
 use App\DetallesDeFuneraria;
 use App\Notificaciones;
 use App\InfoFunerariasRegistradas;
+use App\ReportesCHN;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Mail\Mailable;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 use DB;
 
@@ -922,7 +924,18 @@ class PersonalUMController extends Controller
         //}
         $pagos = HistorialPagos::where('caso', $id)->get();
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Personal.Reportes.Plantillas.Caso', ['Caso' => $caso, 'Archivos' => $imagenes, 'Pagos' => $pagos])->setPaper('a4', 'portrait');
-        return $pdf->download('Reporte__SFUM_Caso-'.$id.'.pdf');
+        $save_pdf = $pdf->download('Reporte__SFUM_Caso-'.$id.'.pdf');
+
+        $pdf_name = 'Reporte__SFUM_Caso-'.$id.'.pdf';
+
+        Storage::disk('public_uploads')->put('reportes/'.$pdf_name,$save_pdf);
+
+        ReportesCHN::updateOrCreate([
+            'caso' => $id,
+            'ruta' => '/images/reportes/'.$pdf_name,
+        ]);
+        
+        return $save_pdf;
         //return view('Personal.Reportes.Plantillas.Caso', ['Caso' => $caso, 'Archivos' => $archivos, 'Pagos' => $pagos]);
     }
 

@@ -359,6 +359,13 @@
                                                 solicitudes</button>
                                         </div>
                                     </div>
+                                    @if($Caso->ISR)
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <a href="{{$Caso->Comprobante_ISR}}" class="btn btn-outline-primary btn-block my-2" target="_blank">Ver retención ISR</a>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </form>
                             <div class="form-group">
