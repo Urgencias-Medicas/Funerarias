@@ -240,7 +240,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="TelReporta">Tel&eacute;fono</label>
                                         <input type="text" name="TelReporta" id="TelReporta" class="form-control"
-                                            value="{{$Caso->TelReporta}}">
+                                            value="{{$Caso->TelReporta}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -252,7 +252,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="TelPadre">Tel. Padre</label>
                                         <input type="text" name="TelPadre" id="TelPadre" class="form-control"
-                                            value="{{$Caso->TelPadre}}">
+                                            value="{{$Caso->TelPadre}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -264,7 +264,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="TelMadre">Tel. Madre</label>
                                         <input type="text" name="TelMadre" id="TelMadre" class="form-control"
-                                            value="{{$Caso->TelMadre}}">
+                                            value="{{$Caso->TelMadre}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -276,12 +276,12 @@
                                     <div class="form-group col-md-6">
                                         <label for="TelTutor">Tel&eacute;fono Tutor</label>
                                         <input type="text" name="TelTutor" id="TelTutor" class="form-control"
-                                            value="{{$Caso->TelTutor}}">
+                                            value="{{$Caso->TelTutor}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="DPITutor">DPI Tutor</label>
                                         <input type="text" name="DPITutor" id="DPITutor" class="form-control"
-                                            value="{{$Caso->DPITutor}}">
+                                            value="{{$Caso->DPITutor}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                     </div>
                                 </div>
                                 <div class="form-row">

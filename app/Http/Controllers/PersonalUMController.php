@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\User;
 use App\DetallesFuneraria;
 use App\Casos;
@@ -1256,12 +1257,16 @@ class PersonalUMController extends Controller
         $token = substr(md5(mt_rand()), 0, 25);
         
         $caso = Casos::find($id_caso);
+        $mes_actual = Carbon::now()->format('m');
+        $anio_actual = Carbon::now()->format('Y');
 
         if(empty($caso->token)){
             $caso->Campania = 'Externa';
             $caso->token = $token;
             $caso->Estatus = 'Asignado';
             $caso->Funeraria_Nombre = 'Externa';
+            $caso->Mes = $mes_actual;
+            $caso->Anio = $anio_actual;
             $caso->save();
             activity()->log('El caso #'.$id_caso.' fue asignado a una funeraria externa.');
             Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$id_caso.' fue asignado a una funeraria externa.', 'estatus' => 'Activa', 'caso' => $id_caso]);

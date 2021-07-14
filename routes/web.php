@@ -63,6 +63,7 @@ Route::group(['prefix' => 'Casos'], function () {
     Route::get('getInfoFuneraria/{id}', 'CasosController@getInfoFuneraria');
     Route::get('reportes', 'CasosController@verReportesCHN');
     Route::get('reportes/{fechaInicio}/{fechaFin}', 'CasosController@verReportesCHNFiltrada');
+    Route::get('{caso}/reportes/generar', 'CasosController@generarReporteCHN');
 
     Route::get('Externo/{token}', 'CasosController@casoExterno');
 
@@ -154,6 +155,7 @@ Route::post('Funeraria/Caso/{id}/guardarMedia', 'FunerariasController@guardarMed
 Route::get('Notificacion/{id}/quitar', 'HomeController@quitarNotificacion');
 Route::post('Caso/{id}/CHNEstatus', 'CasosController@chnEstatus');
 Route::post('Caso/{id}/ISR', 'CasosController@isrCaso');
+
 
 Route::post('Funeraria/info/guardarMedia/{media}', 'HomeController@guardarMedia');
 Route::post('Funeraria/info/actualizarInfo', 'HomeController@guardarInfo');

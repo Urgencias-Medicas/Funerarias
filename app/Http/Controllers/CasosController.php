@@ -24,6 +24,8 @@ use App\FacturasUM;
 use App\DocumentosCHN;
 use App\ReportesCHN;
 use App\ComprobantesUM;
+use LynX39\LaraPdfMerger\Facades\PdfMerger;
+use PDF;
 
 class CasosController extends Controller
 {
@@ -111,11 +113,11 @@ class CasosController extends Controller
                 'estatus' => 'Pendiente',
             ]);
             activity()->log('Se subió una nueva factura de UM al caso #'.$caso);
-            return response()->json($upload_success, 200);
+            return back();
         }
         // Else, return error 400
         else {
-            return response()->json('error', 400);
+            return back();
         }
     }
     public function guardarComprobanteUM($caso, Request $request){
@@ -246,6 +248,121 @@ class CasosController extends Controller
         return view('Personal.Casos.verReportes', ['Reportes' => $reportes_chn]);
 
         return $reportes_chn;
+    }
+
+    public function generarReporteCHN($caso){
+
+        if(File::exists(public_path('images/caso'.$caso))){
+            File::deleteDirectory(public_path('images/caso'.$caso));
+        }
+
+        File::makeDirectory(public_path('images/caso'.$caso), $mode = 0777, true, true);
+
+
+
+        $descargables = DocumentosCHN::where('caso', $caso)->get();
+        $pdf_agregar = array();
+        $img_agregar = array();
+        foreach($descargables as $descargable){ 
+            if(substr($descargable->ruta, -3) == 'pdf'){
+                array_push($pdf_agregar, $descargable->ruta);
+            }else{
+                array_push($img_agregar, $descargable->ruta);
+            }
+        }
+
+        /*$pdfMerger = PDFMerger::init();
+
+        $pdfMerger->addPDF(public_path('images/reportes/Reporte__SFUM_Caso-'.$caso.'.pdf'), 'all');
+        foreach($pdf_agregar as $agregar){
+            $pdfMerger->addPDF(public_path('images/Caso'.$caso.'-'.$agregar), 'all');
+        }
+
+        $pdfMerger->merge('P');
+        //$pdfMerger->duplexMerge();
+
+        $pdfMerger->save(public_path('images/reportesCHN/reporte-caso-'.$caso), "download");*/
+
+        foreach($img_agregar as $img){
+            $img_point = strrpos($img, '.');
+            $img_name = substr($img, 0, $img_point);
+             
+            $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Personal.Reportes.Plantillas.Imagen', ['foto' => $img, 'caso' => $caso])->setPaper('a4', 'portrait');
+            $filename = '';
+            if(strcasecmp($img_name, 'factura_funeraria') == 0){
+                $filename = 'factura_funeraria.pdf';
+            }else if(strcasecmp($img_name, 'comprobante_um') == 0){
+                $filename = 'comprobante_um.pdf';
+            }else if(strcasecmp($img_name, 'retencion_isr') == 0){
+                $filename = 'retencion_isr.pdf';
+            }else if(strcasecmp($img_name, 'hoja_traslado') == 0){
+                $filename = 'hoja_traslado.pdf';
+            }else if(strcasecmp($img_name, 'finiquito_um') == 0){
+                $filename = 'finiquito_um.pdf';
+            }else if(strcasecmp($img_name, 'finiquito_chn') == 0){
+                $filename = 'finiquito_chn.pdf';
+            }else if(strcasecmp($img_name, 'certificado_medico') == 0){
+                $filename = 'certificado_medico.pdf';
+            }else if(strcasecmp($img_name, 'inscripcion_defuncion') == 0){
+                $filename = 'inscripcion_defuncion.pdf';
+            }else if(strcasecmp($img_name, 'certificado_defuncion') == 0){
+                $filename = 'certificado_defuncion.pdf';
+            }else if(strcasecmp($img_name, 'certificado_nacimiento') == 0){
+                $filename = 'certificado_nacimiento.pdf';
+            }else if(strcasecmp($img_name, 'dpi_tutores') == 0){
+                $filename = 'dpi_tutores.pdf';
+            }else if(strcasecmp($img_name, 'dpi_reporta') == 0){
+                $filename = 'dpi_reporta.pdf';
+            }
+            $pdf->save(public_path('images/caso'.$caso).'/'.$filename);
+            //$save_pdf = $pdf->download($filename);
+        }
+
+        $pdf = new \Jurosh\PDFMerge\PDFMerger;
+
+        $pdf->addPDF(public_path('images/reportes/Reporte__SFUM_Caso-'.$caso.'.pdf'), 'all');
+
+        foreach($pdf_agregar as $agregar){
+            $pdf->addPDF(public_path('images/Caso'.$caso.'-'.$agregar), 'all');
+        }
+
+        foreach($img_agregar as $img){
+            $img_point = strrpos($img, '.');
+            $img_name = substr($img, 0, $img_point);
+             
+            $filename = '';
+            if(strcasecmp($img_name, 'factura_funeraria') == 0){
+                $filename = 'factura_funeraria.pdf';
+            }else if(strcasecmp($img_name, 'comprobante_um') == 0){
+                $filename = 'comprobante_um.pdf';
+            }else if(strcasecmp($img_name, 'retencion_isr') == 0){
+                $filename = 'retencion_isr.pdf';
+            }else if(strcasecmp($img_name, 'hoja_traslado') == 0){
+                $filename = 'hoja_traslado.pdf';
+            }else if(strcasecmp($img_name, 'finiquito_um') == 0){
+                $filename = 'finiquito_um.pdf';
+            }else if(strcasecmp($img_name, 'finiquito_chn') == 0){
+                $filename = 'finiquito_chn.pdf';
+            }else if(strcasecmp($img_name, 'certificado_medico') == 0){
+                $filename = 'certificado_medico.pdf';
+            }else if(strcasecmp($img_name, 'inscripcion_defuncion') == 0){
+                $filename = 'inscripcion_defuncion.pdf';
+            }else if(strcasecmp($img_name, 'certificado_defuncion') == 0){
+                $filename = 'certificado_defuncion.pdf';
+            }else if(strcasecmp($img_name, 'certificado_nacimiento') == 0){
+                $filename = 'certificado_nacimiento.pdf';
+            }else if(strcasecmp($img_name, 'dpi_tutores') == 0){
+                $filename = 'dpi_tutores.pdf';
+            }else if(strcasecmp($img_name, 'dpi_reporta') == 0){
+                $filename = 'dpi_reporta.pdf';
+            }
+            $pdf->addPDF(public_path('images/caso'.$caso).'/'.$filename, 'all');
+            //$save_pdf = $pdf->download($filename);
+        }
+        
+        $pdf->merge('download', 'reporte-caso-'.$caso.'.pdf');
+
+        return back();
     }
 
     public function verReportesCHNFiltrada($fechaInicio, $fechaFin){
@@ -822,7 +939,7 @@ class CasosController extends Controller
         $correlativo = Casos::where('Campania', 'Externa')->where('Mes', $mes_actual)->where('Anio', $anio_actual)->max('Correlativo');
         $correlativo = $correlativo+1;
         $correlativo = sprintf("%03d", $correlativo);
-        $correlativo_completo = $diminutivo_funeraria.'-'.$correlativo.$mes_actual.$anio_actual;
+        $correlativo_completo = 'FEX-'.$correlativo.$mes_actual.$anio_actual;
 
         if($request->hasFile('Comprobante')){
             $image = $request->file('Comprobante');

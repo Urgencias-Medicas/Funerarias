@@ -124,9 +124,11 @@
                     </li>
                     @endrole
                     @role('Personal||CHN')
+                        @if($Caso->Causa == 'Accidente' && $Caso->Aseguradora_Nombre == 'Seguro Escolar')
                     <li class="nav-item">
                         <a class="nav-link" id="pills-facturas-tab" data-toggle="pill" href="#pills-facturas" role="tab" aria-controls="pills-facturas" aria-selected="false">Facturas</a>
                     </li>
+                        @endif
                     @endrole
                     @if($Caso->Estatus == 'Cerrado' && $Caso->Causa == 'Accidente')
 
@@ -338,7 +340,7 @@
                                                 <div class="form-group col-md-6">
                                                     <label for="TelReporta">Tel&eacute;fono</label>
                                                     <input type="text" name="TelReporta" id="TelReporta" class="form-control"
-                                                        value="{{$Caso->TelReporta}}">
+                                                        value="{{$Caso->TelReporta}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                 </div>
                                             </div>
                                             <div class="form-row">
@@ -350,7 +352,7 @@
                                                 <div class="form-group col-md-6">
                                                     <label for="TelPadre">Tel. Padre</label>
                                                     <input type="text" name="TelPadre" id="TelPadre" class="form-control"
-                                                        value="{{$Caso->TelPadre}}">
+                                                        value="{{$Caso->TelPadre}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                 </div>
                                             </div>
                                             <div class="form-row">
@@ -362,7 +364,7 @@
                                                 <div class="form-group col-md-6">
                                                     <label for="TelMadre">Tel. Madre</label>
                                                     <input type="text" name="TelMadre" id="TelMadre" class="form-control"
-                                                        value="{{$Caso->TelMadre}}">
+                                                        value="{{$Caso->TelMadre}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -373,12 +375,12 @@
                                                 <div class="form-group col-md-6">
                                                     <label for="TelTutor">Tel&eacute;fono Tutor</label>
                                                     <input type="text" name="TelTutor" id="TelTutor" class="form-control"
-                                                        value="{{$Caso->TelTutor}}">
+                                                        value="{{$Caso->TelTutor}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="DPITutor">DPI Tutor</label>
                                                     <input type="text" name="DPITutor" id="DPITutor" class="form-control"
-                                                        value="{{$Caso->DPITutor}}">
+                                                        value="{{$Caso->DPITutor}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                                 </div>
                                             </div>
                                             <div class="form-row">
@@ -504,15 +506,15 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
                                                 <label for="costoServicio">Costo</label>
-                                                <input type="text" class="form-control" value="{{$Caso->Costo/$Tasa_Cambio}}" readonly>
+                                                <input type="text" class="form-control" value="{{$Caso->Costo_Retencion ? $Caso->Costo_Retencio/$Tasa_Cambio : $Caso->Costo/$Tasa_Cambio}}" readonly>
                                             </div>
                                             <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
                                                 <label for="Pendiente">Pendiente</label>
-                                                <input type="text" class="form-control" value="{{($Caso->Costo - $Caso->Pagado)/$Tasa_Cambio}}" readonly>
+                                                <input type="text" class="form-control" value="{{$Caso->Costo_Retencion ? ($Caso->Costo_Retencion - $Caso->Pagado)/$Tasa_Cambio : ($Caso->Costo - $Caso->Pagado)/$Tasa_Cambio}}" readonly>
                                             </div>
                                             <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
                                                 <label for="pagado">Pagado</label>
-                                                <input type="text" class="form-control" value="{{$Caso->Pagado/$Tasa_Cambio}}" readonly>
+                                                <input type="text" class="form-control" value="{{isset($Caso->Pagado) ? $Caso->Pagado/$Tasa_Cambio : '0'}}" readonly>
                                             </div>
                                         </div> 
                                         @else
@@ -524,7 +526,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon1">$</span>
                                                     </div>        
-                                                    <input type="text" class="form-control" value="{{$Caso->Costo}}" readonly>
+                                                    <input type="text" class="form-control" value="{{$Caso->Costo_Retencion ? $Caso->Costo_Retencion : $Caso->Costo}}" readonly>
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -533,7 +535,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon1">$</span>
                                                     </div>     
-                                                    <input type="text" class="form-control" value="{{$Caso->Costo - $Caso->Pagado}}" readonly>
+                                                    <input type="text" class="form-control" value="{{$Caso->Costo_Retencion ? $Caso->Costo_Retencion - $Caso->Pagado : $Caso->Costo - $Caso->Pagado}}" readonly>
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -554,17 +556,17 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon1">Q</span>
                                                 </div>
-                                                <input type="text" class="form-control" value="{{$Caso->Costo*8}}" readonly>
+                                                <input type="text" class="form-control" value="{{$Caso->Costo_Retencion ? $Caso->Costo_Retencio*$Tasa_Cambio : $Caso->Costo*$Tasa_Cambio}}" readonly>
                                             </div>
                                         </div>              
-                                            
+
                                         <div class="col">
                                             <label for="basic-url">Pendiente</label>
                                                 <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon1">Q</span>
                                                 </div>
-                                                <input type="text" class="form-control" value="{{($Caso->Costo - $Caso->Pendiente)*8}}" readonly>
+                                                <input type="text" class="form-control" value="{{$Caso->Costo_Retencion ? ($Caso->Costo_Retencion - $Caso->Pagado)*$Tasa_Cambio : ($Caso->Costo - $Caso->Pagado)*$Tasa_Cambio}}" readonly>
                                             </div>
                                         </div>              
                                             
@@ -574,7 +576,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon1">Q</span>
                                                 </div>
-                                                <input type="text" class="form-control" value="{{$Caso->Pagado*8}}" readonly>
+                                                <input type="text" class="form-control" value="{{isset($Caso->Pagado) ? $Caso->Pagado*$Tasa_Cambio : '0'}}" readonly>
                                             </div>
                                         </div>              
                                             
@@ -871,6 +873,18 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        @role('CHN')
+                                        <div class="form-group">
+                                            <form action="/Caso/{{$Caso->id}}/guardarFacturaUM" enctype="multipart/form-data" class="dropzone"
+                                                id="comprobanteupload" method="POST">
+                                                @csrf
+                                                <div class="fallback">
+                                                    <input name="file" type="files" multiple accept="image/jpeg, image/png, image/jpg" />
+                                                </div>
+                                                <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                                            </form>
+                                        </div>
+                                        @endrole
                                         @role('Personal')
                                         @php
                                         $tiene_solicitud = 0;
@@ -882,26 +896,25 @@
                                                 @endphp
                                             @endif
                                         @endforeach
+                                        <hr>
                                         <div class="form-group" style="display:{{$tiene_solicitud == 1 ? 'none' : ''}}">
-                                            <form action="/Caso/{{$Caso->id}}/guardarFacturaUM" enctype="multipart/form-data" class="dropzone"
-                                                id="facturaupload" method="POST">
+                                            <form action="/Caso/{{$Caso->id}}/guardarFacturaUM" enctype="multipart/form-data" method="POST">
                                                 @csrf
-                                                <div class="fallback">
-                                                    <input name="file" type="files" multiple accept="image/jpeg, image/png, image/jpg" />
-                                                </div>
-                                                <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
-                                            </form>
-                                        </div>
-                                        @endrole
-                                        @role('CHN')
-                                        <div class="form-group">
-                                            <form action="/Caso/{{$Caso->id}}/guardarFacturaUM" enctype="multipart/form-data" class="dropzone"
-                                                id="comprobanteuploadfacturaupload" method="POST">
-                                                @csrf
-                                                <div class="fallback">
-                                                    <input name="file" type="files" multiple accept="image/jpeg, image/png, image/jpg" />
-                                                </div>
-                                                <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h4><b>Subir factura</b></h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input name="file" type="file" multiple accept="image/jpeg, image/png, image/jpg" class="form-control"/>
+                                                        </div>
+                                                        <div class="col">
+                                                            <button class="btn btn-primary btn-block">Subir</button>
+                                                        </div>
+                                                    </div>
+
+                                                <!--<div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>-->
                                             </form>
                                         </div>
                                         @endrole
@@ -1287,18 +1300,18 @@
                             uploaded: 0,
                             errors: 0
                         };
-                    var dz = new Dropzone("#facturaupload"),
-                        dze_info = $("#dze_info"),
-                        status = {
-                            uploaded: 0,
-                            errors: 0
-                        };
                     var dz = new Dropzone("#comprobanteupload"),
                         dze_info = $("#dze_info"),
                         status = {
                             uploaded: 0,
                             errors: 0
                         };
+                    /*var dz = new Dropzone("#facturaupload"),
+                        dze_info = $("#dze_info"),
+                        status = {
+                            uploaded: 0,
+                            errors: 0
+                        };*/
                     var $f = $(
                         '<tr><td class="name"></td><td class="size"></td><td class="type"></td><td class="status"></td></tr>'
                     );

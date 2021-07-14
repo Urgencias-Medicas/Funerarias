@@ -63,10 +63,11 @@
                                 <a href="/Casos/{{$reporte->caso}}/ver" class="btn btn-outline-info btn-block">Ir</a>
                             </td>
                             <td>
-                                @php
+                                <!--@php
                                     $reporte->ruta = str_replace('/images/reportes/', '', $reporte->ruta);
                                 @endphp
-                                <a class="btn btn-outline-info btn-block" onclick="descargar({{$reporte->caso}}, '{{$reporte->ruta}}', {{json_encode($reporte->descargables_id)}})">Ver</a>
+                                <a class="btn btn-outline-info btn-block" onclick="descargar({{$reporte->caso}}, '{{$reporte->ruta}}', {{json_encode($reporte->descargables_id)}})">Ver</a>-->
+                                <a href="/Casos/{{$reporte->caso}}/reportes/generar" class="btn btn-outline-info btn-block" target="_blank">Ver</a>
                             </td>
                         </tr>
                         @endforeach
