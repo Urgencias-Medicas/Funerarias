@@ -299,6 +299,7 @@
             <div class="card card-shadow">
                 <div class="card-body">
                     <h5 class="card-heading">Funerarias por categoria</h5>
+                    <canvas id="funerariasCategoria"></canvas>
                 </div>
             </div>
         </div>
@@ -481,6 +482,35 @@ var chart = new Chart(ctx, {
     }
 });
 </script>
+<script>
+var ctx = document.getElementById('funerariasCategoria').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: {!! $Funerarias_Categorias_Keys !!},
+        datasets: [{
+            label: 'Funerarias por categoría',
+            backgroundColor: 'rgba(153, 102, 255, 1)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            data: {!! $Funerarias_Categorias !!}
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
 <!-- Promedio de evaluaciones -->
 <script>
 var ctx = document.getElementById('Evaluacion').getContext('2d');
@@ -523,8 +553,8 @@ var chart = new Chart(ctx, {
         labels: {!! $Muertes !!},
         datasets: [{
             label: 'Tipos de muerte',
-            backgroundColor: 'rgba(54, 162, 235, 1)',
-            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
             data: {!! $Conteo_Muertes !!}
         }]
     },

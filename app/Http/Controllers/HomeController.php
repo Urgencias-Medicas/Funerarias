@@ -140,7 +140,7 @@ class HomeController extends Controller
         $id_funeraria = Funerarias::where('Id_Funeraria', $id)->value('Funeraria_Registrada');
 
         InfoFunerariasRegistradas::where('id', $id_funeraria)->update(['direccion' => $request->direccion, 
-        'departamento' => strtoupper($request->departamento), 'tel_contacto' => $request->TelContacto, 'tel_coordinador' => $request->telefono, 'tipo' => $request->tipo_funeraria]);
+        'departamento' => strtoupper($request->departamento), 'tel_contacto' => $request->telefono, 'tel_coordinador' => $request->numero_contacto, 'tipo' => $request->tipo_funeraria]);
 
         return back();
         //return DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'TipoFuneraria', 'Valor' => $request->tipo_funeraria]);

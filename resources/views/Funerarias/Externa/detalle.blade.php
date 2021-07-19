@@ -77,7 +77,7 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="Cuenta">Documento</label>
-                                <input type="file" class="form-control" name="Comprobante">
+                                <input type="file" class="form-control" name="Comprobante" required>
                                 <small>Debe subir un docto que verifique su No. de cuenta</small>
                             </div>
                             <div class="form-group col-md-2">

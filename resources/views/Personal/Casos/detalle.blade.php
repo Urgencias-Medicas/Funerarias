@@ -69,8 +69,13 @@
 </div>
 @endif
 @foreach($Descargables as $descargable)
+    @php
+        $file_parts = pathinfo($descargable['archivo'])    
+    @endphp
+    @if($file_parts['filename'] != 'Caso'.$Caso->id.'-Factura')
 <a href="/images/{{$descargable['archivo']}}" id="descargable-{{$descargable['id']}}" download
     style="display: none;"></a>
+    @endif
 @endforeach
 
 <div class="container">
@@ -506,7 +511,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
                                                 <label for="costoServicio">Costo</label>
-                                                <input type="text" class="form-control" value="{{$Caso->Costo_Retencion ? $Caso->Costo_Retencio/$Tasa_Cambio : $Caso->Costo/$Tasa_Cambio}}" readonly>
+                                                <input type="text" class="form-control" value="{{$Caso->Costo_Retencion ? $Caso->Costo_Retencion/$Tasa_Cambio : $Caso->Costo/$Tasa_Cambio}}" readonly>
                                             </div>
                                             <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
                                                 <label for="Pendiente">Pendiente</label>
@@ -556,7 +561,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon1">Q</span>
                                                 </div>
-                                                <input type="text" class="form-control" value="{{$Caso->Costo_Retencion ? $Caso->Costo_Retencio*$Tasa_Cambio : $Caso->Costo*$Tasa_Cambio}}" readonly>
+                                                <input type="text" class="form-control" value="{{$Caso->Costo_Retencion ? $Caso->Costo_Retencion*$Tasa_Cambio : $Caso->Costo*$Tasa_Cambio}}" readonly>
                                             </div>
                                         </div>              
 
@@ -589,12 +594,12 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <label for="retencion">ISR</label>
-                                                    <input type="text" name="retencion" id="retencion" class="form-control"
+                                                    <input type="text" name="retencion" id="retencion" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                             value="{{$Caso->ISR}}" {{$Caso->ISR ? 'disabled' : ''}}>
                                                 </div>
                                                 <div class="col">
                                                     <label for="Comprobante">Comprobante</label>
-                                                    <input type="file" name="comprobante" id="comprobante" class="form-control" {{$Caso->ISR ? 'disabled' : ''}}>
+                                                    <input type="file" name="comprobante" id="comprobante" class="form-control" {{$Caso->ISR ? 'disabled' : ''}} required>
                                                 </div>
                                                 <div class="col">
                                                     <label>&nbsp;</label>
@@ -765,13 +770,17 @@
                                                     @php
                                                         $file_parts = pathinfo($archivo)    
                                                     @endphp
+                                                    @if($file_parts['filename'] != 'Factura')
                                                 <li class="list-group-item"><b>
                                                     @if($file_parts['extension'] == 'jpg' || $file_parts['extension'] == 'png' || $file_parts['extension'] == 'jfif' || $file_parts['extension'] == 'jpeg')
+                                                        
                                                         <input type="checkbox" name="descargar[]" value="/images/Caso{{$Caso->id}}-{{$archivo}}"> 
+                                                        
                                                     @endif
+                                                    
                                                     <a target="popup"
                                                             onclick="window.open('/images/Caso{{$Caso->id}}-{{$archivo}}','Archivo-Caso{{$Caso->id}}','width=600,height=400')">{{$archivo}}</a></b>
-
+                                                            
                                                     @if($Documentos_CHN->isEmpty())
                                                         <input type="checkbox" data-toggle="toggle" data-on="Si" data-off="No"
                             data-onstyle="success" data-offstyle="secondary" onchange="documentoCHN('Si', '{{$archivo}}')">
@@ -785,6 +794,7 @@
                                                         @endif
                                                     @endif
                                                 </li>
+                                                @endif
                                                 @endforeach
                                             </form>
                                         </ul>
@@ -1765,10 +1775,14 @@
     }
 
     function descargarAdjuntos() {
-        @foreach($Descargables as $descargable)
-        document.getElementById("descargable-{{$descargable['id']}}").click();
-        document.getElementById("generarReporte").submit();
-        @endforeach
+        @if(empty($Descargables))
+            document.getElementById("generarReporte").submit();
+        @else
+            @foreach($Descargables as $descargable)
+            document.getElementById("descargable-{{$descargable['id']}}").click();
+            document.getElementById("generarReporte").submit();
+            @endforeach
+        @endif
     }
 
     function setInputFilter(textbox, inputFilter) {

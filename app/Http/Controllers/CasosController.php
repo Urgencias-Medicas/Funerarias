@@ -314,7 +314,10 @@ class CasosController extends Controller
             }else if(strcasecmp($img_name, 'dpi_reporta') == 0){
                 $filename = 'dpi_reporta.pdf';
             }
-            $pdf->save(public_path('images/caso'.$caso).'/'.$filename);
+            
+            if($filename != ''){
+                $pdf->save(public_path('images/caso'.$caso).'/'.$filename);
+            }
             //$save_pdf = $pdf->download($filename);
         }
 
@@ -356,7 +359,10 @@ class CasosController extends Controller
             }else if(strcasecmp($img_name, 'dpi_reporta') == 0){
                 $filename = 'dpi_reporta.pdf';
             }
-            $pdf->addPDF(public_path('images/caso'.$caso).'/'.$filename, 'all');
+
+            if($filename != ''){
+                $pdf->addPDF(public_path('images/caso'.$caso).'/'.$filename, 'all');
+            }
             //$save_pdf = $pdf->download($filename);
         }
         
@@ -591,7 +597,7 @@ class CasosController extends Controller
         $casos->Campania = $campania_seleccionada->Diminutivo;
         $casos->save();
 
-        $correo_funeraria = Funerarias::where('Id_Funeraria', $funeraria)->value('Email');
+        $correo_funeraria = Funerarias::where('Funeraria_Registrada', $funeraria)->value('Email');
         $mensaje = 'Caso #'.$caso.' asignado. ';
         $mensaje .= 'Más información en '.url('/Funerarias/Casos/'.$caso.'/ver');
         $casos_array = ['id' => $caso];  
@@ -812,7 +818,9 @@ class CasosController extends Controller
     }
 
     public function getInfoFuneraria($id){
-        $costo = Funerarias::where('Id_Funeraria', $id)->select('Email', 'Campanias')->first()->toJson();
+        $costo = Funerarias::where('Funeraria_Registrada', $id)->select('Email', 'Campanias')->first()->toJson();
+
+        //return Funerarias::where('Funeraria_Registrada', $id)->select('Email', 'Campanias')->first();
 
         return $costo;
     }

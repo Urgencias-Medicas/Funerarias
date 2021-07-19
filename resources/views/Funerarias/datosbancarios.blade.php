@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Cambiar Correo</div>
+                <div class="card-header">Cambiar Datos Bancarios</div>
 
                 <div class="card-body">
                     <form method="POST" action="/Funerarias/datosBancarios/guardar" enctype="multipart/form-data">
@@ -43,7 +43,7 @@
                             <label class="col-md-4 col-form-label text-md-right" for="Comprobante">Comprobante</label>
                             
                             <div class="col-md-6">
-                                <input type="file" class="form-control" id="Comprobante" name="Comprobante">
+                                <input type="file" class="form-control" id="Comprobante" name="Comprobante" required>
                                 <small>Debe subir un docto que verifique su No. de cuenta</small>
                             </div>
                         </div>

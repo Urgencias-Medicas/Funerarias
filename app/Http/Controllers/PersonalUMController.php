@@ -135,12 +135,22 @@ class PersonalUMController extends Controller
         $fechaInicio = date($fechaInicio);
         $fechaFin = date($fechaFin);
 
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            }    
         }else{
-            //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            }
         }
 
         $pdf = PDF::loadView('Personal.Reportes.Plantillas.Edades', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
@@ -151,13 +161,23 @@ class PersonalUMController extends Controller
         
         $fechaInicio = date($fechaInicio);
         $fechaFin = date($fechaFin);
-
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+        
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            }
         }else{
-            //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            }   
         }
 
         $fileName = 'Reporte__SFUM_Edades-'.$fechaInicio.'-'.$fechaFin.'.csv';
@@ -194,12 +214,22 @@ class PersonalUMController extends Controller
         $fechaInicio = date($fechaInicio);
         $fechaFin = date($fechaFin);
 
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            }
         }else{
-            //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad')->get();
+            }
         }
 
         $fileName = 'Reporte__SFUM_Edades-'.$fechaInicio.'-'.$fechaFin.'.xls';
@@ -234,25 +264,46 @@ class PersonalUMController extends Controller
 
     public function reporteCausas($fechaInicio, $fechaFin, $aseguradora){
 
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            }
         }else{
-            //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            }
         }
+
 
         $pdf = PDF::loadView('Personal.Reportes.Plantillas.Causas', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
         return $pdf->download('Reporte__SFUM_Reporte-Causas.pdf');
     }
     public function reporteCausasCSV($fechaInicio, $fechaFin, $aseguradora){
 
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            }
         }else{
-            //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            }
         }
 
         //$pdf = PDF::loadView('Personal.Reportes.Plantillas.Causas', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
@@ -287,12 +338,23 @@ class PersonalUMController extends Controller
     }
 
     public function reporteCausasExcel($fechaInicio, $fechaFin, $aseguradora){
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            }
         }else{
-            //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Causa', 'DESC')->select('Nombre', 'Causa')->get();
+            }
         }
 
         $fileName = 'Reporte__SFUM_Causas-'.$fechaInicio.'-'.$fechaFin.'.xls';
@@ -327,12 +389,22 @@ class PersonalUMController extends Controller
 
     public function reporteLugares($fechaInicio, $fechaFin, $aseguradora){
 
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            }
         }else{
-            //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            }
         }
 
         $pdf = PDF::loadView('Personal.Reportes.Plantillas.Lugares', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
@@ -340,12 +412,22 @@ class PersonalUMController extends Controller
     }
     public function reporteLugaresCSV($fechaInicio, $fechaFin, $aseguradora){
 
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            }
         }else{
-            //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            }
         }
 
         $fileName = 'Reporte__SFUM_Lugares-'.$fechaInicio.'-'.$fechaFin.'.csv';
@@ -380,12 +462,23 @@ class PersonalUMController extends Controller
     }
 
     public function reporteLugaresExcel($fechaInicio, $fechaFin, $aseguradora){
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            }
         }else{
-            //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Lugar', 'DESC')->select('Nombre', 'Lugar', 'Municipio', 'Departamento')->get();
+            }
         }
 
         $fileName = 'Reporte__SFUM_Lugares-'.$fechaInicio.'-'.$fechaFin.'.xls';
@@ -422,33 +515,68 @@ class PersonalUMController extends Controller
 
     public function reporteGeneral($fechaInicio, $fechaFin, $aseguradora){
 
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
+        $fechaInicio = date($fechaInicio);
+        $fechaFin = date($fechaFin);
 
-            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
-
-            $conteo_funerarias = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
-
-            $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
-
-            foreach($departamentos as $departamento){
-                $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
-                $departamento->Causas_arreglo = $causas_deptos;
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
+    
+                $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+    
+                $conteo_funerarias = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+    
+                $departamentos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
+    
+                foreach($departamentos as $departamento){
+                    $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                    $departamento->Causas_arreglo = $causas_deptos;
+                }
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
+    
+                $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+    
+                $conteo_funerarias = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+    
+                $departamentos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
+    
+                foreach($departamentos as $departamento){
+                    $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                    $departamento->Causas_arreglo = $causas_deptos;
+                }
             }
         }else{
-            //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
-
-            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
-
-            $conteo_funerarias = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
-
-            $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
-
-            foreach($departamentos as $departamento){
-                $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
-                $departamento->Causas_arreglo = $causas_deptos;
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
+    
+                $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+    
+                $conteo_funerarias = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+    
+                $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
+    
+                foreach($departamentos as $departamento){
+                    $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                    $departamento->Causas_arreglo = $causas_deptos;
+                }
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
+    
+                $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+    
+                $conteo_funerarias = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+    
+                $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
+    
+                foreach($departamentos as $departamento){
+                    $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                    $departamento->Causas_arreglo = $causas_deptos;
+                }
             }
         }
 
@@ -460,14 +588,24 @@ class PersonalUMController extends Controller
         return $pdf->download('Reporte__SFUM_Reporte-General.pdf');
     }
     public function reporteGeneralCSV($fechaInicio, $fechaFin, $aseguradora){
-        ;
         setlocale(LC_TIME, "spanish");
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
+
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
+            }
         }else{
-            //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
+            }
         }
 
         $fileName = 'Reporte__SFUM_General-'.$fechaInicio.'-'.$fechaFin.'.csv';
@@ -570,12 +708,23 @@ class PersonalUMController extends Controller
 
     public function ExcelReporteGeneral($fechaInicio, $fechaFin, $aseguradora){
         setlocale(LC_TIME, "spanish");
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
+
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
+            }
         }else{
-            //Seleccionar entre días, meses o años
-            $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('id', 'DESC')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('id', 'DESC')->get();
+            }
         }
 
         $fileName = 'Reporte__SFUM_General-'.$fechaInicio.'-'.$fechaFin.'.xls';
@@ -650,12 +799,22 @@ class PersonalUMController extends Controller
 
     public function CSVConteoCausas($fechaInicio, $fechaFin, $aseguradora){
 
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
-
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+    
+            }else{
+                $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+            }
         }else{
-            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+    
+            }else{
+                $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+            }
         }
 
         $fileName = 'Reporte__SFUM_Conteo-Causas-'.$fechaInicio.'-'.$fechaFin.'.csv';
@@ -688,12 +847,23 @@ class PersonalUMController extends Controller
     }
 
     public function ExcelConteoCausas($fechaInicio, $fechaFin, $aseguradora){
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
 
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+    
+            }else{
+                $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+            }
         }else{
-            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+    
+            }else{
+                $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+            }
         }
 
         $fileName = 'Reporte__SFUM_Conteo-Causas-'.$fechaInicio.'-'.$fechaFin.'.xls';
@@ -728,12 +898,22 @@ class PersonalUMController extends Controller
 
     public function CSVConteoFunerarias($fechaInicio, $fechaFin, $aseguradora){
 
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
-
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+    
+            }else{
+                $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+            }
         }else{
-            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+    
+            }else{
+                $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+            }
         }
 
         $fileName = 'Reporte__SFUM_Conteo-Funerarias-'.$fechaInicio.'-'.$fechaFin.'.csv';
@@ -766,12 +946,23 @@ class PersonalUMController extends Controller
     }
 
     public function ExcelConteoFunerarias($fechaInicio, $fechaFin, $aseguradora){
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
 
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $conteo = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+    
+            }else{
+                $conteo = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+            }
         }else{
-            $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+    
+            }else{
+                $conteo = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Funeraria_Nombre', DB::raw('count(*) as total'))->groupBy('Funeraria_Nombre')->get();
+            }
         }
 
         $fileName = 'Reporte__SFUM_Conteo-Funerarias-'.$fechaInicio.'-'.$fechaFin.'.xls';
@@ -805,18 +996,36 @@ class PersonalUMController extends Controller
     }
 
     public function CSVCausasDeptos($fechaInicio, $fechaFin, $aseguradora){
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
-            foreach($departamentos as $departamento){
-                $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
-                $departamento->Causas_arreglo = $causas_deptos;
+
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $departamentos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
+                foreach($departamentos as $departamento){
+                    $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                    $departamento->Causas_arreglo = $causas_deptos;
+                }
+            }else{
+                $departamentos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
+                foreach($departamentos as $departamento){
+                    $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                    $departamento->Causas_arreglo = $causas_deptos;
+                }
             }
         }else{
-            $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
-            foreach($departamentos as $departamento){
-                $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
-                $departamento->Causas_arreglo = $causas_deptos;
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
+                foreach($departamentos as $departamento){
+                    $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                    $departamento->Causas_arreglo = $causas_deptos;
+                }
+            }else{
+                $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
+                foreach($departamentos as $departamento){
+                    $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                    $departamento->Causas_arreglo = $causas_deptos;
+                }
             }
         }
         
@@ -854,18 +1063,36 @@ class PersonalUMController extends Controller
     }
 
     public function ExcelCausasDeptos($fechaInicio, $fechaFin, $aseguradora){
-        if($fechaInicio != '' && $fechaFin == '0'){
-            //Seleccionar de un sólo día
-            $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
-            foreach($departamentos as $departamento){
-                $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
-                $departamento->Causas_arreglo = $causas_deptos;
+
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $departamentos = Casos::where('Reportar', 'Si')->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
+                foreach($departamentos as $departamento){
+                    $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                    $departamento->Causas_arreglo = $causas_deptos;
+                }
+            }else{
+                $departamentos = Casos::where('Reportar', 'Si')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
+                foreach($departamentos as $departamento){
+                    $causas_deptos = Casos::where('Reportar', 'Si')->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                    $departamento->Causas_arreglo = $causas_deptos;
+                }
             }
         }else{
-            $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
-            foreach($departamentos as $departamento){
-                $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
-                $departamento->Causas_arreglo = $causas_deptos;
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->distinct('Departamento')->select('Departamento')->get();
+                foreach($departamentos as $departamento){
+                    $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereDate('Fecha', '=', $fechaInicio)->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                    $departamento->Causas_arreglo = $causas_deptos;
+                }
+            }else{
+                $departamentos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->distinct('Departamento')->select('Departamento')->get();
+                foreach($departamentos as $departamento){
+                    $causas_deptos = Casos::where('Reportar', 'Si')->where('Aseguradora', $aseguradora)->where('Departamento', $departamento->Departamento)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->select('Causa', DB::raw('count(*) as total'))->groupBy('Causa')->get();
+                    $departamento->Causas_arreglo = $causas_deptos;
+                }
             }
         }
 
@@ -1011,6 +1238,17 @@ class PersonalUMController extends Controller
 
         $deptosCasos = Casos::select('Departamento')->groupBy('Departamento')->get();
 
+        $categoriasFunerariasKeys = InfoFunerariasRegistradas::whereNotNull('tipo')->groupBy('tipo')->pluck('tipo');
+
+        $categoriasFunerarias = InfoFunerariasRegistradas::whereNotNull('tipo')->select(['tipo', DB::raw('count(*) as total')])->groupBy('tipo')->get();
+        $array_Funerarias_Categoria = array();
+        foreach($categoriasFunerarias as $funeraria){
+            array_push($array_Funerarias_Categoria, $funeraria->total);
+        }
+
+        $categoriasFunerarias = collect($array_Funerarias_Categoria);
+
+
         $conteos = [
             'Conteo_Funerarias' => $conteo_funerarias,
             'Conteo_Casos' => $conteo_casos,
@@ -1027,7 +1265,7 @@ class PersonalUMController extends Controller
 
         //return $deptosJson;
 
-        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Conteos' => $conteos ,'departamento' =>$deptosJson, 'select_funerarias' => $funerariasCasos, 'select_deptos' => $deptosCasos]);
+        return view('Personal.Reportes.Graficas', ['Funerarias' => $keys_funerarias, 'Conteo_Servicios' => $servicios_conteo, 'Funerarias_Categorias_Keys' => $categoriasFunerariasKeys, 'Funerarias_Categorias' => $categoriasFunerarias, 'Promedio_Funerarias' => $promedio_conteo, 'Muertes' => $keys_tipos_muerte, 'Conteo_Muertes' => $muertes_conteo, 'Conteos' => $conteos ,'departamento' =>$deptosJson, 'select_funerarias' => $funerariasCasos, 'select_deptos' => $deptosCasos]);
     }
 
     public function GraficasPorFecha($fechaInicio, $fechaFin, $funeraria, $departamento){
