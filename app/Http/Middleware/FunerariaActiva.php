@@ -19,7 +19,7 @@ class FunerariaActiva
     {
         
         $user = auth()->user();
-        $funeraria = Funerarias::where('Id', $user['funeraria'])->value('Activa');
+        $funeraria = Funerarias::where('Funeraria_Registrada', $user['funeraria'])->value('Activa');
         $funeraria_user = Funerarias::where('Id_Funeraria', $user['id'])->value('Activa');
         $activo = $funeraria;
         $activa = $funeraria_user;

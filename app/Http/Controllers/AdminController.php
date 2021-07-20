@@ -147,7 +147,7 @@ class AdminController extends Controller
         $users = User::whereNotNull('funeraria')->with('roles')->get();
 
         foreach($users as $user){
-            $funeraria = Funerarias::where('Id_Funeraria', $user->funeraria)->value('Nombre');
+            $funeraria = Funerarias::where('Funeraria_Registrada', $user->funeraria)->value('Nombre');
             $user->nombre_funeraria = $funeraria;
         }
         if($msg == 0){
@@ -219,6 +219,7 @@ class AdminController extends Controller
             $data = InfoFunerariasRegistradas::where('id', $id)->first();
 
             $funeraria->Departamento = $data->departamento;
+
             $detalle = DetallesFuneraria::find($funeraria->Id_Detalle);
             $campanias = Campanias::all();
             $checks = Configuracion::where('opcion', 'Campos_Check')->value('valor');

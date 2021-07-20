@@ -133,14 +133,13 @@ class HomeController extends Controller
         DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'NIT')->update(['Funeraria' => $id, 'Campo' => 'NIT', 'Valor' => $request->nit]);
         DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'Telefono')->update(['Funeraria' => $id, 'Campo' => 'Telefono', 'Valor' => $request->telefono]);
         DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'Direccion')->update(['Funeraria' => $id, 'Campo' => 'Direccion', 'Valor' => $request->direccion]);
-        DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'Departamento')->update(['Funeraria' => $id, 'Campo' => 'Departamento', 'Valor' => strtoupper($request->departamento)]);
+        //DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'Departamento')->update(['Funeraria' => $id, 'Campo' => 'Departamento', 'Valor' => strtoupper($request->departamento)]);
         DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'NombreContacto')->update(['Funeraria' => $id, 'Campo' => 'NombreContacto', 'Valor' => $request->nombre_contacto]);
         DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'TelContacto')->update(['Funeraria' => $id, 'Campo' => 'TelContacto', 'Valor' => $request->numero_contacto]);
 
         $id_funeraria = Funerarias::where('Id_Funeraria', $id)->value('Funeraria_Registrada');
 
-        InfoFunerariasRegistradas::where('id', $id_funeraria)->update(['direccion' => $request->direccion, 
-        'departamento' => strtoupper($request->departamento), 'tel_contacto' => $request->telefono, 'tel_coordinador' => $request->numero_contacto, 'tipo' => $request->tipo_funeraria]);
+        InfoFunerariasRegistradas::where('id', $id_funeraria)->update(['direccion' => $request->direccion, 'tel_contacto' => $request->telefono, 'tel_coordinador' => $request->numero_contacto, 'tipo' => $request->tipo_funeraria]);
 
         return back();
         //return DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'TipoFuneraria', 'Valor' => $request->tipo_funeraria]);
@@ -215,7 +214,7 @@ class HomeController extends Controller
         return $pdf->download('Convenio.pdf');
     }
     public function devolverFunerarias(){
-        $funerarias = InfoFunerariasRegistradas::get();
+        $funerarias = InfoFunerariasRegistradas::where('estado', 'Activo')->get();
 
         return $funerarias;
     }
