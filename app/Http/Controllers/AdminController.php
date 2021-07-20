@@ -371,7 +371,7 @@ class AdminController extends Controller
 
         $json_campanias = json_encode($array_campanias);
 
-        $user_funeraria = User::where('id', $id)->update(['activo' => $request->activo, 'funeraria' => $funeraria->id]);
+        $user_funeraria = User::where('id', $id)->update(['activo' => $request->activo, 'funeraria' => $nueva_funeraria_insertada->id]);
 
         $detalles_funeraria = DetallesDeFuneraria::where('Funeraria', $id)->get();
 
