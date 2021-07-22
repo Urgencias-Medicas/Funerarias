@@ -62,7 +62,7 @@ class AdminController extends Controller
 
         Mail::send('mailslayouts.nuevousuario', $data, function($message) use($mail)
             {
-                $message->to($mail, 'Nuevo Usuario')->subject('Usuario creado')->from('no-reply@excess.software', 'Urgencias Médicas');
+                $message->to($mail, 'Nuevo Usuario')->subject('Usuario creado')->from('no-reply@mail.centrourgenciasmedicas.com', 'Urgencias Médicas');
             });
         activity()->log('Se ha creado un nuevo usuario con el siguiente email '.$mail);
         //return $this->verUsuarios(1);
@@ -92,7 +92,7 @@ class AdminController extends Controller
 
         Mail::send('mailslayouts.nuevaFuneraria', $data, function($message) use($mail)
             {
-                $message->to($mail, 'Nueva funeraria')->subject('Usuario creado')->from('no-reply@excess.software', 'Urgencias Médicas');
+                $message->to($mail, 'Nueva funeraria')->subject('Usuario creado')->from('no-reply@mail.centrourgenciasmedicas.com', 'Urgencias Médicas');
             });
 
         return redirect('Personal/Funeraria/'.$user->id.'/ver')->with('alerta', 'Se ha creado la funeraria exitosamente.');
@@ -114,7 +114,7 @@ class AdminController extends Controller
 
         Mail::send('mailslayouts.nuevousuario', $data, function($message) use($mail)
             {
-                $message->to($mail, 'Nuevo Usuario')->subject('Usuario creado')->from('no-reply@excess.software', 'Urgencias Médicas');
+                $message->to($mail, 'Nuevo Usuario')->subject('Usuario creado')->from('no-reply@mail.centrourgenciasmedicas.com', 'Urgencias Médicas');
             });
 
         //return $this->verUsuarios(1);
@@ -325,7 +325,7 @@ class AdminController extends Controller
     
                 Mail::send('mailslayouts.funeraria_activa', $data, function($message) use($mail)
                 {
-                    $message->to($mail, 'Funeraria')->subject('Su usuario ha sido activado')->from('no-reply@excess.software', 'Urgencias Médicas');
+                    $message->to($mail, 'Funeraria')->subject('Su usuario ha sido activado')->from('no-reply@mail.centrourgenciasmedicas.com', 'Urgencias Médicas');
                 });
     
                 activity()->log('Se ha activado la funeraria No. '.$id.' con el nombre '.$request->nombre);
@@ -335,7 +335,7 @@ class AdminController extends Controller
     
                 Mail::send('mailslayouts.funeraria_inactiva', $data, function($message) use($mail)
                 {
-                    $message->to($mail, 'Funeraria')->subject('Su usuario ha sido desactivado')->from('no-reply@excess.software', 'Urgencias Médicas');
+                    $message->to($mail, 'Funeraria')->subject('Su usuario ha sido desactivado')->from('no-reply@mail.centrourgenciasmedicas.com', 'Urgencias Médicas');
                 });
     
                 activity()->log('Se ha desactivado la funeraria No. '.$id.' con el nombre '.$request->nombre);
@@ -396,7 +396,7 @@ class AdminController extends Controller
 
             Mail::send('mailslayouts.funeraria_activa', $data, function($message) use($mail)
             {
-                $message->to($mail, 'Funeraria')->subject('Su usuario ha sido activado')->from('no-reply@excess.software', 'Urgencias Médicas');
+                $message->to($mail, 'Funeraria')->subject('Su usuario ha sido activado')->from('no-reply@mail.centrourgenciasmedicas.com', 'Urgencias Médicas');
             });
 
             activity()->log('Se ha activado la funeraria No. '.$id.' con el nombre '.$request->nombre);
@@ -406,7 +406,7 @@ class AdminController extends Controller
 
             Mail::send('mailslayouts.funeraria_inactiva', $data, function($message) use($mail)
             {
-                $message->to($mail, 'Funeraria')->subject('Su usuario ha sido desactivado')->from('no-reply@excess.software', 'Urgencias Médicas');
+                $message->to($mail, 'Funeraria')->subject('Su usuario ha sido desactivado')->from('no-reply@mail.centrourgenciasmedicas.com', 'Urgencias Médicas');
             });
 
             activity()->log('Se ha desactivado la funeraria No. '.$id.' con el nombre '.$request->nombre);
