@@ -300,7 +300,7 @@ class AdminController extends Controller
 
         $funeraria_id = Funerarias::where('Id_Funeraria', $id)->value('id');
 
-        $user_funeraria = User::where('id', $id)->update(['activo' => $request->activo, 'funeraria' => $funeraria_id]);
+        $user_funeraria = User::where('id', $id)->update(['activo' => $request->activo, 'funeraria' => $id_fun_registrada]);
 
         $pasos = array();
 

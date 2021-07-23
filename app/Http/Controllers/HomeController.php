@@ -65,7 +65,11 @@ class HomeController extends Controller
         $alldocuments = DocumentosFuneraria::where('Funeraria', $user->id)->get();
 
         $json = file_get_contents($url);
-        return view('Funerarias.Inactiva', ['Activa' => $estado_funeraria, 'Detalle' => $detalle, 'Json' => $json, 'InfoGeneral' => $infoGeneral, 'LicenciaAmbiental' => $licenciaAmbiental, 'Documentacion' => $documentacion, 'Convenio' => $convenio, 'Tipo_Funeraria' => $tipo_funeraria, 'AllDocuments' => $alldocuments]);
+        if($estado_funeraria == 'Si'){
+            return view('Funerarias.Inactiva', ['Activa' => $estado_funeraria, 'Detalle' => $detalle, 'Json' => $json, 'InfoGeneral' => $infoGeneral, 'LicenciaAmbiental' => $licenciaAmbiental, 'Documentacion' => $documentacion, 'Convenio' => $convenio, 'Tipo_Funeraria' => $tipo_funeraria, 'AllDocuments' => $alldocuments]);
+        }else{
+            return redirect('/Funerarias/Casos/ver');
+        }
     }
     public function guardarMedia($media, Request $request){
         $user = auth()->user();

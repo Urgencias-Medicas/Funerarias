@@ -32,7 +32,7 @@ class FunerariasController extends Controller
     public function verCasos(){
         $user = auth()->user();
         $funeraria = $user['funeraria'];
-        $casos = Casos::where('funeraria', $funeraria)->whereNull('token')->orderBy('id', 'DESC')->get();
+        $casos = Casos::where('funeraria', $funeraria)->orderBy('id', 'DESC')->get();
         return view('Funerarias.Casos.ver', ['Casos' => $casos]);
     }
     public function detallesCaso($id, $msg = 0){
