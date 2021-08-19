@@ -305,7 +305,7 @@
 																										</tr>
 																										<tr>
 																											<td align="center" class="es-p35b">
-																												<p>Urgencias Médicas © 2021 Balance Psicología,
+																												<p>Urgencias Médicas © 2021 Funerarias,
 																													Todos los derechos reservados.</p>
 																												<p>Guatemala, C.A.</p>
 																											</td>
