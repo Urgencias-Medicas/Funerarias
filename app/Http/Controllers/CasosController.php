@@ -604,7 +604,7 @@ class CasosController extends Controller
         //if($correo == 'Si'){
             Mail::send('mailslayouts.asignado', $casos_array, function($message) use($caso, $correo_funeraria, $nombre_funeraria, $mensaje)
             {
-                $message->to($correo_funeraria, $nombre_funeraria)->subject($mensaje)->from('no-reply@centrourgenciasmedicas.com', 'Urgencias Médicas');
+                $message->to($correo_funeraria, $nombre_funeraria)->subject($mensaje);
             });
         //}
         /*if($wp == 'Si'){
@@ -648,12 +648,12 @@ class CasosController extends Controller
             if(isset($correo_funeraria)){
                 Mail::send('mailslayouts.pagoregistrado', $casos_array, function($message) use($caso, $correo_funeraria, $nombre_funeraria, $mensaje)
                 {
-                    $message->to($correo_funeraria, $nombre_funeraria)->subject($mensaje)->from('no-reply@centrourgenciasmedicas.com', 'Urgencias Médicas');
+                    $message->to($correo_funeraria, $nombre_funeraria)->subject($mensaje);
                 });
     
                 Mail::send('mailslayouts.pagoregistrado', $casos_array, function($message) use($caso, $correo_admin, $nombre_funeraria, $mensaje)
                 {
-                    $message->to($correo_admin, $nombre_funeraria)->subject($mensaje)->from('no-reply@centrourgenciasmedicas.com', 'Urgencias Médicas');
+                    $message->to($correo_admin, $nombre_funeraria)->subject($mensaje);
                 });
             }
 
@@ -679,7 +679,7 @@ class CasosController extends Controller
 
         Mail::send('mailslayouts.encuesta', $data, function($message)
             {
-                $message->to('samuelambrosio99@gmail.com', 'test')->subject('Encuesta UMFunerarias')->from('no-reply@centrourgenciasmedicas.com', 'Urgencias Médicas');
+                $message->to('samuelambrosio99@gmail.com', 'test')->subject('Encuesta UMFunerarias');
             });
         Notificaciones::create(['funeraria' => $caso->Funeraria, 'contenido' => 'El caso #'.$caso->id.' se ha cerrado.', 'estatus' => 'Activa', 'caso' => $caso->id]);
 

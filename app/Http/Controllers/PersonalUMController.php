@@ -1485,7 +1485,7 @@ class PersonalUMController extends Controller
 
         Mail::send('mailslayouts.pdfseguro', $data, function($message) use($mail)
         {
-            $message->to($mail, 'Guía seguro')->subject('Guía seguro')->from('no-reply@centrourgenciasmedicas.com', 'Urgencias Médicas');
+            $message->to($mail, 'Guía seguro')->subject('Guía seguro');
         });
 
         return 'done';
