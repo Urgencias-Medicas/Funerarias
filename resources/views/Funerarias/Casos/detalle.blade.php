@@ -131,7 +131,7 @@
                                         <label for="departamento">Departamento</label>
                                         <select name="departamento" id="departamento" class="form-control" required
                                             onclick="makeSubmenu(this.value)">
-                                            <option value="{{ucwords(strtolower($Caso->Departamento))}}">{{ucwords(strtolower($Caso->Departamento))}}</option>
+                                            <option value="{{trim(ucwords(strtolower($Caso->Departamento)))}}">{{trim(ucwords(strtolower($Caso->Departamento)))}}</option>
                                             <option disabled>- Seleccione una opción -</option>
                                             <option value="Alta Verapaz">Alta Verapaz</option>
                                             <option value="Baja Verapaz">Baja Verapaz</option>
