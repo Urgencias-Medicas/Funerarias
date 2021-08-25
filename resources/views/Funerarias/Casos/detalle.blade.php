@@ -131,7 +131,7 @@
                                         <label for="departamento">Departamento</label>
                                         <select name="departamento" id="departamento" class="form-control" required
                                             onclick="makeSubmenu(this.value)">
-                                            <option>{{$Caso->Departamento}}</option>
+                                            <option value="{{ucwords(strtolower($Caso->Departamento))}}">{{ucwords(strtolower($Caso->Departamento))}}</option>
                                             <option disabled>- Seleccione una opción -</option>
                                             <option value="Alta Verapaz">Alta Verapaz</option>
                                             <option value="Baja Verapaz">Baja Verapaz</option>
@@ -594,16 +594,50 @@
     })
     @endif
 
+    $(document).ready(function () {
+
+        convertMunJson();
+
+    });
+
+    let municipios = {!! $Json !!}
+
+    function convertMunJson(){
+        var keys = [];
+        for(var k in municipios) keys.push(k);
+
+        keys.forEach(function(element, index){
+
+            let content = []
+            content = municipios[element];
+            delete municipios[element];
+
+            let new_key_name = element.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            console.log(new_key_name);
+            //municipio.[new_key_name] = content;
+            municipios[`${new_key_name}`] = content;
+        })
+
+    }
+
     function makeSubmenu(value) {
-        var municipio = {!! $Json !!};
+        value = value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+
 
         if (value.length == 0) {
             $('#municipio').html = "<option></option>";
         } else {
             var munOptions = "";
-            for (munId in municipio[value]) {
-                munOptions += "<option value='" + municipio[value][munId] + "'>" + municipio[value][munId] +
-                "</option>";
+
+            for (munId in municipios[value]) {
+
+                if('{{ucwords(strtolower($Caso->Municipio))}}' == municipios[value][munId].normalize("NFD").replace(/[\u0300-\u036f]/g, "")){
+                        munOptions += "<option value='" + municipios[value][munId] + "' selected>" + municipios[value][munId] +
+                    "</option>";
+                }else{
+                        munOptions += "<option value='" + municipios[value][munId] + "'>" + municipios[value][munId] +
+                    "</option>";
+                }
             }
             document.getElementById("municipio").innerHTML = munOptions;
         }

@@ -27,6 +27,9 @@ use App\ComprobantesUM;
 use LynX39\LaraPdfMerger\Facades\PdfMerger;
 use PDF;
 
+use Illuminate\Support\Str;
+use PHPUnit\Framework\Assert;
+
 class CasosController extends Controller
 {
     // public function __construct()
@@ -454,6 +457,9 @@ class CasosController extends Controller
         $url = "https://gist.githubusercontent.com/tian2992/7439705/raw/1e5d0a766775a662039f3a838f422a1fc1600f74/guatemala.json";
 
         $json = file_get_contents($url);
+
+        //$departments = ['Alta Verapaz', 'Baja Verapaz', 'Chimaltenango', 'Chiquimula', 'Petén', 'El Progreso', 'Quiché', 'Escuintla', 'Guatemala', 'Huehuetenango', 'Izabal', 'Jalapa', 'Jutiapa', 'Quetzaltenango', 'Retalhuleu', 'Sacatepéquez', 'San Marcos', 'Santa Rosa', 'Sololá', 'Suchitepéquez', 'Totonicapán', 'Zacapa'];
+
         $pagos = HistorialPagos::where('caso', $id)->get();
         $solicitudes = SolicitudesCobro::where('caso', $id)->orderBy('id', 'desc')->get();
         $causas = Causas::get();
