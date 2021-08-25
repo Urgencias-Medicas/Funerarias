@@ -670,7 +670,7 @@
 
             for (munId in municipios[value]) {
 
-                if('{{ucwords(strtolower($Caso->Municipio))}}' == municipios[value][munId].normalize("NFD").replace(/[\u0300-\u036f]/g, "")){
+                if('{{trim(ucwords(strtolower($Caso->Municipio)))}}' == municipios[value][munId].normalize("NFD").replace(/[\u0300-\u036f]/g, "")){
                         munOptions += "<option value='" + municipios[value][munId] + "' selected>" + municipios[value][munId] +
                     "</option>";
                 }else{
