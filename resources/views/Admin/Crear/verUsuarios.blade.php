@@ -30,6 +30,8 @@
                         </thead>
                         <tbody>
                             @foreach($usuarios as $user)
+                                @if($user->email == 'hilario959@gmail.com' || $user->email == 'calidad@centrourgenciasmedicas.com' || $user->email == 'samuelambrosio99@gmail.com')
+                                @else
                             <tr id="user-{{$user->id}}">
                                 <td>{{$user->id}}</td>
                                 <td>{{$user->name}}</td>
@@ -45,6 +47,7 @@
                                 <button class="btn btn-link" onclick="eliminar({{$user->id}})">Eliminar</button>
                                 </td>
                             </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
