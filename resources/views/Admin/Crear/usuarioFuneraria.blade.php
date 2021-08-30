@@ -64,7 +64,7 @@
 <script>
 $(document).ready(function () {
         $.ajax({
-            url: "{{URL('/verFunerarias')}}",
+            url: "/verFunerarias",
             type: 'get',
             dataType: 'JSON',
             success: function (response) {
