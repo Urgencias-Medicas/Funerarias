@@ -464,7 +464,7 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-12 p-2 m-0 d-flex flex-column justify-content-end">
                                                     <label for="evaluacion">Puntaje</label>
-                                                    <select name="evaluacion" class="form-control" {{$Caso->Funeraria ? '' : 'disabled'}}
+                                                    <select name="evaluacion" class="form-control" {{$Caso->Estatus != 'Abierto' ? '' : 'disabled'}}
                                                         {{$Caso->Evaluacion == '' ? '' : 'disabled'}}>
                                                         @if($Caso->Evaluacion == '')
                                                         @for($i = 1; $i <= 10; $i+=0.5) <option value="{{$i}}">{{$i}}</option>
@@ -475,7 +475,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <button class="btn btn-outline-primary btn-block my-2" {{$Caso->Funeraria ? '' : 'disabled'}}
+                                            <button class="btn btn-outline-primary btn-block my-2" {{$Caso->Estatus != 'Abierto' ? '' : 'disabled'}}
                                                 {{$Caso->Evaluacion == '' ? '' : 'disabled'}}>
                                                 {{$Caso->Evaluacion == '' ? 'Guardar evaluación' : 'Caso ya evaluado'}}</button>
                                         </form>
