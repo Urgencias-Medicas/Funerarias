@@ -174,11 +174,10 @@
                                                     <option {{$Detalles_Funeraria['TipoFuneraria'] == 'A' ? 'selected' : ''}} value="A">A</option>
                                                     <option {{$Detalles_Funeraria['TipoFuneraria'] == 'B' ? 'selected' : ''}} value="B">B</option>
                                                     <option {{$Detalles_Funeraria['TipoFuneraria'] == 'C' ? 'selected' : ''}} value="C">C</option>
-                                                    <option disabled>-- Seleccione --</option>
+                                                    @endif
                                                     <option value="A">A</option>
                                                     <option value="B">B</option>
                                                     <option value="C">C</option>
-                                                    @endif
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-4">
