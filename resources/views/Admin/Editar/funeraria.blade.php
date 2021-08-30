@@ -169,11 +169,12 @@
                                             <div class="form-group col-md-4">
                                                 <label for="tipo_funneraria">Tipo de funeraria</label>
                                                 <select name="tipo_funeraria" class="form-control">
-                                                    <option disabled>--Seleccione--</option>
                                                     @if(!empty($Detalles_Funeraria))
                                                     <option {{$Detalles_Funeraria['TipoFuneraria'] == 'A' ? 'selected' : ''}} value="A">A</option>
                                                     <option {{$Detalles_Funeraria['TipoFuneraria'] == 'B' ? 'selected' : ''}} value="B">B</option>
                                                     <option {{$Detalles_Funeraria['TipoFuneraria'] == 'C' ? 'selected' : ''}} value="C">C</option>
+                                                    @else
+                                                    <option disabled selected>--Seleccione--</option>
                                                     @endif
                                                     <option value="A">A</option>
                                                     <option value="B">B</option>
