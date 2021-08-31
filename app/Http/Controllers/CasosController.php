@@ -626,7 +626,7 @@ class CasosController extends Controller
 
         $caso = Casos::find($caso);
 
-        $funeraria = Funerarias::where('Id_Funeraria', $caso->Funeraria)->get()->first();
+        $funeraria = Funerarias::where('Funeraria_Registrada', $caso->Funeraria)->get()->first();
 
         if(empty($caso->token)){
             $correo_funeraria = $funeraria->Email;
