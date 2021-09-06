@@ -130,7 +130,7 @@
                     @endrole
                     @role('Personal||CHN')
                         @if($Caso->Causa == 'Accidente' && $Caso->Aseguradora_Nombre == 'Seguro Escolar')
-                    <li class="nav-item">
+                    <li class="nav-item" style="display: {{$Caso->Estatus_CHN == 'Denegar' || !isset($Caso->Estatus_CHN) ? 'none' : ''}}">
                         <a class="nav-link" id="pills-facturas-tab" data-toggle="pill" href="#pills-facturas" role="tab" aria-controls="pills-facturas" aria-selected="false">Facturas</a>
                     </li>
                         @endif
@@ -907,25 +907,27 @@
                                             @endif
                                         @endforeach
                                         <hr>
-                                        <div class="form-group" style="display:{{$tiene_solicitud == 1 ? 'none' : ''}}">
-                                            <form action="/Caso/{{$Caso->id}}/guardarFacturaUM" enctype="multipart/form-data" method="POST">
-                                                @csrf
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <h4><b>Subir factura</b></h4>
+                                        <div style="display:{{$Caso->Estatus_CHN == 'Denegar' || !isset($Caso->Estatus_CHN) ? 'none' : ''}}">
+                                            <div class="form-group" style="display:{{$tiene_solicitud == 1 ? 'none' : ''}}">
+                                                <form action="/Caso/{{$Caso->id}}/guardarFacturaUM" enctype="multipart/form-data" method="POST">
+                                                    @csrf
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <h4><b>Subir factura</b></h4>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <input name="file" type="file" multiple accept="image/jpeg, image/png, image/jpg" class="form-control"/>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <input name="file" type="file" multiple accept="image/jpeg, image/png, image/jpg" class="form-control"/>
+                                                            </div>
+                                                            <div class="col">
+                                                                <button class="btn btn-primary btn-block">Subir</button>
+                                                            </div>
                                                         </div>
-                                                        <div class="col">
-                                                            <button class="btn btn-primary btn-block">Subir</button>
-                                                        </div>
-                                                    </div>
 
-                                                <!--<div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>-->
-                                            </form>
+                                                    <!--<div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>-->
+                                                </form>
+                                            </div>
                                         </div>
                                         @endrole
                                     </div>
