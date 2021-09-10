@@ -671,7 +671,8 @@ class CasosController extends Controller
         $caso->save();
         //return back()->with('msg', 'Pagos añadidos exitosamente.');
         //return $this->detallesCaso($caso->id, 1);} 
-
+        Notificaciones::create(['funeraria' => $caso->Funeraria, 'contenido' => $mensaje, 'estatus' => 'Activa', 'caso' => $caso->id]);
+        Notificaciones::create(['funeraria' => null, 'contenido' => $mensaje, 'estatus' => 'Activa', 'caso' => $caso->id]);
         activity()->log('Se ha ingresado un nuevo pago en el caso No. '.$caso->id);
         return redirect('/Casos/'.$caso->id.'/ver')->with('alerta', 'Pago ingresado exitosamente.');
     }
@@ -816,7 +817,7 @@ class CasosController extends Controller
             $causa->save();
         }
 
-        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #'.$caso.' actualizado.', 'estatus' => 'Activa', 'caso' => $caso]);
+        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'La información del caso #'.$caso.' fue actualizada.', 'estatus' => 'Activa', 'caso' => $caso]);
         
         //return $this->detallesCaso($caso, 2);
         activity()->log('Caso #'.$caso.' modificado.');
@@ -890,7 +891,7 @@ class CasosController extends Controller
             $causa->save();
         }
 
-        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #'.$caso.' actualizado.', 'estatus' => 'Activa', 'caso' => $caso]);
+        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'La información del caso #'.$caso.' fue actualizada.', 'estatus' => 'Activa', 'caso' => $caso]);
         
         //return $this->detallesCaso($caso, 2);
         //activity()->log('Se actualizó el caso No. '. $caso);

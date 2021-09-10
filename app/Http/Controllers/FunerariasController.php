@@ -85,8 +85,8 @@ class FunerariasController extends Controller
         $upload_success = $image->move(public_path('images'),$imageName);
         $getCaso = Caso::find($caso);
         if ($upload_success) {
-            Notificaciones::create(['funeraria' => $getCaso->Funeraria, 'contenido' => 'El caso #'.$caso.' tiene un nuevo archivo.', 'estatus' => 'Activa', 'caso' => $caso]);
-            Notificaciones::create(['funeraria' => NULL, 'contenido' => 'El caso #'.$caso.' tiene un nuevo archivo.', 'estatus' => 'Activa', 'caso' => $caso]);
+            Notificaciones::create(['funeraria' => $getCaso->Funeraria, 'contenido' => 'Se ha subido un nuevo archivo en el caso #'.$caso.'.', 'estatus' => 'Activa', 'caso' => $caso]);
+            Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Se ha subido un nuevo archivo en el caso #'.$caso.'.', 'estatus' => 'Activa', 'caso' => $caso]);
             return response()->json($upload_success, 200);
         }
         // Else, return error 400
@@ -119,7 +119,7 @@ class FunerariasController extends Controller
             $causa->save();
         }
 
-        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Caso #'.$caso.' actualizado.', 'estatus' => 'Activa', 'caso' => $caso]);
+        Notificaciones::create(['funeraria' => NULL, 'contenido' => 'La información del caso #'.$caso.' fue actualizada.', 'estatus' => 'Activa', 'caso' => $caso]);
         
         //return $this->detallesCaso($caso, 2);
         activity()->log('Se actualizó el caso No. '. $caso);

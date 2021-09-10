@@ -15,38 +15,124 @@
     </div>
     <div class="row">
         <table cellpadding = "0" class="table table-bordered" style="font-size: 50%; padding: 0px !important; margin: 0px !important;">
+            @if(strtoupper($Caso->Nombre_Aseguradora) == 'SEGURED')
             <tbody>
                 <tr>
-                    <th><b>Nombre</b></th>
+                    <th><b>Nombre del fallecido</b></th>
                     <th>{{$Caso->Nombre}}</th>
-                    <th><b>Tutor</b></th>
-                    <th>{{$Caso->Tutor}}</th>
-                </tr>
-                <tr>
-                    <th><b>Codigo</b></th>
-                    <th>{{$Caso->Codigo}}</th>
-                    <th><b>Municipio</b></th>
-                    <th>{{strtoupper($Caso->Municipio)}}</th>
-                </tr>
-                <tr>
-                    <th><b>Tipo de muerte</b></th>
-                    <th>{{$Caso->Causa}}</th>
-                    <th><b>Departamento</b></th>
-                    <th>{{strtoupper($Caso->Departamento)}}</th>
-                </tr>
-                <tr>
-                    <th><b>Causa</b></th>
-                    <th>{{$Caso->Causa_Desc}}</th>
-                    <th>Reporta</th>
+                    <th><b>Persona que reporta suceso</b></th>
                     <th>{{$Caso->NombreReporta}}</th>
                 </tr>
                 <tr>
-                    <th><b>Desc. Causa</b></th>
+                    <th><b>Edad del fallecido</b></th>
+                    <th>{{$Caso->Edad}}</th>
+                    <th><b>Municipio</b></th>
+                    <th>{{$Caso->Municipio}}</th>
+                </tr>
+                <tr>
+                    <th><b>Póliza</b></th>
+                    <th>{{$Caso->Poliza}}</th>
+                    <th><b>Departamento</b></th>
+                    <th>{{$Caso->Departamento}}</th>
+                </tr>
+                <tr>
+                    <th><b>Causa de muerte</b></th>
                     <th>{{$Caso->Causa_Especifica}}</th>
-                    <th><b>Fecha/Hora</b></th>
-                    <th>{{date('d-m-Y', strtotime($Caso->Fecha)).' / '.date('H:i', strtotime($Caso->Hora))}}</th>
+                    <th><b>Teléfono</b></th>
+                    <th>{{$Caso->TelTutor}}</th>
+                </tr>                
+                <tr>
+                    <th><b>Fecha de muerte</b></th>
+                    <th>{{$Caso->Fecha}}</th>
+                    <th><b>Hora en que reportan fallecimiento</b></th>
+                    <th>{{$Caso->Hora}}</th>
+                </tr>
+                <tr>
+                    <th><b>Lugar del fallecimiento</b></th>
+                    <th>{{$Caso->Lugar}}</th>
+                    <th><b>Funeraria que atiende</b></th>
+                    <th>{{$Caso->Funeraria_Nombre}}</th>
                 </tr>
             </tbody>
+            @elseif(strtoupper($Caso->Nombre_Aseguradora) == 'CHN')
+            <tbody>
+                <tr>
+                    <th><b>Nombre del fallecido</b></th>
+                    <th>{{$Caso->Nombre}}</th>
+                    <th><b>Persona que reporta suceso</b></th>
+                    <th>{{$Caso->NombreReporta}}</th>
+                </tr>
+                <tr>
+                    <th><b>Edad del fallecido</b></th>
+                    <th>{{$Caso->Edad}}</th>
+                    <th><b>Municipio</b></th>
+                    <th>{{$Caso->Municipio}}</th>
+                </tr>
+                <tr>
+                    <th><b>Número de DPI</b></th>
+                    <th>-</th>
+                    <th><b>Departamento</b></th>
+                    <th>{{$Caso->Departamento}}</th>
+                </tr>
+                <tr>
+                    <th><b>Causa de muerte</b></th>
+                    <th>{{$Caso->Causa_Especifica}}</th>
+                    <th><b>Teléfono</b></th>
+                    <th>{{$Caso->TelTutor}}</th>
+                </tr>                
+                <tr>
+                    <th><b>Fecha de muerte</b></th>
+                    <th>{{$Caso->Fecha}}</th>
+                    <th><b>Hora en que reportan fallecimiento</b></th>
+                    <th>{{$Caso->Hora}}</th>
+                </tr>
+                <tr>
+                    <th><b>Lugar del fallecimiento</b></th>
+                    <th>{{$Caso->Lugar}}</th>
+                    <th><b>Funeraria que atiende</b></th>
+                    <th>{{$Caso->Funeraria_Nombre}}</th>
+                </tr>
+            </tbody>
+            @elseif(strtoupper($Caso->Nombre_Aseguradora) == strtoupper('Seguro Escolar'))
+            <tbody>
+                <tr>
+                    <th><b>Nombre del fallecido</b></th>
+                    <th>{{$Caso->Nombre}}</th>
+                    <th><b>Nombre Tutor</b></th>
+                    <th>{{$Caso->Tutor}}</th>
+                </tr>
+                <tr>
+                    <th><b>Edad del fallecido</b></th>
+                    <th>{{$Caso->Edad}}</th>
+                    <th><b>Municipio</b></th>
+                    <th>{{$Caso->Municipio}}</th>
+                </tr>
+                <tr>
+                    <th><b>Código de estudiante</b></th>
+                    <th>{{$Caso->Codigo}}</th>
+                    <th><b>Departamento</b></th>
+                    <th>{{$Caso->Departamento}}</th>
+                </tr>
+                <tr>
+                    <th><b>Causa de muerte</b></th>
+                    <th>{{$Caso->Causa_Especifica}}</th>
+                    <th><b>Teléfono</b></th>
+                    <th>{{$Caso->TelTutor}}</th>
+                </tr>                
+                <tr>
+                    <th><b>Fecha de muerte</b></th>
+                    <th>{{$Caso->Fecha}}</th>
+                    <th><b>Persona que reporta suceso</b></th>
+                    <th>{{$Caso->NombreReporta}}</th>
+                </tr>
+                <tr>
+                    <th><b>Hora en que reportan fallecimiento</b></th>
+                    <th>{{$Caso->Hora}}</th>
+                    <th><b>Funeraria que atiende</b></th>
+                    <th>{{$Caso->Funeraria_Nombre}}</th>
+                </tr>
+            </tbody>
+            @endif
         </table>
     </div>
     

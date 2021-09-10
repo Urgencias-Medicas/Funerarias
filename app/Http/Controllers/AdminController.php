@@ -236,7 +236,7 @@ class AdminController extends Controller
             return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Campanias' => $campanias, 'Checks' => $checks, 'Detalles_Funeraria' => $array_detalles, 'DoctosFuneraria' => $documentos_funeraria]);
         }else{
 
-            $funeraria_registrada = InfoFunerariasRegistradas::where('id', $id)->where('funeraria', $nombre)->first();
+            $funeraria_registrada = InfoFunerariasRegistradas::where('funeraria', $nombre)->first();
 
             if(!$funeraria_registrada){
                 $data = ['Campos' => '[{"campo":1,"result":"No"}'];
@@ -256,9 +256,27 @@ class AdminController extends Controller
                 //return view('Admin.Editar.funeraria', ['Funeraria' => $funeraria, 'Detalle' => $id_detalle]);
 
                 return redirect('/Personal/editarFuneraria/'.$id.'/'.$nombre);
-            }else{
-                 
-                $update_existente = Funerarias::where('Id_Funeraria', $id)->where('Nombre', $nombre)->update(['Funeraria_Registrada' => $id]);
+            }else{                 
+
+                $existe_funeraria = Funerarias::where('Id_Funeraria', $id)->where('Nombre', $nombre)->first();
+
+                if(!$existe_funeraria){
+                    $data = ['Campos' => '[{"campo":1,"result":"No"}'];
+                    $id_detalle = DetallesFuneraria::insertGetId($data);
+
+                    $funeraria = Funerarias::updateOrcreate([
+                        'Id_Funeraria' => $id,
+                        'Funeraria_Registrada' => $id,
+                        'Nombre' => $nombre,
+                        'Email' => '',
+                        'Telefono' => '',
+                        'Monto_Base' => 0,
+                        'Activa' => 'Si',
+                        'Id_Detalle' => $id_detalle
+                    ]);
+                }else{
+                    $update_existente = Funerarias::where('Id_Funeraria', $id)->where('Nombre', $nombre)->update(['Funeraria_Registrada' => $id]);
+                }
 
                 return redirect('/Personal/editarFuneraria/'.$id.'/'.$nombre);
             }

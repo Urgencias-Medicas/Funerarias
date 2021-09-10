@@ -40,7 +40,7 @@
                         <tr>
                             <th scope="col">Caso #</th>
                             <th scope="col">Correlativo</th>
-                            <th scope="col">Estudiante</th>
+                            <th scope="col">Estudiante/Afiliado</th>
                             <th scope="col">Causa</th>
                             <th scope="col">Fecha y Hora</th>
                             <th scope="col">Departamento</th>
