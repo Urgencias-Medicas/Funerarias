@@ -128,7 +128,7 @@ class FunerariasController extends Controller
     public function datosBancarios(){
         $user = auth()->user();
         $funeraria_id = $user->funeraria;
-        $funeraria = Funerarias::find($funeraria_id);
+        $funeraria = Funerarias::where('Id_Funeraria', $funeraria_id)->first();
         return view('Funerarias.datosbancarios', ['Funeraria' => $funeraria]);
     }
     public function datosBancariosGuardar(Request $request){
@@ -142,16 +142,18 @@ class FunerariasController extends Controller
             $upload_success = $image->move(public_path('images'),$imageName);
         }
 
-        $funeraria = Funerarias::find($funeraria_id);
-
-        $funeraria->NIT = $request->NIT;
-        $funeraria->Banco = $request->Banco;
-        $funeraria->Cuenta = $request->Cuenta;
+        $funeraria = Funerarias::where('Id_Funeraria', $funeraria_id)->update([
+            'Nit' => $request->NIT,
+            'Banco' => $request->Banco,
+            'Cuenta' =>  $request->Cuenta,
+        ]);
 
         if($request->hasFile('Comprobante')){
-            $funeraria->Comprobante = '/images/'.$imageName;
+            //$funeraria->Comprobante = '/images/'.$imageName;
+            Funerarias::where('Id_Funeraria', $funeraria_id)->update([
+                'Comprobante' => '/images/'.$imageName,
+            ]);
         }
-        $funeraria->save();
 
         return back();
     }
