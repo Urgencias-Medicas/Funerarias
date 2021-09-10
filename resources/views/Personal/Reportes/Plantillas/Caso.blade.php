@@ -93,7 +93,7 @@
                     <th>{{$Caso->Funeraria_Nombre}}</th>
                 </tr>
             </tbody>
-            @elseif(strtoupper($Caso->Nombre_Aseguradora) == strtoupper('Seguro Escolar'))
+            @elseif(strtoupper($Caso->Nombre_Aseguradora) == strtoupper('Seguro Escolar') || strtoupper($Caso->Nombre_Aseguradora) == strtoupper('Seguro Medico Estudiantil'))
             <tbody>
                 <tr>
                     <th><b>Nombre del fallecido</b></th>
