@@ -16,7 +16,7 @@
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" id="NIT" name="NIT"
-                                    placeholder="" value="{{$Funeraria->NIT}}">
+                                    placeholder="" value="{{isset($Funeraria->NIT) ? $Funeraria->NIT : ''}}">
                             </div>
                         </div>
 
@@ -25,7 +25,7 @@
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" id="Banco" name="Banco"
-                                    placeholder="" value="{{$Funeraria->Banco}}">
+                                    placeholder="" value="{{isset($Funeraria->Banco) ? $Funeraria->Banco : ''}}">
                             </div>
                         </div>
 
@@ -34,7 +34,7 @@
 
                             <div class="col-md-6">
                                 <input type="text" class="form-control" id="Cuenta" name="Cuenta"
-                                    placeholder="" value="{{$Funeraria->Cuenta}}">
+                                    placeholder="" value="{{isset($Funeraria->Cuenta) ? $Funeraria->Cuenta : ''}}">
                                 <small>El nombre de la cuenta debe coincidir con el de la factura</small>
                             </div>
                         </div>
