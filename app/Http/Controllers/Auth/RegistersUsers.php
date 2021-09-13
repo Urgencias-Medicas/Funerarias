@@ -7,6 +7,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\DetallesFuneraria;
+use App\InfoFunerariasRegistradas;
+use App\Funerarias;
+use App\User;
 
 trait RegistersUsers
 {
@@ -36,10 +39,11 @@ trait RegistersUsers
 
         //Almacenar data detalles
         $data = ['Campos' => json_encode(array(array('campo' => 'InfoGeneral',  'result' => 'No'), array('campo' => 'Documentos' , 'result' => 'No'), array('campo' => 'Contrato', 'result' => 'No')))];
+        $id_funeraria_registrada = InfoFunerariasRegistradas::insertGetId(['funeraria' => $request->name, 'estado' => 'Inactivo']);
+        $id_funeraria = Funerarias::insertGetId(['Id_Funeraria' => $id_funeraria_registrada, 'Funeraria_Registrada' => $id_funeraria_registrada, 'Nombre' => $request->name, 'Activa' => 'No']);
         $id_detalle = DetallesFuneraria::insertGetId($data);
 
-        event(new Registered($user = $this->create($request->all() + ['activo' => $activo, 'detalle' => $id_detalle])));
-
+        event(new Registered($user = $this->create($request->all() + ['activo' => $activo, 'detalle' => $id_detalle, 'funeraria' => $id_funeraria_registrada])));
 
         $this->guard()->login($user);
 
