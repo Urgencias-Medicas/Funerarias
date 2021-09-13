@@ -74,6 +74,8 @@ class AdminController extends Controller
         $random_password = Str::random(8);
 
         $data = ['Campos' => json_encode(array(array('campo' => 'InfoGeneral',  'result' => 'No'), array('campo' => 'Documentos' , 'result' => 'No'), array('campo' => 'Contrato', 'result' => 'No')))];
+        $id_funeraria_registrada = InfoFunerariasRegistradas::insertGetId(['funeraria' => $request->nombre, 'estado' => 'Inactivo']);
+        $id_funeraria = Funerarias::insertGetId(['Id_Funeraria' => $id_funeraria_registrada, 'Funeraria_Registrada' => $id_funeraria_registrada, 'Nombre' => $request->nombre, 'Activa' => 'No']);
         $id_detalle = DetallesFuneraria::insertGetId($data);
         
         $user = User::create([
@@ -81,7 +83,8 @@ class AdminController extends Controller
             'email' => $request->mail,
             'password' => Hash::make($random_password),
             'created_at' => time(),
-            'funeraria' => $request->funeraria,
+            //'funeraria' => $request->funeraria,
+            'funeraria' => $id_funeraria_registrada,
             'activo' => 'No',
             'detalle' => $id_detalle,
         ]);
