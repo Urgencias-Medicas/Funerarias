@@ -136,21 +136,21 @@ class FunerariasController extends Controller
         $user = auth()->user();
         $funeraria_id = $user->funeraria;
 
-        if($request->hasFile('Comprobante')){
-            $image = $request->file('Comprobante');
-            $imageName = 'Funeraria-'.$funeraria_id.'-'.$image->getClientOriginalName();
-            $upload_success = $image->move(public_path('images'),$imageName);
-        }
-
-        $funeraria = Funerarias::where('Id_Funeraria', $funeraria_id)->update([
+        $funeraria = Funerarias::where('Funeraria_Registrada', $funeraria_id)->update([
             'Nit' => $request->NIT,
             'Banco' => $request->Banco,
             'Cuenta' =>  $request->Cuenta,
         ]);
 
         if($request->hasFile('Comprobante')){
+            $image = $request->file('Comprobante');
+            $imageName = 'Funeraria-'.$funeraria_id.'-'.$image->getClientOriginalName();
+            $upload_success = $image->move(public_path('images'),$imageName);
+        }
+
+        if($request->hasFile('Comprobante')){
             //$funeraria->Comprobante = '/images/'.$imageName;
-            Funerarias::where('Id_Funeraria', $funeraria_id)->update([
+            Funerarias::where('Funeraria_Registrada', $funeraria_id)->update([
                 'Comprobante' => '/images/'.$imageName,
             ]);
         }
