@@ -318,13 +318,19 @@
                                             <b>Caso cerrado</b>
                                         </div>
                                     </div>
+                                    @elseif($Caso->Costo - $Caso->Pagado == 0)
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            <b>No se puede modificar el monto porque el caso ya fue pagado.</b>
+                                        </div>
+                                    </div>
                                     @endif
                                     <div class="form-row m-0">
                                         <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
                                             <label for="costoServicio">Costo</label>
                                             <input type="text" class="form-control" value="{{$Caso->Costo}}"
                                                 name="Costo"
-                                                {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "readonly" : ""}} oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                                                {{$tiene_solicitud == 1 || $caso_cerrado == 1 || $Caso->Costo - $Caso->Pagado == 0 ? "readonly" : ""}} oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                         </div>
 
                                         <div class="form-group col-md-4 p-2 m-0 d-flex flex-column justify-content-end">
@@ -342,14 +348,14 @@
                                             class="form-group col-md-12 p-2 m-0 d-flex flex-column justify-content-end">
                                             <label for="descripcionCosto">Descripci&oacute;n</label>
                                             <textarea name="Descripcion" class="form-control"
-                                                {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "readonly" : ""}}
+                                                {{$tiene_solicitud == 1 || $caso_cerrado == 1 || $Caso->Costo - $Caso->Pagado == 0 ? "readonly" : ""}}
                                                 required></textarea>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <button class="btn btn-success btn-block"
-                                                {{$tiene_solicitud == 1 || $caso_cerrado == 1 ? "disabled" : ""}}>Guardar</button>
+                                                {{$tiene_solicitud == 1 || $caso_cerrado == 1 || $Caso->Costo - $Caso->Pagado == 0 ? "disabled" : ""}}>Guardar</button>
                                         </div>
                                     </div>
                                     <div class="row">

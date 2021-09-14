@@ -603,7 +603,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <label>&nbsp;</label>
-                                                    <button class="btn btn-outline-info btn-block" {{$Caso->ISR ? 'disabled' : ''}}>Guardar</button>
+                                                    <button class="btn btn-outline-info btn-block" {{$Caso->ISR || $Caso->Costo - $Caso->Pagado == 0 ? 'disabled' : ''}}>Guardar</button>
                                                 </div>
                                             </div>
                                         </form>

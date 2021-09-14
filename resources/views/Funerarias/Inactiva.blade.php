@@ -101,7 +101,7 @@
                         <input name="file" type="files" multiple
                             accept="image/jpeg, image/png, image/jpg" />
                     </div>
-                    <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                    <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí, se permite únicamente uno y debe ser en formato PDF.</span></div>
                 </form>
             </div>
         </div>
@@ -238,7 +238,7 @@
                             <input name="file" type="files" multiple
                                 accept="image/jpeg, image/png, image/jpg" />
                         </div>
-                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí, se permite únicamente uno y debe ser en formato PDF.</span></div>
                     </form>
                 </div>
 
@@ -273,7 +273,7 @@
                             <input name="file" type="files" multiple
                                 accept="image/jpeg, image/png, image/jpg" />
                         </div>
-                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí, se permite únicamente uno y debe ser en formato PDF.</span></div>
                     </form>
                 </div>
 
@@ -309,7 +309,7 @@
                             <input name="file" type="files" multiple
                                 accept="image/jpeg, image/png, image/jpg" />
                         </div>
-                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí, se permite únicamente uno y debe ser en formato PDF.</span></div>
                     </form>
                 </div>
                 
@@ -344,7 +344,7 @@
                             <input name="file" type="files" multiple
                                 accept="image/jpeg, image/png, image/jpg" />
                         </div>
-                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí, se permite únicamente uno y debe ser en formato PDF.</span></div>
                     </form>
                 </div>
 
@@ -380,7 +380,7 @@
                             <input name="file" type="files" multiple
                                 accept="image/jpeg, image/png, image/jpg" />
                         </div>
-                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí, se permite únicamente uno y debe ser en formato PDF.</span></div>
                     </form>
                 </div>
                 
@@ -419,7 +419,7 @@
                             <input name="file" type="files" multiple
                                 accept="image/jpeg, image/png, image/jpg" />
                         </div>
-                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí, se permite únicamente uno y debe ser en formato PDF.</span></div>
                     </form>
                 </div>
                 @endif
@@ -457,7 +457,7 @@
                             <input name="file" type="files" multiple
                                 accept="image/jpeg, image/png, image/jpg" />
                         </div>
-                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí, se permite únicamente uno y debe ser en formato PDF.</span></div>
                     </form>
                 </div>
                 @endif
@@ -495,7 +495,7 @@
                             <input name="file" type="files" multiple
                                 accept="image/jpeg, image/png, image/jpg" />
                         </div>
-                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí, se permite únicamente uno y debe ser en formato PDF.</span></div>
                     </form>
                 </div>
                 @endif
@@ -544,7 +544,7 @@
                             <input name="file" type="files" multiple
                                 accept="image/jpeg, image/png, image/jpg" />
                         </div>
-                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí.</span></div>
+                        <div class="dz-default dz-message"><span>Arrastre sus archivos y suelte aquí, se permite únicamente uno y debe ser en formato PDF.</span></div>
                     </form>
                 </div>
         </div>

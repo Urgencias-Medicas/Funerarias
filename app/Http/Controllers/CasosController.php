@@ -94,6 +94,7 @@ class CasosController extends Controller
         $upload_success = $image->move(public_path('images'),$imageName);
         
         if ($upload_success) {
+            Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Se subió el archivo '.$imageName.' al caso #'.$caso, 'estatus' => 'Activa']);
             activity()->log('Se subió el archivo '.$imageName.' al caso #'.$caso);
             return response()->json($upload_success, 200);
         }
@@ -645,7 +646,7 @@ class CasosController extends Controller
             $fecha = $date->format('Y-m-d');
 
             $image = $request->file("comprobante".$i);
-            $imageName = 'Caso'.$caso.'-'.$image->getClientOriginalName();
+            $imageName = 'Caso'.$caso.'-'.time().'.'.$image->getClientOriginalExtension();
             $upload_success = $image->move(public_path('images'),$imageName);
 
             $url_comprobante = $imageName;
@@ -958,7 +959,7 @@ class CasosController extends Controller
 
         if($request->hasFile('Comprobante')){
             $image = $request->file('Comprobante');
-            $imageName = 'Caso'.$id.'-'.$image->getClientOriginalName();
+            $imageName = 'Caso'.$id.'-'.time().'.'.$image->getClientOriginalExtension();
             $upload_success = $image->move(public_path('images'),$imageName);
         }
 
@@ -987,7 +988,7 @@ class CasosController extends Controller
     public function isrCaso($id, Request $request){
         if($request->hasFile('comprobante')){
             $image = $request->file('comprobante');
-            $imageName = 'Caso'.$id.'-'.$image->getClientOriginalName();
+            $imageName = 'Caso'.$id.'-'.time().'.'.$image->getClientOriginalExtension();
             $upload_success = $image->move(public_path('images'),$imageName);
         }
 
