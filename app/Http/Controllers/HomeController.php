@@ -99,6 +99,7 @@ class HomeController extends Controller
 
         $upload_success = $image->move(public_path('images'),$imageName);
         if ($upload_success) {
+            Notificaciones::create(['funeraria' => NULL, 'contenido' => 'Se subió el archivo '.$media.' de la funeraria '.$user->name, 'estatus' => 'Activa']);
             $documento_existe = DocumentosFuneraria::where('Funeraria', $user->id)->where('Documento', $media)->first();
             if($documento_existe){
                 DocumentosFuneraria::where('Funeraria', $user->id)->where('Documento', $media)->update(['Ruta' => '/images/'.$imageName, 'Estatus' => null]);    

@@ -90,6 +90,7 @@ class CasosController extends Controller
         $image = $request->file('file');
         $originalName = $image->getClientOriginalName();
         $fileName = pathinfo($originalName,PATHINFO_FILENAME);
+        $fileName = str_replace('#', '', $fileName);
         $imageName = 'Caso'.$caso.'-'.$fileName.'-'.$user->name.'-'.$date.'.'.$image->getClientOriginalExtension();
         $upload_success = $image->move(public_path('images'),$imageName);
         
@@ -646,7 +647,8 @@ class CasosController extends Controller
             $fecha = $date->format('Y-m-d');
 
             $image = $request->file("comprobante".$i);
-            $imageName = 'Caso'.$caso.'-'.time().'.'.$image->getClientOriginalExtension();
+            $originalName = str_replace('#', '', $image->getClientOriginalName());
+            $imageName = 'Caso'.$caso.'-'.$originalName;
             $upload_success = $image->move(public_path('images'),$imageName);
 
             $url_comprobante = $imageName;
@@ -923,6 +925,7 @@ class CasosController extends Controller
         $image = $request->file('file');
         $originalName = $image->getClientOriginalName();
         $fileName = pathinfo($originalName,PATHINFO_FILENAME);
+        $fileName = str_replace('#', '', $fileName);
         $imageName = 'Caso'.$caso.'-'.$fileName.'-'.$date.'.'.$image->getClientOriginalExtension();
         $upload_success = $image->move(public_path('images'),$imageName);
         
@@ -959,7 +962,8 @@ class CasosController extends Controller
 
         if($request->hasFile('Comprobante')){
             $image = $request->file('Comprobante');
-            $imageName = 'Caso'.$id.'-'.time().'.'.$image->getClientOriginalExtension();
+            $originalName = str_replace('#', '', $image->getClientOriginalName());
+            $imageName = 'Caso'.$id.'-'.$originalName;
             $upload_success = $image->move(public_path('images'),$imageName);
         }
 
@@ -988,7 +992,8 @@ class CasosController extends Controller
     public function isrCaso($id, Request $request){
         if($request->hasFile('comprobante')){
             $image = $request->file('comprobante');
-            $imageName = 'Caso'.$id.'-'.time().'.'.$image->getClientOriginalExtension();
+            $originalName = str_replace('#', '', $image->getClientOriginalName());
+            $imageName = 'Caso'.$id.'-'.$originalName;
             $upload_success = $image->move(public_path('images'),$imageName);
         }
 

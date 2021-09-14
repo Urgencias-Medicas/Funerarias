@@ -51,7 +51,13 @@ class PersonalUMController extends Controller
         
         return view('Personal.Funerarias.verFuneraria', ['Funeraria' => $funeraria, 'Detalle' => $detalle, 'Documentos' => $documentos, 'DoctosFuneraria' => $documentos_funeraria, 'Detalles_Funeraria' => $detalles_funeraria]);
     }
-    public function accionDocto($id, $docto, $accion, $comentario){
+    public function accionDocto($id, $docto, $accion, Request $request){
+        if(isset($request->comentario)){
+            $comentario = $request->comentario;
+        }else{
+            $comentario = '-';
+        }
+        
         DocumentosFuneraria::where('Id', $docto)->update(['Estatus' => $accion, 'Comentarios' => $comentario]);
         $documento = DocumentosFuneraria::where('Id', $docto)->value('Documento');
 

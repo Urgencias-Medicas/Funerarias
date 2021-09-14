@@ -94,7 +94,7 @@
                                             <tr>
                                                 <td><a href="{{$docto->Ruta}}" class="">{{$docto->Documento}}</a> </td>
                                                 <td>{{$docto->Estatus}}</td>
-                                                <td><a href="/Personal/Funeraria/{{$Funeraria->id}}/{{$docto->Id}}/Aprobado/-" class="btn btn-success mx-3">Aprobar</a><a onclick="denegarDocto({{$docto->Id}});" class="btn btn-danger">Denegar</a></td>
+                                                <td><a href="/Personal/Funeraria/{{$Funeraria->id}}/{{$docto->Id}}/Aprobado" class="btn btn-success mx-3">Aprobar</a><a onclick="denegarDocto({{$docto->Id}});" class="btn btn-danger">Denegar</a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -142,10 +142,12 @@
       </div>
       <div class="modal-body">
       <h3>Motivos</h3>
-        <textarea name="denegar" id="denegar" class="form-control" onKeyPress="changeBtnDenegar();"></textarea>
+        <form action="" id="denegarForm" method="get">
+            <textarea name="comentario" id="denegar" class="form-control"></textarea>
+        </form>
       </div>
       <div class="modal-footer">
-        <a id="btn-denegar" href=""><button class="btn btn-primary" id="denegar-btn" disabled>Aceptar</button></a>
+        <button class="btn btn-primary" id="denegar-btn" type="submit" form="denegarForm">Aceptar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
@@ -157,8 +159,9 @@
 <script>
 function denegarDocto(id){
     console.log(id);
-    $('#myModal').modal('show')
-    $("#btn-denegar").attr("href", "/Personal/Funeraria/{{$Funeraria->id}}/"+id+"/Denegado")
+    $('#myModal').modal('show');
+    $('#denegarForm').attr('action', '/Personal/Funeraria/{{$Funeraria->id}}/'+id+'/Denegar');
+    //$("#btn-denegar").attr("href", "/Personal/Funeraria/{{$Funeraria->id}}/"+id+"/Denegado")
 }
 
 function changeBtnDenegar(id){

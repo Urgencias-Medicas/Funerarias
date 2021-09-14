@@ -81,7 +81,8 @@ class FunerariasController extends Controller
     }
     public function guardarMedia($caso, Request $request){
         $image = $request->file('file');
-        $imageName = 'Caso'.$caso.'-'.time().'.'.$image->getClientOriginalExtension();
+        $originalName = str_replace('#', '', $image->getClientOriginalName());
+        $imageName = 'Caso'.$caso.'-'.$originalName;
         $upload_success = $image->move(public_path('images'),$imageName);
         $getCaso = Caso::find($caso);
         if ($upload_success) {
@@ -144,7 +145,8 @@ class FunerariasController extends Controller
 
         if($request->hasFile('Comprobante')){
             $image = $request->file('Comprobante');
-            $imageName = 'Funeraria-'.$funeraria_id.'-'.time().'.'.$image->getClientOriginalExtension();
+            $originalName = str_replace('#', '', $image->getClientOriginalName());
+            $imageName = 'Funeraria-'.$funeraria_id.'-'.$originalName;
             $upload_success = $image->move(public_path('images'),$imageName);
         }
 
