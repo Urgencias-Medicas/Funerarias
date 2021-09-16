@@ -1263,7 +1263,7 @@ class PersonalUMController extends Controller
             'Pendiente' => $pendiente,
             'Pagado' => $pagado,
             'Evaluacion' => round($evaluacion),
-            'Satisfaccion' => round(round($evaluacion) * 100 / $conteo_casos),
+            'Satisfaccion' => isset($evaluacion) && isset($conteo_casos) ? round(round($evaluacion) * 100 / $conteo_casos) : 0,
             'Aseguradoras' => '2',
         ];
 
