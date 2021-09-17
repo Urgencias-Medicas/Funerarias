@@ -44,7 +44,7 @@
                                 <div class="form-group">
                                     <label for="departamento">Departamento</label>
                                     <input type="text" class="form-control" id="departamento" name="departamento"
-                                        placeholder="Nombre Funeraria" value="{{$Funeraria->Departamento}}" readonly>
+                                        placeholder="Departamento" value="{{isset($Funeraria->Departamento) ? $Funeraria->Departamento : 'No Registrado'}}" readonly>
                                 </div>
                                 <div class="form-group ">
                                     <label for="email">Email</label>
