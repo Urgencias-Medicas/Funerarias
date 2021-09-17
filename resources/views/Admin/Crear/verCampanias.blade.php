@@ -20,7 +20,7 @@
                     <table id="table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>id</th>
+                                <!--<th>id</th>-->
                                 <th>Nombre</th>
                                 <th>Diminutivo</th>
                                 <th>Aseguradora</th>
@@ -30,7 +30,7 @@
                         <tbody>
                             @foreach($Campanias as $Campania)
                             <tr id="aseguradora-{{$Campania->id}}">
-                                <td>{{$Campania->id}}</td>
+                                <!--<td>{{$Campania->id}}</td>-->
                                 <td>{{$Campania->Nombre}}</td>
                                 <td>{{$Campania->Diminutivo}}</td>
                                 <td>{{$Campania->Aseguradora.' - '.$Campania->Nombre_Aseguradora}}</td>

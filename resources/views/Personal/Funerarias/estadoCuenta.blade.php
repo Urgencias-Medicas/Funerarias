@@ -51,7 +51,7 @@
                 <table id="table" class="table table-light table-striped border rounded mb-5">
                     <thead>
                         <tr>
-                            <th>id</th>
+                            <!--th>id</th>-->
                             <th>Nombre</th>
                             <th>Estado</th>
                             <th>Costo</th>
@@ -62,7 +62,7 @@
                     <tbody>
                         @foreach($Funerarias as $funeraria)
                         <tr id="funeraria-{{$funeraria->id}}">
-                            <td>{{$funeraria->id}}</td>
+                            <!--<td>{{$funeraria->id}}</td>-->
                             <td><a href="#" onclick="{{ isset($FechaInicio) ? 'verDetalle('.$funeraria->id.', \''.$FechaInicio.'\', \''.$FechaFin.'\')' : 'verDetalle('.$funeraria->id.')' }}" data-toggle="modal" data-target="#detalleModal">{{$funeraria->funeraria}}</a></td>
                             <td>{{$funeraria->estado}}</td>
                             <td>Q{{$funeraria->costo}}</td>
