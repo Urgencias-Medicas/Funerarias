@@ -177,33 +177,33 @@
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="NIT">NIT</label>
-                                                <input type="text" name="nit" id="NIT" class="form-control" value="{{!empty($Detalles_Funeraria) ? $Detalles_Funeraria['NIT'] : ''}}">
+                                                <input type="text" name="nit" id="NIT" class="form-control" value="{{isset($Detalles_Funeraria['NIT']) && !empty($Detalles_Funeraria) ? $Detalles_Funeraria['NIT'] : ''}}">
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="telefono">Teléfono</label>
                                                 <input type="text" name="telefono" id="telefono" class="form-control"
-                                                    value="{{!empty($Detalles_Funeraria) ? $Detalles_Funeraria['Telefono'] : ''}}">
+                                                    value="{{isset($Detalles_Funeraria['Telefono']) && !empty($Detalles_Funeraria) ? $Detalles_Funeraria['Telefono'] : ''}}">
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
                                                 <label for="direccion">Dirección</label>
                                                 <input type="text" name="direccion" id="direccion" class="form-control"
-                                                    value="{{!empty($Detalles_Funeraria) ? $Detalles_Funeraria['Direccion'] : ''}}">
+                                                    value="{{isset($Detalles_Funeraria['Direccion']) && !empty($Detalles_Funeraria) ? $Detalles_Funeraria['Direccion'] : ''}}">
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
                                                 <label for="nombre_contacto">Nombre contacto principal</label>
                                                 <input type="text" name="nombre_contacto" id="nombre_contacto"
-                                                    class="form-control" value="{{!empty($Detalles_Funeraria) ? $Detalles_Funeraria['NombreContacto'] : ''}}">
+                                                    class="form-control" value="{{isset($Detalles_Funeraria['NombreContacto']) && !empty($Detalles_Funeraria) ? $Detalles_Funeraria['NombreContacto'] : ''}}">
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
                                                 <label for="numero_contacto">Número contacto principal</label>
                                                 <input type="text" name="numero_contacto" id="numero_contacto"
-                                                    class="form-control" value="{{!empty($Detalles_Funeraria) ? $Detalles_Funeraria['TelContacto'] : ''}}">
+                                                    class="form-control" value="{{isset($Detalles_Funeraria['TelContacto']) && !empty($Detalles_Funeraria) ? $Detalles_Funeraria['TelContacto'] : ''}}">
                                             </div>
                                         </div>
                                         <div class="row">
