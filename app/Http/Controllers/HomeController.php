@@ -135,7 +135,7 @@ class HomeController extends Controller
 
     public function guardarInfoFuneraria($id, Request $request){
         //DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'TipoFuneraria')->update(['Funeraria' => $id, 'Campo' => 'TipoFuneraria', 'Valor' => $request->tipo_funeraria]);
-        return DetallesDeFuneraria::firstOrNew(['Funeraria' => $id, 'Campo' => 'TipoFuneraria'], ['Valor' => $request->tipo_funeraria]);
+        DetallesDeFuneraria::firstOrNew(['Funeraria' => $id, 'Campo' => 'TipoFuneraria'], ['Valor' => $request->tipo_funeraria]);
         //DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'NIT')->update(['Funeraria' => $id, 'Campo' => 'NIT', 'Valor' => $request->nit]);
         DetallesDeFuneraria::firstOrCreate(['Funeraria' => $id, 'Campo' => 'NIT'], ['Valor' => $request->nit]);
         //DetallesDeFuneraria::where('Funeraria', $id)->where('Campo', 'Telefono')->update(['Funeraria' => $id, 'Campo' => 'Telefono', 'Valor' => $request->telefono]);
@@ -152,7 +152,7 @@ class HomeController extends Controller
 
         InfoFunerariasRegistradas::where('id', $id_funeraria)->update(['direccion' => $request->direccion, 'tel_contacto' => $request->telefono, 'tel_coordinador' => $request->numero_contacto, 'tipo' => $request->tipo_funeraria]);
 
-        //return back();
+        return back();
         //return DetallesDeFuneraria::updateOrCreate(['Funeraria' => $id, 'Campo' => 'TipoFuneraria', 'Valor' => $request->tipo_funeraria]);
     }
     public function quitarNotificacion($id){
