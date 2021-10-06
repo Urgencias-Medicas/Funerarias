@@ -18,5 +18,4 @@ class Casos extends Model
     'Funeraria_Externa_NoCuenta', 'Funeraria_Externa_Comprobante', 'token', 'Factura', 'Estatus_CHN', 'Observaciones_CHN',
     'ISR', 'Comprobante_ISR'
 ];
-    public $timestamps = false;
 }
