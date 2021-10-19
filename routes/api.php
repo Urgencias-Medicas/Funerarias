@@ -19,3 +19,5 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('insertFormData', 'CasosController@insertData');
+
+Route::post('consultaCaso', 'CasosController@smartConsultaCaso');

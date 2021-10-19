@@ -776,6 +776,22 @@ class CasosController extends Controller
         return response()->json($data, 200);
     }
 
+    public function smartConsultaCaso(Request $request) {
+
+        $dataArray = Helper::cryptR($request->data, 0);
+
+        $code = $dataArray->codigo;
+
+        $caso = Casos::where('Codigo', $code)->first();
+
+        if($caso){
+            return response()->json(['codigo' => $caso->Codigo], 200);
+        }else{
+            return response()->json(['error' => 'No encontrado'], 400);
+        }
+        
+    }
+
     public function nuevaCausa($causa){
         $causa_consulta = Causas::where('Causa', $causa)->get();
         if($causa_consulta->isEmpty()){
