@@ -83,24 +83,28 @@
         <div class="col-12">
             
             <h2>Caso #{{$Caso->id}}</h2>
-                @role('Personal')
-                    <button type="button" onClick="descargarAdjuntos();" class="btn btn-info float-right mr-2">Generar pdf</button>
-                <div class="float-right mx-2">
-                    @if($Caso->Reportar == 'Si')
-                    <input type="checkbox" checked data-toggle="toggle" data-on="Reportar" data-off="No Reportar"
-                        data-onstyle="success" data-offstyle="secondary" onchange="reportar('No')" style="height: 30px!important;">
-                    @else
-                    <input type="checkbox" data-toggle="toggle" data-on="Reportar" data-off="No Reportar"
-                        data-onstyle="success" data-offstyle="secondary" onchange="reportar('Si')">
-                    @endif
-                </div>
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" {{!empty($Caso->Funeraria) ? 'disabled' : ''}}
-                    data-target="#funerariaExternaModal" onclick="generarToken({{$Caso->id}});">{{!empty($Caso->token) ? 'Ver' : 'Asignar'}} Funeraria Externa</button>
-                <button type="button" class="btn btn-primary float-right mr-2" data-toggle="modal"
-                    data-target="#funerariaModal" {{!empty($Caso->token) ? 'disabled' : ''}}>Asignar Funeraria</button>
-                <button type="submit" class="btn btn-success float-right mr-2" form="modificarForm">Guardar
-                    cambios</button>
-                @endrole
+                @if($Caso->Estatus != 'Cancelado')
+                    @role('Personal')
+                        <button type="button" onClick="descargarAdjuntos();" class="btn btn-info float-right mr-2">Generar pdf</button>
+                    <div class="float-right mx-2">
+                        @if($Caso->Reportar == 'Si')
+                        <input type="checkbox" checked data-toggle="toggle" data-on="Reportar" data-off="No Reportar"
+                            data-onstyle="success" data-offstyle="secondary" onchange="reportar('No')" style="height: 30px!important;">
+                        @else
+                        <input type="checkbox" data-toggle="toggle" data-on="Reportar" data-off="No Reportar"
+                            data-onstyle="success" data-offstyle="secondary" onchange="reportar('Si')">
+                        @endif
+                    </div>
+                    <button type="button" class="btn btn-primary float-right" data-toggle="modal" {{!empty($Caso->Funeraria) ? 'disabled' : ''}}
+                        data-target="#funerariaExternaModal" onclick="generarToken({{$Caso->id}});">{{!empty($Caso->token) ? 'Ver' : 'Asignar'}} Funeraria Externa</button>
+                    <button type="button" class="btn btn-primary float-right mr-2" data-toggle="modal"
+                        data-target="#funerariaModal" {{!empty($Caso->token) ? 'disabled' : ''}}>Asignar Funeraria</button>
+                    <button type="submit" class="btn btn-success float-right mr-2" form="modificarForm">Guardar
+                        cambios</button>
+                    @endrole
+                @else
+                    <button type="button" data-toggle="modal" data-target="#motivosModal" class="btn btn-danger float-right mr-2">Ver motivos - caso Cancelado</button>
+                @endif
                 
         </div>
     </div>
@@ -1027,12 +1031,28 @@
             <div class="card mt-3 border-danger">
                 <div class="card-body align-items-center justify-content-center">
                     <h4>¿Desea cerrar el caso?</h4>
-                    @if($Caso->Estatus == 'Cerrado')
+                    @if($Caso->Estatus == 'Cerrado' || $Caso->Estatus == 'Cancelado')
                     <button type="button" class="btn btn-danger mt-2" data-toggle="modal" data-target="#cerrarModal"
                         disabled>Cerrar caso</button>
                     @else
                     <button type="button" class="btn btn-danger mt-2" data-toggle="modal"
                         data-target="#cerrarModal">Cerrar
+                        caso</button>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            
+            <div class="card mt-3 border-danger">
+                <div class="card-body align-items-center justify-content-center">
+                    <h4>¿Desea cancelar el caso?</h4>
+                    @if($Caso->Estatus == 'Cancelado')
+                    <button type="button" class="btn btn-danger mt-2" data-toggle="modal" data-target="#cancelarModal"
+                        disabled>Cancelar caso</button>
+                    @else
+                    <button type="button" class="btn btn-danger mt-2" data-toggle="modal"
+                        data-target="#cancelarModal">Cancelar
                         caso</button>
                     @endif
                 </div>
@@ -1077,6 +1097,7 @@
             </div>
             <div class="modal-footer" id="footer-modal-funeraria-externa">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <a href="" id="funerariaExternaEditar" class="btn btn-primary">Editar</a>
             </div>
         </div>
     </div>
@@ -1193,6 +1214,51 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-primary" onclick="cerrarCaso({{$Caso->id}})">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cancelarModal" tabindex="-1" role="dialog" aria-labelledby="cancelarModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelarModalLabel">Cancelar caso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>¿Cuáles son los motivos por los cuales cierra el caso?</h3>
+                <form action="/Casos/cancelarCaso/{{$Caso->id}}" method="post" id="cancelarCasoForm">
+                    @csrf
+                    <textarea name="motivos" rows="5" class="form-control"></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="cancelarCasoForm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="motivosModal" tabindex="-1" role="dialog" aria-labelledby="motivosModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="motivosModalLabel">Motivos de caso cancelado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>{{$Caso->MotivosCancelacion}}</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -1424,7 +1490,8 @@
             type: 'get',
             dataType: 'TEXT',
             success: function (response) {
-                $('#tokenFunerariaExterna').val(response);     
+                $('#tokenFunerariaExterna').val(response);
+                $('#funerariaExternaEditar').attr('href', response);
                 console.log(response);
             }
         });

@@ -6,7 +6,7 @@
         <div class="col-md-10">
         
             <div class="card">
-                <div class="card-header">Información</div>
+                <div class="card-header"> <a href="/Personal/verFunerariasPendientes"><i class="bi bi-arrow-left"></i></a> Información</div>
 
                 <div class="card-body align-items-center justify-content-center">
                     <form action="/Personal/Funeraria/{{$Funeraria->id}}/guardarNueva" method="post">

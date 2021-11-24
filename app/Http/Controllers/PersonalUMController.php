@@ -136,6 +136,91 @@ class PersonalUMController extends Controller
     public function verReportes(){
         return view('Personal.Reportes.Principal');
     }
+
+    public function ExcelCancelados($fechaInicio, $fechaFin, $aseguradora){
+        $fechaInicio = date($fechaInicio);
+        $fechaFin = date($fechaFin);
+
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Estatus', 'Cancelado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad', 'Nombre_Aseguradora', 'Fecha', 'Departamento', 'Municipio', 'MotivosCancelacion')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Estatus', 'Cancelado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad', 'Nombre_Aseguradora', 'Fecha', 'Departamento', 'Municipio', 'MotivosCancelacion')->get();
+            }    
+        }else{
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Estatus', 'Cancelado')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad', 'Nombre_Aseguradora', 'Fecha', 'Departamento', 'Municipio', 'MotivosCancelacion')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Estatus', 'Cancelado')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad', 'Nombre_Aseguradora', 'Fecha', 'Departamento', 'Municipio', 'MotivosCancelacion')->get();
+            }
+        }
+
+        $pdf = PDF::loadView('Personal.Reportes.Plantillas.Cancelados', ['Casos' => $casos, 'FechaInicio' => $fechaInicio, 'FechaFin' => $fechaFin]);
+        return $pdf->download('Reporte__SFUM_Reporte-Cancelados.pdf');
+
+    }
+
+    public function CSVCancelados($fechaInicio, $fechaFin, $aseguradora){
+        
+        $fechaInicio = date($fechaInicio);
+        $fechaFin = date($fechaFin);
+        
+        if($aseguradora == 'Todas'){
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Estatus', 'Cancelado')->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad', 'Nombre_Aseguradora', 'Fecha', 'Departamento', 'Municipio', 'MotivosCancelacion')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Estatus', 'Cancelado')->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad', 'Nombre_Aseguradora', 'Fecha', 'Departamento', 'Municipio', 'MotivosCancelacion')->get();
+            }
+        }else{
+            if($fechaInicio != '' && $fechaFin == '0'){
+                //Seleccionar de un sólo día
+                $casos = Casos::where('Estatus', 'Cancelado')->where('Aseguradora', $aseguradora)->whereDate('Fecha', '=', $fechaInicio)->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad', 'Nombre_Aseguradora', 'Fecha', 'Departamento', 'Municipio', 'MotivosCancelacion')->get();
+            }else{
+                //Seleccionar entre días, meses o años
+                $casos = Casos::where('Estatus', 'Cancelado')->where('Aseguradora', $aseguradora)->whereBetween('Fecha', [$fechaInicio, $fechaFin])->orderBy('Codigo', 'DESC')->select('Nombre', 'Edad', 'Nombre_Aseguradora', 'Fecha', 'Departamento', 'Municipio', 'MotivosCancelacion')->get();
+            }   
+        }
+
+        $fileName = 'Reporte__SFUM_Cancelados-'.$fechaInicio.'-'.$fechaFin.'.csv';
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('Nombre', 'Edad', 'Aseguradora', 'Fecha', 'Departamento', 'Municipio');
+
+        $callback = function() use($casos, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($casos as $caso) {
+                $row['Nombre']  = $caso->Nombre;
+                $row['Edad']    = $caso->Edad;
+                $row['Aseguradora'] = $caso->Nombre_Aseguradora;
+                $row['Fecha']   = $caso->Fecha;
+                $row['Departamento'] = $caso->Departamento;
+                $row['Municipio'] = $caso->Municipio;
+
+                fputcsv($file, array($row['Nombre'], $row['Edad'], $row['Aseguradora'], $row['Fecha'], $row['Departamento'], $row['Municipio']));
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+        
+    }
+
     public function reporteEdades($fechaInicio, $fechaFin, $aseguradora){
         
         $fechaInicio = date($fechaInicio);

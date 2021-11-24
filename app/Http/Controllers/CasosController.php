@@ -722,6 +722,14 @@ class CasosController extends Controller
         activity()->log('Se cerró el caso No. '.$caso->Funeraria);
         return $data;
     }
+    public function cancelarCaso($caso, Request $request){
+        $caso = Casos::find($caso);
+        $caso->MotivosCancelacion = $request->motivos;
+        $caso->Estatus = 'Cancelado';
+        $caso->save();
+        activity()->log('Se canceló el caso No. '.$caso->Funeraria);
+        return back()->with('alerta', 'Caso cancelado exitosamente.');
+    }
     public function mensajeWhatsApp($message, $recipient){
         $twilio_whatsapp_number = getenv('TWILIO_WHATSAPP_NUMBER');
         $account_sid = "AC3246e625e6c614b611d3cda61f4122bd";
@@ -995,7 +1003,11 @@ class CasosController extends Controller
         $caso->Correlativo_Completo = $correlativo_completo;
         $caso->save();
 
-        return back()->with('alerta', 'Sus datos fueron actualizados correctamente.');
+        if(!auth()->user()){
+            return back()->with('alerta', 'Sus datos fueron actualizados correctamente.');
+        }else{
+            return redirect('/Casos/'.$id.'/ver')->with('alerta', 'Los datos de la funeraria externa actualizados correctamente.');
+        }
     }
 
     public function chnEstatus($id, Request $request){

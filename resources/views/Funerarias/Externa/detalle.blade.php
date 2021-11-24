@@ -40,6 +40,7 @@
 @endif
 <div class="container"> 
     
+    @if(!auth()->user())
     <div class="row">
         <div class="col">
         <button type="submit" class="btn btn-success float-right mr-2" id="btnGuardar" form="modificarForm">
@@ -48,6 +49,7 @@
         </div>
     </div>
     <br>
+    @endif
     <div class="row">
         <div class="col">
             <div class="card">
@@ -82,7 +84,11 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="">&nbsp;</label>
+                                @if(!auth()->user())
                                 <button type="submit" class="btn btn-block btn-success">Guardar</button>
+                                @else
+                                <button type="submit" class="btn btn-block btn-success">Guardar y volver</button>
+                                @endif
                             </div>
                         </div>
                     </form>
@@ -91,6 +97,7 @@
         </div>
     </div>
     <br>
+        @if(!auth()->user())
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
@@ -448,6 +455,7 @@
                     </div>
                 </div>
             </div>
+        @endif
 </div>
 <div class="modal fade" id="solicitudModal" tabindex="-1" role="dialog" aria-labelledby="solicitudModalLabel"
     aria-hidden="true">

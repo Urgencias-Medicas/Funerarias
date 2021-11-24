@@ -66,6 +66,8 @@
                                 <span style="color:green"><b>{{$caso->Estatus}}</b></span>
                                 @elseif($caso->Estatus == 'Cerrado')
                                 <span style="color:gray"><b>{{$caso->Estatus}}</b></span>
+                                @elseif($caso->Estatus == 'Cancelado')
+                                <span style="color:red"><b>{{$caso->Estatus}}</b></span>
                                 @endif
                             </td>
                             <td>

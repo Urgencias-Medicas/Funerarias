@@ -54,6 +54,7 @@ Route::group(['prefix' => 'Casos'], function () {
     Route::get('/{caso}/asignarFuneraria/{id}/{campania}/{moneda}/{correo}/{wp}', 'CasosController@asignarFuneraria');
     Route::any('/{caso}/actualizarPago', 'CasosController@actualizarPago');
     Route::get('/cerrarCaso/{caso}', 'CasosController@cerrarCaso');
+    Route::post('/cancelarCaso/{caso}', 'CasosController@cancelarCaso');
     Route::get('Reportar/{caso}/{instruccion}', 'CasosController@reportarCaso');
     Route::get('Solicitudes/{caso}/{solicitud}/{opcion}', 'CasosController@actualizarSolicitud');
     Route::post('{id}/evaluar', 'CasosController@evaluarFuneraria');
@@ -105,6 +106,8 @@ Route::group(['prefix' => 'Personal'], function (){
         Route::get('Caso/{id}', 'PersonalUMController@reporteCaso');
         Route::get('Graficas', 'PersonalUMController@Graficas');
         Route::get('Graficas/{fechaInicio}/{fechaFin}/{funeraria}/{departamento}', 'PersonalUMController@GraficasPorFecha');
+        Route::get('CanceladosCSV/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@CSVCancelados');
+        Route::get('ExcelCancelados/{fechaInicio}/{fechaFin}/{aseguradora}', 'PersonalUMController@ExcelCancelados');
     });
     
     Route::get('CrearUsuario', 'AdminController@nuevoUsuario');

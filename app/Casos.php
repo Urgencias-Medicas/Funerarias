@@ -16,6 +16,6 @@ class Casos extends Model
     'Correlativo', 'Correlativo_Completo', 'Mes', 'Anio', 'Aseguradora_Nombre', 'Campania', 'Mail_Enviado', 
     'Funeraria_Externa_Nombre', 'Funeraria_Externa_NIT', 'Funeraria_Externa_Banco', 
     'Funeraria_Externa_NoCuenta', 'Funeraria_Externa_Comprobante', 'token', 'Factura', 'Estatus_CHN', 'Observaciones_CHN',
-    'ISR', 'Comprobante_ISR'
+    'ISR', 'Comprobante_ISR', 'MotivosCancelacion', 'updated_at', 'created_at'
 ];
 }

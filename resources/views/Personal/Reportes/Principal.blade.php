@@ -118,6 +118,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title"><a onclick="reporte('General');">
+                                Cancelados
+                            </a></h4>
+                        <p class="card-text">Reporte de casos cancelados.</p>
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <span id="export" class="btn btn-success btn-sm" onclick="reporte('CanceladosCSV');">Generar CSV</span>
+                                <span id="export" class="btn btn-success btn-sm" onclick="reporte('ExcelCancelados');">Generar Excel</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -180,6 +194,42 @@
                 }
             }
             
+        } else if(reportar == 'CanceladosCSV'){
+            
+            if(aseguradora == 0){
+                alert('Por favor seleccione aseguradora');
+            }else{
+                if (fechainicio == '' && fechafin == '') {
+                alert('Por favor seleccione una fecha.');
+                } else if (fechainicio == '') {
+                    alert('Por favor seleccione una fecha válida.');
+                } else if (fechafin_validar <= fechainicio_validar) {
+                    alert('Por favor seleccione una fecha válida.');
+                } else if (fechafin == '' && fechainicio != '') {
+                    window.open('/Personal/Reportes/CanceladosCSV/' + fechainicio + '/0' + '/' + aseguradora);
+                } else if (fechainicio != '' && fechafin != '') {
+                    window.open('/Personal/Reportes/CanceladosCSV/' + fechainicio + '/' + fechafin + '/' + aseguradora);
+                }
+            }
+
+        } else if(reportar == 'ExcelCancelados'){
+
+            if(aseguradora == 0){
+                alert('Por favor seleccione aseguradora');
+            }else{
+                if (fechainicio == '' && fechafin == '') {
+                alert('Por favor seleccione una fecha.');
+                } else if (fechainicio == '') {
+                    alert('Por favor seleccione una fecha válida.');
+                } else if (fechafin_validar <= fechainicio_validar) {
+                    alert('Por favor seleccione una fecha válida.');
+                } else if (fechafin == '' && fechainicio != '') {
+                    window.open('/Personal/Reportes/ExcelCancelados/' + fechainicio + '/0' + '/' + aseguradora);
+                } else if (fechainicio != '' && fechafin != '') {
+                    window.open('/Personal/Reportes/ExcelCancelados/' + fechainicio + '/' + fechafin + '/' + aseguradora);
+                }
+            }
+
         } else {
 
             if(aseguradora == 0){
